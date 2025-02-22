@@ -21,6 +21,7 @@ export function RootLayout({
       <body className={`${pretandard.className} antialiased flex flex-col w-full h-full`}>
         <Providers>
           <main className="grow w-full max-w-screen-xl mx-auto">{children}</main>
+          <section>test</section>
         </Providers>
       </body>
     </html>
