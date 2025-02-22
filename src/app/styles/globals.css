@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  /* Firefox */
+  scrollbar-width: 4px;
+  scrollbar-color: #ffffff;
+  scrollbar-face-color: #000000;
+}
+
+::-webkit-scrollbar {
+  /* Safari and Chrome */
+  background-color: #ffffff;
+  width: 2px;
+}
+
+::-webkit-scrollbar-thumb {
+  /* Safari and Chrome */
+  background-color: #000000;
+}
