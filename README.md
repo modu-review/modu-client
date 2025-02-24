@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## 📨 Git **커밋** **메세지** **구성**
 
-## Getting Started
+> **[타입(type)] 제목(title, subject) : `필수`**
+**본문내용(body)** : `필수`
+> 
 
-First, run the development server:
+```
+[feat] Message
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- 커밋에서 일어난 일을 적어주세요.
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### **타입**(Type) : **필수**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **`[feat]`** : 새로운 기능 추가, 기능 개선
+- **`[fix]`** : 버그 픽스
+- **`[refactor]`** : 코드 리팩토링
+    - 전체적 코드 수정
+    - 포맷, 세미콜론 수정, 자동 임포트(Optimize import), Code clean up 등
+- **`[docs]`** : 문서 수정
+    - 태스크 템플릿 등 소스코드가 아닌 문서 파일의 경우
+- **`[resource]`** : public/resource 등에 적용할 icon, img, svg 파일의 경우
+- **`[style]`** : 코드가 아닌 스타일 관련 수정 (디자인적 요소, CSS 수정 등)
+    - 코드 의미에 영향을 주지 않는 변경사항
+- **`[comment]`** : 주석 추가/수정/삭제
+- **`[chore]`** : 빌드 관련 업무 수정, 파일 이동,
+    - 패키지 구조 변경
+- **`[merge]`** : git 코드 충돌 해결
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 본문내용(Body) : 필수
 
-## Learn More
+> 무엇을 왜 변경했는지 설명할 것
+> 
 
-To learn more about Next.js, take a look at the following resources:
+```tsx
+ex) FSD구조를 적용하여서 tailwind css에 전체 색상 팔레트를 적용했어요! 
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📏규칙
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. 커밋은 기능 단위로 할 것. (커밋 내에 변경된 파일이 너무 많지 않게)
+2. 서로 다른 타입이 커밋 내에 섞이지 않게 할 것.
