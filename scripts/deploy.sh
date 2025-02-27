@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PROJECT_ROOT='/home/ubuntu/deploy'
+PROJECT_ROOT="/home/ubuntu/deploy"
 PROJECT_NAME='Modu-Review-Client'
 NVM_DIR="/home/ubuntu/.nvm"
 
@@ -10,7 +10,7 @@ DeployLogFile="/home/ubuntu/log/DeployLog_$current_time.log"
 cd $PROJECT_ROOT
 
 echo "Loading NVM environment : $current_time" >> $DeployLogFile
-export NVM_DIR='$HOME/.nvm'
+export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 echo "" && echo "" >> $DeployLogFile 2>&1
 
