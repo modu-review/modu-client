@@ -5,7 +5,7 @@ PROJECT_NAME='Modu-Review-Client'
 NVM_DIR="/home/ubuntu/.nvm"
 
 current_time=$(date "+%y-%m-%d-%H-%M-%S")
-DeployLogFile='/home/ubuntu/log/DeployLog_$current_time.log'
+DeployLogFile="/home/ubuntu/log/DeployLog_$current_time.log"
 
 cd $PROJECT_ROOT
 
@@ -19,7 +19,7 @@ PM2_PATH="/home/ubuntu/.nvm/versions/node/v22.14.0/bin/pm2"
 echo "Modu-Review-Client Deploy : $current_time" >> $DeployLogFile
 
 echo "Install Dependencies : $current_time" >> $DeployLogFile
-$PM2_PATH install >> $DeployLogFile 2>&1
+pnpm install >> $DeployLogFile 2>&1
 echo "" && echo "" >> $DeployLogFile 2>&1
 
 echo "Shut down an existing server : $current_time" >> $DeployLogFile
