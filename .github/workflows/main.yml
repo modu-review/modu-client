@@ -46,4 +46,4 @@ jobs:
             --application-name $AWS_CODE_DEPLOY_NAME \
             --deployment-config-name CodeDeployDefault.OneAtATime \
             --deployment-group-name $AWS_DEPLOY_GROUP_NAME \
-            --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=$modu-review-client-cicd/$GITHUB_SHA.zip
+            --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=modu-review-client-cicd/$GITHUB_SHA.zip
