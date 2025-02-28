@@ -1,6 +1,5 @@
 #!/bin/bash
 source ~/.bashrc
-echo "SERVER_IP: $SERVER_IP" >> $LOG_FILE
 
 DEPLOY_PATH="/home/ubuntu/deploy"
 
@@ -14,6 +13,7 @@ SYMLINK_PATH="/home/ubuntu/application"
 PROJECT_NAME='Modu-Review-Client'
 
 LOG_FILE="/home/ubuntu/log/DeployLog_$CURRENT_TIME.log"
+echo "SERVER_IP: $SERVER_IP" >> $LOG_FILE
 
 NVM_DIR="/home/ubuntu/.nvm"
 export NVM_DIR="$HOME/.nvm"
