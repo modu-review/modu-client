@@ -1,5 +1,6 @@
 #!/bin/bash
 source ~/.bashrc
+echo "SERVER_IP: $SERVER_IP" >> $LOG_FILE
 
 DEPLOY_PATH="/home/ubuntu/deploy"
 
