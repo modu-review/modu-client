@@ -1,6 +1,4 @@
 #!/bin/bash
-source ~/.bashrc
-
 DEPLOY_PATH="/home/ubuntu/deploy"
 
 PROJECT_ROOT="/home/ubuntu/releases"
