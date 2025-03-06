@@ -14,7 +14,7 @@ const buttonVariants = cva(
       },
       size: {
         default: 'h-9 px-4 py-2',
-        logInOut: 'text-[15px] font-semibold w-[115px] h-[35px] rounded-[25px]',
+        logInOut: 'text-[13px] lg:text-[15px] font-semibold w-[105px] lg:w-[115px] h-[30px] lg:h-[35px] rounded-[25px]',
       },
     },
     defaultVariants: {
