@@ -2,6 +2,7 @@ import type {Metadata} from 'next';
 import '@/app/styles';
 import pretandard from '@/app/fonts';
 import Providers from '@/app/providers';
+import {Header} from '@/widgets/header';
 
 export const metadata: Metadata = {
   title: {
@@ -20,6 +21,7 @@ export function RootLayout({
     <html lang="en" className="w-full h-full">
       <body className={`${pretandard.className} antialiased flex flex-col w-full h-full`}>
         <Providers>
+          <Header />
           <main className="grow w-full max-w-screen-xl mx-auto">{children}</main>
         </Providers>
       </body>
