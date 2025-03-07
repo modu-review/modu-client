@@ -9,7 +9,7 @@ export default function Header() {
       </Link>
       {/* Todo: 로그인 기능 구현하기 */}
       <Button variant="logInOut" size="logInOut">
-        로그인하기
+        로그인
       </Button>
     </header>
   );
