@@ -1,3 +1,9 @@
+import Hero from './Hero';
+
 export default function MainPage() {
-  return <section>메인페이지임</section>;
+  return (
+    <section>
+      <Hero />
+    </section>
+  );
 }
