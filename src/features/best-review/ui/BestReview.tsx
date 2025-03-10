@@ -64,7 +64,7 @@ const MOCK = [
 
 export default function BestReview() {
   return (
-    <section>
+    <section className="bg-boldBlue mt-16 py-24 px-8">
       <CategoryBar />
       <CardList cards={MOCK} from={'mainpage'} />
     </section>
