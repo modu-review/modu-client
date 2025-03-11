@@ -9,7 +9,8 @@ const MOCK = [
     title: '안녕하세요 전 피자남',
     author: '피자러버님',
     category: '음식',
-    content: '저는 피자를 정말 좋아하는데...',
+    content:
+      '저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...',
     comments_count: 24,
     bookmarks: 59,
     image_url: 'https://example.com/pizza.jpg',

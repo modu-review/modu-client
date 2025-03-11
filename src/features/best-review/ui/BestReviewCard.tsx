@@ -5,7 +5,7 @@ type Props = {card: Review};
 
 export default function BestReviewCard({card}: Props) {
   return (
-    <section className="rounded-t-full rounded-b-xl w-[320px] h-[430px] md:w-[330px] md:h-[430px] lg:w-[310px] lg:h-[400px] bg-white">
+    <section className="rounded-t-[130px] rounded-b-xl w-[290px] h-[400px] shadow-2xl md:w-[300px] md:h-[400px] lg:w-[280px] lg:h-[370px] bg-white">
       <CardFrame card={card} />
     </section>
   );
