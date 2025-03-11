@@ -1,10 +1,75 @@
 'use client';
 
 import {CategoryBar} from '@/shared/ui/components';
-import BestReviewCard from './BestReviewCard';
 import {useState} from 'react';
+import ReviewCard from '@/shared/ui/components/ReviewCard';
 
 const MOCK = [
+  {
+    board_id: 'abcde12324',
+    title: '안녕하세요 전 피자남',
+    author: '피자러버님',
+    category: '전체',
+    content:
+      '저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...',
+    comments_count: 24,
+    bookmarks: 59,
+    image_url: 'https://example.com/pizza.jpg',
+  },
+  {
+    board_id: 'abcde12325',
+    title: '안녕하세요 전 피자남',
+    author: '피자러버님',
+    category: '전체',
+    content:
+      '저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...',
+    comments_count: 24,
+    bookmarks: 59,
+    image_url: 'https://example.com/pizza.jpg',
+  },
+  {
+    board_id: 'abcde12326',
+    title: '안녕하세요 전 피자남',
+    author: '피자러버님',
+    category: '전체',
+    content:
+      '저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...',
+    comments_count: 24,
+    bookmarks: 59,
+    image_url: 'https://example.com/pizza.jpg',
+  },
+  {
+    board_id: 'abcde12327',
+    title: '안녕하세요 전 피자남',
+    author: '피자러버님',
+    category: '전체',
+    content:
+      '사실 전 햄버거를 더 좋아하는데... 사실 전 햄버거를 더 좋아하는데... 사실 전 햄버거를 더 좋아하는데... 사실 전 햄버거를 더 좋아하는데... 사실 전 햄버거를 더 좋아하는데... 사실 전 햄버거를 더 좋아하는데...',
+    comments_count: 24,
+    bookmarks: 59,
+    image_url: 'https://example.com/pizza.jpg',
+  },
+  {
+    board_id: 'abcde12328',
+    title: '안녕하세요 전 피자남',
+    author: '피자러버님',
+    category: '전체',
+    content: '저는 사실 아이스크림을 좋아하는데...',
+    comments_count: 24,
+    bookmarks: 59,
+    image_url: 'https://example.com/pizza.jpg',
+  },
+  {
+    board_id: 'abcde12329',
+    title: '안녕하세요 전 피자남',
+    author: '피자러버님',
+    category: '전체',
+    content:
+      '저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...',
+    comments_count: 24,
+    bookmarks: 59,
+    image_url: 'https://example.com/pizza.jpg',
+  },
   {
     board_id: 'abcde1232',
     title: '안녕하세요 전 피자남',
@@ -91,12 +156,12 @@ export default function BestReview() {
 
   return (
     <section className=" flex flex-col items-center justify-center bg-boldBlue mt-16 py-12 px-8">
-      <h4 className="text-white font-bold text-2xl mb-8">🔥 BEST 후기 🔥 </h4>
+      <h4 className="text-white font-bold text-2xl mb-8">🔥 BEST 후기 🔥</h4>
       <CategoryBar selectedCategory={selectedCategory} onSelectCategory={handleSelectCategory} />
       <ul className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-20 content-center justify-items-center">
         {filteredCards.map(card => (
           <li key={card.board_id}>
-            <BestReviewCard card={card} />
+            <ReviewCard card={card} from="bestReview" />
           </li>
         ))}
       </ul>

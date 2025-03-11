@@ -1,2 +1,2 @@
 export {default as CategoryBar} from './CategoryBar';
-export {default as CardFrame} from './CardFrame';
+export {default as ReviewCard} from './ReviewCard';
