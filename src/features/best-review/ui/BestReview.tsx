@@ -2,6 +2,7 @@
 
 import {CategoryBar} from '@/shared/ui/components';
 import BestReviewCard from './BestReviewCard';
+import {useState} from 'react';
 
 const MOCK = [
   {
@@ -65,14 +66,35 @@ const MOCK = [
     bookmarks: 59,
     image_url: 'https://example.com/pizza.jpg',
   },
+  {
+    board_id: 'abcde1238',
+    title: '아이스크림 좋아요',
+    author: '김둥뚱',
+    category: '전자제품',
+    content: '저는 피자를 정말 좋아하는데...',
+    comments_count: 24,
+    bookmarks: 59,
+    image_url: 'https://example.com/pizza.jpg',
+  },
 ];
 
 export default function BestReview() {
+  const [selectedCategory, setSelectedCategory] = useState<string>('전체');
+  const filteredCards =
+    selectedCategory === '전체'
+      ? MOCK.filter(card => card.category === '전체')
+      : MOCK.filter(card => card.category === selectedCategory);
+
+  const handleSelectCategory = (category: string) => {
+    setSelectedCategory(category);
+  };
+
   return (
-    <section className="bg-boldBlue mt-16 py-24 px-8">
-      <CategoryBar />
+    <section className=" flex flex-col items-center justify-center bg-boldBlue mt-16 py-12 px-8">
+      <h4 className="text-white font-bold text-2xl mb-8">🔥 BEST 후기 🔥 </h4>
+      <CategoryBar selectedCategory={selectedCategory} onSelectCategory={handleSelectCategory} />
       <ul className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-20 content-center justify-items-center">
-        {MOCK.map(card => (
+        {filteredCards.map(card => (
           <li key={card.board_id}>
             <BestReviewCard card={card} />
           </li>

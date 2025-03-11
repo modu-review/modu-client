@@ -9,7 +9,7 @@ export default function CardFrame({
 }: Props) {
   return (
     <article className="h-full flex flex-col items-center justify-between pt-7 font-semibold">
-      <p className="px-9 py-1 bg-mediumBlue rounded-2xl text-white text-sm">{category}</p>
+      <p className="px-9 py-1 bg-mediumBlue rounded-sm text-white text-sm">{category}</p>
 
       <div className="flex flex-col gap-1 items-center text-center min-h-[200px]">
         <Image

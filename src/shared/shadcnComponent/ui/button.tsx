@@ -11,10 +11,13 @@ const buttonVariants = cva(
       variant: {
         default: 'bg-primary text-primary-foreground shadow hover:bg-primary/90',
         logInOut: 'bg-black text-white',
+        primary: 'bg-boldBlue text-white rounded-xl',
+        nonPrimary: 'text-black',
       },
       size: {
         default: 'h-9 px-4 py-2',
         logInOut: 'text-[13px] lg:text-[15px] font-semibold w-[85px] lg:w-[105px] h-[30px] lg:h-[35px] rounded-[25px]',
+        primary: 'px-8 py-1',
       },
     },
     defaultVariants: {
