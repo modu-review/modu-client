@@ -9,19 +9,21 @@ export default function CategoryBar({selectedCategory, onSelectCategory}: Props)
     {id: 'food', category: '음식'},
     {id: 'company', category: '회사'},
     {id: 'cosmetic', category: '화장품'},
+    {id: 'cafe', category: '카페'},
     {id: 'devices1', category: '전자제품'},
-    {id: 'devices2', category: '전자제품'},
-    {id: 'devices3', category: '전자제품'},
+    {id: 'clothes', category: '의류'},
   ];
 
   return (
-    <section className="w-full max-w-[1000px] mx-auto bg-white rounded-3xl py-3 mb-14">
-      <ul className="flex justify-around">
+    <nav className="w-full max-w-[1000px] px-2 mb-14">
+      <ul className="grid grid-cols-[repeat(auto-fit,minmax(100px,1fr))] text-center gap-2 bg-white rounded-3xl p-3">
         {CATEGORY_LIST.map(({category, id}) => (
           <li key={id}>
             <Button
-              variant={`${selectedCategory === category ? 'primary' : 'nonPrimary'}`}
-              size="primary"
+              variant={selectedCategory === category ? 'activeCategory' : 'inActiveCategory'}
+              size="category"
+              aria-pressed={selectedCategory === category}
+              aria-label={`카테고리: ${category}`}
               onClick={() => onSelectCategory(category)}
             >
               {category}
@@ -29,6 +31,6 @@ export default function CategoryBar({selectedCategory, onSelectCategory}: Props)
           </li>
         ))}
       </ul>
-    </section>
+    </nav>
   );
 }
