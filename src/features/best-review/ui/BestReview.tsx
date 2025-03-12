@@ -3,6 +3,8 @@
 import {CategoryBar} from '@/shared/ui/components';
 import {useState} from 'react';
 import ReviewCard from '@/shared/ui/components/ReviewCard';
+import Link from 'next/link';
+import {LucideIcon} from '@/shared/ui/icons';
 
 const MOCK = [
   {
@@ -158,13 +160,19 @@ export default function BestReview() {
     <section className=" flex flex-col items-center justify-center bg-boldBlue mt-16 py-12 md:px-8">
       <h4 className="text-white font-bold text-2xl mb-8 md:text-3xl">🔥 BEST 후기 🔥</h4>
       <CategoryBar selectedCategory={selectedCategory} onSelectCategory={handleSelectCategory} />
-      <ul className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-14 md:gab-y-20 content-center justify-items-center">
+      <ul className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-14 md:gab-y-20 content-center justify-items-center mb-16">
         {filteredCards.map(card => (
           <li key={card.board_id}>
             <ReviewCard card={card} from="bestReview" />
           </li>
         ))}
       </ul>
+      <Link
+        href="/allreviews"
+        className="flex items-center animate-bounce cursor-pointer text-white font-bold text-[20px]"
+      >
+        더 많은 후기 보기 <LucideIcon name="ArrowRight" size={20} />
+      </Link>
     </section>
   );
 }

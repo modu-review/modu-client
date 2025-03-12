@@ -11,8 +11,8 @@ const buttonVariants = cva(
       variant: {
         default: 'bg-primary text-primary-foreground shadow hover:bg-primary/90',
         logInOut: 'bg-black text-white',
-        activeCategory: 'bg-boldBlue text-white rounded-xl',
-        inActiveCategory: 'text-black',
+        activeCategory: 'bg-boldBlue text-white rounded-xl font-bold',
+        inActiveCategory: 'text-black font-semibold md:hover:scale-105 md:hover:font-bold',
       },
       size: {
         default: 'h-9 px-4 py-2',

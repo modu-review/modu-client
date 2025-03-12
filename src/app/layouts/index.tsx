@@ -3,6 +3,7 @@ import '@/app/styles';
 import pretandard from '@/app/fonts';
 import Providers from '@/app/providers';
 import {Header} from '@/widgets/header';
+import {Footer} from '@/widgets/footer';
 
 export const metadata: Metadata = {
   title: {
@@ -24,6 +25,7 @@ export function RootLayout({
           <Header />
           <main className="grow w-full mx-auto">{children}</main>
         </Providers>
+        <Footer />
       </body>
     </html>
   );
