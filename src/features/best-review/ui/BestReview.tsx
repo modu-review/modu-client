@@ -156,9 +156,9 @@ export default function BestReview() {
 
   return (
     <section className=" flex flex-col items-center justify-center bg-boldBlue mt-16 py-12 md:px-8">
-      <h4 className="text-white font-bold text-2xl mb-8">🔥 BEST 후기 🔥</h4>
+      <h4 className="text-white font-bold text-2xl mb-8 md:text-3xl">🔥 BEST 후기 🔥</h4>
       <CategoryBar selectedCategory={selectedCategory} onSelectCategory={handleSelectCategory} />
-      <ul className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-14 md:gab-y-20 content-center justify-items-center">
+      <ul className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-14 md:gab-y-20 content-center justify-items-center">
         {filteredCards.map(card => (
           <li key={card.board_id}>
             <ReviewCard card={card} from="bestReview" />

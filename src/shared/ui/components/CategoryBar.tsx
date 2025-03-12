@@ -15,7 +15,7 @@ export default function CategoryBar({selectedCategory, onSelectCategory}: Props)
   ];
 
   return (
-    <nav className="w-full max-w-[1000px] px-2 mb-14">
+    <nav className="w-full px-2 mb-14">
       <ul className="grid grid-cols-[repeat(auto-fit,minmax(100px,1fr))] text-center gap-2 bg-white rounded-3xl p-3">
         {CATEGORY_LIST.map(({category, id}) => (
           <li key={id}>
