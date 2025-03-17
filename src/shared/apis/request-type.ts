@@ -42,8 +42,10 @@ export type TRequestError = Error & {
   message: string;
 };
 
+export type TErrorHandling = 'toast' | 'errorBoundary';
+
 export type WithErrorHandling<P = unknown> = P & {
-  errorHandlingType?: 'toast' | 'errorBoundary';
+  errorHandlingType?: TErrorHandling;
 };
 
 export type CreateErrorProps = {
