@@ -1,13 +1,16 @@
 'use client';
 
-import {RequestGetError} from '@/shared/apis/request-error';
 import {MutationCache, QueryCache, QueryClient, QueryClientProvider} from '@tanstack/react-query';
+import {useUpdateGlobalError} from '@/entities/error';
+import {RequestError, RequestGetError} from '@/shared/apis/request-error';
 
 type Props = {
   children: React.ReactNode;
 };
 
 const ReactQueryProvider = ({children}: Props) => {
+  const updateError = useUpdateGlobalError();
+
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -22,12 +25,16 @@ const ReactQueryProvider = ({children}: Props) => {
         throwOnError: (error: Error) => error instanceof RequestGetError && error.errorHandlingType === 'errorBoundary',
       },
     },
-    // Todo: onError 콜백 내부에서 Zustand의 전역 에러 스토어로 에러를 저장하는 로직을 추가해야 함
     queryCache: new QueryCache({
-      onError(error) {},
+      onError(error) {
+        if (error instanceof RequestGetError && error.errorHandlingType === 'errorBoundary') return;
+        if (error instanceof RequestError) updateError(error);
+      },
     }),
     mutationCache: new MutationCache({
-      onError(error) {},
+      onError(error) {
+        if (error instanceof RequestError) updateError(error);
+      },
     }),
   });
 
