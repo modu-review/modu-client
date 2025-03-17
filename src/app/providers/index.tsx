@@ -1,3 +1,4 @@
+import GlobalErrorDetector from './GlobalErrorDetector';
 import ReactQueryProvider from './ReactQueryProvider';
 
 type Props = {
@@ -5,7 +6,11 @@ type Props = {
 };
 
 const Providers = ({children}: Props) => {
-  return <ReactQueryProvider>{children}</ReactQueryProvider>;
+  return (
+    <GlobalErrorDetector>
+      <ReactQueryProvider>{children}</ReactQueryProvider>
+    </GlobalErrorDetector>
+  );
 };
 
 export default Providers;
