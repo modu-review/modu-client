@@ -1,36 +1,4 @@
-// API 요청에 사용되는 메서드
-export type TMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
-
-// API 요청에 사용되는 헤더 타입 ex) { 'Content-Type': 'application/json' }
-type THeaders = Record<string, string>;
-
-// API 요청에 사용되는 바디 타입 ex) { name: 'John Doe' }
-export type TBody = BodyInit | object | null;
-
-// API 요청에 사용되는 쿼리 파라미터 타입 ex) { page: 1, limit: 10, search: 'John Doe', is_active: true }
-type TQueryParams = Record<string, string | number | boolean>;
-
-// API 요청에 사용되는 RequestInit 타입으로 기존 RequestInit에 method 프로퍼티를 TMethod로 강제
-type RequestInitWithMethod = Omit<RequestInit, 'method'> & {method: TMethod};
-
-type CreateRequestInitProps = {
-  body?: TBody;
-  method: TMethod;
-  headers?: THeaders;
-};
-
-// API 요청에 사용되는 프로퍼티 타입
-type RequestProps = {
-  baseUrl?: string;
-  endpoint: string;
-  method: TMethod;
-  headers?: THeaders;
-  body?: TBody;
-  queryParams?: TQueryParams;
-  withResponse?: boolean;
-};
-
-type RequestMethodProps = Omit<RequestProps, 'method'>;
+import {CreateRequestInitProps, RequestInitWithMethod, RequestMethodProps, RequestProps} from './request-type';
 
 /**
  * @description fetch API의 두 번째 인자인 RequestInit 객체를 생성하는 함수

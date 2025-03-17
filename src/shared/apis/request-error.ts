@@ -1,14 +1,4 @@
-import {TBody, TMethod} from './api-service';
-
-// API 요청 중 발생하는 에러 객체 타입
-type TRequestError = Error & {
-  status: number;
-  endpoint: string;
-  method?: TMethod;
-  requestBody: TBody;
-  errorCode: string;
-  message: string;
-};
+import {TRequestError} from './request-type';
 
 // API 요청 중 발생한 에러의 정보가 담긴 커스텀 에러 클래스
 class RequestError extends Error {
