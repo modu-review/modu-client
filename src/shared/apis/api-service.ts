@@ -1,11 +1,11 @@
 // API 요청에 사용되는 메서드
-type TMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
+export type TMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
 
 // API 요청에 사용되는 헤더 타입 ex) { 'Content-Type': 'application/json' }
 type THeaders = Record<string, string>;
 
 // API 요청에 사용되는 바디 타입 ex) { name: 'John Doe' }
-type TBody = BodyInit | object | null;
+export type TBody = BodyInit | object | null;
 
 // API 요청에 사용되는 쿼리 파라미터 타입 ex) { page: 1, limit: 10, search: 'John Doe', is_active: true }
 type TQueryParams = Record<string, string | number | boolean>;
