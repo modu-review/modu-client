@@ -1,4 +1,4 @@
-import {TRequestError} from './request-type';
+import {TRequestError, WithErrorHandling} from './request-type';
 
 // API 요청 중 발생한 에러의 정보가 담긴 커스텀 에러 클래스
 class RequestError extends Error {
@@ -21,4 +21,14 @@ class RequestError extends Error {
   }
 }
 
-export default RequestError;
+class RequestGetError extends RequestError {
+  errorHandlingType: string;
+
+  constructor({errorHandlingType = 'errorBoundary', ...rest}: WithErrorHandling<TRequestError>) {
+    super(rest);
+
+    this.errorHandlingType = errorHandlingType;
+  }
+}
+
+export {RequestError, RequestGetError};
