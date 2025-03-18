@@ -1,8 +1,9 @@
 import {RequestError} from '@/shared/apis/request-error';
+import {ClientError} from '@/shared/lib/utils/client-error';
 import {create} from 'zustand';
 
 type State = {
-  error: RequestError | null;
+  error: RequestError | ClientError | null;
 };
 
 type Action = {
