@@ -8,3 +8,12 @@ export type Review = {
   bookmarks: number;
   image_url: string;
 };
+
+export type BestReviewCategory = 'all' | 'food' | 'car' | 'company' | 'cosmetic' | 'cafe' | 'devices1' | 'clothes';
+
+export type BestReviewMapped = {
+  [key in BestReviewCategory]: {
+    count: number;
+    reviews: Review[];
+  };
+};
