@@ -1,5 +1,5 @@
 import {Review} from '@/entities/reviews';
-import {cn} from '@/shared/lib/utils';
+import {cn} from '@/shared/lib/utils/cn';
 import {cva, VariantProps} from 'class-variance-authority';
 import CardFrame from './CardFrame';
 import {LucideIcon} from '../icons';

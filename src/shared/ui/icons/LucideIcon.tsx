@@ -1,6 +1,6 @@
 import {HTMLAttributes} from 'react';
 import {icons} from 'lucide-react';
-import {cn} from '@/shared/lib/utils';
+import {cn} from '@/shared/lib/utils/cn';
 
 type LucideIconProps = HTMLAttributes<HTMLOrSVGElement> & {
   name: keyof typeof icons;
