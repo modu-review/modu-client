@@ -16,7 +16,7 @@ export type ToastProps = {
 };
 
 const toastContainerVariants = cva(
-  'flex rounded-lg shadow-lg ring-1 ring-black/5 w-full md:min-w-[380px] md:max-w-[400px] items-center p-4',
+  'flex rounded-lg shadow-lg ring-1 ring-black/5 w-full md:min-w-[400px] md:max-w-[420px] items-center p-4',
   {
     variants: {
       type: {

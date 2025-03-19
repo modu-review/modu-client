@@ -4,7 +4,7 @@ import {cn} from '@/shared/lib/utils';
 
 type LucideIconProps = HTMLAttributes<HTMLOrSVGElement> & {
   name: keyof typeof icons;
-  size: number;
+  size?: number;
   color?: string;
 };
 

@@ -19,7 +19,7 @@ const ReactQueryProvider = ({children}: Props) => {
         staleTime: 1000 * 60 * 5,
         gcTime: 1000 * 60 * 5,
 
-        retry: 3,
+        retry: 0,
 
         // GET 요청이면서 errorHandlingType이 errorBoundary인 경우에만 에러를 던짐
         throwOnError: (error: Error) => error instanceof RequestGetError && error.errorHandlingType === 'errorBoundary',
