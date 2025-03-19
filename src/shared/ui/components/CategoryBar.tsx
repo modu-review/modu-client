@@ -1,9 +1,18 @@
+import {BestReviewCategory} from '@/entities/reviews/model/types';
 import {Button} from '@/shared/shadcnComponent/ui/button';
 
-type Props = {selectedCategory: string; onSelectCategory: (category: string) => void};
+type Props = {
+  selectedCategory: BestReviewCategory;
+  onSelectCategory: (category: BestReviewCategory) => void;
+};
+
+type Category = {
+  id: BestReviewCategory;
+  category: string;
+};
 
 export default function CategoryBar({selectedCategory, onSelectCategory}: Props) {
-  const CATEGORY_LIST = [
+  const CATEGORY_LIST: Category[] = [
     {id: 'all', category: '전체'},
     {id: 'car', category: '자동차'},
     {id: 'food', category: '음식'},
@@ -20,11 +29,11 @@ export default function CategoryBar({selectedCategory, onSelectCategory}: Props)
         {CATEGORY_LIST.map(({category, id}) => (
           <li key={id}>
             <Button
-              variant={selectedCategory === category ? 'activeCategory' : 'inActiveCategory'}
+              variant={selectedCategory === id ? 'activeCategory' : 'inActiveCategory'}
               size="category"
-              aria-pressed={selectedCategory === category}
+              aria-pressed={selectedCategory === id}
               aria-label={`카테고리: ${category}`}
-              onClick={() => onSelectCategory(category)}
+              onClick={() => onSelectCategory(id)}
             >
               {category}
             </Button>

@@ -5,154 +5,16 @@ import {useState} from 'react';
 import ReviewCard from '@/shared/ui/components/ReviewCard';
 import Link from 'next/link';
 import {LucideIcon} from '@/shared/ui/icons';
-
-const MOCK = [
-  {
-    board_id: 'abcde12324',
-    title: '안녕하세요 전 피자남',
-    author: '피자러버님',
-    category: '전체',
-    content:
-      '저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...',
-    comments_count: 24,
-    bookmarks: 59,
-    image_url: 'https://example.com/pizza.jpg',
-  },
-  {
-    board_id: 'abcde12325',
-    title: '안녕하세요 전 피자남',
-    author: '피자러버님',
-    category: '전체',
-    content:
-      '저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...',
-    comments_count: 24,
-    bookmarks: 59,
-    image_url: 'https://example.com/pizza.jpg',
-  },
-  {
-    board_id: 'abcde12326',
-    title: '안녕하세요 전 피자남',
-    author: '피자러버님',
-    category: '전체',
-    content:
-      '저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...',
-    comments_count: 24,
-    bookmarks: 59,
-    image_url: 'https://example.com/pizza.jpg',
-  },
-  {
-    board_id: 'abcde12327',
-    title: '안녕하세요 전 피자남',
-    author: '피자러버님',
-    category: '전체',
-    content:
-      '사실 전 햄버거를 더 좋아하는데... 사실 전 햄버거를 더 좋아하는데... 사실 전 햄버거를 더 좋아하는데... 사실 전 햄버거를 더 좋아하는데... 사실 전 햄버거를 더 좋아하는데... 사실 전 햄버거를 더 좋아하는데...',
-    comments_count: 24,
-    bookmarks: 59,
-    image_url: 'https://example.com/pizza.jpg',
-  },
-  {
-    board_id: 'abcde12328',
-    title: '안녕하세요 전 피자남',
-    author: '피자러버님',
-    category: '전체',
-    content: '저는 사실 아이스크림을 좋아하는데...',
-    comments_count: 24,
-    bookmarks: 59,
-    image_url: 'https://example.com/pizza.jpg',
-  },
-  {
-    board_id: 'abcde12329',
-    title: '안녕하세요 전 피자남',
-    author: '피자러버님',
-    category: '전체',
-    content:
-      '저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...',
-    comments_count: 24,
-    bookmarks: 59,
-    image_url: 'https://example.com/pizza.jpg',
-  },
-  {
-    board_id: 'abcde1232',
-    title: '안녕하세요 전 피자남',
-    author: '피자러버님',
-    category: '음식',
-    content:
-      '저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...저는 피자를 정말 좋아하는데...',
-    comments_count: 24,
-    bookmarks: 59,
-    image_url: 'https://example.com/pizza.jpg',
-  },
-  {
-    board_id: 'abcde1233',
-    title: '아이스크림 좋아요',
-    author: '김둥뚱',
-    category: '음식',
-    content: '저는 피자를 정말 좋아하는데...',
-    comments_count: 24,
-    bookmarks: 59,
-    image_url: 'https://example.com/pizza.jpg',
-  },
-  {
-    board_id: 'abcde1234',
-    title: '아이스크림 좋아요',
-    author: '김둥뚱',
-    category: '음식',
-    content: '저는 피자를 정말 좋아하는데...',
-    comments_count: 24,
-    bookmarks: 59,
-    image_url: 'https://example.com/pizza.jpg',
-  },
-  {
-    board_id: 'abcde1235',
-    title: '아이스크림 좋아요',
-    author: '김둥뚱',
-    category: '음식',
-    content: '저는 피자를 정말 좋아하는데...',
-    comments_count: 24,
-    bookmarks: 59,
-    image_url: 'https://example.com/pizza.jpg',
-  },
-  {
-    board_id: 'abcde1236',
-    title: '아이스크림 좋아요',
-    author: '김둥뚱',
-    category: '음식',
-    content: '저는 피자를 정말 좋아하는데...',
-    comments_count: 24,
-    bookmarks: 59,
-    image_url: 'https://example.com/pizza.jpg',
-  },
-  {
-    board_id: 'abcde1237',
-    title: '아이스크림 좋아요',
-    author: '김둥뚱',
-    category: '음식',
-    content: '저는 피자를 정말 좋아하는데...',
-    comments_count: 24,
-    bookmarks: 59,
-    image_url: 'https://example.com/pizza.jpg',
-  },
-  {
-    board_id: 'abcde1238',
-    title: '아이스크림 좋아요',
-    author: '김둥뚱',
-    category: '전자제품',
-    content: '저는 피자를 정말 좋아하는데...',
-    comments_count: 24,
-    bookmarks: 59,
-    image_url: 'https://example.com/pizza.jpg',
-  },
-];
+import {useGetBestReviews} from '@/entities/reviews';
+import {BestReviewCategory} from '@/entities/reviews/model/types';
 
 export default function BestReview() {
-  const [selectedCategory, setSelectedCategory] = useState<string>('전체');
-  const filteredCards =
-    selectedCategory === '전체'
-      ? MOCK.filter(card => card.category === '전체')
-      : MOCK.filter(card => card.category === selectedCategory);
+  const reviews = useGetBestReviews();
 
-  const handleSelectCategory = (category: string) => {
+  const [selectedCategory, setSelectedCategory] = useState<BestReviewCategory>('all');
+  const {count, reviews: filteredReviews} = reviews[selectedCategory];
+
+  const handleSelectCategory = (category: BestReviewCategory) => {
     setSelectedCategory(category);
   };
 
@@ -160,16 +22,24 @@ export default function BestReview() {
     <section className=" flex flex-col items-center justify-center bg-boldBlue mt-16 py-12 md:px-8">
       <h4 className="text-white font-bold text-2xl mb-8 md:text-3xl">🔥 BEST 후기 🔥</h4>
       <CategoryBar selectedCategory={selectedCategory} onSelectCategory={handleSelectCategory} />
-      <ul className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-14 md:gab-y-20 content-center justify-items-center mb-16">
-        {filteredCards.map(card => (
-          <li key={card.board_id}>
-            <ReviewCard card={card} from="bestReview" />
-          </li>
-        ))}
-      </ul>
+      {count === 0 ? (
+        <section className="w-full h-full min-h-[250px] md:min-h-[350px] lg:min-h-[450px] mb-10 flex flex-col items-center justify-center">
+          <LucideIcon className="w-[120px] h-[120px] md:w-[160px] md:h-[160px]" name="PackageOpen" color="white" />
+          <p className="text-white mt-8 text-lg md:text-xl">해당 카테고리는 아직 베스트 후기가 없어요.</p>
+        </section>
+      ) : (
+        <ul className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-14 md:gap-y-20 content-center justify-items-center mb-16">
+          {filteredReviews.map(card => (
+            <li key={card.board_id}>
+              <ReviewCard card={card} from="bestReview" />
+            </li>
+          ))}
+        </ul>
+      )}
       <Link
         href="/allreviews"
         className="flex items-center animate-bounce cursor-pointer text-white font-bold text-[20px]"
+        aria-label="더 많은 후기 보러가기"
       >
         더 많은 후기 보기 <LucideIcon name="ArrowRight" size={20} />
       </Link>
