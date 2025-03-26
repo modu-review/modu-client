@@ -17,6 +17,7 @@ export type CreateRequestInitProps = {
   body?: TBody;
   method: TMethod;
   headers?: THeaders;
+  cacheOptions?: {cache: RequestCache; next: {revalidate: number}};
 };
 
 // API 요청에 사용되는 프로퍼티 타입
@@ -28,6 +29,7 @@ export type RequestProps = {
   body?: TBody;
   queryParams?: TQueryParams;
   withResponse?: boolean;
+  cacheOptions?: {cache: RequestCache; next: {revalidate: number}};
 };
 
 export type RequestMethodProps = Omit<RequestProps, 'method'>;

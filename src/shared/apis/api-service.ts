@@ -1,3 +1,4 @@
+import isBrowser from '../lib/utils/isBrowser';
 import {RequestError, RequestGetError} from './request-error';
 import {
   CreateErrorProps,
@@ -14,10 +15,11 @@ import {
  * @param {CreateRequestInitProps} props - RequestInit 객체를 생성하는 데 필요한 프로퍼티 객체 (body, method, headers)
  * @returns {RequestInitWithMethod} - RequestInit 객체를 반환
  */
-function createRequestInit({method, body, headers}: CreateRequestInitProps): RequestInitWithMethod {
+function createRequestInit({method, body, headers, cacheOptions}: CreateRequestInitProps): RequestInitWithMethod {
   const requestInit: RequestInitWithMethod = {
     credentials: 'include',
     method,
+    ...cacheOptions,
   };
 
   if (body instanceof FormData) {
@@ -39,7 +41,15 @@ function createRequestInit({method, body, headers}: CreateRequestInitProps): Req
  * @param {RequestProps} props - API 요청을 위한 프로퍼티 객체 (baseUrl, endpoint, method, headers, body, queryParams)
  * @returns {Object} - URL과 RequestInit 객체를 반환
  */
-function prepareRequest({baseUrl, endpoint, method, headers, body, queryParams}: RequestProps): {
+function prepareRequest({
+  baseUrl = process.env.NEXT_PUBLIC_API_URL,
+  endpoint,
+  method,
+  headers,
+  body,
+  queryParams,
+  cacheOptions,
+}: RequestProps): {
   url: string;
   requestInit: RequestInitWithMethod;
 } {
@@ -53,7 +63,7 @@ function prepareRequest({baseUrl, endpoint, method, headers, body, queryParams}:
     url += `?${queryString}`;
   }
 
-  const requestInit = createRequestInit({method, body, headers});
+  const requestInit = createRequestInit({method, body, headers, cacheOptions});
 
   return {url, requestInit};
 }
@@ -103,7 +113,22 @@ async function handleRequestError({
 async function request<T>(props: WithErrorHandling<RequestProps>): Promise<T> {
   const {url, requestInit} = prepareRequest(props);
 
-  const response: Response = await fetch(url, requestInit);
+  let response: Response = await fetch(url, requestInit);
+
+  if (response.status === 401) {
+    const refreshResponse = await fetch('http://localhost:3000/api/auth', {
+      cache: 'no-cache',
+      next: {revalidate: 0},
+    });
+
+    if (refreshResponse.ok) {
+      response = await fetch(url, requestInit);
+    } else {
+      if (isBrowser()) {
+        window.location.href = '/login';
+      }
+    }
+  }
 
   if (!response.ok) {
     throw await handleRequestError({
