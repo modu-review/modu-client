@@ -1,6 +1,6 @@
-import {Button} from '@/shared/shadcnComponent/ui/button';
 import Link from 'next/link';
 import SearchBar from './SearchBar';
+import {Button} from '@/shared/shadcnComponent/ui/button';
 
 export default function Hero() {
   return (

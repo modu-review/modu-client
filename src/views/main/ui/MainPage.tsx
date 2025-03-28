@@ -1,5 +1,5 @@
+import Hero from '@/widgets/hero';
 import {BestReview} from '@/features/best-review';
-import Hero from './Hero';
 
 export default function MainPage() {
   return (
