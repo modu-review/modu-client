@@ -1,2 +1,3 @@
-export {type Review, type BestReviewMapped} from './model/types';
-export {default as useGetBestReviews} from './model/useGetBestReviews';
+export * from './model/types';
+export {getBestReviews} from './apis/api-service';
+export {default as ReviewList} from './ui/ReviewList';

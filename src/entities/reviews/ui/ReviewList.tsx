@@ -1,17 +1,16 @@
-'use client';
-
-import {useGetBestReviews} from '@/entities/reviews';
-import {BestReviewCategory} from '@/entities/reviews/model/types';
 import CardFrame from './CardFrame';
+import {Review} from '../model/types';
 import {LucideIcon} from '@/shared/ui/icons';
 
 type Props = {
-  selectedCategory: BestReviewCategory;
+  filteredReview: {
+    count: number;
+    reviews: Review[];
+  };
 };
 
-export default function ReviewListContent({selectedCategory}: Props) {
-  const reviews = useGetBestReviews();
-  const {count, reviews: filteredReviews} = reviews[selectedCategory];
+export default function ReviewList({filteredReview}: Props) {
+  const {count, reviews} = filteredReview;
 
   if (count === 0) {
     return (
@@ -24,7 +23,7 @@ export default function ReviewListContent({selectedCategory}: Props) {
 
   return (
     <ul className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-14 md:gap-y-20 content-center justify-items-center mb-16">
-      {filteredReviews.map(card => (
+      {reviews.map(card => (
         <li key={card.board_id}>
           <CardFrame card={card} from="bestReview" />
         </li>
