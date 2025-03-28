@@ -5,7 +5,7 @@ import {Suspense, useState} from 'react';
 import Link from 'next/link';
 import {LucideIcon} from '@/shared/ui/icons';
 import {BestReviewCategory} from '@/entities/reviews/model/types';
-import ReviewListContent from './ReviewListContent';
+import ReviewListContent from '../../../entities/reviews/ui/ReviewListContent';
 
 export default function BestReview() {
   const [selectedCategory, setSelectedCategory] = useState<BestReviewCategory>('all');

@@ -1,23 +1,17 @@
-import {Review} from '@/entities/reviews';
 import Image from 'next/image';
-import {LucideIcon} from '../icons';
+import {Review} from '@/entities/reviews';
+import {LucideIcon} from '@/shared/ui/icons';
 
 type Props = {
   card: Review;
 };
 
-export default function CardFrame({
+export default function CardDescription({
   card: {category, image_url, title, content, author, comments_count, bookmarks},
 }: Props) {
   return (
     <article className="h-full flex flex-col items-center justify-between font-semibold">
-      {/* <p className="px-8 py-1 bg-mediumBlue rounded-md text-white text-sm">{category}</p> */}
-      <p
-        className="px-12 py-1 bg-white text-black text-sm border"
-        style={{clipPath: 'polygon(100% 0, 88% 50%, 100% 100%, 0% 100%, 12% 50%, 0% 0%)'}}
-      >
-        {category}
-      </p>
+      <p className="text-sm">{category}</p>
 
       <div className="flex flex-col gap-1 items-center text-center">
         <Image

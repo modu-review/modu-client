@@ -2,7 +2,7 @@
 
 import {useGetBestReviews} from '@/entities/reviews';
 import {BestReviewCategory} from '@/entities/reviews/model/types';
-import {ReviewCard} from '@/shared/ui/components';
+import CardFrame from './CardFrame';
 import {LucideIcon} from '@/shared/ui/icons';
 
 type Props = {
@@ -26,7 +26,7 @@ export default function ReviewListContent({selectedCategory}: Props) {
     <ul className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-14 md:gap-y-20 content-center justify-items-center mb-16">
       {filteredReviews.map(card => (
         <li key={card.board_id}>
-          <ReviewCard card={card} from="bestReview" />
+          <CardFrame card={card} from="bestReview" />
         </li>
       ))}
     </ul>

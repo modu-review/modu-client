@@ -1,8 +1,8 @@
-import {Review} from '@/entities/reviews';
-import {cn} from '@/shared/lib/utils/cn';
 import {cva, VariantProps} from 'class-variance-authority';
-import CardFrame from './CardFrame';
-import {LucideIcon} from '../icons';
+import {Review} from '@/entities/reviews';
+import CardDescription from './CardDescription';
+import {cn} from '@/shared/lib/utils/cn';
+import {LucideIcon} from '@/shared/ui/icons';
 
 const cardVariants = cva(
   'relative w-[290px] h-[400px] md:w-[300px] md:h-[400px] lg:w-[280px] lg:h-[370px] bg-white shadow-lg shadow-black',
@@ -37,7 +37,7 @@ type ReviewCardProps = BestReviewProps | MyPageProps;
 
 type Props = ReviewCardProps & VariantProps<typeof cardVariants>;
 
-export default function ReviewCard({card, from, className, onEdit, onDelete}: Props) {
+export default function CardFrame({card, from, className, onEdit, onDelete}: Props) {
   const cardActions = {
     myPage: (
       <div className="absolute w-full px-4 pt-1 flex justify-between">
@@ -55,7 +55,7 @@ export default function ReviewCard({card, from, className, onEdit, onDelete}: Pr
   return (
     <section className={cn(cardVariants({from}), className)}>
       {cardActions[from]}
-      <CardFrame card={card} />
+      <CardDescription card={card} />
     </section>
   );
 }
