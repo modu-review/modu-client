@@ -27,7 +27,7 @@ export function RootLayout({
           <main className="grow w-full mx-auto">{children}</main>
         </Providers>
         <Footer />
-        <Toaster position="bottom-center" />
+        <Toaster position="top-center" />
       </body>
     </html>
   );

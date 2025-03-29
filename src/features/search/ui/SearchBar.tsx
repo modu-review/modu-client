@@ -10,7 +10,7 @@ export default function SearchBar() {
   const router = useRouter();
   const searchInputRef = useRef<HTMLInputElement>(null);
 
-  const {validateSearchQuery} = useSearchValidate();
+  const {validateSearchQuery, error, clearError} = useSearchValidate();
 
   const handleSearch = (e: FormEvent) => {
     e.preventDefault();
@@ -25,7 +25,7 @@ export default function SearchBar() {
   };
 
   return (
-    <div className="w-full flex justify-center px-4">
+    <div className="w-full flex flex-col items-center px-4 relative">
       <form
         onSubmit={handleSearch}
         className="flex items-center w-full max-w-[480px] md:max-w-[550px] lg:max-w-[712px] h-full shadow-md rounded-3xl border px-4 py-1"
@@ -39,8 +39,10 @@ export default function SearchBar() {
           type="text"
           placeholder="후기를 검색하세요"
           aria-label="검색어 입력"
+          onChange={clearError}
         />
       </form>
+      {error && <p className="absolute bottom-[-40px] text-[16px] text-red-500">{error}</p>}
     </div>
   );
 }
