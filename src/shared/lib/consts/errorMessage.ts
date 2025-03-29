@@ -15,6 +15,11 @@ export const ERROR_MESSAGE = {
   LOGIN_REQUIRED: '로그인이 필요한 서비스에요.',
 
   // 검색 API 에러 코드
-  INVALID_INPUT: '올바르지 않은 입력이에요.',
+  INPUT_EMPTY: '검색어를 입력해주세요.',
+  INPUT_TOO_SHORT: '검색어는 2글자 이상 입력해주세요.',
+  INPUT_TOO_LONG: '검색어는 20글자 이하로 입력해주세요.',
+  INPUT_HANGUL_JAMO: '완성된 한글을 입력해주세요.',
+  INPUT_SPECIAL_CHARS_ONLY: '특수문자만으로는 검색할 수 없어요.',
+  INPUT_ONLY_NUMBERS: '숫자만으로는 검색할 수 없어요.',
+  INPUT_SPECIAL_AND_NUMBERS_ONLY: '특수문자와 숫자만으로는 검색할 수 없어요.',
 } as const;
-
