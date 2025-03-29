@@ -1,9 +1,8 @@
 'use client';
 
-import {useState} from 'react';
 import Link from 'next/link';
-import {ReviewList, BestReviewCategory, BestReviewMapped} from '@/entities/reviews';
-import {CategoryBar} from '@/shared/ui/components';
+import {CategoryBar, useSelectCategory} from '@/features/review-filtering';
+import {ReviewList, BestReviewMapped} from '@/entities/reviews';
 import {LucideIcon} from '@/shared/ui/icons';
 
 type Props = {
@@ -11,12 +10,8 @@ type Props = {
 };
 
 export default function BestReview({reviews}: Props) {
-  const [selectedCategory, setSelectedCategory] = useState<BestReviewCategory>('all');
+  const {selectedCategory, handleSelectCategory} = useSelectCategory();
   const filteredReview = reviews[selectedCategory];
-
-  const handleSelectCategory = (category: BestReviewCategory) => {
-    setSelectedCategory(category);
-  };
 
   return (
     <section className=" flex flex-col items-center justify-center bg-boldBlue mt-16 py-12 md:px-8">
