@@ -3,6 +3,8 @@ import '@/app/styles';
 import pretandard from '@/app/fonts';
 import Providers from '@/app/providers';
 import {Header} from '@/widgets/header';
+import {Footer} from '@/widgets/footer';
+import {Toaster} from 'sonner';
 
 export const metadata: Metadata = {
   title: {
@@ -19,11 +21,13 @@ export function RootLayout({
 }>) {
   return (
     <html lang="en" className="w-full h-full">
-      <body className={`${pretandard.className} antialiased flex flex-col w-full h-full`}>
+      <body className={`${pretandard.className} antialiased flex flex-col w-full h-full overflow-x-hidden`}>
         <Providers>
           <Header />
-          <main className="grow w-full max-w-screen-xl mx-auto">{children}</main>
+          <main className="grow w-full mx-auto">{children}</main>
         </Providers>
+        <Footer />
+        <Toaster position="top-center" />
       </body>
     </html>
   );

@@ -6,6 +6,7 @@ export default {
     './src/app/**/*.{ts,tsx}',
     './src/views/**/*.{ts,tsx}',
     './src/features/**/*.{ts,tsx}',
+    './src/entities/**/*.{ts,tsx}',
     './src/widgets/**/*.{ts,tsx}',
     './src/shared/ui/**/*.{ts,tsx}',
     './src/shared/components/**/*.{ts,tsx}',
