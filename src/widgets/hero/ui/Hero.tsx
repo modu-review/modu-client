@@ -16,13 +16,11 @@ export default function Hero() {
         </p>
       </article>
       <Link href="/">
-        <Button className="mb-10 hover:animate-bounce bg-boldBlue rounded-3xl hover:bg-extraboldBlue p-5 text-[14px] md:text-[16px] md:p-6 lg:text-[18px]">
+        <Button className="mb-10  bg-boldBlue rounded-3xl hover:bg-extraboldBlue p-5 text-[14px] md:text-[16px] md:p-6 lg:text-[18px]">
           {'내 경험 공유하기>'}
         </Button>
       </Link>
-      <div className="flex justify-center w-full px-4">
-        <SearchBar />
-      </div>
+      <SearchBar />
     </section>
   );
 }

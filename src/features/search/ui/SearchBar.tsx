@@ -7,8 +7,9 @@ import {Input} from '@/shared/shadcnComponent/ui/input';
 import {LucideIcon} from '@/shared/ui/icons';
 
 export default function SearchBar() {
-  const searchInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
   const {validateSearchQuery} = useSearchValidate();
 
   const handleSearch = (e: FormEvent) => {
@@ -24,8 +25,11 @@ export default function SearchBar() {
   };
 
   return (
-    <div className="w-full max-w-[480px] md:max-w-[550px] lg:max-w-[712px]">
-      <form onSubmit={handleSearch} className="flex items-center w-full h-full shadow-md rounded-3xl border px-4">
+    <div className="w-full flex justify-center px-4">
+      <form
+        onSubmit={handleSearch}
+        className="flex items-center w-full max-w-[480px] md:max-w-[550px] lg:max-w-[712px] h-full shadow-md rounded-3xl border px-4 py-1"
+      >
         <button type="submit" className="focus:outline-none" aria-label="검색">
           <LucideIcon name="Search" size={24} color="#53587E" />
         </button>
