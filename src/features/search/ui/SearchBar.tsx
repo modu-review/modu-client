@@ -17,7 +17,7 @@ export default function SearchBar() {
     const searchQuery = searchInputRef.current?.value.trim() || '';
 
     if (validateSearchQuery(searchQuery)) {
-      router.push(`/reviews?query=${encodeURIComponent(searchQuery)}`);
+      router.push(`/search/${encodeURIComponent(searchQuery)}`);
     } else if (searchInputRef.current) {
       searchInputRef.current.focus();
       searchInputRef.current.select();
