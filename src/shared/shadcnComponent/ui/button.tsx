@@ -13,11 +13,14 @@ const buttonVariants = cva(
         logInOut: 'bg-black text-white',
         activeCategory: 'bg-boldBlue text-white rounded-xl font-bold',
         inActiveCategory: 'text-black font-semibold md:hover:scale-105 md:hover:font-bold',
+        outline: 'border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground',
+        ghost: 'hover:bg-accent hover:text-accent-foreground',
       },
       size: {
         default: 'h-9 px-4 py-2',
         logInOut: 'text-[13px] lg:text-[15px] font-semibold w-[85px] lg:w-[105px] h-[30px] lg:h-[35px] rounded-[25px]',
         category: 'p-1 w-full',
+        icon: 'h-9 w-9',
       },
     },
     defaultVariants: {
