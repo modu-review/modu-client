@@ -17,3 +17,9 @@ export type BestReviewMapped = {
     reviews: Review[];
   };
 };
+
+export type SearchReviewWithQuery = {
+  result: Review[];
+  current_page: number;
+  total_page: number;
+};
