@@ -1,3 +1,5 @@
+import SearchBar from '@/features/search';
+
 type Props = {
   params: Promise<{query: string}>;
 };
@@ -5,5 +7,10 @@ type Props = {
 export default async function SearchWithQueryPage({params}: Props) {
   const {query} = await params;
 
-  return <section>{decodeURIComponent(query)} 검색 페이지</section>;
+  return (
+    <section className="w-full md:max-w-5xl mx-auto p-4 px-6">
+      <h2 className="text-2xl mb-6 font-semibold">후기글 모음</h2>
+      <SearchBar />
+    </section>
+  );
 }
