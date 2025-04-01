@@ -11,9 +11,8 @@ type Props = {
 export default function SearchReviews({query}: Props) {
   const searchParams = useSearchParams();
   const currentPage = Number(searchParams.get('page')) || 1;
-  const {
-    data: {results, total_pages},
-  } = useSearchReviewsWithQuery({query, page: currentPage});
+
+  const {results, total_pages} = useSearchReviewsWithQuery(query, currentPage);
 
   return (
     <section className="p-4">

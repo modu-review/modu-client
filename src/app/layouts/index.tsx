@@ -5,6 +5,7 @@ import Providers from '@/app/providers';
 import {Header} from '@/widgets/header';
 import {Footer} from '@/widgets/footer';
 import {Toaster} from 'sonner';
+import {ReactQueryDevtools} from '@tanstack/react-query-devtools';
 
 export const metadata: Metadata = {
   title: {
@@ -25,6 +26,7 @@ export function RootLayout({
         <Providers>
           <Header />
           <main className="grow w-full mx-auto">{children}</main>
+          <ReactQueryDevtools />
         </Providers>
         <Footer />
         <Toaster position="top-center" />
