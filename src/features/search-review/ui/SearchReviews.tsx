@@ -15,8 +15,6 @@ export default function SearchReviews({query}: Props) {
     data: {results, total_pages},
   } = useSearchReviewsWithQuery({query, page: currentPage});
 
-  // Todo: 페이지네이션을 구현한다. (useSearchParams를 통해 페이지를 전달받는다.)
-
   return (
     <section className="p-4">
       <ul className="flex flex-col gap-4 mb-4">
@@ -27,7 +25,7 @@ export default function SearchReviews({query}: Props) {
           </li>
         ))}
       </ul>
-      <Pagination />
+      <Pagination currentPage={currentPage} totalPage={total_pages} query={query} />
     </section>
   );
 }
