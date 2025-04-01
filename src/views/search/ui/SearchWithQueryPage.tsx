@@ -12,8 +12,8 @@ export default async function SearchWithQueryPage({params}: Props) {
   const decodedQuery = decodeURIComponent(query);
 
   return (
-    <section className="w-full md:max-w-5xl mx-auto p-4 px-6">
-      <h2 className="text-2xl mb-6 font-semibold">{decodedQuery} 검색 결과</h2>
+    <section className="w-full md:max-w-5xl mx-auto p-5 px-6 mt-2">
+      <h2 className="text-2xl ml-5 mb-4 md:mb-9 font-semibold">{decodedQuery} 검색 결과</h2>
       <SearchBar />
       <Suspense fallback={<div>loading...</div>}>
         <SearchReviews query={query} />

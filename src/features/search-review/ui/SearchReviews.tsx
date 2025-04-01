@@ -1,8 +1,8 @@
 'use client';
 
-import useSearchReviewsWithQuery from '@/entities/reviews';
-import Pagination from '@/widgets/pagination';
 import {useSearchParams} from 'next/navigation';
+import Pagination from '@/widgets/pagination';
+import {ReviewArticle, useSearchReviewsWithQuery} from '@/entities/reviews';
 
 type Props = {
   query: string;
@@ -15,12 +15,11 @@ export default function SearchReviews({query}: Props) {
   const {results, total_pages} = useSearchReviewsWithQuery(query, currentPage);
 
   return (
-    <section className="p-4">
-      <ul className="flex flex-col gap-4 mb-4">
-        {results.map(({board_id, title, content}) => (
-          <li key={board_id}>
-            <h3>{title}</h3>
-            <p>{content}</p>
+    <section className="p-3 mt-9 md:mt-12">
+      <ul className="flex flex-col mb-6">
+        {results.map(searchReview => (
+          <li key={searchReview.board_id}>
+            <ReviewArticle searchReview={searchReview} />
           </li>
         ))}
       </ul>
