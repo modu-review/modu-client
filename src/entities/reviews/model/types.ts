@@ -19,7 +19,7 @@ export type BestReviewMapped = {
 };
 
 export type SearchReviewWithQuery = {
-  result: Review[];
+  results: Review[];
   current_page: number;
-  total_page: number;
+  total_pages: number;
 };

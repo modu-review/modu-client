@@ -9,7 +9,7 @@ export function getBestReviews() {
 
 export function getSearchReviewsWithQuery(query: string, page: number) {
   return requestGet<SearchReviewWithQuery>({
-    endpoint: `/search/${query}?page=${page}`,
+    endpoint: `/api/search?query=${query}&page=${page}`,
     baseUrl: 'http://localhost:3000',
   });
 }
