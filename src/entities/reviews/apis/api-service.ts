@@ -1,5 +1,5 @@
 import {requestGet} from '@/shared/apis';
-import {BestReviewMapped, SearchReviewWithQuery} from '../model/types';
+import {BestReviewMapped, SearchReviewsWithKeyword} from '../model/types';
 
 export function getBestReviews() {
   return requestGet<BestReviewMapped>({
@@ -7,9 +7,9 @@ export function getBestReviews() {
   });
 }
 
-export function getSearchReviewsWithQuery(query: string, page: number) {
-  return requestGet<SearchReviewWithQuery>({
-    endpoint: `/api/search?query=${query}&page=${page}`,
+export function getReviewsWithKeyword(keyword: string, page: number) {
+  return requestGet<SearchReviewsWithKeyword>({
+    endpoint: `/api/reviews?keyword=${keyword}&page=${page}`,
     baseUrl: 'http://localhost:3000',
   });
 }

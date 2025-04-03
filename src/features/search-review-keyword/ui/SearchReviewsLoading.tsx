@@ -1,4 +1,4 @@
-import ReviewArticleLoading from '../../../entities/reviews/ui/ReviewArticleLoading';
+import {ReviewArticleLoading} from '@/entities/reviews';
 
 export default function SearchReviewsLoading() {
   function renderLoadingContent() {

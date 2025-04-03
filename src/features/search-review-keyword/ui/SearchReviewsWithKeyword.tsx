@@ -2,17 +2,17 @@
 
 import {useSearchParams} from 'next/navigation';
 import Pagination from '@/widgets/pagination';
-import {ReviewArticle, useSearchReviewsWithQuery} from '@/entities/reviews';
+import {ReviewArticle, useSearchReviewsWithKeyword} from '@/entities/reviews';
 
 type Props = {
   query: string;
 };
 
-export default function SearchReviews({query}: Props) {
+export default function SearchReviewsWithKeyword({query}: Props) {
   const searchParams = useSearchParams();
   const currentPage = Number(searchParams.get('page')) || 1;
 
-  const {results, total_pages} = useSearchReviewsWithQuery(query, currentPage);
+  const {results, total_pages} = useSearchReviewsWithKeyword(query, currentPage);
 
   return (
     <section className="p-3 mt-9 md:mt-12">

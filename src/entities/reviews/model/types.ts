@@ -22,7 +22,7 @@ export type SearchReview = Review & {
   created_at: string;
 };
 
-export type SearchReviewWithQuery = {
+export type SearchReviewsWithKeyword = {
   results: SearchReview[];
   current_page: number;
   total_pages: number;

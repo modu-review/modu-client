@@ -1,12 +1,12 @@
 import SearchBar from '@/features/search';
-import {SearchReviews, SearchReviewsLoading} from '@/features/search-review';
+import {SearchReviewsWithKeyword, SearchReviewsLoading} from '@/features/search-review-keyword';
 import {RQProvider} from '@/shared/providers';
 import {LucideIcon} from '@/shared/ui/icons';
 type Props = {
   params: Promise<{query: string}>;
 };
 
-export default async function SearchWithQueryPage({params}: Props) {
+export default async function SearchWithKeywordPage({params}: Props) {
   const {query} = await params;
 
   const decodedQuery = decodeURIComponent(query);
@@ -19,7 +19,7 @@ export default async function SearchWithQueryPage({params}: Props) {
         LoadingFallback={<SearchReviewsLoading />}
         icon={<LucideIcon name="Bug" className="w-28 h-28 md:w-40 md:h-40 mb-4" />}
       >
-        <SearchReviews query={query} />
+        <SearchReviewsWithKeyword query={query} />
       </RQProvider>
     </section>
   );
