@@ -1,0 +1,60 @@
+{
+  "results": [
+    {
+      "board_id": 21,
+      "title": "안녕하세요 전 피자남5",
+      "author": "피자러버님",
+      "category": "음식",
+      "content": "저는 피자를 정말 좋아하는데...",
+      "comments_count": 24,
+      "created_at": "2025-02-10 15:39",
+      "bookmarks": 59,
+      "image_url": "https://picsum.photos/seed/picsum/200/200"
+    },
+    {
+      "board_id": 22,
+      "title": "안녕하세요 전 피자남",
+      "author": "피자러버님",
+      "category": "음식",
+      "content": "저는 피자를 정말 좋아하는데...",
+      "comments_count": 24,
+      "created_at": "2025-02-10 15:39",
+      "bookmarks": 59,
+      "image_url": "https://picsum.photos/seed/picsum/200/200"
+    },
+    {
+      "board_id": 23,
+      "title": "안녕하세요 전 피자남",
+      "author": "피자러버님",
+      "category": "음식",
+      "content": "저는 피자를 정말 좋아하는데...",
+      "comments_count": 24,
+      "created_at": "2025-02-10 15:39",
+      "bookmarks": 59,
+      "image_url": "https://picsum.photos/seed/picsum/200/200"
+    },
+    {
+      "board_id": 24,
+      "title": "안녕하세요 전 피자남",
+      "author": "피자러버님",
+      "category": "음식",
+      "content": "저는 피자를 정말 좋아하는데...",
+      "comments_count": 24,
+      "created_at": "2025-02-10 15:39",
+      "bookmarks": 59,
+      "image_url": "https://picsum.photos/seed/picsum/200/200"
+    },
+    {
+      "board_id": 25,
+      "title": "안녕하세요 전 피자남",
+      "author": "피자러버님",
+      "category": "음식",
+      "content": "저는 피자를 정말 좋아하는데...",
+      "comments_count": 24,
+      "created_at": "2025-02-10 15:39",
+      "bookmarks": 59,
+      "image_url": "https://picsum.photos/seed/picsum/200/200"
+    }
+  ],
+  "next_cursor": 6
+}
