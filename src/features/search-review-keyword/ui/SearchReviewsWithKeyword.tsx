@@ -5,14 +5,14 @@ import Pagination from '@/widgets/pagination';
 import {ReviewArticle, useSearchReviewsWithKeyword} from '@/entities/reviews';
 
 type Props = {
-  query: string;
+  keyword: string;
 };
 
-export default function SearchReviewsWithKeyword({query}: Props) {
+export default function SearchReviewsWithKeyword({keyword}: Props) {
   const searchParams = useSearchParams();
   const currentPage = Number(searchParams.get('page')) || 1;
 
-  const {results, total_pages} = useSearchReviewsWithKeyword(query, currentPage);
+  const {results, total_pages} = useSearchReviewsWithKeyword(keyword, currentPage);
 
   return (
     <section className="p-3 mt-9 md:mt-12">
@@ -23,7 +23,7 @@ export default function SearchReviewsWithKeyword({query}: Props) {
           </li>
         ))}
       </ul>
-      <Pagination currentPage={currentPage} totalPage={total_pages} query={query} />
+      <Pagination currentPage={currentPage} totalPage={total_pages} query={keyword} />
     </section>
   );
 }

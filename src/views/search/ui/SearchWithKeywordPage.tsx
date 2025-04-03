@@ -3,13 +3,13 @@ import {SearchReviewsWithKeyword, SearchReviewsLoading} from '@/features/search-
 import {RQProvider} from '@/shared/providers';
 import {LucideIcon} from '@/shared/ui/icons';
 type Props = {
-  params: Promise<{query: string}>;
+  params: Promise<{keyword: string}>;
 };
 
 export default async function SearchWithKeywordPage({params}: Props) {
-  const {query} = await params;
+  const {keyword} = await params;
 
-  const decodedQuery = decodeURIComponent(query);
+  const decodedQuery = decodeURIComponent(keyword);
 
   return (
     <section className="w-full h-full md:max-w-5xl mx-auto p-5 px-6 mt-2">
@@ -19,7 +19,7 @@ export default async function SearchWithKeywordPage({params}: Props) {
         LoadingFallback={<SearchReviewsLoading />}
         icon={<LucideIcon name="Bug" className="w-28 h-28 md:w-40 md:h-40 mb-4" />}
       >
-        <SearchReviewsWithKeyword query={query} />
+        <SearchReviewsWithKeyword keyword={keyword} />
       </RQProvider>
     </section>
   );
