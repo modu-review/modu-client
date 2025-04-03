@@ -22,4 +22,7 @@ export const ERROR_MESSAGE = {
   INPUT_SPECIAL_CHARS_ONLY: '특수문자만으로는 검색할 수 없어요.',
   INPUT_ONLY_NUMBERS: '숫자만으로는 검색할 수 없어요.',
   INPUT_SPECIAL_AND_NUMBERS_ONLY: '특수문자와 숫자만으로는 검색할 수 없어요.',
+
+  // OAuth2 로그인 에러
+  EMPTY_USER_EMAIL: '이메일 정보가 존재하지 않아요.',
 } as const;
