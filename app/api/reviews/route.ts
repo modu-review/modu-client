@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json(JSON.parse(searchResult));
   } else if (cursor) {
-    const filePath = path.join(process.cwd(), `public/data`, `search_result_${page}.json`);
+    const filePath = path.join(process.cwd(), `public/data`, `search_result_${cursor}.json`);
     const searchResult = readFileSync(filePath, 'utf-8');
 
     return NextResponse.json(JSON.parse(searchResult));
