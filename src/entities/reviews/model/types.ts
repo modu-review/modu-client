@@ -18,8 +18,17 @@ export type BestReviewMapped = {
   };
 };
 
+export type SearchReview = Review & {
+  created_at: string;
+};
+
 export type SearchReviewWithQuery = {
   result: Review[];
   current_page: number;
   total_page: number;
+};
+
+export type FindReviews = {
+  results: SearchReview[];
+  next_cursor: number | null;
 };
