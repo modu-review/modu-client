@@ -5,11 +5,18 @@ import path from 'path';
 export async function GET(req: NextRequest) {
   const searchParams = req.nextUrl.searchParams;
 
-  // const query = searchParams.get('query');
   const page = searchParams.get('page');
+  const cursor = searchParams.get('cursor');
 
-  const filePath = path.join(process.cwd(), `public/data`, `search_result_page_${page}.json`);
-  const searchResult = readFileSync(filePath, 'utf-8');
+  if (page) {
+    const filePath = path.join(process.cwd(), `public/data`, `search_result_page_${page}.json`);
+    const searchResult = readFileSync(filePath, 'utf-8');
 
-  return NextResponse.json(JSON.parse(searchResult));
+    return NextResponse.json(JSON.parse(searchResult));
+  } else if (cursor) {
+    const filePath = path.join(process.cwd(), `public/data`, `search_result_${page}.json`);
+    const searchResult = readFileSync(filePath, 'utf-8');
+
+    return NextResponse.json(JSON.parse(searchResult));
+  }
 }

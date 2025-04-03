@@ -27,3 +27,8 @@ export type SearchReviewsWithKeyword = {
   current_page: number;
   total_pages: number;
 };
+
+export type FindReviews = {
+  results: SearchReview[];
+  next_cursor: number | null;
+};
