@@ -17,9 +17,7 @@ export default function OAuth2ErrorFallback({error}: Props) {
         <p>문제가 반복된다면 아래 메일로 문의해주세요.</p>
         <p>modureviewclient@gmail.com</p>
       </article>
-      <Link
-        href={`${process.env.NEXT_PUBLIC_API_URL}/oauth2/authorize/kakao?redirect_uri=${process.env.NEXT_PUBLIC_REDIRECT_URL}`}
-      >
+      <Link href={`${process.env.NEXT_PUBLIC_API_URL}/oauth2/authorize/kakao`}>
         <Button>다시 로그인하기</Button>
       </Link>
     </section>

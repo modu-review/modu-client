@@ -7,9 +7,7 @@ export default async function Header() {
       <Link href="/">
         <h2 className="text-2xl md:text-3xl font-bold text-boldBlue">모두의 : 후기</h2>
       </Link>
-      <Link
-        href={`${process.env.NEXT_PUBLIC_API_URL}/oauth2/authorize/kakao?redirect_uri=${process.env.NEXT_PUBLIC_REDIRECT_URL}`}
-      >
+      <Link href={`${process.env.NEXT_PUBLIC_API_URL}/oauth2/authorize/kakao`}>
         <Button variant="logInOut" size="logInOut">
           로그인
         </Button>
