@@ -7,9 +7,14 @@ export function getBestReviews() {
   });
 }
 
-export function getReviewsWithKeyword(keyword: string, page: number) {
+export function getReviewsWithKeyword(keyword: string, page: number, sort: string) {
   return requestGet<SearchReviewsWithKeyword>({
-    endpoint: `/api/reviews?keyword=${keyword}&page=${page}`,
+    endpoint: '/api/reviews',
+    queryParams: {
+      keyword: keyword,
+      page: page,
+      sort: sort,
+    },
     baseUrl: 'http://localhost:3000',
   });
 }

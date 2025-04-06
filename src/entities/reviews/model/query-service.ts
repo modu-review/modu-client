@@ -4,7 +4,8 @@ import {getBestReviews, getReviews, getReviewsWithKeyword} from '../apis/api-ser
 const reviewQueryKeys = {
   best: ['bestReviews'] as const,
   search: (categoryId: string) => ['search', categoryId] as const,
-  searchWithKeyword: (keyword: string, page: number) => ['searchWithKeyword', keyword, page] as const,
+  searchWithKeyword: (keyword: string, page: number, sort: string) =>
+    ['searchWithKeyword', keyword, page, sort] as const,
 };
 
 const reviewQueryOptions = {
@@ -17,9 +18,9 @@ const reviewQueryOptions = {
     queryFn: ({pageParam}: {pageParam: number}) => getReviews(pageParam, categoryId),
     initialPageParam: 1,
   }),
-  searchWithKeyword: (query: string, page: number) => ({
-    queryKey: reviewQueryKeys.searchWithKeyword(query, page),
-    queryFn: () => getReviewsWithKeyword(query, page),
+  searchWithKeyword: (keyword: string, page: number, sort: string) => ({
+    queryKey: reviewQueryKeys.searchWithKeyword(keyword, page, sort),
+    queryFn: () => getReviewsWithKeyword(keyword, page, sort),
     placeholderData: keepPreviousData,
   }),
 };
