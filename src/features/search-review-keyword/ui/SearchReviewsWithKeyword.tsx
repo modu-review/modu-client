@@ -32,7 +32,7 @@ export default function SearchReviewsWithKeyword({keyword}: Props) {
           </li>
         ))}
       </ul>
-      <Pagination currentPage={currentPage} totalPage={total_pages} query={keyword} />
+      <Pagination currentPage={currentPage} totalPage={total_pages} query={keyword} sort={sort} />
     </section>
   );
 }
