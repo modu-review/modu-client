@@ -1,38 +1,28 @@
 'use client';
 
-import {useSearchParams} from 'next/navigation';
-import Pagination from '@/widgets/pagination';
-import {ReviewArticle, useSearchReviewsWithKeyword} from '@/entities/reviews';
-import useSelectSortOption from '@/features/review-sorting/lib/useSelectSortOption';
+import ReviewWithPagination from './ReviewWithPagination';
+import {RQProvider} from '@/shared/providers';
+import SearchReviewsLoading from './SearchReviewsLoading';
+import {LucideIcon} from '@/shared/ui/icons';
 import {SelectSortOptions} from '@/features/review-sorting';
+import useSelectSortOption from '@/features/review-sorting/lib/useSelectSortOption';
 
-type Props = {
-  keyword: string;
-};
-
-export default function SearchReviewsWithKeyword({keyword}: Props) {
-  const searchParams = useSearchParams();
-  const currentPage = Number(searchParams.get('page')) || 1;
-
+export default function SearchReviewsWithKeyword() {
   const {sort, handleChange} = useSelectSortOption({
     options: {
       page: '1',
     },
   });
 
-  const {results, total_pages} = useSearchReviewsWithKeyword(keyword, currentPage, sort);
-
   return (
-    <section className="p-3 mt-9 md:mt-12">
-      <SelectSortOptions sort={sort} onValueChange={handleChange} />
-      <ul className="flex flex-col mb-6">
-        {results.map(searchReview => (
-          <li key={searchReview.board_id}>
-            <ReviewArticle searchReview={searchReview} />
-          </li>
-        ))}
-      </ul>
-      <Pagination currentPage={currentPage} totalPage={total_pages} query={keyword} sort={sort} />
+    <section className="px-6 mt-7">
+      <SelectSortOptions className="ml-auto mb-6 md:mr-5" sort={sort} onValueChange={handleChange} />
+      <RQProvider
+        LoadingFallback={<SearchReviewsLoading />}
+        icon={<LucideIcon name="Bug" className="w-28 h-28 md:w-40 md:h-40 mb-4" />}
+      >
+        <ReviewWithPagination sort={sort} />
+      </RQProvider>
     </section>
   );
 }
