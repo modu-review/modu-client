@@ -13,7 +13,7 @@ export default function SearchReviews() {
 
   const {sort, handleChange} = useSelectSortOption({
     options: {
-      cateogryId: selectedCategory,
+      categoryId: selectedCategory,
     },
   });
 
