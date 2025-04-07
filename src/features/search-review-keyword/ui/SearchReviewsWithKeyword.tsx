@@ -14,7 +14,7 @@ export default function SearchReviewsWithKeyword() {
   });
 
   return (
-    <section className="px-6 mt-7">
+    <section className="px-6 mt-9 md:mt-7">
       <SelectSortOptions className="ml-auto mb-6 md:mr-5" sort={sort} onValueChange={handleChange} />
       <RQProvider
         LoadingFallback={<SearchReviewsLoading />}

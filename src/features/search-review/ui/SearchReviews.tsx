@@ -19,7 +19,7 @@ export default function SearchReviews() {
 
   return (
     <section>
-      <article className="p-3">
+      <article className="px-3">
         <CategoryBar selectedCategory={selectedCategory} onSelectCategory={handleSelectCategory} />
       </article>
       <SearchBar />
