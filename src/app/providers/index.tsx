@@ -1,6 +1,7 @@
 import AuthProvider from './AuthProvider';
 import GlobalErrorDetector from './GlobalErrorDetector';
 import ReactQueryProvider from './ReactQueryProvider';
+import UnPredictableErrorBoundary from './UnPredictableErrorBoundary';
 
 type Props = {
   children: React.ReactNode;
@@ -8,11 +9,13 @@ type Props = {
 
 const Providers = ({children}: Props) => {
   return (
-    <AuthProvider>
-      <GlobalErrorDetector>
-        <ReactQueryProvider>{children}</ReactQueryProvider>
-      </GlobalErrorDetector>
-    </AuthProvider>
+    <UnPredictableErrorBoundary>
+      <AuthProvider>
+        <GlobalErrorDetector>
+          <ReactQueryProvider>{children}</ReactQueryProvider>
+        </GlobalErrorDetector>
+      </AuthProvider>
+    </UnPredictableErrorBoundary>
   );
 };
 
