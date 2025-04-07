@@ -1,6 +1,6 @@
+import CATEGORY_LIST from '../consts/categoryList';
 import {ReviewCategory} from '@/entities/reviews/model/types';
 import {Button} from '@/shared/shadcnComponent/ui/button';
-import CATEGORY_LIST from '../consts/categoryList';
 
 type Props = {
   selectedCategory: ReviewCategory;

@@ -1,9 +1,9 @@
 'use client';
 
 import {useParams, useSearchParams} from 'next/navigation';
-import {ReviewArticle, useSearchReviewsWithKeyword} from '@/entities/reviews';
 import Pagination from '@/widgets/pagination';
-import {SortKey} from '@/features/review-sorting/model/type';
+import {SortKey} from '@/features/review-sorting';
+import {ReviewArticle, useSearchReviewsWithKeyword} from '@/entities/reviews';
 
 type Props = {
   sort: SortKey;

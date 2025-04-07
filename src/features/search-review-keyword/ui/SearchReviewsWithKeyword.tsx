@@ -1,11 +1,10 @@
 'use client';
 
-import ReviewWithPagination from './ReviewWithPagination';
-import {RQProvider} from '@/shared/providers';
 import SearchReviewsLoading from './SearchReviewsLoading';
+import ReviewWithPagination from './ReviewWithPagination';
+import {SelectSortOptions, useSelectSortOption} from '@/features/review-sorting';
+import {RQProvider} from '@/shared/providers';
 import {LucideIcon} from '@/shared/ui/icons';
-import {SelectSortOptions} from '@/features/review-sorting';
-import useSelectSortOption from '@/features/review-sorting/lib/useSelectSortOption';
 
 export default function SearchReviewsWithKeyword() {
   const {sort, handleChange} = useSelectSortOption({

@@ -1,7 +1,7 @@
-import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from '@/shared/shadcnComponent/ui/select';
 import {SORT_MAP, SORT_OPTIONS} from '../const/sortOptions';
 import {SortKey} from '../model/type';
 import {cn} from '@/shared/lib/utils/cn';
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from '@/shared/shadcnComponent/ui/select';
 
 type Props = {
   sort: SortKey;

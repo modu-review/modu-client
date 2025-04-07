@@ -1,5 +1,5 @@
-import {requestGet} from '@/shared/apis';
 import {BestReviewMapped, FindReviews, SearchReviewsWithKeyword} from '../model/types';
+import {requestGet} from '@/shared/apis';
 
 export function getBestReviews() {
   return requestGet<BestReviewMapped>({
