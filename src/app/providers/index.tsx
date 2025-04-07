@@ -1,3 +1,4 @@
+import AuthProvider from './AuthProvider';
 import GlobalErrorDetector from './GlobalErrorDetector';
 import ReactQueryProvider from './ReactQueryProvider';
 
@@ -7,9 +8,11 @@ type Props = {
 
 const Providers = ({children}: Props) => {
   return (
-    <GlobalErrorDetector>
-      <ReactQueryProvider>{children}</ReactQueryProvider>
-    </GlobalErrorDetector>
+    <AuthProvider>
+      <GlobalErrorDetector>
+        <ReactQueryProvider>{children}</ReactQueryProvider>
+      </GlobalErrorDetector>
+    </AuthProvider>
   );
 };
 

@@ -8,6 +8,9 @@ export const SERVER_ERROR_MESSAGE: ErrorMessage = {
 
   // 서버 내부적인 에러로 예측 불가
   INTERNAL_SERVER_ERROR: '서버가 원할하지 않아요. 잠시 후 다시 시도해주세요.',
+
+  // OAuth2 로그인 에러 - Next.js API Routes
+  EMPTY_USER_EMAIL: '이메일 정보를 찾을 수 없어 로그아웃 됐어요. 다시 로그인해주세요.',
 } as const;
 
 export const ERROR_MESSAGE = {
