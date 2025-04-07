@@ -7,13 +7,15 @@ export async function GET() {
   if (!cookieStore.has('accessToken')) {
     return NextResponse.json({
       isLoggedIn: false,
+      userEmail: null,
+      userId: null,
     });
   }
 
-  const userEmailCookie = cookieStore.get('UserEmail');
+  const userEmailCookie = cookieStore.get('userEmail');
 
   if (!userEmailCookie) {
-    return NextResponse.json({message: 'EMPTY_USER_EMAIL'}, {status: 400});
+    return NextResponse.json({errorCode: 'EMPTY_USER_EMAIL'}, {status: 400});
   }
 
   const userEmail = userEmailCookie.value;
