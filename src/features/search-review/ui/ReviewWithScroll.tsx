@@ -1,9 +1,7 @@
-import {ReviewArticle, ReviewArticleLoading} from '@/entities/reviews';
-import useSearchReviews from '@/entities/reviews/model/useSearchReviews';
-import {SortKey} from '@/features/review-sorting/model/type';
-import {LucideIcon} from '@/shared/ui/icons';
-
 import {useCallback} from 'react';
+import {SortKey} from '@/features/review-sorting';
+import {ReviewArticle, ReviewArticleLoading, useSearchReviews} from '@/entities/reviews';
+import {LucideIcon} from '@/shared/ui/icons';
 
 type Props = {
   selectedCategory: string;
@@ -29,6 +27,7 @@ export default function ReviewsWithScroll({selectedCategory, sort}: Props) {
     },
     [hasNextPage, fetchNextPage],
   );
+
   return (
     <>
       <ul>

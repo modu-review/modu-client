@@ -1,1 +1,1 @@
-export {default} from './ui/SearchBar';
+export {default as SearchBar} from './ui/SearchBar';

@@ -1,14 +1,12 @@
 'use client';
 
-import {CategoryBar} from '@/features/review-filtering';
-import SearchBar from '@/features/search/ui/SearchBar';
 import ReviewsWithScroll from './ReviewWithScroll';
-import {RQProvider} from '@/shared/providers';
+import {SearchBar} from '@/features/search';
+import {CategoryBar, useSelectCategoryFromUrl} from '@/features/review-filtering';
 import {SearchReviewsLoading} from '@/features/search-review-keyword';
+import {SelectSortOptions, useSelectSortOption} from '@/features/review-sorting';
+import {RQProvider} from '@/shared/providers';
 import {LucideIcon} from '@/shared/ui/icons';
-import {useSelectCategoryFromUrl} from '@/features/review-filtering/lib/useSelectCategoryFromUrl';
-import {SelectSortOptions} from '@/features/review-sorting';
-import useSelectSortOption from '@/features/review-sorting/lib/useSelectSortOption';
 
 export default function SearchReviews() {
   const {selectedCategory, handleSelectCategory} = useSelectCategoryFromUrl();
