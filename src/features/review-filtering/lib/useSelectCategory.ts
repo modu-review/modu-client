@@ -1,10 +1,10 @@
 import {useState} from 'react';
-import {BestReviewCategory} from '@/entities/reviews';
+import {ReviewCategory} from '@/entities/reviews';
 
-export function useSelectCategory(initialCategory: BestReviewCategory = 'all') {
-  const [selectedCategory, setSelectedCategory] = useState<BestReviewCategory>(initialCategory);
+export function useSelectCategory(initialCategory: ReviewCategory = 'all') {
+  const [selectedCategory, setSelectedCategory] = useState<ReviewCategory>(initialCategory);
 
-  const handleSelectCategory = (category: BestReviewCategory) => {
+  const handleSelectCategory = (category: ReviewCategory) => {
     setSelectedCategory(category);
   };
 
