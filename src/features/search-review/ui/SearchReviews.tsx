@@ -12,7 +12,12 @@ import useSelectSortOption from '@/features/review-sorting/lib/useSelectSortOpti
 
 export default function SearchReviews() {
   const {selectedCategory, handleSelectCategory} = useSelectCategoryFromUrl();
-  const {sort, handleChange} = useSelectSortOption(selectedCategory);
+
+  const {sort, handleChange} = useSelectSortOption({
+    options: {
+      cateogryId: selectedCategory,
+    },
+  });
 
   return (
     <section>
