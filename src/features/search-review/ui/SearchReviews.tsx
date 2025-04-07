@@ -26,7 +26,7 @@ export default function SearchReviews() {
           LoadingFallback={<SearchReviewsLoading />}
           icon={<LucideIcon name="Bug" className="w-28 h-28 md:w-40 md:h-40 mb-4 mt-12" />}
         >
-          <ReviewsWithScroll selectedCategory={selectedCategory} />
+          <ReviewsWithScroll selectedCategory={selectedCategory} sort={sort} />
         </RQProvider>
       </article>
     </section>

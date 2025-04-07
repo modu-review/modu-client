@@ -1,15 +1,17 @@
 import {ReviewArticle, ReviewArticleLoading} from '@/entities/reviews';
 import useSearchReviews from '@/entities/reviews/model/useSearchReviews';
+import {SortKey} from '@/features/review-sorting/model/type';
 import {LucideIcon} from '@/shared/ui/icons';
 
 import {useCallback} from 'react';
 
 type Props = {
   selectedCategory: string;
+  sort: SortKey;
 };
 
-export default function ReviewsWithScroll({selectedCategory}: Props) {
-  const {data, hasNextPage, fetchNextPage, isFetchingNextPage} = useSearchReviews(selectedCategory);
+export default function ReviewsWithScroll({selectedCategory, sort}: Props) {
+  const {data, hasNextPage, fetchNextPage, isFetchingNextPage} = useSearchReviews(selectedCategory, sort);
 
   const observerRef = useCallback(
     (node: HTMLDivElement | null) => {
