@@ -1,5 +1,6 @@
 import {ReviewArticle, ReviewArticleLoading} from '@/entities/reviews';
 import useSearchReviews from '@/entities/reviews/model/useSearchReviews';
+import {LucideIcon} from '@/shared/ui/icons';
 
 import {useCallback} from 'react';
 
@@ -28,7 +29,7 @@ export default function ReviewsWithScroll({selectedCategory}: Props) {
   );
   return (
     <>
-      <ul className="px-3 py-14">
+      <ul>
         {data.pages.map(page =>
           page.results.map(review => (
             <li key={review.board_id}>
@@ -37,9 +38,16 @@ export default function ReviewsWithScroll({selectedCategory}: Props) {
           )),
         )}
       </ul>
-      <div className="h-[250px] w-full mt-6" ref={observerRef}>
-        {isFetchingNextPage && <ReviewArticleLoading />}
-      </div>
+      {hasNextPage ? (
+        <div className="h-[550px] w-full mt-6" ref={observerRef}>
+          {isFetchingNextPage && <ReviewArticleLoading />}
+        </div>
+      ) : (
+        <div className="w-full flex flex-col justify-center items-center mt-10">
+          <LucideIcon name="PackageOpen" className="w-32 h-32" />
+          <p className="md:text-lg mt-3 mb-6">모든 게시글을 조회했어요.</p>
+        </div>
+      )}
     </>
   );
 }

@@ -16,15 +16,19 @@ export default function SearchReviews() {
 
   return (
     <section>
-      <CategoryBar selectedCategory={selectedCategory} onSelectCategory={handleSelectCategory} />
+      <article className="p-3">
+        <CategoryBar selectedCategory={selectedCategory} onSelectCategory={handleSelectCategory} />
+      </article>
       <SearchBar />
-      <SelectSortOptions sort={sort} onValueChange={handleChange} />
-      <RQProvider
-        LoadingFallback={<SearchReviewsLoading />}
-        icon={<LucideIcon name="Bug" className="w-28 h-28 md:w-40 md:h-40 mb-4 mt-12" />}
-      >
-        <ReviewsWithScroll selectedCategory={selectedCategory} />
-      </RQProvider>
+      <article className="px-6">
+        <SelectSortOptions className="ml-auto mt-10 mb-7 md:mr-4" sort={sort} onValueChange={handleChange} />
+        <RQProvider
+          LoadingFallback={<SearchReviewsLoading />}
+          icon={<LucideIcon name="Bug" className="w-28 h-28 md:w-40 md:h-40 mb-4 mt-12" />}
+        >
+          <ReviewsWithScroll selectedCategory={selectedCategory} />
+        </RQProvider>
+      </article>
     </section>
   );
 }
