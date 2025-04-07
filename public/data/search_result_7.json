@@ -56,5 +56,6 @@
       "image_url": "https://picsum.photos/seed/picsum/200/200"
     }
   ],
-  "next_cursor": 8
+  "next_cursor": 8,
+  "has_next": true
 }

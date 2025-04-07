@@ -4,6 +4,8 @@ import {reviewQueryOptions} from './query-service';
 export default function useSearchReviews(categoryId: string) {
   return useSuspenseInfiniteQuery({
     ...reviewQueryOptions.search(categoryId),
-    getNextPageParam: lastPage => lastPage.next_cursor,
+    getNextPageParam: lastPage => {
+      if (lastPage.has_next) return lastPage.next_cursor;
+    },
   });
 }

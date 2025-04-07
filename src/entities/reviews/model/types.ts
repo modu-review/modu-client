@@ -31,4 +31,5 @@ export type SearchReviewsWithKeyword = {
 export type FindReviews = {
   results: SearchReview[];
   next_cursor: number | null;
+  has_next: boolean;
 };
