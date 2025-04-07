@@ -1,1 +1,1 @@
-export {default as SelectSortOption} from './ui/SelectSortOption';
+export {default as SelectSortOptions} from './ui/SelectSortOptions';

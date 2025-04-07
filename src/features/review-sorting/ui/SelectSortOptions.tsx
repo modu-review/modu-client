@@ -1,11 +1,17 @@
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from '@/shared/shadcnComponent/ui/select';
-import {SORT_OPTIONS} from '../const/sortOptions';
+import {SORT_MAP, SORT_OPTIONS} from '../const/sortOptions';
+import {SortKey} from '../model/type';
 
-export default function SelectSortOption() {
+type Props = {
+  sort: SortKey;
+  onValueChange: (value: SortKey) => void;
+};
+
+export default function SelectSortOptions({sort, onValueChange}: Props) {
   return (
-    <Select>
+    <Select value={sort} onValueChange={onValueChange}>
       <SelectTrigger className="w-[120px]">
-        <SelectValue></SelectValue>
+        <SelectValue aria-label={SORT_MAP[sort]}>{SORT_MAP[sort]}</SelectValue>
       </SelectTrigger>
       <SelectContent>
         {SORT_OPTIONS.map(({name, value}) => (

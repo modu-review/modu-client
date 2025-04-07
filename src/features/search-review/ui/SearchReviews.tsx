@@ -6,17 +6,19 @@ import ReviewsWithScroll from './ReviewWithScroll';
 import {RQProvider} from '@/shared/providers';
 import {SearchReviewsLoading} from '@/features/search-review-keyword';
 import {LucideIcon} from '@/shared/ui/icons';
-import {UseSelectCategoryFromUrl} from '@/features/review-filtering/lib/useSelectCategoryFromUrl';
-import {SelectSortOption} from '@/features/review-sorting';
+import {useSelectCategoryFromUrl} from '@/features/review-filtering/lib/useSelectCategoryFromUrl';
+import {SelectSortOptions} from '@/features/review-sorting';
+import useSelectSortOption from '@/features/review-sorting/lib/useSelectSortOption';
 
 export default function SearchReviews() {
-  const {selectedCategory, handleSelectCategory} = UseSelectCategoryFromUrl();
+  const {selectedCategory, handleSelectCategory} = useSelectCategoryFromUrl();
+  const {sort, handleChange} = useSelectSortOption(selectedCategory);
 
   return (
     <section>
       <CategoryBar selectedCategory={selectedCategory} onSelectCategory={handleSelectCategory} />
       <SearchBar />
-      <SelectSortOption />
+      <SelectSortOptions sort={sort} onValueChange={handleChange} />
       <RQProvider
         LoadingFallback={<SearchReviewsLoading />}
         icon={<LucideIcon name="Bug" className="w-28 h-28 md:w-40 md:h-40 mb-4 mt-12" />}

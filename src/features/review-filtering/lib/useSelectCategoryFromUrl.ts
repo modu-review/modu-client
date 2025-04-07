@@ -2,7 +2,7 @@ import {useRouter, useSearchParams} from 'next/navigation';
 import {IsReviewCategory} from './isReviewCategory';
 import {ReviewCategory} from '@/entities/reviews';
 
-export function UseSelectCategoryFromUrl() {
+export function useSelectCategoryFromUrl() {
   const route = useRouter();
   const searchParams = useSearchParams();
 

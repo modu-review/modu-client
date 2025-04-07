@@ -1,4 +1,4 @@
-import {SortSelectOption} from '../model/type';
+import {SortKey, SortSelectOption, SortType} from '../model/type';
 
 const SORT_OPTIONS: SortSelectOption[] = [
   {
@@ -15,4 +15,10 @@ const SORT_OPTIONS: SortSelectOption[] = [
   },
 ];
 
-export {SORT_OPTIONS};
+const SORT_MAP: Record<SortKey, SortType> = {
+  recent: '최신순',
+  hotbookmarks: '북마크순',
+  hotcomments: '댓글순',
+};
+
+export {SORT_OPTIONS, SORT_MAP};
