@@ -12,7 +12,7 @@ export async function GET() {
     });
   }
 
-  const userEmailCookie = cookieStore.get('userEmail');
+  const userEmailCookie = cookieStore.get('UserEmail');
 
   if (!userEmailCookie) {
     return NextResponse.json({errorCode: 'EMPTY_USER_EMAIL'}, {status: 400});
