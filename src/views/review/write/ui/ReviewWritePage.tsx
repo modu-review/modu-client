@@ -5,7 +5,7 @@ export default async function ReviewWritePage() {
   await checkSession();
 
   return (
-    <section>
+    <section className="w-full h-full max-w-5xl mx-auto">
       <Editor />
     </section>
   );
