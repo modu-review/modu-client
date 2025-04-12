@@ -1,31 +1,14 @@
 'use client';
 
-import {useEditor, EditorContent} from '@tiptap/react';
-import StarterKit from '@tiptap/starter-kit';
-import Image from '@tiptap/extension-image';
-import TextAlign from '@tiptap/extension-text-align';
+import {EditorContent} from '@tiptap/react';
+import useReviewEditor from '../lib/useReviewEditor';
 
 export default function Editor() {
-  const editor = useEditor({
-    extensions: [
-      StarterKit,
-      Image.configure({
-        HTMLAttributes: {
-          class: 'custom-editor-image',
-        },
-      }),
-      TextAlign.configure({types: ['heading', 'paragraph']}),
-    ],
-    editorProps: {
-      scrollThreshold: 100,
-      scrollMargin: 100,
-      attributes: {
-        class: 'prose prose-p:my-3 prose-h1:font-bold lg:prose-lg focus:outline-none',
-      },
-    },
-    immediatelyRender: false,
-    autofocus: true,
-  });
+  const {editor, editorRef} = useReviewEditor();
 
-  return <EditorContent editor={editor} />;
+  return (
+    <section className="w-full h-[80vh] flex flex-col relative max-w-5xl shadow-lg">
+      <EditorContent ref={editorRef} spellCheck="false" className="p-5 h-full overflow-auto" editor={editor} />
+    </section>
+  );
 }
