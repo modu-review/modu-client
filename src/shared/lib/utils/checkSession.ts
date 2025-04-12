@@ -7,6 +7,8 @@ async function checkSession() {
   if (!cookieStore.has('accessToken') || !cookieStore.has('UserEmail')) {
     redirect('/');
   }
+
+  console.log('check');
 }
 
 export default checkSession;
