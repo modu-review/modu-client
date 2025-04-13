@@ -5,12 +5,13 @@ import {EditorContent} from '@tiptap/react';
 import useReviewEditor from '../lib/useReviewEditor';
 import {Toolbar} from '../toolbar';
 import EditorMetaForm from './EditorMetaForm';
-import {Viewer} from '../../viewer';
+import {Viewer, ViewerModal} from '../../viewer';
 import {FormSchemaType, SubmitAction} from '../model/type';
 import {ReviewContent} from '../../shared/model/type';
 import {useUserId} from '@/entities/auth';
 import {Button} from '@/shared/shadcnComponent/ui/button';
 import {createClientError} from '@/shared/lib/utils/client-error';
+import {Modal, useModal} from '@/shared/ui/modal';
 
 export default function Editor() {
   const {editor, editorRef} = useReviewEditor();
@@ -18,6 +19,7 @@ export default function Editor() {
   const userId = useUserId();
 
   const [preview, setPreview] = useState<ReviewContent | null>(null);
+  const {openModal, handleModalOpen, handleModalClose} = useModal(() => setPreview(null));
 
   if (!editor) {
     return null;
@@ -39,6 +41,7 @@ export default function Editor() {
       case 'preview':
         const previewContent = editor.getHTML();
         setPreview({...commonPayload, created_at: '0000-00-00', content: previewContent});
+        handleModalOpen();
 
         break;
       case 'save':
@@ -71,7 +74,13 @@ export default function Editor() {
           저장하기
         </Button>
       </section>
-      {preview && <Viewer {...preview} />}
+      {openModal && preview && (
+        <Modal onClose={handleModalClose}>
+          <ViewerModal>
+            <Viewer {...preview} />
+          </ViewerModal>
+        </Modal>
+      )}
     </section>
   );
 }
