@@ -7,7 +7,11 @@ import {Form, FormControl, FormField, FormItem, FormMessage} from '@/shared/shad
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from '@/shared/shadcnComponent/ui/select';
 import {Input} from '@/shared/shadcnComponent/ui/input';
 
-export default function EditorMetaForm() {
+type Props = {
+  onSubmit: (values: FormSchemaType) => void;
+};
+
+export default function EditorMetaForm({onSubmit}: Props) {
   const form = useForm<FormSchemaType>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -15,10 +19,6 @@ export default function EditorMetaForm() {
       category: undefined,
     },
   });
-
-  const onSubmit = (values: FormSchemaType) => {
-    console.log(values);
-  };
 
   return (
     <Form {...form}>
