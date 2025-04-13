@@ -1,24 +1,33 @@
 'use client';
 
-import {useRef} from 'react';
+import {useRef, useState} from 'react';
 import {EditorContent} from '@tiptap/react';
 import useReviewEditor from '../lib/useReviewEditor';
 import {Toolbar} from '../toolbar';
 import EditorMetaForm from './EditorMetaForm';
+import {Viewer} from '../../viewer';
 import {FormSchemaType, SubmitAction} from '../model/type';
-import {Button} from '@/shared/shadcnComponent/ui/button';
+import {ReviewContent} from '../../shared/model/type';
 import {useUserId} from '@/entities/auth';
+import {Button} from '@/shared/shadcnComponent/ui/button';
+import {createClientError} from '@/shared/lib/utils/client-error';
 
 export default function Editor() {
   const {editor, editorRef} = useReviewEditor();
   const actionRef = useRef<SubmitAction>('preview');
   const userId = useUserId();
 
+  const [preview, setPreview] = useState<ReviewContent | null>(null);
+
   if (!editor) {
     return null;
   }
 
   const handleSubmit = (formValues: FormSchemaType) => {
+    if (!userId) {
+      throw createClientError('LOGIN_REQUIRED');
+    }
+
     const {current: type} = actionRef;
 
     const commonPayload = {
@@ -29,7 +38,7 @@ export default function Editor() {
     switch (type) {
       case 'preview':
         const previewContent = editor.getHTML();
-        console.log({...commonPayload, content: previewContent});
+        setPreview({...commonPayload, created_at: '0000-00-00', content: previewContent});
 
         break;
       case 'save':
@@ -62,6 +71,7 @@ export default function Editor() {
           저장하기
         </Button>
       </section>
+      {preview && <Viewer {...preview} />}
     </section>
   );
 }
