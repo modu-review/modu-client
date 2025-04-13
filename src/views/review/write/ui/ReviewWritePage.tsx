@@ -1,4 +1,4 @@
-import {Editor} from '@/features/review-write';
+import {Editor} from '@/features/review/editor';
 import checkSession from '@/shared/lib/utils/checkSession';
 
 export default async function ReviewWritePage() {

@@ -1,7 +1,7 @@
 import {useForm} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {FormSchema} from '../consts/rule';
-import {CATEGORY_LIST} from '../consts/categoryList';
+import {CATEGORY_LIST} from '../../shared/consts/categoryList';
 import {FormSchemaType} from '../model/type';
 import {Form, FormControl, FormField, FormItem, FormMessage} from '@/shared/shadcnComponent/ui/form';
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from '@/shared/shadcnComponent/ui/select';
