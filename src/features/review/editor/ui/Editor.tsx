@@ -4,9 +4,7 @@ import {EditorContent} from '@tiptap/react';
 import {Toolbar} from '../toolbar';
 import EditorMetaForm from './EditorMetaForm';
 import {Viewer, ViewerModal} from '../../viewer';
-import useReviewEditor from '../lib/useReviewEditor';
-import usePreview from '../lib/usePreview';
-import useSubmitReview from '../lib/useSubmitReview';
+import {usePreview, useReviewEditor, useSubmitReview} from '../lib';
 import {Modal} from '@/shared/ui/modal';
 import {Button} from '@/shared/shadcnComponent/ui/button';
 
