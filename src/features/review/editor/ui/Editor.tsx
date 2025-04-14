@@ -1,25 +1,24 @@
 'use client';
 
-import {useRef, useState} from 'react';
+import {useRef} from 'react';
 import {EditorContent} from '@tiptap/react';
 import useReviewEditor from '../lib/useReviewEditor';
 import {Toolbar} from '../toolbar';
 import EditorMetaForm from './EditorMetaForm';
 import {Viewer, ViewerModal} from '../../viewer';
 import {FormSchemaType, SubmitAction} from '../model/type';
-import {ReviewContent} from '../../shared/model/type';
 import {useUserId} from '@/entities/auth';
 import {Button} from '@/shared/shadcnComponent/ui/button';
 import {createClientError} from '@/shared/lib/utils/client-error';
-import {Modal, useModal} from '@/shared/ui/modal';
+import {Modal} from '@/shared/ui/modal';
+import usePreview from '../lib/usePreview';
 
 export default function Editor() {
   const {editor, editorRef} = useReviewEditor();
+  const {preview, openModal, handleModalClose, openPreview} = usePreview();
+
   const actionRef = useRef<SubmitAction>('preview');
   const userId = useUserId();
-
-  const [preview, setPreview] = useState<ReviewContent | null>(null);
-  const {openModal, handleModalOpen, handleModalClose} = useModal(() => setPreview(null));
 
   if (!editor) {
     return null;
@@ -40,8 +39,7 @@ export default function Editor() {
     switch (type) {
       case 'preview':
         const previewContent = editor.getHTML();
-        setPreview({...commonPayload, created_at: '0000-00-00', content: previewContent});
-        handleModalOpen();
+        openPreview({...commonPayload, created_at: '0000-00-00', content: previewContent});
 
         break;
       case 'save':
