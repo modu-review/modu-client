@@ -19,7 +19,8 @@ function useReviewEditor() {
       scrollThreshold: 100,
       scrollMargin: 100,
       attributes: {
-        class: 'prose prose-p:my-3 prose-h1:font-bold lg:prose-lg focus:outline-none',
+        class:
+          'prose prose-p:my-3 prose-h1:font-bold lg:prose-lg focus:outline-none prose-h1:text-[1.9em] md:prose-h1:text-[2.2em]',
       },
     },
     immediatelyRender: false,

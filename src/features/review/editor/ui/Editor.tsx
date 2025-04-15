@@ -21,9 +21,11 @@ export default function Editor() {
     return null;
   }
 
+  console.log(preview);
+
   return (
-    <section className="w-full h-[80vh] flex flex-col relative shadow-lg">
-      <header>
+    <section className="flex flex-col w-full max-w-5xl h-full mx-auto shadow-lg pt-4">
+      <header className="border-b pb-2 md:pb-3 flex flex-col gap-3">
         <EditorMetaForm onSubmit={handleSubmit} />
         <Toolbar editor={editor} />
       </header>

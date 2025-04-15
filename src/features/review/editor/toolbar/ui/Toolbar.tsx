@@ -10,7 +10,7 @@ type Props = {
 
 export default function Toolbar({editor}: Props) {
   return (
-    <section className="sticky top-0 z-10 bg-white w-full flex flex-wrap justify-center items-center p-3 border-b gap-2">
+    <section className="bg-white w-full flex flex-wrap justify-center items-center gap-2">
       <ToolbarGroup>
         {headingOptions.map(({icon, action, isActiveType, isActiveAttrs}) => (
           <ToolbarButton

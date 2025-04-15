@@ -83,7 +83,7 @@ export default {
               marginTop: '1.6rem',
               marginBottom: '1.6rem',
               paddingInlineStart: '1em',
-              backgroundColor: '#FAFAFA',
+              backgroundColor: '#F5F5F5',
               padding: '0.6rem',
               paddingLeft: '1rem',
             },

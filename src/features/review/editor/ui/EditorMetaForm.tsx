@@ -22,24 +22,7 @@ export default function EditorMetaForm({onSubmit}: Props) {
 
   return (
     <Form {...form}>
-      <form className="flex flex-col gap-4 mb-2 px-2" id="editor-meta-form" onSubmit={form.handleSubmit(onSubmit)}>
-        <FormField
-          control={form.control}
-          name="title"
-          render={({field}) => (
-            <FormItem>
-              <FormControl>
-                <Input
-                  className="text-xl py-2 border-none focus:outline-none"
-                  spellCheck="false"
-                  placeholder="제목을 입력하세요"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+      <form className="flex flex-col px-4 gap-1" id="editor-meta-form" onSubmit={form.handleSubmit(onSubmit)}>
         <FormField
           control={form.control}
           name="category"
@@ -47,7 +30,7 @@ export default function EditorMetaForm({onSubmit}: Props) {
             <FormItem>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
-                  <SelectTrigger className="w-[160px] focus:outline-none outline-none selection:outline-none">
+                  <SelectTrigger className="w-[120px] pl-1 shadow-none focus:outline-none outline-none focus:ring-0 selection:outline-none">
                     <SelectValue placeholder="카테고리" />
                   </SelectTrigger>
                 </FormControl>
@@ -59,6 +42,24 @@ export default function EditorMetaForm({onSubmit}: Props) {
                   ))}
                 </SelectContent>
               </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="title"
+          render={({field}) => (
+            <FormItem>
+              <FormControl>
+                <Input
+                  className="text-2xl md:text-3xl py-2 border-none focus:outline-none"
+                  spellCheck="false"
+                  placeholder="제목을 입력하세요"
+                  {...field}
+                />
+              </FormControl>
+              <div className="w-[70px] h-[3px] bg-gray-500" />
               <FormMessage />
             </FormItem>
           )}
