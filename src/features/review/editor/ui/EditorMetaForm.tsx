@@ -22,7 +22,7 @@ export default function EditorMetaForm({onSubmit}: Props) {
 
   return (
     <Form {...form}>
-      <form className="flex flex-col px-4 gap-1" id="editor-meta-form" onSubmit={form.handleSubmit(onSubmit)}>
+      <form className="flex flex-col px-2 gap-1" id="editor-meta-form" onSubmit={form.handleSubmit(onSubmit)}>
         <FormField
           control={form.control}
           name="category"
@@ -30,7 +30,7 @@ export default function EditorMetaForm({onSubmit}: Props) {
             <FormItem>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
-                  <SelectTrigger className="w-[120px] pl-1 shadow-none focus:outline-none outline-none focus:ring-0 selection:outline-none">
+                  <SelectTrigger className="w-[120px] shadow-none border-none focus:outline-none outline-none focus:ring-0 selection:outline-none">
                     <SelectValue placeholder="카테고리" />
                   </SelectTrigger>
                 </FormControl>
@@ -50,7 +50,7 @@ export default function EditorMetaForm({onSubmit}: Props) {
           control={form.control}
           name="title"
           render={({field}) => (
-            <FormItem>
+            <FormItem className="ml-3">
               <FormControl>
                 <Input
                   className="text-2xl md:text-3xl py-2 border-none focus:outline-none"
