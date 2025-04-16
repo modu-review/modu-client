@@ -4,6 +4,7 @@ import ToolbarGroup from './ToolbarGroup';
 import ToolbarButton from './ToolbarButton';
 import ToolbarLine from './ToolbarLine';
 import AddLink from './AddLink';
+import AddImage from './AddImage';
 
 type Props = {
   editor: Editor;
@@ -49,6 +50,11 @@ export default function Toolbar({editor}: Props) {
       </ToolbarGroup>
       <ToolbarLine />
       <ToolbarGroup>
+        <AddImage editor={editor} />
+        <AddLink editor={editor} />
+      </ToolbarGroup>
+      <ToolbarLine />
+      <ToolbarGroup>
         {alignOptions.map(({icon, action, isActiveAttrs}) => (
           <ToolbarButton
             key={icon}
@@ -58,10 +64,6 @@ export default function Toolbar({editor}: Props) {
             active={editor.isActive(isActiveAttrs)}
           />
         ))}
-      </ToolbarGroup>
-      <ToolbarLine />
-      <ToolbarGroup>
-        <AddLink editor={editor} />
       </ToolbarGroup>
     </section>
   );
