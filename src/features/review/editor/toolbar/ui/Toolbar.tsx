@@ -3,6 +3,7 @@ import {alignOptions, headingOptions, markOptions, structureOptions} from '../co
 import ToolbarGroup from './ToolbarGroup';
 import ToolbarButton from './ToolbarButton';
 import ToolbarLine from './ToolbarLine';
+import AddLink from './AddLink';
 
 type Props = {
   editor: Editor;
@@ -57,6 +58,10 @@ export default function Toolbar({editor}: Props) {
             active={editor.isActive(isActiveAttrs)}
           />
         ))}
+      </ToolbarGroup>
+      <ToolbarLine />
+      <ToolbarGroup>
+        <AddLink editor={editor} />
       </ToolbarGroup>
     </section>
   );
