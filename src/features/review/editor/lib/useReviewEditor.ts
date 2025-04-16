@@ -3,8 +3,13 @@ import {useEditor} from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Image from '@tiptap/extension-image';
 import TextAlign from '@tiptap/extension-text-align';
+import Link from '@tiptap/extension-link';
+import {useUpdateGlobalError} from '@/entities/error';
+import {createClientError} from '@/shared/lib/utils/client-error';
 
 function useReviewEditor() {
+  const updateError = useUpdateGlobalError();
+
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -14,6 +19,41 @@ function useReviewEditor() {
         },
       }),
       TextAlign.configure({types: ['heading', 'paragraph']}),
+      Link.configure({
+        autolink: true,
+        linkOnPaste: true,
+        defaultProtocol: 'https',
+        HTMLAttributes: {
+          rel: 'noopener noreferrer',
+          target: '_blank',
+          class: 'cursor-pointer text-blue-500 hover:text-blue-600',
+        },
+        isAllowedUri: (url, ctx) => {
+          const parsedUrl = url.includes(':') ? new URL(url) : new URL(`${ctx.defaultProtocol}://${url}`);
+
+          if (!ctx.defaultValidate(parsedUrl.href) || url.startsWith('./')) {
+            const linkError = createClientError('INVALID_LINK_URL');
+            updateError(linkError);
+
+            return false;
+          }
+
+          const disallowedProtocols = ['javascript', 'data', 'ftp', 'file', 'mailto', 'http'];
+          const protocol = parsedUrl.protocol.replace(':', '');
+
+          if (protocol !== 'https' || disallowedProtocols.includes(protocol)) {
+            const protocolError = createClientError('INVALID_LINK_PROTOCOL');
+            updateError(protocolError);
+
+            return false;
+          }
+
+          return true;
+        },
+        shouldAutoLink: url => url.startsWith('https://'),
+      }).extend({
+        inclusive: false,
+      }),
     ],
     editorProps: {
       scrollThreshold: 100,

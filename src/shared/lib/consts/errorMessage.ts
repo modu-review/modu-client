@@ -28,4 +28,8 @@ export const ERROR_MESSAGE = {
 
   // OAuth2 로그인 에러
   EMPTY_USER_EMAIL: '이메일 정보가 존재하지 않아요.',
+
+  // 에디터 관련 에러
+  INVALID_LINK_PROTOCOL: '허용되지 않은 프로토콜이에요. https://로 시작하는 링크를 입력해주세요.',
+  INVALID_LINK_URL: '허용되지 않은 링크예요. www.example.com과 같은 링크를 입력해주세요.',
 } as const;
