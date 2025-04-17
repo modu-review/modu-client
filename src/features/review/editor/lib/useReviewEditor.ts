@@ -4,6 +4,7 @@ import StarterKit from '@tiptap/starter-kit';
 import Image from '@tiptap/extension-image';
 import TextAlign from '@tiptap/extension-text-align';
 import Link from '@tiptap/extension-link';
+import ImageResize from 'tiptap-extension-resize-image';
 import {useUpdateGlobalError} from '@/entities/error';
 import {createClientError} from '@/shared/lib/utils/client-error';
 
@@ -54,6 +55,7 @@ function useReviewEditor() {
       }).extend({
         inclusive: false,
       }),
+      ImageResize,
     ],
     editorProps: {
       scrollThreshold: 100,
