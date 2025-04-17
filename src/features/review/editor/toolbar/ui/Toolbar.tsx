@@ -12,7 +12,7 @@ type Props = {
 
 export default function Toolbar({editor}: Props) {
   return (
-    <section className="bg-white w-full flex flex-wrap justify-center items-center gap-2">
+    <section className="border-b py-2 md:pb-3 w-full flex flex-wrap justify-center items-center gap-2">
       <ToolbarGroup>
         {headingOptions.map(({icon, action, isActiveType, isActiveAttrs}) => (
           <ToolbarButton
