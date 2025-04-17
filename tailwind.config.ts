@@ -87,6 +87,10 @@ export default {
               padding: '0.6rem',
               paddingLeft: '1rem',
             },
+            hr: {
+              marginTop: '1.8rem',
+              marginBottom: '1.8rem',
+            },
           },
         },
       },

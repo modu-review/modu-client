@@ -38,13 +38,13 @@ export default function Toolbar({editor}: Props) {
       </ToolbarGroup>
       <ToolbarLine />
       <ToolbarGroup>
-        {structureOptions.map(({icon, action, isActiveType}) => (
+        {alignOptions.map(({icon, action, isActiveAttrs}) => (
           <ToolbarButton
             key={icon}
             icon={icon}
             onClick={() => action(editor)}
             iconType="node"
-            active={editor.isActive(isActiveType)}
+            active={editor.isActive(isActiveAttrs)}
           />
         ))}
       </ToolbarGroup>
@@ -55,13 +55,13 @@ export default function Toolbar({editor}: Props) {
       </ToolbarGroup>
       <ToolbarLine />
       <ToolbarGroup>
-        {alignOptions.map(({icon, action, isActiveAttrs}) => (
+        {structureOptions.map(({icon, action, isActiveType}) => (
           <ToolbarButton
             key={icon}
             icon={icon}
             onClick={() => action(editor)}
             iconType="node"
-            active={editor.isActive(isActiveAttrs)}
+            {...(isActiveType && {active: editor.isActive(isActiveType)})}
           />
         ))}
       </ToolbarGroup>

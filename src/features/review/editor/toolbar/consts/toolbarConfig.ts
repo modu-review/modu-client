@@ -1,4 +1,4 @@
-import {ToobarAlign, ToolbarBase, ToolbarHeading} from '../model/type';
+import {ToobarAlign, ToolbarBase, ToolbarHeading, ToolbarStructure} from '../model/type';
 
 const headingOptions: ToolbarHeading[] = [
   {
@@ -39,7 +39,7 @@ const markOptions: ToolbarBase[] = [
   },
 ];
 
-const structureOptions: ToolbarBase[] = [
+const structureOptions: ToolbarStructure[] = [
   {
     icon: 'TextQuote',
     action: editor => editor.chain().focus().toggleBlockquote().run(),
@@ -54,6 +54,10 @@ const structureOptions: ToolbarBase[] = [
     icon: 'ListOrdered',
     action: editor => editor.chain().focus().toggleOrderedList().run(),
     isActiveType: 'orderedList',
+  },
+  {
+    icon: 'Minus',
+    action: editor => editor.chain().focus().setHorizontalRule().run(),
   },
 ];
 

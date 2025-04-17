@@ -19,7 +19,7 @@ function useReviewEditor() {
           class: 'custom-editor-image',
         },
       }),
-      TextAlign.configure({types: ['heading', 'paragraph']}),
+      TextAlign.configure({types: ['heading', 'paragraph'], defaultAlignment: 'left'}),
       Link.configure({
         autolink: true,
         linkOnPaste: true,

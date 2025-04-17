@@ -14,3 +14,7 @@ export type ToolbarHeading = ToolbarBase & {
 export type ToobarAlign = Omit<ToolbarBase, 'isActiveType'> & {
   isActiveAttrs: Record<string, string>;
 };
+
+export type ToolbarStructure = Omit<ToolbarBase, 'isActiveType'> & {
+  isActiveType?: string;
+};
