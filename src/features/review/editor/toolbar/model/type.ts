@@ -5,6 +5,7 @@ export type ToolbarBase = {
   icon: keyof typeof icons;
   action: (editor: Editor) => void;
   isActiveType: string;
+  text: string;
 };
 
 export type ToolbarHeading = ToolbarBase & {

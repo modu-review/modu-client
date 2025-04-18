@@ -4,6 +4,7 @@ import ToolbarButton from './ToolbarButton';
 import {Popover, PopoverContent, PopoverTrigger} from '@/shared/shadcnComponent/ui/popover';
 import {Input} from '@/shared/shadcnComponent/ui/input';
 import {Button} from '@/shared/shadcnComponent/ui/button';
+import ToolbarTooltip from './ToolbarTooltip';
 
 type Props = {
   editor: Editor;
@@ -53,9 +54,11 @@ export default function AddLink({editor}: Props) {
 
   return (
     <Popover>
-      <PopoverTrigger asChild>
-        <ToolbarButton icon="Link2" iconType="node" active={editor.isActive('link')} />
-      </PopoverTrigger>
+      <ToolbarTooltip text="링크 추가">
+        <PopoverTrigger asChild>
+          <ToolbarButton icon="Link2" iconType="node" active={editor.isActive('link')} />
+        </PopoverTrigger>
+      </ToolbarTooltip>
       <PopoverContent>
         <form className="flex flex-col" onSubmit={handleSubmit}>
           <h3 className="font-semibold mb-2 pl-1">링크 등록</h3>
