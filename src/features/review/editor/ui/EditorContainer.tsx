@@ -9,7 +9,7 @@ type Props = {
 };
 
 export default function EditorContainer({onMount}: Props) {
-  const {editor, editorRef} = useReviewEditor();
+  const {editor, editorState, editorRef} = useReviewEditor();
 
   useEffect(() => {
     if (!editor) return;
@@ -20,11 +20,11 @@ export default function EditorContainer({onMount}: Props) {
     }));
   }, [editor, onMount]);
 
-  if (!editor) return null;
+  if (!editor || !editorState) return null;
 
   return (
     <>
-      <Toolbar editor={editor} />
+      <Toolbar editor={editor} editorState={editorState} />
       <EditorContent spellCheck="false" className="p-5 h-full overflow-auto" ref={editorRef} editor={editor} />
     </>
   );

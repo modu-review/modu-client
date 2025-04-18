@@ -6,51 +6,39 @@ import ToolbarLine from './ToolbarLine';
 import AddLink from './AddLink';
 import AddImage from './AddImage';
 import ToolbarTooltip from './ToolbarTooltip';
+import {EditorActiveState} from '../../model/type';
 
 type Props = {
   editor: Editor;
+  editorState: EditorActiveState;
 };
 
-export default function Toolbar({editor}: Props) {
+export default function Toolbar({editor, editorState}: Props) {
   return (
     <section className="border-b py-2 md:pb-3 w-full flex flex-wrap justify-center items-center gap-2">
       <ToolbarGroup>
-        {headingOptions.map(({icon, action, isActiveType, isActiveAttrs, text}) => (
+        {headingOptions.map(({icon, action, stateKey, text}) => (
           <ToolbarTooltip key={icon} text={text}>
-            <ToolbarButton
-              icon={icon}
-              onClick={() => action(editor)}
-              iconType="node"
-              active={editor.isActive(isActiveType, isActiveAttrs)}
-            />
+            <ToolbarButton icon={icon} onClick={() => action(editor)} iconType="node" active={editorState[stateKey]} />
           </ToolbarTooltip>
         ))}
       </ToolbarGroup>
       <ToolbarLine />
       <ToolbarGroup>
-        {markOptions.map(({icon, action, isActiveType, text}) => (
+        {markOptions.map(({icon, action, stateKey, text}) => (
           <ToolbarTooltip key={icon} text={text}>
-            <ToolbarButton
-              icon={icon}
-              onClick={() => action(editor)}
-              iconType="marks"
-              active={editor.isActive(isActiveType)}
-            />
+            <ToolbarButton icon={icon} onClick={() => action(editor)} iconType="marks" active={editorState[stateKey]} />
           </ToolbarTooltip>
         ))}
       </ToolbarGroup>
       <ToolbarLine />
       <ToolbarGroup>
-        {alignOptions.map(({icon, action, isActiveAttrs, text}) => (
+        {alignOptions.map(({icon, action, stateKey, text}) => (
           <ToolbarTooltip key={icon} text={text}>
-            <ToolbarButton
-              icon={icon}
-              onClick={() => action(editor)}
-              iconType="node"
-              active={editor.isActive(isActiveAttrs)}
-            />
+            <ToolbarButton icon={icon} onClick={() => action(editor)} iconType="node" active={editorState[stateKey]} />
           </ToolbarTooltip>
         ))}
+        <ToolbarButton icon="Minus" iconType="node" onClick={() => editor.chain().focus().setHorizontalRule().run()} />
       </ToolbarGroup>
       <ToolbarLine />
       <ToolbarGroup>
@@ -61,14 +49,9 @@ export default function Toolbar({editor}: Props) {
       </ToolbarGroup>
       <ToolbarLine />
       <ToolbarGroup>
-        {structureOptions.map(({icon, action, isActiveType, text}) => (
+        {structureOptions.map(({icon, action, stateKey, text}) => (
           <ToolbarTooltip key={icon} text={text}>
-            <ToolbarButton
-              icon={icon}
-              onClick={() => action(editor)}
-              iconType="node"
-              {...(isActiveType && {active: editor.isActive(isActiveType)})}
-            />
+            <ToolbarButton icon={icon} onClick={() => action(editor)} iconType="node" active={editorState[stateKey]} />
           </ToolbarTooltip>
         ))}
       </ToolbarGroup>

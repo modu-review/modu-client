@@ -15,3 +15,19 @@ export type EditorSerializedContent = {
 };
 
 export type EditorContentGetter = () => EditorSerializedContent;
+
+export type EditorActiveState = {
+  isHeading1: boolean;
+  isHeading2: boolean;
+  isHeading3: boolean;
+  isBold: boolean;
+  isItalic: boolean;
+  isStrike: boolean;
+  isBlockquote: boolean;
+  isBulletList: boolean;
+  isOrderedList: boolean;
+  isAlignLeft: boolean;
+  isAlignCenter: boolean;
+  isAlignRight: boolean;
+  isLink: boolean;
+};
