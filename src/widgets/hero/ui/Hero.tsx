@@ -15,8 +15,8 @@ export default function Hero() {
           바로 여기 <span className="text-boldBlue">{"'모두의 : 후기'"}</span>에서 확인하세요.
         </p>
       </article>
-      <Link href="/">
-        <Button className="mb-10  bg-boldBlue rounded-3xl hover:bg-extraboldBlue p-5 text-[14px] md:text-[16px] md:p-6 lg:text-[18px]">
+      <Link className="mb-10" href="/review/write" scroll={false}>
+        <Button className=" bg-boldBlue rounded-3xl hover:bg-extraboldBlue p-5 text-[14px] md:text-[16px] md:p-6 lg:text-[18px]">
           {'내 경험 공유하기>'}
         </Button>
       </Link>

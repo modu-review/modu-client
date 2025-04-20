@@ -13,6 +13,7 @@ const buttonVariants = cva(
         logInOut: 'bg-black text-white',
         activeCategory: 'bg-boldBlue text-white rounded-xl font-bold',
         inActiveCategory: 'text-black font-semibold md:hover:scale-105 md:hover:font-bold',
+        link: 'text-primary underline-offset-4 hover:underline',
       },
       size: {
         default: 'h-9 px-4 py-2',
