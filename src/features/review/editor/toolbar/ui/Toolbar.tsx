@@ -38,14 +38,18 @@ export default function Toolbar({editor, editorState}: Props) {
             <ToolbarButton icon={icon} onClick={() => action(editor)} iconType="node" active={editorState[stateKey]} />
           </ToolbarTooltip>
         ))}
-        <ToolbarButton icon="Minus" iconType="node" onClick={() => editor.chain().focus().setHorizontalRule().run()} />
+        <ToolbarTooltip text="구분선">
+          <ToolbarButton
+            icon="Minus"
+            iconType="node"
+            onClick={() => editor.chain().focus().setHorizontalRule().run()}
+          />
+        </ToolbarTooltip>
       </ToolbarGroup>
       <ToolbarLine />
       <ToolbarGroup>
         <AddImage editor={editor} />
-        <ToolbarTooltip text="링크 추가">
-          <AddLink editor={editor} />
-        </ToolbarTooltip>
+        <AddLink editor={editor} />
       </ToolbarGroup>
       <ToolbarLine />
       <ToolbarGroup>

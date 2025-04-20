@@ -1,7 +1,5 @@
-import {RefObject} from 'react';
 import {Editor} from '@tiptap/react';
 import {LucideIcon} from '@/shared/ui/icons';
-import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from '@/shared/shadcnComponent/ui/tooltip';
 import ToolbarTooltip from './ToolbarTooltip';
 
 type Props = {
