@@ -59,7 +59,7 @@ export default function EditorMetaForm({onSubmit}: Props) {
                   {...field}
                 />
               </FormControl>
-              <div className="w-[70px] h-[3px] bg-gray-500" />
+              <div className="w-[70px] h-[3px] bg-boldBlue" />
               <FormMessage />
             </FormItem>
           )}

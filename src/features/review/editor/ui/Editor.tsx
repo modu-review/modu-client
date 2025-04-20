@@ -19,10 +19,20 @@ export default function Editor() {
       <EditorMetaForm onSubmit={handleSubmit} />
       <EditorContainer onMount={handleSetContentGetter} />
       <section className="w-full bg-white border-t border-gray-300 p-4 flex justify-end items-center gap-3">
-        <Button form="editor-meta-form" type="submit" onClick={handleSetActionPreview}>
+        <Button
+          className="border border-boldBlue bg-white text-boldBlue hover:bg-gray-100"
+          form="editor-meta-form"
+          type="submit"
+          onClick={handleSetActionPreview}
+        >
           미리보기
         </Button>
-        <Button form="editor-meta-form" type="submit" onClick={handleSetActionSave}>
+        <Button
+          className="bg-boldBlue hover:bg-boldBlue/80"
+          form="editor-meta-form"
+          type="submit"
+          onClick={handleSetActionSave}
+        >
           저장하기
         </Button>
       </section>
