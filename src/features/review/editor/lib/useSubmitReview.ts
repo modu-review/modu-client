@@ -34,18 +34,19 @@ function useSubmitReview({onPreview, onSave}: Props) {
     const {current: type} = actionRef;
     const {current: getContent} = editorContentGetterRef;
 
-    const {html, json} = getContent();
+    const {html} = getContent();
 
     const commonPayload = {
       ...formValues,
       author: userId,
+      content: html,
     };
 
     switch (type) {
       case 'preview':
-        return onPreview({...commonPayload, created_at: '0000-00-00', content: html});
+        return onPreview({...commonPayload, created_at: '0000-00-00'});
       case 'save':
-        return onSave({...commonPayload, content: json});
+        return onSave(commonPayload);
       default:
         const _exhaustiveCheck: never = type;
         throw new Error(`허용되지 않은 저장 타입입니다. type: ${_exhaustiveCheck}`);

@@ -1,5 +1,4 @@
 import {z} from 'zod';
-import {JSONContent} from '@tiptap/react';
 import {CATEGORY_LIST} from '../../shared/consts/categoryList';
 import {FormSchema} from '../consts/rule';
 
@@ -11,7 +10,6 @@ export type SubmitAction = 'preview' | 'save';
 
 export type EditorSerializedContent = {
   html: string;
-  json: JSONContent;
 };
 
 export type EditorContentGetter = () => EditorSerializedContent;

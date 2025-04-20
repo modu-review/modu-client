@@ -17,7 +17,6 @@ export default function EditorContainer({onMount}: Props) {
 
     onMount(() => ({
       html: editor.getHTML(),
-      json: editor.getJSON(),
     }));
   }, [editor, onMount]);
 
