@@ -1,6 +1,6 @@
 import {useCallback, useRef} from 'react';
-import {ReviewContent, ReviewPayload} from '../../shared/model/type';
 import {EditorContentGetter, FormSchemaType, SubmitAction} from '../model/type';
+import {ReviewContent, ReviewPayload} from '@/entities/review';
 import {useUserId} from '@/entities/auth';
 import {createClientError} from '@/shared/lib/utils/client-error';
 

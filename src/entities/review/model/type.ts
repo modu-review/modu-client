@@ -1,4 +1,4 @@
-import {CATEGORY_LIST} from '../consts/categoryList';
+import {CATEGORY_LIST} from '../consts/category';
 
 export type CategoryValue = (typeof CATEGORY_LIST)[number]['value'];
 

@@ -1,5 +1,5 @@
+import {CATEGORY_VALUES} from '@/entities/review';
 import {z} from 'zod';
-import {CATEGORY_VALUES} from '../../shared/consts/categoryList';
 
 export const FormSchema = z.object({
   title: z

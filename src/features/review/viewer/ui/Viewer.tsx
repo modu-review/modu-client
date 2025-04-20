@@ -1,6 +1,5 @@
+import {CATEGORY_MAP, ReviewContent} from '@/entities/review';
 import {Badge} from '@/shared/ui/components';
-import {CATEGORY_MAP} from '../../shared/consts/categoryList';
-import {ReviewContent} from '../../shared/model/type';
 
 export default function Viewer({title, category, author, created_at, content}: ReviewContent) {
   return (
