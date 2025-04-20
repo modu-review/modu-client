@@ -7,12 +7,15 @@ import {Modal} from '@/shared/ui/modal';
 import {Button} from '@/shared/shadcnComponent/ui/button';
 import EditorContainer from './EditorContainer';
 import {useRouter} from 'next/navigation';
+import useSaveReview from '../lib/useSaveReview';
 
 export default function Editor() {
   const {preview, openModal, handleModalClose, openPreview} = usePreview();
+  const {saveReview, isPending} = useSaveReview();
+
   const {handleSetActionPreview, handleSetActionSave, handleSetContentGetter, handleSubmit} = useSubmitReview({
     onPreview: openPreview,
-    onSave: data => console.log(data),
+    onSave: saveReview,
   });
 
   const router = useRouter();
@@ -34,6 +37,7 @@ export default function Editor() {
             className="border border-boldBlue bg-white text-boldBlue hover:bg-gray-100"
             form="editor-meta-form"
             type="submit"
+            disabled={isPending}
             onClick={handleSetActionPreview}
           >
             미리보기
@@ -42,6 +46,7 @@ export default function Editor() {
             className="bg-boldBlue hover:bg-boldBlue/80"
             form="editor-meta-form"
             type="submit"
+            disabled={isPending}
             onClick={handleSetActionSave}
           >
             저장하기
