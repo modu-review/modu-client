@@ -14,5 +14,7 @@ export async function POST(req: NextRequest) {
 
   writeFileSync(filePath, JSON.stringify(parsedData));
 
+  await new Promise(resolve => setTimeout(resolve, 3000));
+
   return NextResponse.json({message: '저장 성공!'});
 }

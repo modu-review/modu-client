@@ -8,6 +8,7 @@ import {Button} from '@/shared/shadcnComponent/ui/button';
 import EditorContainer from './EditorContainer';
 import {useRouter} from 'next/navigation';
 import useSaveReview from '../lib/useSaveReview';
+import {LoadingSpinner} from '@/shared/ui/components';
 
 export default function Editor() {
   const {preview, openModal, handleModalClose, openPreview} = usePreview();
@@ -26,6 +27,11 @@ export default function Editor() {
 
   return (
     <section className="flex flex-col w-full max-w-5xl h-full mx-auto shadow-lg pt-4">
+      {isPending && (
+        <div className="fixed inset-0 w-full h-full z-50 bg-black/70 text-white">
+          <LoadingSpinner text="리뷰를 저장하고 있어요." />
+        </div>
+      )}
       <EditorMetaForm onSubmit={handleSubmit} />
       <EditorContainer onMount={handleSetContentGetter} />
       <section className="w-full bg-white border-t border-gray-300 p-4 flex items-center justify-between">
