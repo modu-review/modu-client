@@ -1,15 +1,15 @@
 'use client';
 
+import {useCallback} from 'react';
+import {useRouter} from 'next/navigation';
 import EditorMetaForm from './EditorMetaForm';
+import EditorContainer from './EditorContainer';
 import {Viewer, ViewerModal} from '../../viewer';
-import {usePreview, useSubmitReview} from '../lib';
+import {usePreview, useSaveReview, useSubmitReview} from '../lib';
+import {EditorInitialData} from '../model/type';
 import {Modal} from '@/shared/ui/modal';
 import {Button} from '@/shared/shadcnComponent/ui/button';
-import EditorContainer from './EditorContainer';
-import {useRouter} from 'next/navigation';
-import useSaveReview from '../lib/useSaveReview';
 import {LoadingSpinner} from '@/shared/ui/components';
-import {EditorInitialData} from '../model/type';
 
 export default function Editor({title, category, content}: EditorInitialData) {
   const {preview, openModal, handleModalClose, openPreview} = usePreview();
@@ -22,9 +22,9 @@ export default function Editor({title, category, content}: EditorInitialData) {
 
   const router = useRouter();
 
-  const handleGoBack = () => {
+  const handleGoBack = useCallback(() => {
     router.back();
-  };
+  }, [router]);
 
   return (
     <section className="flex flex-col w-full max-w-5xl h-full mx-auto shadow-lg pt-4">

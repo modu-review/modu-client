@@ -1,6 +1,6 @@
 import {useState} from 'react';
-import {ReviewContent} from '../../shared/model/type';
 import {useModal} from '@/shared/ui/modal';
+import {ReviewContent} from '@/entities/review';
 
 function usePreview() {
   const [preview, setPreview] = useState<ReviewContent | null>(null);
