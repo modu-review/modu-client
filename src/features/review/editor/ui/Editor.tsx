@@ -1,14 +1,12 @@
 'use client';
 
-import {useCallback} from 'react';
-import {useRouter} from 'next/navigation';
 import EditorMetaForm from './EditorMetaForm';
 import EditorContainer from './EditorContainer';
+import EditorFooter from './EditorFooter';
 import {Viewer, ViewerModal} from '../../viewer';
 import {usePreview, useSaveReview, useSubmitReview} from '../lib';
 import {EditorInitialData} from '../model/type';
 import {Modal} from '@/shared/ui/modal';
-import {Button} from '@/shared/shadcnComponent/ui/button';
 import {LoadingSpinner} from '@/shared/ui/components';
 
 export default function Editor({title, category, content}: EditorInitialData) {
@@ -20,52 +18,22 @@ export default function Editor({title, category, content}: EditorInitialData) {
     onSave: saveReview,
   });
 
-  const router = useRouter();
-
-  const handleGoBack = useCallback(() => {
-    router.back();
-  }, [router]);
-
   return (
     <section className="flex flex-col w-full max-w-5xl h-full mx-auto shadow-lg pt-4">
-      {isPending && (
-        <div className="fixed inset-0 w-full h-full z-50 bg-black/70 text-white">
-          <LoadingSpinner text="리뷰를 저장하고 있어요." />
-        </div>
-      )}
       <EditorMetaForm onSubmit={handleSubmit} initialTitle={title} initialCategory={category} />
       <EditorContainer onMount={handleSetContentGetter} initialContent={content} />
-      <section className="w-full bg-white border-t border-gray-300 p-4 flex items-center justify-between">
-        <Button variant="link" onClick={handleGoBack}>
-          나가기
-        </Button>
-        <div className="flex gap-3">
-          <Button
-            className="border border-boldBlue bg-white text-boldBlue hover:bg-gray-100"
-            form="editor-meta-form"
-            type="submit"
-            disabled={isPending}
-            onClick={handleSetActionPreview}
-          >
-            미리보기
-          </Button>
-          <Button
-            className="bg-boldBlue hover:bg-boldBlue/80"
-            form="editor-meta-form"
-            type="submit"
-            disabled={isPending}
-            onClick={handleSetActionSave}
-          >
-            저장하기
-          </Button>
-        </div>
-      </section>
+      <EditorFooter onPreview={handleSetActionPreview} onSave={handleSetActionSave} isPending={isPending} />
       {openModal && preview && (
         <Modal onClose={handleModalClose}>
           <ViewerModal>
             <Viewer {...preview} />
           </ViewerModal>
         </Modal>
+      )}
+      {isPending && (
+        <div className="fixed inset-0 w-full h-full z-50 bg-black/70 text-white">
+          <LoadingSpinner text="리뷰를 저장하고 있어요." />
+        </div>
       )}
     </section>
   );
