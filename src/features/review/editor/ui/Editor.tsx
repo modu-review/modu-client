@@ -9,8 +9,9 @@ import EditorContainer from './EditorContainer';
 import {useRouter} from 'next/navigation';
 import useSaveReview from '../lib/useSaveReview';
 import {LoadingSpinner} from '@/shared/ui/components';
+import {EditorInitialData} from '../model/type';
 
-export default function Editor() {
+export default function Editor({title, category, content}: EditorInitialData) {
   const {preview, openModal, handleModalClose, openPreview} = usePreview();
   const {saveReview, isPending} = useSaveReview();
 
@@ -32,8 +33,8 @@ export default function Editor() {
           <LoadingSpinner text="리뷰를 저장하고 있어요." />
         </div>
       )}
-      <EditorMetaForm onSubmit={handleSubmit} />
-      <EditorContainer onMount={handleSetContentGetter} />
+      <EditorMetaForm onSubmit={handleSubmit} initialTitle={title} initialCategory={category} />
+      <EditorContainer onMount={handleSetContentGetter} initialContent={content} />
       <section className="w-full bg-white border-t border-gray-300 p-4 flex items-center justify-between">
         <Button variant="link" onClick={handleGoBack}>
           나가기

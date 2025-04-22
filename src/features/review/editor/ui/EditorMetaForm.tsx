@@ -2,21 +2,23 @@ import {useForm} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {FormSchema} from '../consts/rule';
 import {FormSchemaType} from '../model/type';
-import {CATEGORY_LIST} from '@/entities/review';
+import {CATEGORY_LIST, CategoryValue} from '@/entities/review';
 import {Form, FormControl, FormField, FormItem, FormMessage} from '@/shared/shadcnComponent/ui/form';
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from '@/shared/shadcnComponent/ui/select';
 import {Input} from '@/shared/shadcnComponent/ui/input';
 
 type Props = {
   onSubmit: (values: FormSchemaType) => void;
+  initialTitle?: string;
+  initialCategory?: CategoryValue;
 };
 
-export default function EditorMetaForm({onSubmit}: Props) {
+export default function EditorMetaForm({onSubmit, initialTitle, initialCategory}: Props) {
   const form = useForm<FormSchemaType>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      title: '',
-      category: undefined,
+      title: initialTitle || '',
+      category: initialCategory || undefined,
     },
   });
 

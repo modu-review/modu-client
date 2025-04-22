@@ -1,5 +1,6 @@
 import {z} from 'zod';
 import {FormSchema} from '../consts/rule';
+import {CategoryValue} from '@/entities/review';
 
 export type FormSchemaType = z.infer<typeof FormSchema>;
 
@@ -25,4 +26,10 @@ export type EditorActiveState = {
   isAlignCenter: boolean;
   isAlignRight: boolean;
   isLink: boolean;
+};
+
+export type EditorInitialData = {
+  title?: string;
+  category?: CategoryValue;
+  content?: string;
 };

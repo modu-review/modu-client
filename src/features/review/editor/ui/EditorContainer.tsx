@@ -7,10 +7,11 @@ import {LoadingSpinner} from '@/shared/ui/components';
 
 type Props = {
   onMount: (getter: EditorContentGetter) => void;
+  initialContent?: string;
 };
 
-export default function EditorContainer({onMount}: Props) {
-  const {editor, editorState, editorRef} = useReviewEditor();
+export default function EditorContainer({onMount, initialContent}: Props) {
+  const {editor, editorState, editorRef} = useReviewEditor(initialContent);
 
   useEffect(() => {
     if (!editor) return;
