@@ -3,7 +3,7 @@
 import ReviewsWithScroll from './ReviewWithScroll';
 import {SearchBar} from '@/features/search';
 import {CategoryBar, useSelectCategoryFromUrl} from '@/features/reviews/filtering';
-import {SelectSortOptions, useSelectSortOption} from '@/features/review-sorting';
+import {SelectSortOptions, useSelectSortOption} from '@/features/reviews/sorting';
 import {RQProvider} from '@/shared/providers';
 import {LucideIcon} from '@/shared/ui/icons';
 import {SearchReviewsLoading} from '../../keyword-search';

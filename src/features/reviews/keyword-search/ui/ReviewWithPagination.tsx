@@ -2,7 +2,7 @@
 
 import {useParams, useSearchParams} from 'next/navigation';
 import Pagination from '@/widgets/pagination';
-import {SortKey} from '@/features/review-sorting';
+import {SortKey} from '@/features/reviews/sorting';
 import {ReviewArticle, useSearchReviewsWithKeyword} from '@/entities/reviews';
 
 type Props = {

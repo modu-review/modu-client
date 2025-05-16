@@ -2,7 +2,7 @@
 
 import SearchReviewsLoading from './SearchReviewsLoading';
 import ReviewWithPagination from './ReviewWithPagination';
-import {SelectSortOptions, useSelectSortOption} from '@/features/review-sorting';
+import {SelectSortOptions, useSelectSortOption} from '@/features/reviews/sorting';
 import {RQProvider} from '@/shared/providers';
 import {LucideIcon} from '@/shared/ui/icons';
 
