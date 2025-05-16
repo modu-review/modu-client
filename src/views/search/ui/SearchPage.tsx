@@ -1,4 +1,4 @@
-import {SearchReviews} from '@/features/search-review';
+import {SearchReviews} from '@/features/reviews/search';
 
 export default function SearchPage() {
   return (
