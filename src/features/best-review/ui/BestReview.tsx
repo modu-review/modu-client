@@ -19,7 +19,7 @@ export default function BestReview({reviews}: Props) {
       <CategoryBar selectedCategory={selectedCategory} onSelectCategory={handleSelectCategory} />
       <ReviewList filteredReview={filteredReview} />
       <Link
-        href="/allreviews"
+        href="/search"
         className="flex items-center animate-bounce cursor-pointer text-white font-bold text-[20px]"
         aria-label="더 많은 후기 보러가기"
       >

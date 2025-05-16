@@ -9,11 +9,27 @@ export type Review = {
   image_url: string;
 };
 
-export type BestReviewCategory = 'all' | 'food' | 'car' | 'company' | 'cosmetic' | 'cafe' | 'devices1' | 'clothes';
+export type ReviewCategory = 'all' | 'food' | 'car' | 'company' | 'cosmetic' | 'cafe' | 'devices1' | 'clothes';
 
 export type BestReviewMapped = {
-  [key in BestReviewCategory]: {
+  [key in ReviewCategory]: {
     count: number;
     reviews: Review[];
   };
+};
+
+export type SearchReview = Review & {
+  created_at: string;
+};
+
+export type SearchReviewsWithKeyword = {
+  results: SearchReview[];
+  current_page: number;
+  total_pages: number;
+};
+
+export type FindReviews = {
+  results: SearchReview[];
+  next_cursor: number | null;
+  has_next: boolean;
 };

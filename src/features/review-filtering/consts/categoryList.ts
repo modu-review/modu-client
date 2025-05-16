@@ -1,7 +1,7 @@
-import {BestReviewCategory} from '@/entities/reviews';
+import {ReviewCategory} from '@/entities/reviews';
 
 type Category = {
-  id: BestReviewCategory;
+  id: ReviewCategory;
   category: string;
 };
 
