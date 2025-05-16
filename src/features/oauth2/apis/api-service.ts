@@ -2,9 +2,9 @@ import {requestGet} from '@/shared/apis';
 
 async function kakaoLogin(email: string) {
   await requestGet({
-    endpoint: '/user/oauth2/login',
+    endpoint: '/login/result',
     queryParams: {
-      user_email: email,
+      email,
     },
     withResponse: false,
   });
