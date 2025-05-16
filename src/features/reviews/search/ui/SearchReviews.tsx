@@ -1,7 +1,7 @@
 'use client';
 
 import ReviewsWithScroll from './ReviewWithScroll';
-import {SearchBar} from '@/features/search';
+import {SearchBar} from '@/features/reviews/search-bar';
 import {CategoryBar, useSelectCategoryFromUrl} from '@/features/reviews/filtering';
 import {SelectSortOptions, useSelectSortOption} from '@/features/reviews/sorting';
 import {RQProvider} from '@/shared/providers';
