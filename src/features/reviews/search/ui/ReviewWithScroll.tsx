@@ -1,5 +1,5 @@
 import {useCallback} from 'react';
-import {SortKey} from '@/features/review-sorting';
+import {SortKey} from '@/features/reviews/sorting';
 import {ReviewArticle, ReviewArticleLoading, useSearchReviews} from '@/entities/reviews';
 import {LucideIcon} from '@/shared/ui/icons';
 

@@ -1,5 +1,5 @@
-import {SearchBar} from '@/features/search';
-import {SearchReviewsWithKeyword} from '@/features/search-review-keyword';
+import {SearchReviewsWithKeyword} from '@/features/reviews/keyword-search';
+import {SearchBar} from '@/features/reviews/search-bar';
 
 type Props = {
   params: Promise<{keyword: string}>;
