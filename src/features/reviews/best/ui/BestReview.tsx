@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import {CategoryBar, useSelectCategory} from '@/features/review-filtering';
+import {CategoryBar, useSelectCategory} from '@/features/reviews/filtering';
 import {ReviewList, BestReviewMapped} from '@/entities/reviews';
 import {LucideIcon} from '@/shared/ui/icons';
 
