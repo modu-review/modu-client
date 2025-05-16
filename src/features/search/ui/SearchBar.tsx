@@ -17,7 +17,7 @@ export default function SearchBar() {
     const searchQuery = searchInputRef.current?.value.trim() || '';
 
     if (validateSearchQuery(searchQuery)) {
-      router.push(`/reviews?query=${encodeURIComponent(searchQuery)}`);
+      router.push(`/search/${searchQuery}`);
     } else if (searchInputRef.current) {
       searchInputRef.current.focus();
       searchInputRef.current.select();
@@ -42,7 +42,7 @@ export default function SearchBar() {
           onChange={clearError}
         />
       </form>
-      {error && <p className="absolute bottom-[-40px] text-[16px] text-red-500">{error}</p>}
+      {error && <p className="absolute -bottom-7 text-[14px] md:-bottom-8 md:text-[16px] text-red-500">{error}</p>}
     </div>
   );
 }
