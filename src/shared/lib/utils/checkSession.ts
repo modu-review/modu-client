@@ -4,7 +4,7 @@ import {redirect} from 'next/navigation';
 async function checkSession() {
   const cookieStore = await cookies();
 
-  if (!cookieStore.has('accessToken') || !cookieStore.has('UserEmail')) {
+  if (!cookieStore.has('refreshToken')) {
     redirect('/');
   }
 }
