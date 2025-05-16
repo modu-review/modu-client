@@ -116,9 +116,10 @@ async function request<T>(props: WithErrorHandling<RequestProps>): Promise<T> {
   let response: Response = await fetch(url, requestInit);
 
   if (response.status === 401) {
-    const refreshResponse = await fetch('http://localhost:3000/api/auth', {
+    const refreshResponse = await fetch(process.env.NEXT_PUBLIC_API_URL + '/token/refresh', {
       cache: 'no-cache',
       next: {revalidate: 0},
+      credentials: 'include',
     });
 
     if (refreshResponse.ok) {
