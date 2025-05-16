@@ -3,10 +3,10 @@
 import ReviewsWithScroll from './ReviewWithScroll';
 import {SearchBar} from '@/features/search';
 import {CategoryBar, useSelectCategoryFromUrl} from '@/features/review-filtering';
-import {SearchReviewsLoading} from '@/features/search-review-keyword';
 import {SelectSortOptions, useSelectSortOption} from '@/features/review-sorting';
 import {RQProvider} from '@/shared/providers';
 import {LucideIcon} from '@/shared/ui/icons';
+import {SearchReviewsLoading} from '../../search-keyword';
 
 export default function SearchReviews() {
   const {selectedCategory, handleSelectCategory} = useSelectCategoryFromUrl();
