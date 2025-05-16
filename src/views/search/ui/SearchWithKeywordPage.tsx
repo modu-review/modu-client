@@ -1,4 +1,4 @@
-import {SearchReviewsWithKeyword} from '@/features/reviews/search-keyword';
+import {SearchReviewsWithKeyword} from '@/features/reviews/keyword-search';
 import {SearchBar} from '@/features/search';
 
 type Props = {

@@ -6,7 +6,7 @@ import {CategoryBar, useSelectCategoryFromUrl} from '@/features/review-filtering
 import {SelectSortOptions, useSelectSortOption} from '@/features/review-sorting';
 import {RQProvider} from '@/shared/providers';
 import {LucideIcon} from '@/shared/ui/icons';
-import {SearchReviewsLoading} from '../../search-keyword';
+import {SearchReviewsLoading} from '../../keyword-search';
 
 export default function SearchReviews() {
   const {selectedCategory, handleSelectCategory} = useSelectCategoryFromUrl();
