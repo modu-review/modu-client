@@ -1,1 +1,1 @@
-export {useGlobalError, useUpdateGlobalError} from './store/errorStore';
+export {useGlobalError, useUpdateGlobalError, reportGlobalError} from './store/errorStore';

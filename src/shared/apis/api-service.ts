@@ -1,3 +1,4 @@
+import {reportGlobalError} from '@/entities/error';
 import isBrowser from '../lib/utils/isBrowser';
 import {RequestError, RequestGetError} from './request-error';
 import {
@@ -145,6 +146,31 @@ async function request<T>(props: WithErrorHandling<RequestProps>): Promise<T> {
   }
 
   return undefined as T;
+}
+
+async function requestWithErrorHandling<T>(fn: () => Promise<T>): Promise<T | never> {
+  try {
+    return await fn();
+  } catch (error) {
+    if (!isBrowser()) {
+      return Promise.reject(error);
+    }
+
+    if (error instanceof RequestGetError) {
+      if (error.errorHandlingType === 'errorBoundary') throw error;
+      else reportGlobalError(error);
+
+      return Promise.reject(error);
+    }
+
+    if (error instanceof RequestError) {
+      reportGlobalError(error);
+
+      return Promise.reject(error);
+    }
+
+    throw error;
+  }
 }
 
 /**
