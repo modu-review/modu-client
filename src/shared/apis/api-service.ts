@@ -183,13 +183,15 @@ export async function requestGet<T>({
   errorHandlingType,
   ...args
 }: WithErrorHandling<RequestMethodProps>): Promise<T> {
-  return request<T>({
-    ...args,
-    method: 'GET',
-    headers,
-    withResponse: true,
-    errorHandlingType,
-  });
+  return requestWithErrorHandling(() =>
+    request<T>({
+      ...args,
+      method: 'GET',
+      headers,
+      withResponse: true,
+      errorHandlingType,
+    }),
+  );
 }
 
 /**
@@ -202,12 +204,14 @@ export async function requestPost<T = void>({
   withResponse = false,
   ...args
 }: RequestMethodProps): Promise<T> {
-  return request<T>({
-    ...args,
-    method: 'POST',
-    headers,
-    withResponse,
-  });
+  return requestWithErrorHandling(() =>
+    request<T>({
+      ...args,
+      method: 'POST',
+      headers,
+      withResponse,
+    }),
+  );
 }
 
 /**
@@ -220,12 +224,14 @@ export async function requestPut<T = void>({
   withResponse = false,
   ...args
 }: RequestMethodProps): Promise<T> {
-  return request<T>({
-    ...args,
-    method: 'PUT',
-    headers,
-    withResponse,
-  });
+  return requestWithErrorHandling(() =>
+    request<T>({
+      ...args,
+      method: 'PUT',
+      headers,
+      withResponse,
+    }),
+  );
 }
 
 /**
@@ -238,12 +244,14 @@ export async function requestDelete<T = void>({
   withResponse = false,
   ...args
 }: RequestMethodProps): Promise<T> {
-  return request<T>({
-    ...args,
-    method: 'DELETE',
-    headers,
-    withResponse,
-  });
+  return requestWithErrorHandling(() =>
+    request<T>({
+      ...args,
+      method: 'DELETE',
+      headers,
+      withResponse,
+    }),
+  );
 }
 
 /**
@@ -256,10 +264,12 @@ export async function requestPatch<T = void>({
   withResponse = false,
   ...args
 }: RequestMethodProps): Promise<T> {
-  return request<T>({
-    ...args,
-    method: 'PATCH',
-    headers,
-    withResponse,
-  });
+  return requestWithErrorHandling(() =>
+    request<T>({
+      ...args,
+      method: 'PATCH',
+      headers,
+      withResponse,
+    }),
+  );
 }
