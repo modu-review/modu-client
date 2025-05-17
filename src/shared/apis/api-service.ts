@@ -127,7 +127,15 @@ async function request<T>(props: WithErrorHandling<RequestProps>): Promise<T> {
       response = await fetch(url, requestInit);
     } else {
       if (isBrowser()) {
-        window.location.href = '/login';
+        throw new RequestError({
+          status: 401,
+          endpoint: url,
+          method: requestInit.method,
+          requestBody: requestInit.body ? JSON.stringify(requestInit.body) : null,
+          errorCode: 'TOKEN_EXPIRED',
+          message: '로그인 세션이 만료되었습니다.',
+          name: 'TOKEN_EXPIRED',
+        });
       }
     }
   }

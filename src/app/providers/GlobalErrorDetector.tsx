@@ -23,14 +23,18 @@ export default function GlobalErrorDetector({children}: Props) {
         description: SERVER_ERROR_MESSAGE[globalError.errorCode],
       });
 
+      if (globalError.errorCode === 'TOKEN_EXPIRED') {
+        window.location.href = '/';
+      }
+
       return;
     }
 
     if (isClientError(globalError)) {
       toast.error({
-        title: "에러가 발생했어요.",
-        description: ERROR_MESSAGE[globalError.errorCode]
-      })
+        title: '에러가 발생했어요.',
+        description: ERROR_MESSAGE[globalError.errorCode],
+      });
 
       return;
     }
