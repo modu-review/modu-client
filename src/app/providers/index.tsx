@@ -10,11 +10,11 @@ type Props = {
 const Providers = ({children}: Props) => {
   return (
     <UnPredictableErrorBoundary>
-      <AuthProvider>
-        <GlobalErrorDetector>
+      <GlobalErrorDetector>
+        <AuthProvider>
           <ReactQueryProvider>{children}</ReactQueryProvider>
-        </GlobalErrorDetector>
-      </AuthProvider>
+        </AuthProvider>
+      </GlobalErrorDetector>
     </UnPredictableErrorBoundary>
   );
 };
