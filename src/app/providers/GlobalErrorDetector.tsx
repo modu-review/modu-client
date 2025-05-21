@@ -6,6 +6,7 @@ import isPredictableServerError from '@/shared/lib/utils/isPredictableServerErro
 import isClientError from '@/shared/lib/utils/isClientError';
 import toast from '@/shared/lib/utils/toastService';
 import {ERROR_MESSAGE, SERVER_ERROR_MESSAGE} from '@/shared/lib/consts/errorMessage';
+import {useRouter} from 'next/navigation';
 
 type Props = {
   children: React.ReactNode;
@@ -13,6 +14,7 @@ type Props = {
 
 export default function GlobalErrorDetector({children}: Props) {
   const globalError = useGlobalError();
+  const router = useRouter();
 
   useEffect(() => {
     if (!globalError) return;
@@ -23,8 +25,8 @@ export default function GlobalErrorDetector({children}: Props) {
         description: SERVER_ERROR_MESSAGE[globalError.errorCode],
       });
 
-      if (globalError.errorCode === 'TOKEN_EXPIRED') {
-        window.location.href = '/';
+      if (globalError.errorCode === 'TOKEN_EXPIRED' || globalError.errorCode === 'EMPTY_USER_EMAIL') {
+        router.push('/');
       }
 
       return;
@@ -41,7 +43,7 @@ export default function GlobalErrorDetector({children}: Props) {
 
     // 미리 약속한 에러가 아닌 경우 전역 에러 바운더리로 처리합니다.
     throw globalError;
-  }, [globalError]);
+  }, [globalError, router]);
 
   return children;
 }
