@@ -4,7 +4,7 @@ import {NextResponse} from 'next/server';
 export async function GET() {
   const cookieStore = await cookies();
 
-  if (!cookieStore.has('accessToken')) {
+  if (!cookieStore.has('refreshToken')) {
     return NextResponse.json({
       isLoggedIn: false,
       userEmail: null,
@@ -12,7 +12,7 @@ export async function GET() {
     });
   }
 
-  const userEmailCookie = cookieStore.get('UserEmail');
+  const userEmailCookie = cookieStore.get('userEmail');
 
   if (!userEmailCookie) {
     return NextResponse.json({errorCode: 'EMPTY_USER_EMAIL'}, {status: 400});
