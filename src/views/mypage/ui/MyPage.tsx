@@ -1,6 +1,9 @@
+import checkSession from '@/shared/lib/utils/checkSession';
 import UserInfo from './UserInfo';
 
-export default function MyPage() {
+export default async function MyPage() {
+  await checkSession();
+
   return (
     <section className="fixed inset-0 w-full h-full bg-white">
       <section className="bg-lightBlue p-4 flex flex-col justify-between">
