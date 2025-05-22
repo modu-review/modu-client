@@ -33,3 +33,15 @@ export type FindReviews = {
   next_cursor: number | null;
   has_next: boolean;
 };
+
+export type MyReviews = {
+  results: Review[];
+  current_page: number;
+  total_pages: number;
+};
+
+export type MyBookmarkedReviews = {
+  results: Review[];
+  current_page: number;
+  total_pages: number;
+};
