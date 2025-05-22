@@ -11,6 +11,9 @@ export const SERVER_ERROR_MESSAGE: ErrorMessage = {
 
   // OAuth2 로그인 에러 - Next.js API Routes
   EMPTY_USER_EMAIL: '이메일 정보를 찾을 수 없어 로그아웃 됐어요. 다시 로그인해주세요.',
+
+  // 페이지 기반 에러
+  EMPTY_PAGE_PARAM: '페이지 정보가 존재하지 않아요.',
 } as const;
 
 export const ERROR_MESSAGE = {
