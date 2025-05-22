@@ -7,7 +7,7 @@ const reviewQueryKeys = {
   searchWithKeyword: (keyword: string, page: number, sort: string) =>
     ['searchWithKeyword', keyword, page, sort] as const,
   my: (page: number) => ['my', page] as const,
-  myBookmarked: (page: number) => ['myBookmarked', page] as const,
+  myBookmarks: (page: number) => ['myBookmarks', page] as const,
 };
 
 const reviewQueryOptions = {
@@ -30,8 +30,8 @@ const reviewQueryOptions = {
     queryFn: () => getMyReviews(page),
     placeholderData: keepPreviousData,
   }),
-  myBookmarked: (page: number) => ({
-    queryKey: reviewQueryKeys.myBookmarked(page),
+  myBookmarks: (page: number) => ({
+    queryKey: reviewQueryKeys.myBookmarks(page),
     queryFn: () => getMyReviews(page),
     placeholderData: keepPreviousData,
   }),

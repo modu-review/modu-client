@@ -6,3 +6,5 @@ export {default as ReviewArticleLoading} from './ui/ReviewArticleLoading';
 export {default as useSearchReviews} from './model/useSearchReviews';
 export {default as useSearchReviewsWithKeyword} from './model/useSearchReviewsWithQuery';
 export {default as ReviewsLoading} from './ui/ReviewsLoading';
+export {default as useMyReviews} from './model/useMyReviews';
+export {default as useMyBookmarkedReviews} from './model/useMyBookmarkedReviews';
