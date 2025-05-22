@@ -1,11 +1,13 @@
 import {keepPreviousData} from '@tanstack/react-query';
-import {getBestReviews, getReviews, getReviewsWithKeyword} from '../apis/api-service';
+import {getBestReviews, getMyReviews, getReviews, getReviewsWithKeyword} from '../apis/api-service';
 
 const reviewQueryKeys = {
   best: ['bestReviews'] as const,
   search: (categoryId: string, sort: string) => ['search', categoryId, sort] as const,
   searchWithKeyword: (keyword: string, page: number, sort: string) =>
     ['searchWithKeyword', keyword, page, sort] as const,
+  my: (page: number) => ['my', page] as const,
+  myBookmarked: (page: number) => ['myBookmarked', page] as const,
 };
 
 const reviewQueryOptions = {
@@ -21,6 +23,16 @@ const reviewQueryOptions = {
   searchWithKeyword: (keyword: string, page: number, sort: string) => ({
     queryKey: reviewQueryKeys.searchWithKeyword(keyword, page, sort),
     queryFn: () => getReviewsWithKeyword(keyword, page, sort),
+    placeholderData: keepPreviousData,
+  }),
+  my: (page: number) => ({
+    queryKey: reviewQueryKeys.my(page),
+    queryFn: () => getMyReviews(page),
+    placeholderData: keepPreviousData,
+  }),
+  myBookmarked: (page: number) => ({
+    queryKey: reviewQueryKeys.myBookmarked(page),
+    queryFn: () => getMyReviews(page),
     placeholderData: keepPreviousData,
   }),
 };
