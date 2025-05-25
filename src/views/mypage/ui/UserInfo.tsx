@@ -9,14 +9,14 @@ export default function UserInfo() {
   const userEmail = useUserEmail();
 
   return (
-    <section className="flex ml-10">
-      <div className="translate-y-1/2 w-48 h-48 bg-white flex justify-center items-center rounded-full border-lightBlue border-[6px]">
-        <LucideIcon name="UserRound" className="w-36 h-36" />
+    <section className="flex ml-2 md:ml-10">
+      <div className="translate-y-1/2 w-36 h-36 md:w-40 md:h-40 bg-white flex justify-center items-center rounded-full border-lightBlue border-[6px]">
+        <LucideIcon name="UserRound" className="w-20 h-20 md:w-32 md:h-32" />
       </div>
-      <div className="mt-auto ml-5 relative">
-        <p className="text-xl text-boldBlue font-bold mb-2">{userId}</p>
-        <p className="text-boldBlue font-semibold">{userEmail}</p>
-        <Button className="absolute -bottom-[4rem]" variant="logInOut" size="logInOut">
+      <div className="mt-auto ml-3 md:ml-5 relative">
+        <p className="text-lg md:text-xl text-boldBlue font-semibold mb-1 md:mb-2">gojimin3095</p>
+        <p className="text-sm text-boldBlue">gojimin3095@gmail.com</p>
+        <Button className="absolute -left-[0.5rem] -bottom-[3.5rem]" variant="logInOut" size="logInOut">
           로그아웃
         </Button>
       </div>
