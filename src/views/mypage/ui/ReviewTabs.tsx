@@ -1,4 +1,5 @@
 import {MyReviews} from '@/features/reviews/my';
+import {MyBookmarkedReviews} from '@/features/reviews/myBookmarks';
 import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/shared/shadcnComponent/ui/tabs';
 
 const tabsTriggerStyle = '';
@@ -17,7 +18,9 @@ export default function ReviewTabs() {
       <TabsContent value="my">
         <MyReviews />
       </TabsContent>
-      <TabsContent value="myBookmarks">나는 이런 후기를 저장했어요.</TabsContent>
+      <TabsContent value="myBookmarks">
+        <MyBookmarkedReviews />
+      </TabsContent>
     </Tabs>
   );
 }
