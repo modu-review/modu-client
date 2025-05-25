@@ -1,5 +1,4 @@
-import ReviewsGrid from './ReviewsGrid';
-import {Review} from '../model/types';
+import {Review, ReviewsGrid} from '@/entities/reviews';
 import {LucideIcon} from '@/shared/ui/icons';
 
 type Props = {
