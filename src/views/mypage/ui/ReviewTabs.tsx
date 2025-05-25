@@ -1,5 +1,4 @@
-import {MyReviews} from '@/features/reviews/my';
-import {MyBookmarkedReviews} from '@/features/reviews/myBookmarks';
+import {MyBookmarkedReviews, MyReviews} from '@/features/reviews/my';
 import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/shared/shadcnComponent/ui/tabs';
 
 const tabsTriggerStyle = '';
