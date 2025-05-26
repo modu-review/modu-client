@@ -4,17 +4,16 @@ import CardDescription from './CardDescription';
 import {cn} from '@/shared/lib/utils/cn';
 import {LucideIcon} from '@/shared/ui/icons';
 
-const cardVariants = cva(
-  'relative w-[290px] h-[400px] md:w-[300px] md:h-[400px] lg:w-[280px] lg:h-[370px] bg-white shadow-lg shadow-black',
-  {
-    variants: {
-      from: {
-        bestReview: 'rounded-t-[115px] rounded-b-xl pt-7',
-        myPage: 'rounded-xl pt-4',
-      },
+const cardVariants = cva('relative bg-white', {
+  variants: {
+    from: {
+      bestReview:
+        'rounded-t-[115px] rounded-b-xl pt-7 w-[290px] h-[400px] md:w-[300px] md:h-[400px] lg:w-[280px] lg:h-[370px] shadow-lg shadow-black',
+      myPage:
+        'rounded-xl pt-4 w-[290px] h-[400px] md:w-[300px] md:h-[400px] lg:w-[260px] lg:h-[350px] shadow-md shadow-mediumBlue hover:translate-y-[-2px] hover:shadow-lg hover:shadow-boldBlue transition-all',
     },
   },
-);
+});
 
 type BaseProps = {
   card: Review;
