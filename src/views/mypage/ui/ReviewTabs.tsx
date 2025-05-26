@@ -3,12 +3,15 @@
 import {useRouter, useSearchParams} from 'next/navigation';
 import {MyBookmarkedReviews, MyReviews} from '@/features/reviews/my';
 import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/shared/shadcnComponent/ui/tabs';
+import {RQProvider} from '@/shared/providers';
+import {LucideIcon} from '@/shared/ui/icons';
 
 export default function ReviewTabs() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
   const tabValue = searchParams.get('tab') || 'my';
+  const currentPage = Number(searchParams.get('page')) || 1;
 
   const handleTabChange = (value: string) => {
     router.push('/mypage?tab=' + value);
@@ -21,7 +24,9 @@ export default function ReviewTabs() {
         <TabsTrigger value="myBookmarks">내가 저장한 후기</TabsTrigger>
       </TabsList>
       <TabsContent value="my">
-        <MyReviews />
+        <RQProvider LoadingFallback={<div>loading...</div>} icon={<LucideIcon name="Bug" />}>
+          <MyReviews currentPage={currentPage} />
+        </RQProvider>
       </TabsContent>
       <TabsContent value="myBookmarks">
         <MyBookmarkedReviews />
