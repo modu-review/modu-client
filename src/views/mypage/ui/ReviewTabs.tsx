@@ -10,11 +10,11 @@ export default function ReviewTabs() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const tabValue = searchParams.get('tab') || 'my';
+  const tabValue = searchParams.get('tabs') || 'my';
   const currentPage = Number(searchParams.get('page')) || 1;
 
   const handleTabChange = (value: string) => {
-    router.push('/mypage?tab=' + value);
+    router.push('/mypage?tabs=' + value);
   };
 
   return (
