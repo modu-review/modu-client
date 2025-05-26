@@ -1,5 +1,5 @@
-import {ReviewsGrid, useMyReviews} from '@/entities/reviews';
-import Pagination from '@/widgets/pagination';
+import ReviewList from './ReviewList';
+import {useMyReviews} from '@/entities/reviews';
 
 type Props = {
   currentPage: number;
@@ -14,17 +14,7 @@ export default function MyReviews({currentPage}: Props) {
 
   return (
     <section>
-      <ReviewsGrid
-        reviews={results}
-        from="myPage"
-        onEdit={() => console.log('수정')}
-        onDelete={() => console.log('삭제')}
-      />
-      <Pagination
-        currentPage={currentPage}
-        totalPages={total_pages}
-        generateUrl={(page: number) => `?tabs=my&page=${page}`}
-      />
+      <ReviewList reviews={results} currentPage={currentPage} totalPages={total_pages} tabs="my" />
     </section>
   );
 }
