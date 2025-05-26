@@ -1,5 +1,26 @@
+import {cva} from 'class-variance-authority';
 import {Review} from '../model/types';
 import CardFrame from './CardFrame';
+
+const reviewsGridVariants = cva(
+  'w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 content-center justify-items-center',
+  {
+    variants: {
+      cols: {
+        bestReview: 'xl:grid-cols-4',
+        myPage: '',
+      },
+      gap: {
+        bestReview: 'gap-y-14 md:gap-y-20',
+        myPage: 'gap-y-10',
+      },
+      margin: {
+        bestReview: 'mb-16',
+        myPage: 'mb-10',
+      },
+    },
+  },
+);
 
 type Props =
   | {
@@ -16,7 +37,7 @@ type Props =
 export default function ReviewsGrid(props: Props) {
   const {reviews, from} = props;
   return (
-    <ul className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-14 md:gap-y-20 content-center justify-items-center mb-16">
+    <ul className={reviewsGridVariants({cols: from, gap: from, margin: from})}>
       {reviews.map(card =>
         from === 'myPage' ? (
           <CardFrame key={card.board_id} card={card} from="myPage" onDelete={props.onDelete} onEdit={props.onEdit} />
