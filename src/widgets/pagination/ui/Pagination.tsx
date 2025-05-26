@@ -14,9 +14,10 @@ type Props = {
   currentPage: number;
   totalPages: number;
   generateUrl: (page: number) => string;
+  className?: string;
 };
 
-export default function Pagination({totalPages, currentPage, generateUrl}: Props) {
+export default function Pagination({totalPages, currentPage, generateUrl, className}: Props) {
   function renderPageNumbers() {
     if (totalPages === 1) {
       return (
@@ -88,7 +89,7 @@ export default function Pagination({totalPages, currentPage, generateUrl}: Props
 
   return (
     <ShadcnPagination>
-      <PaginationContent>
+      <PaginationContent className={className}>
         <PaginationItem>
           <PaginationPrevious
             href={generateUrl(currentPage - 1)}

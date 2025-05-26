@@ -21,6 +21,7 @@ export default function ReviewList({reviews, currentPage, totalPages, tabs}: Pro
         currentPage={currentPage}
         totalPages={totalPages}
         generateUrl={(page: number) => `?tabs=${tabs}&page=${page}`}
+        className="bg-white px-1.5 md:px-5 py-1.5 rounded-md shadow-md"
       />
     </>
   );
