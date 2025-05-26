@@ -5,6 +5,7 @@ import {MyBookmarkedReviews, MyReviews} from '@/features/reviews/my';
 import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/shared/shadcnComponent/ui/tabs';
 import {RQProvider} from '@/shared/providers';
 import {LucideIcon} from '@/shared/ui/icons';
+import {ReviewsGridLoading} from '@/entities/reviews';
 
 export default function ReviewTabs() {
   const router = useRouter();
@@ -24,12 +25,12 @@ export default function ReviewTabs() {
         <TabsTrigger value="myBookmarks">내가 저장한 후기</TabsTrigger>
       </TabsList>
       <TabsContent value="my">
-        <RQProvider LoadingFallback={<div>loading...</div>} icon={<LucideIcon name="Bug" />}>
+        <RQProvider LoadingFallback={<ReviewsGridLoading />} icon={<LucideIcon name="Bug" />}>
           <MyReviews currentPage={currentPage} />
         </RQProvider>
       </TabsContent>
       <TabsContent value="myBookmarks">
-        <RQProvider LoadingFallback={<div>loading...</div>} icon={<LucideIcon name="Bug" />}>
+        <RQProvider LoadingFallback={<ReviewsGridLoading />} icon={<LucideIcon name="Bug" />}>
           <MyBookmarkedReviews currentPage={currentPage} />
         </RQProvider>
       </TabsContent>
