@@ -29,7 +29,9 @@ export default function ReviewTabs() {
         </RQProvider>
       </TabsContent>
       <TabsContent value="myBookmarks">
-        <MyBookmarkedReviews />
+        <RQProvider LoadingFallback={<div>loading...</div>} icon={<LucideIcon name="Bug" />}>
+          <MyBookmarkedReviews currentPage={currentPage} />
+        </RQProvider>
       </TabsContent>
     </Tabs>
   );
