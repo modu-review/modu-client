@@ -7,7 +7,7 @@ export default async function MyPage() {
 
   return (
     <section className="fixed inset-0 w-full h-full bg-white overflow-auto">
-      <section className="w-full max-w-5xl mx-auto">
+      <section className="w-full max-w-5xl mx-auto mb-10">
         <section className="bg-lightBlue p-4 flex flex-col justify-between mb-[90px] md:mb-[110px]">
           <h2 className="text-2xl text-boldBlue font-bold">마이페이지</h2>
           <UserInfo />
