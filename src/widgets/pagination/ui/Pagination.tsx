@@ -13,20 +13,15 @@ import {
 type Props = {
   currentPage: number;
   totalPage: number;
-  query: string;
-  sort: string;
+  generateUrl: (page: number) => string;
 };
 
-export default function Pagination({totalPage, currentPage, query, sort}: Props) {
-  function generateSearchUrl(page: number) {
-    return `/search/${query}?page=${page}&sort=${sort}`;
-  }
-
+export default function Pagination({totalPage, currentPage, generateUrl}: Props) {
   function renderPageNumbers() {
     if (totalPage === 1) {
       return (
         <PaginationItem key={1}>
-          <PaginationLink href={generateSearchUrl(1)} isActive={true}>
+          <PaginationLink href={generateUrl(1)} isActive={true}>
             1
           </PaginationLink>
         </PaginationItem>
@@ -38,7 +33,7 @@ export default function Pagination({totalPage, currentPage, query, sort}: Props)
     if (currentPage > 2) {
       items.push(
         <PaginationItem key="first">
-          <PaginationLink href={generateSearchUrl(1)} isActive={currentPage === 1}>
+          <PaginationLink href={generateUrl(1)} isActive={currentPage === 1}>
             1
           </PaginationLink>
         </PaginationItem>,
@@ -63,7 +58,7 @@ export default function Pagination({totalPage, currentPage, query, sort}: Props)
     for (let i = startPage; i <= endPage; i++) {
       items.push(
         <PaginationItem key={i}>
-          <PaginationLink href={generateSearchUrl(i)} isActive={currentPage === i}>
+          <PaginationLink href={generateUrl(i)} isActive={currentPage === i}>
             {i}
           </PaginationLink>
         </PaginationItem>,
@@ -81,7 +76,7 @@ export default function Pagination({totalPage, currentPage, query, sort}: Props)
     if (currentPage < totalPage - 1) {
       items.push(
         <PaginationItem key="last">
-          <PaginationLink href={generateSearchUrl(totalPage)} isActive={currentPage === totalPage}>
+          <PaginationLink href={generateUrl(totalPage)} isActive={currentPage === totalPage}>
             {totalPage}
           </PaginationLink>
         </PaginationItem>,
@@ -96,7 +91,7 @@ export default function Pagination({totalPage, currentPage, query, sort}: Props)
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
-            href={generateSearchUrl(currentPage - 1)}
+            href={generateUrl(currentPage - 1)}
             aria-disabled={currentPage === 1}
             tabIndex={currentPage === 1 ? -1 : 0}
             className={`${currentPage === 1 && 'pointer-events-none opacity-50'}`}
@@ -105,7 +100,7 @@ export default function Pagination({totalPage, currentPage, query, sort}: Props)
         {renderPageNumbers()}
         <PaginationItem>
           <PaginationNext
-            href={generateSearchUrl(currentPage + 1)}
+            href={generateUrl(currentPage + 1)}
             aria-disabled={currentPage === totalPage}
             tabIndex={currentPage === totalPage ? -1 : 0}
             className={`${currentPage === totalPage && 'pointer-events-none opacity-50'}`}

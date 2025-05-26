@@ -23,7 +23,11 @@ export default function ReviewWithPagination({sort}: Props) {
           <ReviewArticle searchReview={searchReview} />
         </li>
       ))}
-      <Pagination currentPage={currentPage} totalPage={total_pages} query={keyword} sort={sort} />
+      <Pagination
+        currentPage={currentPage}
+        totalPage={total_pages}
+        generateUrl={(page: number) => `/search/${keyword}?page=${page}&sort=${sort}`}
+      />
     </ul>
   );
 }
