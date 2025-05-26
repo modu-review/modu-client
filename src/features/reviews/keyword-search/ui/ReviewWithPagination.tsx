@@ -25,7 +25,7 @@ export default function ReviewWithPagination({sort}: Props) {
       ))}
       <Pagination
         currentPage={currentPage}
-        totalPage={total_pages}
+        totalPages={total_pages}
         generateUrl={(page: number) => `/search/${keyword}?page=${page}&sort=${sort}`}
       />
     </ul>

@@ -22,7 +22,7 @@ export default function MyReviews({currentPage}: Props) {
       />
       <Pagination
         currentPage={currentPage}
-        totalPage={total_pages}
+        totalPages={total_pages}
         generateUrl={(page: number) => `?tabs=my&page=${page}`}
       />
     </section>
