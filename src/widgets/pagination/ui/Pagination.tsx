@@ -59,7 +59,13 @@ export default function Pagination({totalPages, currentPage, generateUrl, classN
     for (let i = startPage; i <= endPage; i++) {
       items.push(
         <PaginationItem key={i}>
-          <PaginationLink href={generateUrl(i)} isActive={currentPage === i}>
+          <PaginationLink
+            href={generateUrl(i)}
+            isActive={currentPage === i}
+            aria-disabled={currentPage === i}
+            tabIndex={currentPage === i ? -1 : 0}
+            className={`${currentPage === i && 'pointer-events-none'}`}
+          >
             {i}
           </PaginationLink>
         </PaginationItem>,
