@@ -14,11 +14,11 @@ export default function ReviewWithPagination({sort}: Props) {
   const searchParams = useSearchParams();
 
   const currentPage = Number(searchParams.get('page')) || 1;
-  const {results, total_pages} = useSearchReviewsWithKeyword(keyword, currentPage, sort);
+  const {content, total_pages} = useSearchReviewsWithKeyword(keyword, currentPage, sort);
 
   return (
     <ul className="flex flex-col mb-6">
-      {results.map(searchReview => (
+      {content.map(searchReview => (
         <li key={searchReview.board_id}>
           <ReviewArticle searchReview={searchReview} />
         </li>

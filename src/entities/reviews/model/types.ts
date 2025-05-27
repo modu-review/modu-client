@@ -23,13 +23,13 @@ export type SearchReview = Review & {
 };
 
 export type SearchReviewsWithKeyword = {
-  results: SearchReview[];
+  content: SearchReview[];
   current_page: number;
   total_pages: number;
 };
 
 export type FindReviews = {
-  results: SearchReview[];
+  content: SearchReview[];
   next_cursor: number | null;
   has_next: boolean;
 };
