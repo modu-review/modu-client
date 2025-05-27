@@ -6,6 +6,7 @@ import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/shared/shadcnComponent
 import {RQProvider} from '@/shared/providers';
 import {LucideIcon} from '@/shared/ui/icons';
 import {ReviewsGridLoading} from '@/entities/reviews';
+import {useEffect, useRef} from 'react';
 
 export default function ReviewTabs() {
   const router = useRouter();
@@ -14,12 +15,20 @@ export default function ReviewTabs() {
   const tabValue = searchParams.get('tabs') || 'my';
   const currentPage = Number(searchParams.get('page')) || 1;
 
+  const tabsRef = useRef<HTMLDivElement>(null);
+
   const handleTabChange = (value: string) => {
     router.push('/mypage?tabs=' + value);
   };
 
+  useEffect(() => {
+    if (tabsRef.current) {
+      tabsRef.current.scrollIntoView({behavior: 'smooth'});
+    }
+  }, [currentPage]);
+
   return (
-    <Tabs value={tabValue} onValueChange={handleTabChange} defaultValue="my" className="w-full">
+    <Tabs ref={tabsRef} value={tabValue} onValueChange={handleTabChange} defaultValue="my" className="w-full">
       <TabsList className="grid w-full grid-cols-2 gap-2">
         <TabsTrigger value="my">내가 작성한 후기</TabsTrigger>
         <TabsTrigger value="myBookmarks">내가 저장한 후기</TabsTrigger>
