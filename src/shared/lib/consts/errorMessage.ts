@@ -32,4 +32,6 @@ export const ERROR_MESSAGE = {
   // 에디터 관련 에러
   INVALID_LINK_PROTOCOL: '허용되지 않은 프로토콜이에요. https://로 시작하는 링크를 입력해주세요.',
   INVALID_LINK_URL: '허용되지 않은 링크예요. www.example.com과 같은 링크를 입력해주세요.',
+  MAX_SIZE_EXCEEDED: '이미지 크기가 너무 커요. 최대 5MB 이하의 이미지를 업로드해주세요.',
+  UPLOAD_FAILED: '이미지 업로드에 실패했어요. 다시 시도해주세요.',
 } as const;

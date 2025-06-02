@@ -12,3 +12,17 @@ export type ImageUploadNodeOptions = {
   upload?: UploadFunction;
   onError?: (error: ClientError) => void;
 };
+
+export type FileItem = {
+  file: File;
+  progress: number;
+  status: 'uploading' | 'success' | 'error';
+  abortController: AbortController;
+};
+
+export type UploadOptions = {
+  maxSize: number;
+  accept: string;
+  upload: (file: File, onProgress: (event: {progress: number}) => void, abortSignal: AbortSignal) => Promise<string>;
+  onError: (error: ClientError) => void;
+};
