@@ -1,6 +1,7 @@
 import {useState} from 'react';
-import {ClientError, createClientError} from '@/shared/lib/utils/client-error';
 import {FileItem, UploadOptions} from '../model/type';
+import isAborted from './isAborted';
+import {ClientError, createClientError} from '@/shared/lib/utils/client-error';
 
 export default function useFileUpload(options: UploadOptions) {
   const [fileItem, setFileItem] = useState<FileItem | null>(null);
@@ -60,10 +61,7 @@ export default function useFileUpload(options: UploadOptions) {
         });
       }
 
-      if (
-        (error instanceof Error && error.message === 'Upload cancelled') ||
-        (error instanceof DOMException && error.name === 'AbortError')
-      ) {
+      if (isAborted(error)) {
         return null;
       }
 
