@@ -4,6 +4,7 @@ import useFileUpload from '../lib/useFileUpload';
 import {UploadOptions} from '../model/type';
 import ImageUploadDragArea from './ImageUploadDragArea';
 import ImageUploadDropZone from './ImageUploadDropZone';
+import ImageUploadPreview from './ImageUploadPreview';
 import {createClientError} from '@/shared/lib/utils/client-error';
 
 function ImageUploadNode(props: NodeViewProps) {
@@ -77,7 +78,12 @@ function ImageUploadNode(props: NodeViewProps) {
           <input className="hidden" ref={inputRef} name="file" accept={accept} type="file" onChange={handleChange} />
         </ImageUploadDragArea>
       ) : (
-        <div>{/** Todo: 이미지 업로드 상태 표시 */}</div>
+        <ImageUploadPreview
+          file={fileItem.file}
+          progress={fileItem.progress}
+          status={fileItem.status}
+          onRemove={clearFileItem}
+        />
       )}
     </NodeViewWrapper>
   );
