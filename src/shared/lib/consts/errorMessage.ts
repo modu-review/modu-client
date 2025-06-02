@@ -34,4 +34,6 @@ export const ERROR_MESSAGE = {
   INVALID_LINK_URL: '허용되지 않은 링크예요. www.example.com과 같은 링크를 입력해주세요.',
   MAX_SIZE_EXCEEDED: '이미지 크기가 너무 커요. 최대 5MB 이하의 이미지를 업로드해주세요.',
   UPLOAD_FAILED: '이미지 업로드에 실패했어요. 다시 시도해주세요.',
+  NO_IMAGE_SELECTED: '이미지를 선택해주세요.',
+  TOO_MANY_IMAGES_SELECTED: '이미지는 1개만 선택할 수 있어요.',
 } as const;
