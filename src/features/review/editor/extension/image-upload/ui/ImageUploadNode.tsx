@@ -2,6 +2,8 @@ import {ChangeEvent, useRef} from 'react';
 import {NodeViewProps, NodeViewWrapper} from '@tiptap/react';
 import useFileUpload from '../lib/useFileUpload';
 import {UploadOptions} from '../model/type';
+import ImageUploadDragArea from './ImageUploadDragArea';
+import ImageUploadDropZone from './ImageUploadDropZone';
 import {createClientError} from '@/shared/lib/utils/client-error';
 
 function ImageUploadNode(props: NodeViewProps) {
@@ -70,7 +72,10 @@ function ImageUploadNode(props: NodeViewProps) {
   return (
     <NodeViewWrapper className="image-upload-box not-prose py-5" tabIndex={0} onClick={handleClick}>
       {!fileItem ? (
-        <input className="hidden" ref={inputRef} name="file" accept={accept} type="file" onChange={handleChange} />
+        <ImageUploadDragArea onFile={handleUpload} onError={uploadOptions.onError}>
+          <ImageUploadDropZone maxSize={maxSize} />
+          <input className="hidden" ref={inputRef} name="file" accept={accept} type="file" onChange={handleChange} />
+        </ImageUploadDragArea>
       ) : (
         <div>{/** Todo: 이미지 업로드 상태 표시 */}</div>
       )}
