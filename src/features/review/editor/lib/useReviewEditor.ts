@@ -6,6 +6,8 @@ import TextAlign from '@tiptap/extension-text-align';
 import Link from '@tiptap/extension-link';
 import {useUpdateGlobalError} from '@/entities/error';
 import {createClientError} from '@/shared/lib/utils/client-error';
+import ImageUploadNode from '../extension/image-upload';
+import handleImageUpload from './handleImageUpload';
 
 function useReviewEditor(initialContent?: string) {
   const updateError = useUpdateGlobalError();
@@ -17,6 +19,12 @@ function useReviewEditor(initialContent?: string) {
         HTMLAttributes: {
           class: 'custom-editor-image',
         },
+      }),
+      ImageUploadNode.configure({
+        accept: 'image/*',
+        maxSize: 5 * 1024 * 1024,
+        upload: handleImageUpload,
+        onError: updateError,
       }),
       TextAlign.configure({types: ['heading', 'paragraph'], defaultAlignment: 'left'}),
       Link.configure({
