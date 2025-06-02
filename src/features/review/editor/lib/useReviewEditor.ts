@@ -5,9 +5,9 @@ import Image from '@tiptap/extension-image';
 import TextAlign from '@tiptap/extension-text-align';
 import Link from '@tiptap/extension-link';
 import {useUpdateGlobalError} from '@/entities/error';
-import {createClientError} from '@/shared/lib/utils/client-error';
 import ImageUploadNode from '../extension/image-upload';
 import handleImageUpload from './handleImageUpload';
+import validateLinkUrl from './validateLinkUrl';
 
 function useReviewEditor(initialContent?: string) {
   const updateError = useUpdateGlobalError();
@@ -36,28 +36,7 @@ function useReviewEditor(initialContent?: string) {
           target: '_blank',
           class: 'cursor-pointer text-blue-500 hover:text-blue-600',
         },
-        isAllowedUri: (url, ctx) => {
-          const parsedUrl = url.includes(':') ? new URL(url) : new URL(`${ctx.defaultProtocol}://${url}`);
-
-          if (!ctx.defaultValidate(parsedUrl.href) || url.startsWith('./')) {
-            const linkError = createClientError('INVALID_LINK_URL');
-            updateError(linkError);
-
-            return false;
-          }
-
-          const disallowedProtocols = ['javascript', 'data', 'ftp', 'file', 'mailto', 'http'];
-          const protocol = parsedUrl.protocol.replace(':', '');
-
-          if (protocol !== 'https' || disallowedProtocols.includes(protocol)) {
-            const protocolError = createClientError('INVALID_LINK_PROTOCOL');
-            updateError(protocolError);
-
-            return false;
-          }
-
-          return true;
-        },
+        isAllowedUri: (url, ctx) => validateLinkUrl({url, ctx, onError: updateError}),
         shouldAutoLink: url => url.startsWith('https://'),
       }).extend({
         inclusive: false,
