@@ -1,33 +1,41 @@
 import {Editor} from '@tiptap/react';
-import {LucideIcon} from '@/shared/ui/icons';
 import ToolbarTooltip from './ToolbarTooltip';
+import {LucideIcon} from '@/shared/ui/icons';
 
 type Props = {
   editor: Editor;
 };
 
 export default function AddImage({editor}: Props) {
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.preventDefault();
+  const handleClick = () => {
+    editor
+      .chain()
+      .focus()
+      .insertContent({
+        type: 'imageUpload',
+      })
+      .run();
 
-    const files = event.target.files;
-    if (!files) return;
+    const {state} = editor.view;
+    const currentPos = state.selection.anchor;
 
-    const file = files[0];
-    const tempUrl = URL.createObjectURL(file);
-
-    editor.chain().focus().setImage({src: tempUrl}).run();
+    editor
+      .chain()
+      .insertContentAt(currentPos + 1, {type: 'paragraph'})
+      .focus()
+      .run();
   };
-
   return (
     <ToolbarTooltip text="이미지 추가">
-      <label
-        htmlFor="upload-image"
-        className="w-[35px] h-[35px] flex items-center justify-center hover:bg-gray-100 cursor-pointer"
+      <button
+        className="w-[35px] h-[35px] flex items-center justify-center hover:bg-gray-100"
+        onClick={handleClick}
+        role="button"
+        type="button"
+        aria-label="이미지 추가"
       >
-        <input id="upload-image" className="hidden" type="file" accept="image/*" onChange={handleChange} />
         <LucideIcon name="Images" className="w-[20px] h-[20px]" />
-      </label>
+      </button>
     </ToolbarTooltip>
   );
 }
