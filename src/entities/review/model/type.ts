@@ -11,3 +11,17 @@ export type ReviewContent = {
 };
 
 export type ReviewPayload = Omit<ReviewContent, 'created_at'>;
+
+export type PresignedProps = {
+  presignedUrl: string;
+  uuid: string;
+};
+
+export type UploadImageProps = {
+  file: File;
+  fileType: string;
+  presignedUrl: string;
+  imageId: string;
+  onProgress: (event: {progress: number}) => void;
+  abortSignal: AbortSignal;
+};

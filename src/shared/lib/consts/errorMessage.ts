@@ -36,4 +36,5 @@ export const ERROR_MESSAGE = {
   UPLOAD_FAILED: '이미지 업로드에 실패했어요. 다시 시도해주세요.',
   NO_IMAGE_SELECTED: '이미지를 선택해주세요.',
   TOO_MANY_IMAGES_SELECTED: '이미지는 1개만 선택할 수 있어요.',
+  UPLOAD_CANCELLED: '이미지 업로드가 취소되었어요.',
 } as const;
