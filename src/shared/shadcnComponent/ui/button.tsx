@@ -13,6 +13,7 @@ const buttonVariants = cva(
         logInOut: 'bg-black text-white',
         activeCategory: 'bg-boldBlue text-white rounded-xl font-bold',
         inActiveCategory: 'text-black font-semibold md:hover:scale-105 md:hover:font-bold',
+        link: 'text-primary underline-offset-4 hover:underline',
         outline: 'border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground',
         ghost: 'hover:bg-accent hover:text-accent-foreground',
       },
@@ -36,11 +37,11 @@ export interface ButtonProps
   asChild?: boolean;
 }
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({className, variant, size, asChild = false, ...props}, ref) => {
+const Button = React.memo(
+  React.forwardRef<HTMLButtonElement, ButtonProps>(({className, variant, size, asChild = false, ...props}, ref) => {
     const Comp = asChild ? Slot : 'button';
     return <Comp className={cn(buttonVariants({variant, size, className}))} ref={ref} {...props} />;
-  },
+  }),
 );
 Button.displayName = 'Button';
 

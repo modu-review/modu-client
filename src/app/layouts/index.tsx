@@ -25,6 +25,7 @@ export function RootLayout({
         <Providers>
           <Header />
           <main className="grow w-full mx-auto">{children}</main>
+          <div id="modal-root" />
         </Providers>
         <Footer />
         <Toaster position="top-center" />

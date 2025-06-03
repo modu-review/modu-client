@@ -20,8 +20,6 @@ body {
   background-color: #000000;
 }
 
-
-
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -78,13 +76,27 @@ body {
   }
 }
 
-
-
 @layer base {
   * {
     @apply border-border;
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+.custom-editor-image {
+  display: block;
+  height: auto;
+  margin: 1.5rem auto;
+  max-width: 100%;
+  user-select: none;
+  touch-action: manipulation;
+  -webkit-user-select: none; /* Safari 및 Chrome용 */
+  -moz-user-select: none; /* Firefox용 */
+  -ms-user-select: none; /* Internet Explorer/Edge용 */
+
+  &.ProseMirror-selectednode {
+    outline: 2px solid black;
   }
 }
