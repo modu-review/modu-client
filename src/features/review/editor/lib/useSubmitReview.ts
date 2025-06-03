@@ -1,7 +1,7 @@
 import {useCallback, useRef} from 'react';
 import {EditorContentGetter, FormSchemaType, SubmitAction} from '../model/type';
 import {ReviewContent, ReviewPayload} from '@/entities/review';
-import {useUserId} from '@/entities/auth';
+import {useUserEmail} from '@/entities/auth';
 import {createClientError} from '@/shared/lib/utils/client-error';
 
 type Props = {
@@ -12,7 +12,7 @@ type Props = {
 function useSubmitReview({onPreview, onSave}: Props) {
   const editorContentGetterRef = useRef<EditorContentGetter>(() => ({html: '', json: {}}));
   const actionRef = useRef<SubmitAction>('preview');
-  const userId = useUserId();
+  const userEmail = useUserEmail();
 
   const handleSetActionPreview = useCallback(() => {
     actionRef.current = 'preview';
@@ -27,7 +27,7 @@ function useSubmitReview({onPreview, onSave}: Props) {
   };
 
   const handleSubmit = (formValues: FormSchemaType) => {
-    if (!userId) {
+    if (!userEmail) {
       throw createClientError('LOGIN_REQUIRED');
     }
 
@@ -38,7 +38,7 @@ function useSubmitReview({onPreview, onSave}: Props) {
 
     const commonPayload = {
       ...formValues,
-      author: userId,
+      authorEmail: userEmail,
       content: html,
     };
 

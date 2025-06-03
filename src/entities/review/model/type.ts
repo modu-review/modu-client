@@ -5,7 +5,7 @@ export type CategoryValue = (typeof CATEGORY_LIST)[number]['value'];
 export type ReviewContent = {
   title: string;
   category: CategoryValue;
-  author: string;
+  authorEmail: string;
   created_at: string;
   content: string;
 };

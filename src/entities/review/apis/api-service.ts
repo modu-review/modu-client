@@ -1,11 +1,11 @@
 import {requestPost} from '@/shared/apis';
 import {PresignedProps, ReviewPayload, UploadImageProps} from '../model/type';
-import { createClientError } from '@/shared/lib/utils/client-error';
+import {createClientError} from '@/shared/lib/utils/client-error';
 
 export async function postReview(data: ReviewPayload) {
   await requestPost({
-    baseUrl: process.env.NEXT_PUBLIC_CLIENT_URL,
-    endpoint: '/api/review',
+    baseUrl: process.env.NEXT_PUBLIC_API_URL,
+    endpoint: '/review',
     body: data,
     withResponse: false,
   });
