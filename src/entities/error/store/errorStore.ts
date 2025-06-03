@@ -17,3 +17,7 @@ const globalErrorStore = create<State & Action>(set => ({
 
 export const useGlobalError = () => globalErrorStore(state => state.error);
 export const useUpdateGlobalError = () => globalErrorStore(state => state.updateError);
+
+export const reportGlobalError = (error: State['error']) => {
+  globalErrorStore.setState({error});
+};
