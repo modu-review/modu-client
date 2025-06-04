@@ -5,12 +5,14 @@ export type CategoryValue = (typeof CATEGORY_LIST)[number]['value'];
 export type ReviewContent = {
   title: string;
   category: CategoryValue;
-  authorEmail: string;
+  author: string;
   created_at: string;
   content: string;
 };
 
-export type ReviewPayload = Omit<ReviewContent, 'created_at'>;
+export type ReviewPayload = Omit<ReviewContent, 'created_at' | 'author'> & {
+  authorEmail: string;
+};
 
 export type PresignedProps = {
   presignedUrl: string;

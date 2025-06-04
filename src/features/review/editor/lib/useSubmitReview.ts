@@ -1,7 +1,7 @@
 import {useCallback, useRef} from 'react';
 import {EditorContentGetter, FormSchemaType, SubmitAction} from '../model/type';
 import {ReviewContent, ReviewPayload} from '@/entities/review';
-import {useUserEmail} from '@/entities/auth';
+import {useUserEmail, useUserId} from '@/entities/auth';
 import {createClientError} from '@/shared/lib/utils/client-error';
 
 type Props = {
@@ -12,7 +12,9 @@ type Props = {
 function useSubmitReview({onPreview, onSave}: Props) {
   const editorContentGetterRef = useRef<EditorContentGetter>(() => ({html: '', json: {}}));
   const actionRef = useRef<SubmitAction>('preview');
+
   const userEmail = useUserEmail();
+  const userId = useUserId();
 
   const handleSetActionPreview = useCallback(() => {
     actionRef.current = 'preview';
@@ -27,7 +29,7 @@ function useSubmitReview({onPreview, onSave}: Props) {
   };
 
   const handleSubmit = (formValues: FormSchemaType) => {
-    if (!userEmail) {
+    if (!userEmail || !userId) {
       throw createClientError('LOGIN_REQUIRED');
     }
 
@@ -38,15 +40,14 @@ function useSubmitReview({onPreview, onSave}: Props) {
 
     const commonPayload = {
       ...formValues,
-      authorEmail: userEmail,
       content: html,
     };
 
     switch (type) {
       case 'preview':
-        return onPreview({...commonPayload, created_at: '0000-00-00'});
+        return onPreview({...commonPayload, author: userId, created_at: '0000-00-00'});
       case 'save':
-        return onSave(commonPayload);
+        return onSave({...commonPayload, authorEmail: userEmail});
       default:
         const _exhaustiveCheck: never = type;
         throw new Error(`허용되지 않은 저장 타입입니다. type: ${_exhaustiveCheck}`);
