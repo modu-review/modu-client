@@ -7,13 +7,14 @@ type Category = {
 
 const CATEGORY_LIST: Category[] = [
   {id: 'all', category: '전체'},
-  {id: 'car', category: '자동차'},
   {id: 'food', category: '음식'},
-  {id: 'company', category: '회사'},
+  {id: 'car', category: '자동차'},
   {id: 'cosmetic', category: '화장품'},
-  {id: 'cafe', category: '카페'},
-  {id: 'devices1', category: '전자제품'},
   {id: 'clothes', category: '의류'},
+  {id: 'company', category: '회사'},
+  {id: 'device', category: '전자제품'},
+  {id: 'book', category: '책'},
+  {id: 'sports', category: '운동용품'},
 ];
 
 export default CATEGORY_LIST;

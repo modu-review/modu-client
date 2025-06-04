@@ -9,7 +9,7 @@ export type Review = {
   image_url: string;
 };
 
-export type ReviewCategory = 'all' | 'food' | 'car' | 'company' | 'cosmetic' | 'cafe' | 'devices1' | 'clothes';
+export type ReviewCategory = 'all' | 'food' | 'car' | 'cosmetic' | 'clothes' | 'company' | 'device' | 'book' | 'sports';
 
 export type BestReviewMapped = {
   [key in ReviewCategory]: {
