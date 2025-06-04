@@ -16,7 +16,7 @@ const reviewQueryOptions = {
   search: (categoryId: string, sort: string) => ({
     queryKey: reviewQueryKeys.search(categoryId, sort),
     queryFn: ({pageParam}: {pageParam: number}) => getReviews(pageParam, categoryId, sort),
-    initialPageParam: 1,
+    initialPageParam: 0,
   }),
   searchWithKeyword: (keyword: string, page: number, sort: string) => ({
     queryKey: reviewQueryKeys.searchWithKeyword(keyword, page, sort),

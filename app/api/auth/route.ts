@@ -4,7 +4,7 @@ import {NextResponse} from 'next/server';
 export async function GET() {
   const cookieStore = await cookies();
 
-  if (!cookieStore.has('accessToken')) {
+  if (!cookieStore.has('refreshToken')) {
     return NextResponse.json({
       isLoggedIn: false,
       userEmail: null,

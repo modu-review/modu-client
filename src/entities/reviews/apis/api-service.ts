@@ -9,24 +9,22 @@ export function getBestReviews() {
 
 export function getReviewsWithKeyword(keyword: string, page: number, sort: string) {
   return requestGet<SearchReviewsWithKeyword>({
-    endpoint: '/api/reviews',
+    endpoint: '/search',
     queryParams: {
       keyword: keyword,
       page: page,
       sort: sort,
     },
-    baseUrl: 'http://localhost:3000',
   });
 }
 
 export function getReviews(cursor: number, categoryId: string, sort: string) {
   return requestGet<FindReviews>({
-    endpoint: `/api/reviews`, // TODO: 실제 api들어오면 /api 빼기
+    endpoint: `/reviews`, // TODO: 실제 api들어오면 /api 빼기
     queryParams: {
       categoryId: categoryId,
       cursor: cursor,
       sort: sort,
     },
-    baseUrl: 'http://localhost:3000', // TODO: 실제 api들어오면 지워주기
   });
 }
