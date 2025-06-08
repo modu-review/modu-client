@@ -1,5 +1,5 @@
 import {cva, VariantProps} from 'class-variance-authority';
-import {Review} from '@/entities/reviews';
+import {ReviewCard} from '@/entities/review';
 import CardDescription from './CardDescription';
 import {cn} from '@/shared/lib/utils/cn';
 import {LucideIcon} from '@/shared/ui/icons';
@@ -17,7 +17,7 @@ const cardVariants = cva(
 );
 
 type BaseProps = {
-  card: Review;
+  card: ReviewCard;
   className?: string;
 };
 
