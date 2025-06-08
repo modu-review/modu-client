@@ -6,7 +6,7 @@ import {ReviewsLoading} from '@/entities/reviews';
 import {RQProvider} from '@/shared/providers';
 import {LucideIcon} from '@/shared/ui/icons';
 
-export default function SearchReviewsWithKeyword() {
+export default function KeywordReviews() {
   const {sort, handleChange} = useSelectSortOption({
     options: {
       page: '1',
