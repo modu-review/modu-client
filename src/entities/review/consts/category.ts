@@ -1,4 +1,4 @@
-import {CategoryValue} from '../model/type';
+import {Category} from '../model/type';
 
 export const CATEGORY_LIST = [
   {id: 'all', value: 'all', label: '전체'},
@@ -17,7 +17,7 @@ export const CATEGORY_MAP = CATEGORY_LIST.reduce(
     acc[value] = label;
     return acc;
   },
-  {} as Record<CategoryValue, string>,
+  {} as Record<Category, string>,
 );
 
-export const CATEGORY_VALUES = CATEGORY_LIST.map(category => category.value) as [CategoryValue, ...CategoryValue[]];
+export const CATEGORY_VALUES = CATEGORY_LIST.map(category => category.value) as [Category, ...Category[]];

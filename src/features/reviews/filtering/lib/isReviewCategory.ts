@@ -1,6 +1,5 @@
-import CATEGORY_LIST from '../consts/categoryList';
-import {ReviewCategory} from '@/entities/reviews';
+import {Category, CATEGORY_LIST} from '@/entities/review';
 
-export function IsReviewCategory(value: string | null): value is ReviewCategory {
-  return value !== null && CATEGORY_LIST.some(({id}) => id === value);
+export function isReviewCategory(category: string | null): category is Category {
+  return category !== null && CATEGORY_LIST.some(({value}) => value === category);
 }

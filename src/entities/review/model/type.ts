@@ -1,10 +1,10 @@
 import {CATEGORY_LIST} from '../consts/category';
 
-export type CategoryValue = (typeof CATEGORY_LIST)[number]['value'];
+export type Category = (typeof CATEGORY_LIST)[number]['value'];
 
 export type ReviewContent = {
   title: string;
-  category: CategoryValue;
+  category: Category;
   author: string;
   created_at: string;
   content: string;

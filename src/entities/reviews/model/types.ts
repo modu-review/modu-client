@@ -1,3 +1,5 @@
+import {Category} from '@/entities/review/model/type';
+
 export type Review = {
   board_id: string;
   title: string;
@@ -9,10 +11,8 @@ export type Review = {
   image_url: string;
 };
 
-export type ReviewCategory = 'all' | 'food' | 'car' | 'cosmetic' | 'clothes' | 'company' | 'device' | 'book' | 'sports';
-
 export type BestReviewMapped = {
-  [key in ReviewCategory]: {
+  [key in Category]: {
     count: number;
     reviews: Review[];
   };

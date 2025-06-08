@@ -1,10 +1,9 @@
-import {CATEGORY_LIST} from '@/entities/review';
-import {ReviewCategory} from '@/entities/reviews/model/types';
+import {Category, CATEGORY_LIST} from '@/entities/review';
 import {Button} from '@/shared/shadcnComponent/ui/button';
 
 type Props = {
-  selectedCategory: ReviewCategory;
-  onSelectCategory: (category: ReviewCategory) => void;
+  selectedCategory: Category;
+  onSelectCategory: (category: Category) => void;
 };
 
 export default function CategoryBar({selectedCategory, onSelectCategory}: Props) {
