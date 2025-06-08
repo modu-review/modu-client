@@ -1,6 +1,6 @@
 import {z} from 'zod';
 import {FormSchema} from '../consts/rule';
-import {CategoryValue} from '@/entities/review';
+import {Category} from '@/entities/review';
 
 export type FormSchemaType = z.infer<typeof FormSchema>;
 
@@ -30,6 +30,6 @@ export type EditorActiveState = {
 
 export type EditorInitialData = {
   title?: string;
-  category?: CategoryValue;
+  category?: Category;
   content?: string;
 };

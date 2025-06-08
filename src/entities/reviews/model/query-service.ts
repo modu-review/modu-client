@@ -1,11 +1,10 @@
 import {keepPreviousData} from '@tanstack/react-query';
-import {getBestReviews, getReviews, getReviewsWithKeyword} from '../apis/api-service';
+import {getBestReviews, getCategoryReviews, getKeywordReviews} from '../apis/api-service';
 
 const reviewQueryKeys = {
-  best: ['bestReviews'] as const,
-  search: (categoryId: string, sort: string) => ['search', categoryId, sort] as const,
-  searchWithKeyword: (keyword: string, page: number, sort: string) =>
-    ['searchWithKeyword', keyword, page, sort] as const,
+  best: ['best'] as const,
+  category: (categoryId: string, sort: string) => ['category', categoryId, sort] as const,
+  keyword: (keyword: string, page: number, sort: string) => ['keyword', keyword, page, sort] as const,
 };
 
 const reviewQueryOptions = {
@@ -13,14 +12,14 @@ const reviewQueryOptions = {
     queryKey: reviewQueryKeys.best,
     queryFn: getBestReviews,
   }),
-  search: (categoryId: string, sort: string) => ({
-    queryKey: reviewQueryKeys.search(categoryId, sort),
-    queryFn: ({pageParam}: {pageParam: number}) => getReviews(pageParam, categoryId, sort),
+  category: (categoryId: string, sort: string) => ({
+    queryKey: reviewQueryKeys.category(categoryId, sort),
+    queryFn: ({pageParam}: {pageParam: number}) => getCategoryReviews(pageParam, categoryId, sort),
     initialPageParam: 0,
   }),
-  searchWithKeyword: (keyword: string, page: number, sort: string) => ({
-    queryKey: reviewQueryKeys.searchWithKeyword(keyword, page, sort),
-    queryFn: () => getReviewsWithKeyword(keyword, page, sort),
+  keyword: (keyword: string, page: number, sort: string) => ({
+    queryKey: reviewQueryKeys.keyword(keyword, page, sort),
+    queryFn: () => getKeywordReviews(keyword, page, sort),
     placeholderData: keepPreviousData,
   }),
 };

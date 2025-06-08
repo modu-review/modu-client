@@ -1,1 +1,1 @@
-export {SearchPage as default} from '@/views/search';
+export {CategorySearchPage as default} from '@/views/search';

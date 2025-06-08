@@ -1,6 +1,6 @@
 import {useCallback} from 'react';
 import {SortKey} from '@/features/reviews/sorting';
-import {ReviewArticle, ReviewArticleLoading, useSearchReviews} from '@/entities/reviews';
+import {ReviewArticle, ReviewArticleLoading, useCategoryReviews} from '@/entities/reviews';
 import {LucideIcon} from '@/shared/ui/icons';
 
 type Props = {
@@ -9,7 +9,7 @@ type Props = {
 };
 
 export default function ReviewsWithScroll({selectedCategory, sort}: Props) {
-  const {data, hasNextPage, fetchNextPage, isFetchingNextPage} = useSearchReviews(selectedCategory, sort);
+  const {data, hasNextPage, fetchNextPage, isFetchingNextPage} = useCategoryReviews(selectedCategory, sort);
 
   const observerRef = useCallback(
     (node: HTMLDivElement | null) => {

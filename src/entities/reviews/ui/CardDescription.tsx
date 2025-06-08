@@ -1,9 +1,9 @@
 import Image from 'next/image';
-import {Review} from '@/entities/reviews';
+import {ReviewCard} from '@/entities/review';
 import {LucideIcon} from '@/shared/ui/icons';
 
 type Props = {
-  card: Review;
+  card: ReviewCard;
 };
 
 export default function CardDescription({

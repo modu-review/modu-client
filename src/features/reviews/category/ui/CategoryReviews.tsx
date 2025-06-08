@@ -8,7 +8,7 @@ import {ReviewsLoading} from '@/entities/reviews';
 import {RQProvider} from '@/shared/providers';
 import {LucideIcon} from '@/shared/ui/icons';
 
-export default function SearchReviews() {
+export default function CategoryReviews() {
   const {selectedCategory, handleSelectCategory} = useSelectCategoryFromUrl();
 
   const {sort, handleChange} = useSelectSortOption({

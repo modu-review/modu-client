@@ -2,7 +2,22 @@ import {CATEGORY_LIST} from '../consts/category';
 
 export type Category = (typeof CATEGORY_LIST)[number]['value'];
 
-export type ReviewContent = {
+export type ReviewCard = {
+  board_id: string;
+  title: string;
+  author: string;
+  category: string;
+  content: string;
+  comments_count: number;
+  bookmarks: number;
+  image_url: string;
+};
+
+export type SearchReviewCard = ReviewCard & {
+  created_at: string;
+};
+
+export type ReviewDetail = {
   title: string;
   category: Category;
   author: string;
@@ -10,8 +25,11 @@ export type ReviewContent = {
   content: string;
 };
 
-export type ReviewPayload = Omit<ReviewContent, 'created_at' | 'author'> & {
+export type ReviewPayload = {
+  title: string;
+  category: Category;
   authorEmail: string;
+  content: string;
 };
 
 export type PresignedProps = {

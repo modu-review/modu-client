@@ -1,1 +1,1 @@
-export {SearchWithKeywordPage as default} from '@/views/search';
+export {KeywordSearchPage as default} from '@/views/search';

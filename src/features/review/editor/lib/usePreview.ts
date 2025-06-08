@@ -1,12 +1,12 @@
 import {useState} from 'react';
 import {useModal} from '@/shared/ui/modal';
-import {ReviewContent} from '@/entities/review';
+import {ReviewDetail} from '@/entities/review';
 
 function usePreview() {
-  const [preview, setPreview] = useState<ReviewContent | null>(null);
+  const [preview, setPreview] = useState<ReviewDetail | null>(null);
   const {openModal, handleModalOpen, handleModalClose} = useModal(() => setPreview(null));
 
-  const openPreview = (data: ReviewContent) => {
+  const openPreview = (data: ReviewDetail) => {
     setPreview(data);
     handleModalOpen();
   };

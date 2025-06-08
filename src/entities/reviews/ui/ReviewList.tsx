@@ -1,11 +1,11 @@
 import CardFrame from './CardFrame';
-import {Review} from '../model/types';
+import {ReviewCard} from '@/entities/review';
 import {LucideIcon} from '@/shared/ui/icons';
 
 type Props = {
   filteredReview: {
     count: number;
-    reviews: Review[];
+    reviews: ReviewCard[];
   };
 };
 

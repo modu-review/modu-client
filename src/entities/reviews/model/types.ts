@@ -1,35 +1,20 @@
-import {Category} from '@/entities/review/model/type';
+import {Category, ReviewCard, SearchReviewCard} from '@/entities/review';
 
-export type Review = {
-  board_id: string;
-  title: string;
-  author: string;
-  category: string;
-  content: string;
-  comments_count: number;
-  bookmarks: number;
-  image_url: string;
-};
-
-export type BestReviewMapped = {
+export type BestReviewsResult = {
   [key in Category]: {
     count: number;
-    reviews: Review[];
+    reviews: ReviewCard[];
   };
 };
 
-export type SearchReview = Review & {
-  created_at: string;
-};
-
-export type SearchReviewsWithKeyword = {
-  results: SearchReview[];
+export type KeywordReviewsResult = {
+  results: SearchReviewCard[];
   current_page: number;
   total_pages: number;
 };
 
-export type FindReviews = {
-  results: SearchReview[];
+export type CateogyReviewsResult = {
+  results: SearchReviewCard[];
   next_cursor: number | null;
   has_next: boolean;
 };
