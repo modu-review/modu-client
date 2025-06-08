@@ -2,7 +2,7 @@ import {keepPreviousData} from '@tanstack/react-query';
 import {getBestReviews, getCategoryReviews, getKeywordReviews} from '../apis/api-service';
 
 const reviewQueryKeys = {
-  best: ['bestReviews'] as const,
+  best: ['best'] as const,
   category: (categoryId: string, sort: string) => ['category', categoryId, sort] as const,
   keyword: (keyword: string, page: number, sort: string) => ['keyword', keyword, page, sort] as const,
 };
