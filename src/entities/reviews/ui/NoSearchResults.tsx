@@ -10,8 +10,12 @@ export default function NoSearchResults({title, description, description2}: Prop
       <h2 className="text-lg md:text-2xl font-bold mb-4">{title}</h2>
       <p className="text-gray-600 text-center">
         <span>{description}</span>
-        <br className="md:hidden" />
-        <span>{description2}</span>
+        {description2 && (
+          <>
+            <br className="md:hidden" />
+            <span>{description2}</span>
+          </>
+        )}
       </p>
     </section>
   );
