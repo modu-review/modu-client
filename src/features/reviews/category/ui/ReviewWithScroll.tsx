@@ -1,6 +1,6 @@
 import {useCallback} from 'react';
 import {SortKey} from '@/features/reviews/sorting';
-import {ReviewArticle, ReviewArticleLoading, useCategoryReviews} from '@/entities/reviews';
+import {NoSearchResults, ReviewArticle, ReviewArticleLoading, useCategoryReviews} from '@/entities/reviews';
 import {LucideIcon} from '@/shared/ui/icons';
 
 type Props = {
@@ -27,6 +27,15 @@ export default function ReviewsWithScroll({selectedCategory, sort}: Props) {
     },
     [hasNextPage, fetchNextPage],
   );
+
+  if (data.pages[0].results.length === 0) {
+    return (
+      <NoSearchResults
+        title="아직 해당 카테고리에 리뷰가 등록되지 않았어요."
+        description="다른 카테고리를 클릭해 리뷰를 확인해보세요!"
+      />
+    );
+  }
 
   return (
     <>
