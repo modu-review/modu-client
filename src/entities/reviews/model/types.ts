@@ -1,6 +1,6 @@
 import {Category, ReviewCard, SearchReviewCard} from '@/entities/review';
 
-export type BestReviewMapped = {
+export type BestReviewsResult = {
   [key in Category]: {
     count: number;
     reviews: ReviewCard[];
