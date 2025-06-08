@@ -7,7 +7,7 @@ export function getBestReviews() {
   });
 }
 
-export function getReviewsWithKeyword(keyword: string, page: number, sort: string) {
+export function getKeywordReviews(keyword: string, page: number, sort: string) {
   return requestGet<KeywordReviewsResult>({
     endpoint: '/search',
     queryParams: {
@@ -18,7 +18,7 @@ export function getReviewsWithKeyword(keyword: string, page: number, sort: strin
   });
 }
 
-export function getReviews(cursor: number, categoryId: string, sort: string) {
+export function getCategoryReviews(cursor: number, categoryId: string, sort: string) {
   return requestGet<CateogyReviewsResult>({
     endpoint: `/reviews`, // TODO: 실제 api들어오면 /api 빼기
     queryParams: {
