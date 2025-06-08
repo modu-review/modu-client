@@ -13,7 +13,7 @@ export type SearchReviewsWithKeyword = {
   total_pages: number;
 };
 
-export type FindReviews = {
+export type CateogyReviewsResult = {
   results: SearchReviewCard[];
   next_cursor: number | null;
   has_next: boolean;
