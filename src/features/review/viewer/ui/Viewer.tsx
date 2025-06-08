@@ -1,7 +1,7 @@
-import {CATEGORY_MAP, ReviewContent} from '@/entities/review';
+import {CATEGORY_MAP, ReviewDetail} from '@/entities/review';
 import {Badge} from '@/shared/ui/components';
 
-export default function Viewer({title, category, author, created_at, content}: ReviewContent) {
+export default function Viewer({title, category, author, created_at, content}: ReviewDetail) {
   return (
     <section className="flex flex-col h-full overflow-auto">
       <header className="mx-4 mt-4 pb-4 border-b-2 border-gray-300">
