@@ -5,7 +5,7 @@ type Props = {
   params: Promise<{keyword: string}>;
 };
 
-export default async function SearchWithKeywordPage({params}: Props) {
+export default async function KeywordSearchPage({params}: Props) {
   const {keyword} = await params;
 
   const decodedQuery = decodeURIComponent(keyword);
