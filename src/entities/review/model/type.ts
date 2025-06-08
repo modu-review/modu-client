@@ -25,8 +25,11 @@ export type ReviewContent = {
   content: string;
 };
 
-export type ReviewPayload = Omit<ReviewContent, 'created_at' | 'author'> & {
+export type ReviewPayload = {
+  title: string;
+  category: Category;
   authorEmail: string;
+  content: string;
 };
 
 export type PresignedProps = {
