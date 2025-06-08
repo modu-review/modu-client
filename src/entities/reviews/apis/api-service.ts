@@ -1,4 +1,4 @@
-import {BestReviewsResult, CateogyReviewsResult, SearchReviewsWithKeyword} from '../model/types';
+import {BestReviewsResult, CateogyReviewsResult, KeywordReviewsResult} from '../model/types';
 import {requestGet} from '@/shared/apis';
 
 export function getBestReviews() {
@@ -8,7 +8,7 @@ export function getBestReviews() {
 }
 
 export function getReviewsWithKeyword(keyword: string, page: number, sort: string) {
-  return requestGet<SearchReviewsWithKeyword>({
+  return requestGet<KeywordReviewsResult>({
     endpoint: '/search',
     queryParams: {
       keyword: keyword,

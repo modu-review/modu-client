@@ -7,7 +7,7 @@ export type BestReviewsResult = {
   };
 };
 
-export type SearchReviewsWithKeyword = {
+export type KeywordReviewsResult = {
   results: SearchReviewCard[];
   current_page: number;
   total_pages: number;
