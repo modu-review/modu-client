@@ -2,7 +2,7 @@ import {useForm} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {FormSchema} from '../consts/rule';
 import {FormSchemaType} from '../model/type';
-import {CATEGORY_LIST, CategoryValue} from '@/entities/review';
+import {Category, CATEGORY_LIST} from '@/entities/review';
 import {Form, FormControl, FormField, FormItem, FormMessage} from '@/shared/shadcnComponent/ui/form';
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from '@/shared/shadcnComponent/ui/select';
 import {Input} from '@/shared/shadcnComponent/ui/input';
@@ -10,7 +10,7 @@ import {Input} from '@/shared/shadcnComponent/ui/input';
 type Props = {
   onSubmit: (values: FormSchemaType) => void;
   initialTitle?: string;
-  initialCategory?: CategoryValue;
+  initialCategory?: Category;
 };
 
 export default function EditorMetaForm({onSubmit, initialTitle, initialCategory}: Props) {
@@ -37,8 +37,8 @@ export default function EditorMetaForm({onSubmit, initialTitle, initialCategory}
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {CATEGORY_LIST.map(({value, label}) => (
-                    <SelectItem key={value} value={value}>
+                  {CATEGORY_LIST.map(({id, value, label}) => (
+                    <SelectItem key={id} value={value}>
                       {label}
                     </SelectItem>
                   ))}
