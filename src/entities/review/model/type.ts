@@ -40,9 +40,14 @@ export type ReviewDetail = {
   author: string;
   created_at: string;
   content: string;
-  comments_count: number;
   bookmarks: number;
+};
+
+export type Comments = {
+  comments_count: number;
   comments: Comment[];
+  current_page: number;
+  total_pages: number;
 };
 
 export type ReviewPayload = {
