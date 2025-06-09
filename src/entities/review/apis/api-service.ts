@@ -1,5 +1,5 @@
-import {requestPost} from '@/shared/apis';
-import {PresignedProps, ReviewPayload, UploadImageProps} from '../model/type';
+import {requestGet, requestPost} from '@/shared/apis';
+import {PresignedProps, ReviewDetail, ReviewPayload, UploadImageProps} from '../model/type';
 import {createClientError} from '@/shared/lib/utils/client-error';
 
 export async function postReview(data: ReviewPayload) {
@@ -62,5 +62,12 @@ export async function uploadImage({
 
     xhr.setRequestHeader('Content-Type', file.type);
     xhr.send(file);
+  });
+}
+
+export async function getReviewDetail(reviewId: number) {
+  return await requestGet<ReviewDetail>({
+    endpoint: `/api/reviews/${reviewId}`,
+    baseUrl: process.env.NEXTP_PUBLIC_CLIENT_URL,
   });
 }
