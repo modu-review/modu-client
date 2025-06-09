@@ -17,7 +17,7 @@ export type SearchReviewCard = ReviewCard & {
   created_at: string;
 };
 
-export type ReviewDetail = {
+export type ReviewContent = {
   title: string;
   category: Category;
   author: string;
