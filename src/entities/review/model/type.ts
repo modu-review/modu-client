@@ -25,6 +25,26 @@ export type ReviewContent = {
   content: string;
 };
 
+export type Comment = {
+  id: number;
+  profile_image: string;
+  author: string;
+  content: string;
+  created_at: string;
+};
+
+export type ReviewDetail = {
+  board_id: number;
+  title: string;
+  category: string;
+  author: string;
+  created_at: string;
+  content: string;
+  comments_count: number;
+  bookmarks: number;
+  comments: Comment[];
+};
+
 export type ReviewPayload = {
   title: string;
   category: Category;
