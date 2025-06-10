@@ -1,6 +1,8 @@
+import {PresignedProps, ReviewDetail, ReviewPayload, UploadImageProps} from '../model/type';
 import {requestPost} from '@/shared/apis';
-import {PresignedProps, ReviewPayload, UploadImageProps} from '../model/type';
 import {createClientError} from '@/shared/lib/utils/client-error';
+import {TErrorInfo} from '@/shared/apis/request-type';
+import {RequestGetError} from '@/shared/apis/request-error';
 
 export async function postReview(data: ReviewPayload) {
   await requestPost({
@@ -63,4 +65,36 @@ export async function uploadImage({
     xhr.setRequestHeader('Content-Type', file.type);
     xhr.send(file);
   });
+}
+
+export async function getReviewDetail(reviewId: number) {
+  const url = process.env.NEXT_PUBLIC_CLIENT_URL + `/api/reviews/${reviewId}`;
+  // const url = process.env.NEXT_PUBLIC_API_URL + `/reviews/${reviewId}`; 실제 요청 주소
+
+  const res = await fetch(url, {
+    method: 'GET',
+    next: {
+      revalidate: false,
+      tags: [`review-${reviewId}`],
+    },
+  });
+
+  if (!res.ok) {
+    const {errorCode, message}: TErrorInfo = await res.json();
+
+    throw new RequestGetError({
+      status: res.status,
+      requestBody: null,
+      endpoint: res.url,
+      name: errorCode,
+      method: 'GET',
+      errorCode,
+      message,
+      errorHandlingType: 'errorBoundary',
+    });
+  }
+
+  const data: ReviewDetail = await res.json();
+
+  return data;
 }
