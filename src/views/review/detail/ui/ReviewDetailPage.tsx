@@ -1,4 +1,5 @@
 import {getReviewDetail} from '@/entities/review';
+import {Viewer} from '@/features/review/viewer';
 
 type Props = {
   params: Promise<{reviewId: number}>;
@@ -9,15 +10,8 @@ export default async function ReviewDetailPage({params}: Props) {
 
   const {author, content, bookmarks, category, created_at, title} = await getReviewDetail(reviewId);
   return (
-    <section>
-      <h2>
-        {reviewId} {title} 상세보기
-      </h2>
-      <p>작성자: {author}</p>
-      <p>카테고리: {category}</p>
-      <p>작성일: {new Date(created_at).toLocaleDateString()}</p>
-      <p>북마크 수: {bookmarks}</p>
-      <p>내용: {content}</p>
+    <section className="flex flex-col w-full max-w-5xl mx-auto">
+      <Viewer title={title} author={author} content={content} category={category} created_at={created_at} />
     </section>
   );
 }

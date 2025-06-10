@@ -36,7 +36,7 @@ export type Comment = {
 export type ReviewDetail = {
   board_id: number;
   title: string;
-  category: string;
+  category: Category;
   author: string;
   created_at: string;
   content: string;
