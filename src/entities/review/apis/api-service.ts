@@ -1,5 +1,5 @@
-import {PresignedProps, ReviewDetail, ReviewPayload, UploadImageProps} from '../model/type';
-import {requestPost} from '@/shared/apis';
+import {PresignedProps, ReviewBookmarks, ReviewDetail, ReviewPayload, UploadImageProps} from '../model/type';
+import {requestGet, requestPost} from '@/shared/apis';
 import {createClientError} from '@/shared/lib/utils/client-error';
 import {TErrorInfo} from '@/shared/apis/request-type';
 import {RequestGetError} from '@/shared/apis/request-error';
@@ -97,4 +97,11 @@ export async function getReviewDetail(reviewId: number) {
   const data: ReviewDetail = await res.json();
 
   return data;
+}
+
+export async function getReviewBookmarks(reviewId: number) {
+  return requestGet<ReviewBookmarks>({
+    baseUrl: process.env.NEXT_PUBLIC_CLIENT_URL,
+    endpoint: `/api/reviews/${reviewId}/bookmarks`,
+  });
 }

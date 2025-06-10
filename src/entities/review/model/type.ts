@@ -43,6 +43,11 @@ export type ReviewDetail = {
   bookmarks: number;
 };
 
+export type ReviewBookmarks = {
+  bookmarks: number;
+  hasBookmarked: boolean;
+};
+
 export type Comments = {
   comments_count: number;
   comments: Comment[];
