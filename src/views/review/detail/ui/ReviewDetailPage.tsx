@@ -13,7 +13,7 @@ export default async function ReviewDetailPage({params}: Props) {
 
   const {author, content, category, created_at, title} = await getReviewDetail(parsedReviewId);
   return (
-    <section className="flex flex-col w-full max-w-5xl mx-auto">
+    <section className="flex flex-col w-full max-w-5xl mx-auto items-center">
       <Viewer title={title} author={author} content={content} category={category} created_at={created_at} />
       <RQProvider LoadingFallback={<div>loading...</div>}>
         <Bookmarks reviewId={parsedReviewId} />
