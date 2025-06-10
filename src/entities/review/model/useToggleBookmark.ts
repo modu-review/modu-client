@@ -13,8 +13,6 @@ export default function useToggleBookmark() {
 
       const previousBookmarks = queryClient.getQueryData<ReviewBookmarks>(reviewQueryKeys.bookmarks(reviewId));
 
-      console.log(previousBookmarks);
-
       if (previousBookmarks) {
         const updatedBookmarks: ReviewBookmarks = {
           bookmarks: previousBookmarks.bookmarks + (previousBookmarks.hasBookmarked ? -1 : 1),
