@@ -1,4 +1,11 @@
-import {PresignedProps, ReviewBookmarks, ReviewDetail, ReviewPayload, UploadImageProps} from '../model/type';
+import {
+  BookmarkPayload,
+  PresignedProps,
+  ReviewBookmarks,
+  ReviewDetail,
+  ReviewPayload,
+  UploadImageProps,
+} from '../model/type';
 import {requestGet, requestPost} from '@/shared/apis';
 import {createClientError} from '@/shared/lib/utils/client-error';
 import {TErrorInfo} from '@/shared/apis/request-type';
@@ -106,7 +113,7 @@ export async function getReviewBookmarks(reviewId: number) {
   });
 }
 
-export async function bookmarkReview(userId: string, reviewId: string) {
+export async function bookmarkReview({userId, reviewId}: BookmarkPayload) {
   return requestPost({
     baseUrl: process.env.NEXT_PUBLIC_CLIENT_URL,
     endpoint: '/api/bookmark',
