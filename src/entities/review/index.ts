@@ -5,3 +5,4 @@ export {getPresigned, uploadImage} from './apis/api-service';
 export {getReviewDetail} from './apis/api-service';
 export {CATEGORY_LIST} from './consts/category';
 export {default as useGetReviewBookmarks} from './model/useGetReviewBookmarks';
+export {default as useToggleBookmark} from './model/useToggleBookmark';

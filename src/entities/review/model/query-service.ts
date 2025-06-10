@@ -1,6 +1,6 @@
 import {getReviewBookmarks} from '../apis/api-service';
 
-const reviewQueryKeys = {
+export const reviewQueryKeys = {
   bookmarks: (reviewId: number) => [`review-${reviewId}`, 'bookmarks'],
 };
 
