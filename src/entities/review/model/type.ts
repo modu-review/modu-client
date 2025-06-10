@@ -64,7 +64,7 @@ export type ReviewPayload = {
 
 export type BookmarkPayload = {
   userId: string;
-  reviewId: string;
+  reviewId: number;
 };
 
 export type PresignedProps = {
