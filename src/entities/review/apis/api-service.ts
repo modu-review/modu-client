@@ -105,3 +105,14 @@ export async function getReviewBookmarks(reviewId: number) {
     endpoint: `/api/reviews/${reviewId}/bookmarks`,
   });
 }
+
+export async function bookmarkReview(userId: string, reviewId: string) {
+  return requestPost({
+    baseUrl: process.env.NEXT_PUBLIC_CLIENT_URL,
+    endpoint: '/api/bookmark',
+    body: {
+      user_id: userId,
+      board_id: reviewId,
+    },
+  });
+}
