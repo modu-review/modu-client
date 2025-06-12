@@ -14,7 +14,7 @@ export default function Bookmarks({reviewId}: Props) {
   } = useGetReviewBookmarks(reviewId);
 
   const userId = useUserId();
-  const {toggleBookmark} = useToggleBookmark();
+  const {toggleBookmark, isPending} = useToggleBookmark();
 
   const handleClick = () => {
     // Todo: 로그인 유도를 위한 모달 띄우기
@@ -26,8 +26,10 @@ export default function Bookmarks({reviewId}: Props) {
   return (
     <button
       aria-label={`북마크 ${hasBookmarked ? '해제' : '추가'}하기`}
-      aria-disabled={hasBookmarked}
+      aria-disabled={isPending}
       onClick={handleClick}
+      disabled={isPending}
+      tabIndex={isPending ? -1 : 0}
       className={`flex items-center border border-gray-300 rounded-md py-2 px-5 mb-10 gap-0.5 hover:bg-gray-100 transition-colors ${hasBookmarked && 'border-mediumBlue'}`}
     >
       {hasBookmarked ? (
