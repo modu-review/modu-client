@@ -43,6 +43,11 @@ export type ReviewDetail = {
   bookmarks: number;
 };
 
+export type ReviewBookmarks = {
+  bookmarks: number;
+  hasBookmarked: boolean;
+};
+
 export type Comments = {
   comments_count: number;
   comments: Comment[];
@@ -55,6 +60,11 @@ export type ReviewPayload = {
   category: Category;
   authorEmail: string;
   content: string;
+};
+
+export type BookmarkPayload = {
+  userId: string;
+  reviewId: number;
 };
 
 export type PresignedProps = {
