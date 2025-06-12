@@ -1,7 +1,8 @@
 'use client';
 
-import {useGetReviewComments} from '@/entities/review';
 import {useSearchParams} from 'next/navigation';
+import CommentsInput from './CommentsInput';
+import {useGetReviewComments} from '@/entities/review';
 
 type Props = {
   reviewId: number;
@@ -18,6 +19,7 @@ export default function Comments({reviewId}: Props) {
       <h2 className="mr-auto text-xl border-b-2">
         댓글쓰기 <span className="text-lg">{comments_count}</span>
       </h2>
+      <CommentsInput />
     </section>
   );
 }
