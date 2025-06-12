@@ -2,6 +2,7 @@ import {
   BookmarkPayload,
   PresignedProps,
   ReviewBookmarks,
+  ReviewComments,
   ReviewDetail,
   ReviewPayload,
   UploadImageProps,
@@ -120,6 +121,16 @@ export async function bookmarkReview({userId, reviewId}: BookmarkPayload) {
     body: {
       user_id: userId,
       board_id: reviewId,
+    },
+  });
+}
+
+export async function getReviewComments(reviewId: number, page: number) {
+  return requestGet<ReviewComments>({
+    baseUrl: process.env.NEXT_PUBLIC_CLIENT_URL,
+    endpoint: `/api/reviews/${reviewId}/comments`,
+    queryParams: {
+      page: page,
     },
   });
 }
