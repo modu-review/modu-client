@@ -1,3 +1,6 @@
+'use client';
+
+import {useRouter} from 'next/navigation';
 import {postReviewComment} from '../apis/api-service';
 import {reviewQueryKeys} from './query-service';
 import {CommentPayload, ReviewComments} from './type';
@@ -5,6 +8,7 @@ import {useMutation, useQueryClient} from '@tanstack/react-query';
 
 export default function usePostReviewComment(page: number) {
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   const {mutate, ...rest} = useMutation({
     mutationFn: ({userId, reviewId, category, content}: CommentPayload) =>
@@ -34,6 +38,8 @@ export default function usePostReviewComment(page: number) {
         };
 
         queryClient.setQueryData(reviewQueryKeys.comments(reviewId, page + 1), updatedComments);
+
+        router.push(`?page=${page + 1}`);
       } else {
         await queryClient.cancelQueries({queryKey: reviewQueryKeys.comments(reviewId, page)});
 
@@ -58,6 +64,8 @@ export default function usePostReviewComment(page: number) {
 
       if (wasNewPageCreated) {
         queryClient.removeQueries({queryKey: reviewQueryKeys.comments(reviewId, page + 1)});
+
+        router.push(`?page=${page}`);
       } else {
         queryClient.setQueryData(reviewQueryKeys.comments(reviewId, page), previousComments);
       }
