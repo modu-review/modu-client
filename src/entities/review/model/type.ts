@@ -67,6 +67,13 @@ export type BookmarkPayload = {
   reviewId: number;
 };
 
+export type CommentPayload = {
+  userId: string;
+  category: Category;
+  reviewId: number;
+  content: string;
+};
+
 export type PresignedProps = {
   presignedUrl: string;
   uuid: string;

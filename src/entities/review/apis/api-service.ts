@@ -1,5 +1,6 @@
 import {
   BookmarkPayload,
+  CommentPayload,
   PresignedProps,
   ReviewBookmarks,
   ReviewComments,
@@ -131,6 +132,19 @@ export async function getReviewComments(reviewId: number, page: number) {
     endpoint: `/api/reviews/${reviewId}/comments`,
     queryParams: {
       page: page,
+    },
+  });
+}
+
+export async function postReviewComment({userId, reviewId, category, content}: CommentPayload) {
+  return requestPost({
+    baseUrl: process.env.NEXT_PUBLIC_CLIENT_URL,
+    endpoint: `/api/comment`,
+    body: {
+      user_id: userId,
+      board_id: reviewId,
+      category,
+      content,
     },
   });
 }
