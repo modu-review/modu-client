@@ -20,7 +20,7 @@ export default async function ReviewDetailPage({params}: Props) {
         <Bookmarks reviewId={parsedReviewId} />
       </RQProvider>
       <RQProvider LoadingFallback={<div>loading...</div>}>
-        <Comments reviewId={parsedReviewId} />
+        <Comments reviewId={parsedReviewId} category={category} />
       </RQProvider>
     </section>
   );

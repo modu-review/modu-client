@@ -1,20 +1,31 @@
 'use client';
 
-import {useIsLoggedIn} from '@/entities/auth';
+import {useIsLoggedIn, useUserId} from '@/entities/auth';
+import {Category, usePostReviewComment} from '@/entities/review';
 import {Textarea} from '@/shared/shadcnComponent/ui/textarea';
 import {useRef} from 'react';
 
-export default function CommentsInput() {
+type Props = {
+  reviewId: number;
+  category: Category;
+  page: number;
+};
+
+export default function CommentsInput({reviewId, category, page}: Props) {
   const isLoggedIn = useIsLoggedIn();
+  const userId = useUserId();
+
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
+  const {postComment} = usePostReviewComment(page);
+
   const handleSubmit = () => {
-    if (!textareaRef.current) return;
+    if (!textareaRef.current || !userId) return;
 
     const commentContent = textareaRef.current.value.trim();
     if (commentContent.length === 0) return;
 
-    // TODO: 댓글 등록 API 호출
+    postComment({userId, reviewId, category, content: commentContent});
     textareaRef.current.value = '';
   };
 
