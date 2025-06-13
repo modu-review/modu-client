@@ -1,4 +1,5 @@
 import {Comment} from '@/entities/review';
+import {UserInfo} from '@/shared/ui/components';
 
 type Props = {
   comments: Comment[];
@@ -12,7 +13,7 @@ export default function CommentsList({comments, currentPage, totalPages}: Props)
       <ul>
         {comments.map(({id, author, content, created_at, profile_image}) => (
           <li key={id}>
-            <p>{author}</p>
+            <UserInfo profileImage={profile_image} userId={author} />
             <p>{content}</p>
           </li>
         ))}
