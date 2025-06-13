@@ -3,6 +3,7 @@
 import {useSearchParams} from 'next/navigation';
 import CommentsInput from './CommentsInput';
 import {Category, useGetReviewComments} from '@/entities/review';
+import CommentsList from './CommentsList';
 
 type Props = {
   reviewId: number;
@@ -21,6 +22,7 @@ export default function Comments({reviewId, category}: Props) {
         댓글쓰기 <span className="text-lg">{comments_count}</span>
       </h2>
       <CommentsInput reviewId={reviewId} category={category} page={currentPage} />
+      <CommentsList comments={comments} currentPage={currentPage} totalPages={total_pages} />
     </section>
   );
 }
