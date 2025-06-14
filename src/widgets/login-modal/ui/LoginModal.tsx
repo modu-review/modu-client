@@ -6,10 +6,16 @@ export default function LoginModal() {
         <p className="text-sm text-gray-500">로그인하면 더 많은 기능을 이용할 수 있어요.</p>
       </div>
       <div className="flex items-center w-full gap-1 px-3 mb-3">
-        <button className="w-full py-1.5 bg-boldBlue text-white rounded hover:bg-boldBlue/80 transition-colors">
+        <button
+          className="w-full py-1.5 bg-boldBlue text-white rounded hover:bg-boldBlue/80 transition-colors"
+          aria-label="로그인하기"
+        >
           로그인하기
         </button>
-        <button className="w-full py-1.5 bg-gray-300 text-black rounded hover:bg-gray-300/80 transition-colors">
+        <button
+          className="w-full py-1.5 bg-gray-300 text-black rounded hover:bg-gray-300/80 transition-colors"
+          aria-label="닫기"
+        >
           닫기
         </button>
       </div>
