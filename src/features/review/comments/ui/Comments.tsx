@@ -17,7 +17,7 @@ export default function Comments({reviewId, category}: Props) {
   const {comments, comments_count, total_pages} = useGetReviewComments(reviewId, currentPage);
 
   return (
-    <section className="w-full px-6">
+    <section className="w-full px-2.5 md:px-6">
       <h2 className="mr-auto text-xl pb-1.5 border-b-2">
         댓글쓰기 <span className="text-lg">{comments_count}</span>
       </h2>
