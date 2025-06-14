@@ -1,3 +1,4 @@
+import Pagination from '@/widgets/pagination';
 import CommentCard from './CommentCard';
 import {Comment} from '@/entities/review';
 
@@ -17,6 +18,12 @@ export default function CommentsList({comments, currentPage, totalPages}: Props)
           </li>
         ))}
       </ul>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        generateUrl={page => `?page=${page}`}
+        className="my-5"
+      />
     </>
   );
 }

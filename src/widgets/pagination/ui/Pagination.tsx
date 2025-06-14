@@ -12,21 +12,17 @@ import {
 
 type Props = {
   currentPage: number;
-  totalPage: number;
-  query: string;
-  sort: string;
+  totalPages: number;
+  generateUrl: (page: number) => string;
+  className?: string;
 };
 
-export default function Pagination({totalPage, currentPage, query, sort}: Props) {
-  function generateSearchUrl(page: number) {
-    return `/search/${query}?page=${page}&sort=${sort}`;
-  }
-
+export default function Pagination({totalPages, currentPage, generateUrl, className}: Props) {
   function renderPageNumbers() {
-    if (totalPage === 1) {
+    if (totalPages === 1) {
       return (
         <PaginationItem key={1}>
-          <PaginationLink href={generateSearchUrl(1)} isActive={true}>
+          <PaginationLink href={generateUrl(1)} isActive={true}>
             1
           </PaginationLink>
         </PaginationItem>
@@ -35,21 +31,21 @@ export default function Pagination({totalPage, currentPage, query, sort}: Props)
 
     const items = [];
 
-    if (currentPage > 2) {
+    let startPage = Math.max(1, currentPage - 1);
+    const endPage = Math.min(totalPages, startPage + 2);
+
+    if (endPage === totalPages) {
+      startPage = Math.max(1, endPage - 2);
+    }
+
+    if (currentPage > 2 && startPage > 1) {
       items.push(
         <PaginationItem key="first">
-          <PaginationLink href={generateSearchUrl(1)} isActive={currentPage === 1}>
+          <PaginationLink href={generateUrl(1)} isActive={currentPage === 1}>
             1
           </PaginationLink>
         </PaginationItem>,
       );
-    }
-
-    let startPage = Math.max(1, currentPage - 1);
-    const endPage = Math.min(totalPage, startPage + 2);
-
-    if (endPage === totalPage) {
-      startPage = Math.max(1, endPage - 2);
     }
 
     if (startPage > 1) {
@@ -63,14 +59,20 @@ export default function Pagination({totalPage, currentPage, query, sort}: Props)
     for (let i = startPage; i <= endPage; i++) {
       items.push(
         <PaginationItem key={i}>
-          <PaginationLink href={generateSearchUrl(i)} isActive={currentPage === i}>
+          <PaginationLink
+            href={generateUrl(i)}
+            isActive={currentPage === i}
+            aria-disabled={currentPage === i}
+            tabIndex={currentPage === i ? -1 : 0}
+            className={`${currentPage === i && 'pointer-events-none'}`}
+          >
             {i}
           </PaginationLink>
         </PaginationItem>,
       );
     }
 
-    if (endPage < totalPage) {
+    if (endPage < totalPages) {
       items.push(
         <PaginationItem key="ellipsis-end">
           <PaginationEllipsis />
@@ -78,11 +80,11 @@ export default function Pagination({totalPage, currentPage, query, sort}: Props)
       );
     }
 
-    if (currentPage < totalPage - 1) {
+    if (currentPage < totalPages - 1 && endPage < totalPages) {
       items.push(
         <PaginationItem key="last">
-          <PaginationLink href={generateSearchUrl(totalPage)} isActive={currentPage === totalPage}>
-            {totalPage}
+          <PaginationLink href={generateUrl(totalPages)} isActive={currentPage === totalPages}>
+            {totalPages}
           </PaginationLink>
         </PaginationItem>,
       );
@@ -93,10 +95,10 @@ export default function Pagination({totalPage, currentPage, query, sort}: Props)
 
   return (
     <ShadcnPagination>
-      <PaginationContent>
+      <PaginationContent className={className}>
         <PaginationItem>
           <PaginationPrevious
-            href={generateSearchUrl(currentPage - 1)}
+            href={generateUrl(currentPage - 1)}
             aria-disabled={currentPage === 1}
             tabIndex={currentPage === 1 ? -1 : 0}
             className={`${currentPage === 1 && 'pointer-events-none opacity-50'}`}
@@ -105,10 +107,10 @@ export default function Pagination({totalPage, currentPage, query, sort}: Props)
         {renderPageNumbers()}
         <PaginationItem>
           <PaginationNext
-            href={generateSearchUrl(currentPage + 1)}
-            aria-disabled={currentPage === totalPage}
-            tabIndex={currentPage === totalPage ? -1 : 0}
-            className={`${currentPage === totalPage && 'pointer-events-none opacity-50'}`}
+            href={generateUrl(currentPage + 1)}
+            aria-disabled={currentPage === totalPages}
+            tabIndex={currentPage === totalPages ? -1 : 0}
+            className={`${currentPage === totalPages && 'pointer-events-none opacity-50'}`}
           />
         </PaginationItem>
       </PaginationContent>
