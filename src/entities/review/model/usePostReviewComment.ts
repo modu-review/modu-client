@@ -27,7 +27,7 @@ export default function usePostReviewComment(page: number) {
         content,
         created_at: new Date().toISOString(),
       };
-      const wasNewPageCreated = previousComments.comments.length === 12;
+      const wasNewPageCreated = previousComments.comments.length === 8;
 
       if (wasNewPageCreated) {
         const updatedComments = {
@@ -39,7 +39,7 @@ export default function usePostReviewComment(page: number) {
 
         queryClient.setQueryData(reviewQueryKeys.comments(reviewId, page + 1), updatedComments);
 
-        router.push(`?page=${page + 1}`);
+        router.push(`?page=${page + 1}`, {scroll: false});
       } else {
         await queryClient.cancelQueries({queryKey: reviewQueryKeys.comments(reviewId, page)});
 
@@ -65,7 +65,7 @@ export default function usePostReviewComment(page: number) {
       if (wasNewPageCreated) {
         queryClient.removeQueries({queryKey: reviewQueryKeys.comments(reviewId, page + 1)});
 
-        router.push(`?page=${page}`);
+        router.push(`?page=${page}`, {scroll: false});
       } else {
         queryClient.setQueryData(reviewQueryKeys.comments(reviewId, page), previousComments);
       }
