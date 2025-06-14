@@ -9,13 +9,14 @@ export default function CommentsLoading() {
       </h2>
       <Skeleton className="w-full h-32 mt-4 mb-6" />
       <ul className="flex flex-col gap-5 mt-6">
-        {Array.from({length: 4}).map((_, idx) => (
+        {Array.from({length: 5}).map((_, idx) => (
           <li key={idx}>
             <CommentCardLoading />
             <div className="w-full h-[1.5px] bg-gray-300" />
           </li>
         ))}
       </ul>
+      <Skeleton className="mx-auto w-[200px] md:w-[260px] h-10 my-5" />
     </section>
   );
 }
