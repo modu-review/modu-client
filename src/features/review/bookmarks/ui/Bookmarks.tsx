@@ -14,7 +14,7 @@ export default function Bookmarks({reviewId, openLoginModal}: Props) {
     data: {bookmarks, hasBookmarked},
   } = useGetReviewBookmarks(reviewId);
 
-  const userId = useUserId();
+  const userId = null;
   const {toggleBookmark, isPending} = useToggleBookmark();
 
   const handleClick = () => {
