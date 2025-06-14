@@ -2,7 +2,7 @@ import {Viewer} from '@/features/review/viewer';
 import {Bookmarks, BookmarksLoading} from '@/features/review/bookmarks';
 import {getReviewDetail} from '@/entities/review';
 import {RQProvider} from '@/shared/providers';
-import {Comments} from '@/features/review/comments';
+import {Comments, CommentsLoading} from '@/features/review/comments';
 
 type Props = {
   params: Promise<{reviewId: string}>;
@@ -19,7 +19,7 @@ export default async function ReviewDetailPage({params}: Props) {
       <RQProvider LoadingFallback={<BookmarksLoading />}>
         <Bookmarks reviewId={parsedReviewId} />
       </RQProvider>
-      <RQProvider LoadingFallback={<div>loading...</div>}>
+      <RQProvider LoadingFallback={<CommentsLoading />}>
         <Comments reviewId={parsedReviewId} category={category} />
       </RQProvider>
     </section>
