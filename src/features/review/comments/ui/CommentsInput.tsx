@@ -9,9 +9,10 @@ type Props = {
   reviewId: number;
   category: Category;
   page: number;
+  openLoginModal: () => void;
 };
 
-export default function CommentsInput({reviewId, category, page}: Props) {
+export default function CommentsInput({reviewId, category, page, openLoginModal}: Props) {
   const isLoggedIn = useIsLoggedIn();
   const userId = useUserId();
 
@@ -31,7 +32,7 @@ export default function CommentsInput({reviewId, category, page}: Props) {
 
   const handleTextareaClick = () => {
     if (!isLoggedIn) {
-      // TODO: 로그인 모달 열기
+      openLoginModal();
     }
   };
 

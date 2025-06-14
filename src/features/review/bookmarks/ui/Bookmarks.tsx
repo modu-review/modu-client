@@ -6,9 +6,10 @@ import {LucideIcon} from '@/shared/ui/icons';
 
 type Props = {
   reviewId: number;
+  openLoginModal: () => void;
 };
 
-export default function Bookmarks({reviewId}: Props) {
+export default function Bookmarks({reviewId, openLoginModal}: Props) {
   const {
     data: {bookmarks, hasBookmarked},
   } = useGetReviewBookmarks(reviewId);
@@ -17,8 +18,10 @@ export default function Bookmarks({reviewId}: Props) {
   const {toggleBookmark, isPending} = useToggleBookmark();
 
   const handleClick = () => {
-    // Todo: 로그인 유도를 위한 모달 띄우기
-    if (!userId) return;
+    if (!userId) {
+      openLoginModal();
+      return;
+    }
 
     toggleBookmark({userId, reviewId});
   };
