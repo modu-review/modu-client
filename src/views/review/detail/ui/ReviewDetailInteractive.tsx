@@ -25,7 +25,7 @@ export default function ReviewDetailInteractive({reviewId, category}: Props) {
       </RQProvider>
       {openLoginModal && (
         <Modal onClose={handleModalClose}>
-          <LoginModal />
+          <LoginModal onClose={handleModalClose} />
         </Modal>
       )}
     </>
