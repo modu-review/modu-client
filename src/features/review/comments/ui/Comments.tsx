@@ -18,7 +18,7 @@ export default function Comments({reviewId, category}: Props) {
 
   return (
     <section className="w-full px-6">
-      <h2 className="mr-auto text-xl border-b-2">
+      <h2 className="mr-auto text-xl pb-1.5 border-b-2">
         댓글쓰기 <span className="text-lg">{comments_count}</span>
       </h2>
       <CommentsInput reviewId={reviewId} category={category} page={currentPage} />

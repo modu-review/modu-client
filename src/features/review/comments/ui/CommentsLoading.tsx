@@ -4,7 +4,7 @@ import CommentCardLoading from './CommentCardLoading';
 export default function CommentsLoading() {
   return (
     <section className="w-full px-6">
-      <h2 className="mr-auto text-xl border-b-2 flex items-center">
+      <h2 className="mr-auto text-xl pb-1.5 border-b-2 flex items-center">
         댓글쓰기 <Skeleton className="inline-block h-6 w-9 ml-2" />
       </h2>
       <Skeleton className="w-full h-32 mt-4 mb-6" />
