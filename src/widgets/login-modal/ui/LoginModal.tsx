@@ -18,13 +18,13 @@ export default function LoginModal({onClose}: Props) {
         <p className="text-sm text-gray-500">로그인하면 더 많은 기능을 이용할 수 있어요.</p>
       </div>
       <div className="flex items-center w-full gap-1 px-3 mb-3">
-        <Link className="w-full" href={LOGIN_URL}>
-          <button
-            className="w-full py-1.5 bg-boldBlue text-white rounded-md hover:bg-boldBlue/80 transition-colors"
-            aria-label="로그인하기"
-          >
-            로그인하기
-          </button>
+        <Link
+          className="w-full text-center py-1.5 bg-boldBlue text-white rounded-md hover:bg-boldBlue/80 transition-colors"
+          href={LOGIN_URL}
+          aria-label="로그인"
+          role="button"
+        >
+          로그인하기
         </Link>
         <button
           className="w-full py-1.5 bg-gray-300 text-black rounded-md hover:bg-gray-300/80 transition-colors"
