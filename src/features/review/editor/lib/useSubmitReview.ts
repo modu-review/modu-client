@@ -1,11 +1,11 @@
 import {useCallback, useRef} from 'react';
 import {EditorContentGetter, FormSchemaType, SubmitAction} from '../model/type';
-import {ReviewDetail, ReviewPayload} from '@/entities/review';
+import {ReviewContent, ReviewPayload} from '@/entities/review';
 import {useUserEmail, useUserId} from '@/entities/auth';
 import {createClientError} from '@/shared/lib/utils/client-error';
 
 type Props = {
-  onPreview: (data: ReviewDetail) => void;
+  onPreview: (data: ReviewContent) => void;
   onSave: (data: ReviewPayload) => void;
 };
 

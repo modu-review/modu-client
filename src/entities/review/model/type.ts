@@ -17,7 +17,7 @@ export type SearchReviewCard = ReviewCard & {
   created_at: string;
 };
 
-export type ReviewDetail = {
+export type ReviewContent = {
   title: string;
   category: Category;
   author: string;
@@ -25,10 +25,52 @@ export type ReviewDetail = {
   content: string;
 };
 
+export type Comment = {
+  id: number;
+  profile_image: string;
+  author: string;
+  content: string;
+  created_at: string;
+};
+
+export type ReviewDetail = {
+  board_id: number;
+  title: string;
+  category: Category;
+  author: string;
+  created_at: string;
+  content: string;
+  bookmarks: number;
+};
+
+export type ReviewBookmarks = {
+  bookmarks: number;
+  hasBookmarked: boolean;
+};
+
+export type ReviewComments = {
+  comments_count: number;
+  comments: Comment[];
+  current_page: number;
+  total_pages: number;
+};
+
 export type ReviewPayload = {
   title: string;
   category: Category;
   authorEmail: string;
+  content: string;
+};
+
+export type BookmarkPayload = {
+  userId: string;
+  reviewId: number;
+};
+
+export type CommentPayload = {
+  userId: string;
+  category: Category;
+  reviewId: number;
   content: string;
 };
 
