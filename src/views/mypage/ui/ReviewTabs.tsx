@@ -15,6 +15,7 @@ export default function ReviewTabs() {
   const tabValue = searchParams.get('tabs') || 'my';
   const currentPage = Number(searchParams.get('page')) || 1;
 
+  const prevPageRef = useRef(currentPage);
   const tabsRef = useRef<HTMLDivElement>(null);
 
   const handleTabChange = (value: string) => {
@@ -22,9 +23,13 @@ export default function ReviewTabs() {
   };
 
   useEffect(() => {
-    if (tabsRef.current) {
-      tabsRef.current.scrollIntoView({behavior: 'smooth'});
+    if (prevPageRef.current && prevPageRef.current !== currentPage) {
+      if (tabsRef.current) {
+        tabsRef.current.scrollIntoView({behavior: 'smooth'});
+      }
     }
+
+    prevPageRef.current = currentPage;
   }, [currentPage]);
 
   return (
