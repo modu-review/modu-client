@@ -1,8 +1,9 @@
 'use client';
 
 import Link from 'next/link';
+import ReviewList from './ReviewList';
 import {CategoryBar, useSelectCategory} from '@/features/reviews/filtering';
-import {ReviewList, BestReviewsResult} from '@/entities/reviews';
+import {BestReviewsResult} from '@/entities/reviews';
 import {LucideIcon} from '@/shared/ui/icons';
 
 type Props = {

@@ -1,4 +1,4 @@
-import CardFrame from './CardFrame';
+import {ReviewsGrid} from '@/entities/reviews';
 import {ReviewCard} from '@/entities/review';
 import {LucideIcon} from '@/shared/ui/icons';
 
@@ -21,13 +21,5 @@ export default function ReviewList({filteredReview}: Props) {
     );
   }
 
-  return (
-    <ul className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-14 md:gap-y-20 content-center justify-items-center mb-16">
-      {reviews.map(card => (
-        <li key={card.board_id}>
-          <CardFrame card={card} from="bestReview" />
-        </li>
-      ))}
-    </ul>
-  );
+  return <ReviewsGrid from="bestReview" reviews={reviews} />;
 }

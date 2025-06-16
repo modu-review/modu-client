@@ -188,7 +188,8 @@ async function requestWithErrorHandling<T>(fn: () => Promise<T>): Promise<T | ne
  */
 export async function requestGet<T>({
   headers = {},
-  errorHandlingType,
+  errorHandlingType = 'errorBoundary',
+  withResponse = true,
   ...args
 }: WithErrorHandling<RequestMethodProps>): Promise<T> {
   return requestWithErrorHandling(() =>
@@ -196,7 +197,7 @@ export async function requestGet<T>({
       ...args,
       method: 'GET',
       headers,
-      withResponse: true,
+      withResponse,
       errorHandlingType,
     }),
   );
