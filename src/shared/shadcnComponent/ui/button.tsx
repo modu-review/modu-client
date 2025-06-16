@@ -10,7 +10,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default: 'bg-primary text-primary-foreground shadow hover:bg-primary/90',
-        logInOut: 'bg-black text-white',
+        logInOut: 'bg-black text-white hover:bg-black/80',
         activeCategory: 'bg-boldBlue text-white rounded-xl font-bold',
         inActiveCategory: 'text-black font-semibold md:hover:scale-105 md:hover:font-bold',
         outline: 'border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground',
