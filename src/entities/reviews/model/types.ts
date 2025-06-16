@@ -13,20 +13,20 @@ export type KeywordReviewsResult = {
   total_pages: number;
 };
 
-export type CateogyReviewsResult = {
+export type CategoryReviewsResult = {
   results: SearchReviewCard[];
   next_cursor: number | null;
   has_next: boolean;
 };
 
 export type MyReviews = {
-  results: Review[];
+  results: ReviewCard[];
   current_page: number;
   total_pages: number;
 };
 
 export type MyBookmarkedReviews = {
-  results: Review[];
+  results: ReviewCard[];
   current_page: number;
   total_pages: number;
 };

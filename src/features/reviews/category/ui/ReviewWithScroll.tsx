@@ -41,7 +41,7 @@ export default function ReviewsWithScroll({selectedCategory, sort}: Props) {
     <>
       <ul>
         {data.pages.map(page =>
-          page.content.map(review => (
+          page.results.map(review => (
             <li key={review.board_id}>
               <ReviewArticle searchReview={review} />
             </li>

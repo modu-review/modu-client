@@ -1,6 +1,6 @@
 import {cva} from 'class-variance-authority';
-import {Review} from '../model/types';
 import CardFrame from './CardFrame';
+import {ReviewCard} from '@/entities/review/model/type';
 
 const reviewsGridVariants = cva(
   'w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 content-center justify-items-center',
@@ -24,11 +24,11 @@ const reviewsGridVariants = cva(
 
 type Props =
   | {
-      reviews: Review[];
+      reviews: ReviewCard[];
       from: 'bestReview';
     }
   | {
-      reviews: Review[];
+      reviews: ReviewCard[];
       from: 'myPage';
       onDelete: () => void;
       onEdit: () => void;

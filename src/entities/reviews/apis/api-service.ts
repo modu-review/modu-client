@@ -1,4 +1,10 @@
-import {BestReviewsResult, CateogyReviewsResult, KeywordReviewsResult, MyBookmarkedReviews, MyReviews} from '../model/types';
+import {
+  BestReviewsResult,
+  CategoryReviewsResult,
+  KeywordReviewsResult,
+  MyBookmarkedReviews,
+  MyReviews,
+} from '../model/types';
 import {requestGet} from '@/shared/apis';
 
 export function getBestReviews() {
@@ -19,7 +25,7 @@ export function getKeywordReviews(keyword: string, page: number, sort: string) {
 }
 
 export function getCategoryReviews(cursor: number, categoryId: string, sort: string) {
-  return requestGet<CateogyReviewsResult>({
+  return requestGet<CategoryReviewsResult>({
     endpoint: `/reviews`, // TODO: 실제 api들어오면 /api 빼기
     queryParams: {
       categoryId: categoryId,

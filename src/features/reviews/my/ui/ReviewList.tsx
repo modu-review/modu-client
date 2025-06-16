@@ -1,8 +1,9 @@
-import {Review, ReviewsGrid} from '@/entities/reviews';
+import {ReviewCard} from '@/entities/review';
+import {ReviewsGrid} from '@/entities/reviews';
 import Pagination from '@/widgets/pagination';
 
 type Props = {
-  reviews: Review[];
+  reviews: ReviewCard[];
   currentPage: number;
   totalPages: number;
   tabs: string;
