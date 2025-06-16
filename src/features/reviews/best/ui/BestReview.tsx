@@ -3,11 +3,11 @@
 import Link from 'next/link';
 import ReviewList from './ReviewList';
 import {CategoryBar, useSelectCategory} from '@/features/reviews/filtering';
-import {BestReviewMapped} from '@/entities/reviews';
+import {BestReviewsResult} from '@/entities/reviews';
 import {LucideIcon} from '@/shared/ui/icons';
 
 type Props = {
-  reviews: BestReviewMapped;
+  reviews: BestReviewsResult;
 };
 
 export default function BestReview({reviews}: Props) {

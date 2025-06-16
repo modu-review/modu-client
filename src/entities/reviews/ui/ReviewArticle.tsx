@@ -1,9 +1,9 @@
 import Image from 'next/image';
-import {SearchReview} from '../model/types';
+import {SearchReviewCard} from '@/entities/review';
 import {LucideIcon} from '@/shared/ui/icons';
 
 type Props = {
-  searchReview: SearchReview;
+  searchReview: SearchReviewCard;
 };
 
 export default function ReviewArticle({

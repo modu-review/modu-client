@@ -31,7 +31,14 @@ export default function Pagination({totalPages, currentPage, generateUrl, classN
 
     const items = [];
 
-    if (currentPage > 2) {
+    let startPage = Math.max(1, currentPage - 1);
+    const endPage = Math.min(totalPages, startPage + 2);
+
+    if (endPage === totalPages) {
+      startPage = Math.max(1, endPage - 2);
+    }
+
+    if (currentPage > 2 && startPage > 1) {
       items.push(
         <PaginationItem key="first">
           <PaginationLink href={generateUrl(1)} isActive={currentPage === 1}>
@@ -39,13 +46,6 @@ export default function Pagination({totalPages, currentPage, generateUrl, classN
           </PaginationLink>
         </PaginationItem>,
       );
-    }
-
-    let startPage = Math.max(1, currentPage - 1);
-    const endPage = Math.min(totalPages, startPage + 2);
-
-    if (endPage === totalPages) {
-      startPage = Math.max(1, endPage - 2);
     }
 
     if (startPage > 1) {
@@ -80,7 +80,7 @@ export default function Pagination({totalPages, currentPage, generateUrl, classN
       );
     }
 
-    if (currentPage < totalPages - 1) {
+    if (currentPage < totalPages - 1 && endPage < totalPages) {
       items.push(
         <PaginationItem key="last">
           <PaginationLink href={generateUrl(totalPages)} isActive={currentPage === totalPages}>

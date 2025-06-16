@@ -65,7 +65,36 @@ export default {
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            color: '#000000',
+            '--tw-prose-counters': '#000000',
+            '--tw-prose-bullets': '#000000',
+            'blockquote p:first-of-type::before': {content: 'none'},
+            'blockquote p:first-of-type::after': {content: 'none'},
+            maxWidth: '100%',
+            blockquote: {
+              fontWeight: 500,
+              color: 'black',
+              fontStyle: 'none',
+              borderInlineStartWidth: '0.25rem',
+              borderInlineStartColor: '#0F4C75',
+              marginTop: '1.6rem',
+              marginBottom: '1.6rem',
+              paddingInlineStart: '1em',
+              backgroundColor: '#F5F5F5',
+              padding: '0.6rem',
+              paddingLeft: '1rem',
+            },
+            hr: {
+              marginTop: '1.8rem',
+              marginBottom: '1.8rem',
+            },
+          },
+        },
+      },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [require('tailwindcss-animate'), require('@tailwindcss/typography')],
 } satisfies Config;

@@ -1,27 +1,26 @@
-import {BestReviewMapped, FindReviews, MyBookmarkedReviews, MyReviews, SearchReviewsWithKeyword} from '../model/types';
+import {BestReviewsResult, CateogyReviewsResult, KeywordReviewsResult, MyBookmarkedReviews, MyReviews} from '../model/types';
 import {requestGet} from '@/shared/apis';
 
 export function getBestReviews() {
-  return requestGet<BestReviewMapped>({
+  return requestGet<BestReviewsResult>({
     endpoint: '/reviews/best',
   });
 }
 
-export function getReviewsWithKeyword(keyword: string, page: number, sort: string) {
-  return requestGet<SearchReviewsWithKeyword>({
+export function getKeywordReviews(keyword: string, page: number, sort: string) {
+  return requestGet<KeywordReviewsResult>({
     endpoint: '/search',
     queryParams: {
       keyword: keyword,
       page: page,
       sort: sort,
     },
-    baseUrl: process.env.NEXT_PUBLIC_API_URL,
   });
 }
 
-export function getReviews(cursor: number, categoryId: string, sort: string) {
-  return requestGet<FindReviews>({
-    endpoint: `/reviews`,
+export function getCategoryReviews(cursor: number, categoryId: string, sort: string) {
+  return requestGet<CateogyReviewsResult>({
+    endpoint: `/reviews`, // TODO: 실제 api들어오면 /api 빼기
     queryParams: {
       categoryId: categoryId,
       cursor: cursor,

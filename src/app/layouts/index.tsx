@@ -20,11 +20,12 @@ export function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="w-full h-full">
+    <html lang="en" className="w-full h-full overflow-y-auto">
       <body className={`${pretandard.className} antialiased flex flex-col w-full h-full overflow-x-hidden`}>
         <Providers>
           <Header />
           <main className="grow w-full mx-auto">{children}</main>
+          <div id="modal-root" />
         </Providers>
         <Footer />
         <Toaster position="top-center" />

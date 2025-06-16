@@ -6,6 +6,11 @@ export default async function Header() {
   const cookieStore = await cookies();
 
   const isLoggedIn = cookieStore.has('refreshToken');
+  const LOGIN_URL = process.env.NEXT_PUBLIC_LOGIN_URL;
+
+  if (!LOGIN_URL) {
+    throw new Error('로그인 URL이 환경변수에 정의되지 않았습니다.');
+  }
 
   return (
     <header className="flex justify-between items-center py-5 px-6 md:px-8 lg:py-6 lg:px-10">

@@ -1,10 +1,11 @@
-import {Review, ReviewsGrid} from '@/entities/reviews';
+import {ReviewsGrid} from '@/entities/reviews';
+import {ReviewCard} from '@/entities/review';
 import {LucideIcon} from '@/shared/ui/icons';
 
 type Props = {
   filteredReview: {
     count: number;
-    reviews: Review[];
+    reviews: ReviewCard[];
   };
 };
 
