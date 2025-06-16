@@ -14,8 +14,8 @@ export default function UserInfo() {
         <LucideIcon name="UserRound" className="w-20 h-20 md:w-32 md:h-32" />
       </div>
       <div className="mt-auto ml-3 md:ml-5 relative">
-        <p className="text-lg md:text-xl text-boldBlue font-semibold mb-1 md:mb-2">gojimin3095</p>
-        <p className="text-sm text-boldBlue">gojimin3095@gmail.com</p>
+        <p className="text-lg md:text-xl text-boldBlue font-semibold mb-1 md:mb-2">{userId}</p>
+        <p className="text-sm text-boldBlue">{userEmail}</p>
         <Button
           className="absolute -left-[0.5rem] -bottom-[3.5rem] md:-bottom-[4rem]"
           variant="logInOut"
