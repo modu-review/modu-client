@@ -5,7 +5,7 @@ import Link from 'next/link';
 import {LucideIcon} from '@/shared/ui/icons';
 
 export default async function MyPage() {
-  // await checkSession();
+  await checkSession();
 
   return (
     <section className="fixed inset-0 w-full h-full bg-white overflow-auto">
