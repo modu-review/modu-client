@@ -15,14 +15,21 @@ type Props = {
   totalPages: number;
   generateUrl: (page: number) => string;
   className?: string;
+  scrollToTop: boolean;
 };
 
-export default function Pagination({totalPages, currentPage, generateUrl, className}: Props) {
+export default function Pagination({totalPages, currentPage, generateUrl, className, scrollToTop = true}: Props) {
   function renderPageNumbers() {
     if (totalPages === 1) {
       return (
         <PaginationItem key={1}>
-          <PaginationLink href={generateUrl(1)} isActive={true}>
+          <PaginationLink
+            href={generateUrl(1)}
+            className="pointer-events-none"
+            isActive={true}
+            aria-disabled={true}
+            scroll={scrollToTop}
+          >
             1
           </PaginationLink>
         </PaginationItem>
@@ -41,7 +48,12 @@ export default function Pagination({totalPages, currentPage, generateUrl, classN
     if (currentPage > 2 && startPage > 1) {
       items.push(
         <PaginationItem key="first">
-          <PaginationLink href={generateUrl(1)} isActive={currentPage === 1}>
+          <PaginationLink
+            href={generateUrl(1)}
+            isActive={currentPage === 1}
+            aria-disabled={currentPage === 1}
+            scroll={scrollToTop}
+          >
             1
           </PaginationLink>
         </PaginationItem>,
@@ -61,10 +73,11 @@ export default function Pagination({totalPages, currentPage, generateUrl, classN
         <PaginationItem key={i}>
           <PaginationLink
             href={generateUrl(i)}
+            className={`${currentPage === i && 'pointer-events-none'}`}
             isActive={currentPage === i}
             aria-disabled={currentPage === i}
             tabIndex={currentPage === i ? -1 : 0}
-            className={`${currentPage === i && 'pointer-events-none'}`}
+            scroll={scrollToTop}
           >
             {i}
           </PaginationLink>
@@ -83,7 +96,12 @@ export default function Pagination({totalPages, currentPage, generateUrl, classN
     if (currentPage < totalPages - 1 && endPage < totalPages) {
       items.push(
         <PaginationItem key="last">
-          <PaginationLink href={generateUrl(totalPages)} isActive={currentPage === totalPages}>
+          <PaginationLink
+            href={generateUrl(totalPages)}
+            isActive={currentPage === totalPages}
+            aria-disabled={currentPage === totalPages}
+            scroll={scrollToTop}
+          >
             {totalPages}
           </PaginationLink>
         </PaginationItem>,
@@ -102,6 +120,7 @@ export default function Pagination({totalPages, currentPage, generateUrl, classN
             aria-disabled={currentPage === 1}
             tabIndex={currentPage === 1 ? -1 : 0}
             className={`${currentPage === 1 && 'pointer-events-none opacity-50'}`}
+            scroll={scrollToTop}
           />
         </PaginationItem>
         {renderPageNumbers()}
@@ -111,6 +130,7 @@ export default function Pagination({totalPages, currentPage, generateUrl, classN
             aria-disabled={currentPage === totalPages}
             tabIndex={currentPage === totalPages ? -1 : 0}
             className={`${currentPage === totalPages && 'pointer-events-none opacity-50'}`}
+            scroll={scrollToTop}
           />
         </PaginationItem>
       </PaginationContent>
