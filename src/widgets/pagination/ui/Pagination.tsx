@@ -15,7 +15,7 @@ type Props = {
   totalPages: number;
   generateUrl: (page: number) => string;
   className?: string;
-  scrollToTop: boolean;
+  scrollToTop?: boolean;
 };
 
 export default function Pagination({totalPages, currentPage, generateUrl, className, scrollToTop = true}: Props) {
