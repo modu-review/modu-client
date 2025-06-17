@@ -23,6 +23,7 @@ export default function CommentsList({comments, currentPage, totalPages}: Props)
         totalPages={totalPages}
         generateUrl={page => `?page=${page}`}
         className="my-5"
+        scrollToTop={false}
       />
     </>
   );
