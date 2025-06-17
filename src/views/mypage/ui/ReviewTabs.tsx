@@ -19,7 +19,7 @@ export default function ReviewTabs() {
   const tabsRef = useRef<HTMLDivElement>(null);
 
   const handleTabChange = (value: string) => {
-    router.push('/mypage?tabs=' + value);
+    router.push('/mypage?tabs=' + value, {scroll: false});
   };
 
   useEffect(() => {
