@@ -7,7 +7,7 @@ type Props = {
 };
 
 export default function ReviewArticle({
-  searchReview: {author, board_id, bookmarks, category, comments_count, content, created_at, image_url, title},
+  searchReview: {author, board_id, bookmarks, category, comments_count, preview, created_at, image_url, title},
 }: Props) {
   return (
     <article
@@ -24,7 +24,7 @@ export default function ReviewArticle({
           </div>
         </article>
         <article className="px-4 md:px-0 text-sm line-clamp-2 md:line-clamp-3 mb-4 md:mb-7 md:flex-1 md:max-w-[400px] lg:max-w-[550px]">
-          {content}
+          {preview}
         </article>
         <article className="flex gap-6 text-sm border-t py-2.5 px-4 md:p-0 md:border-none">
           <div className="flex gap-1 items-center">

@@ -7,7 +7,7 @@ type Props = {
 };
 
 export default function CardDescription({
-  card: {category, image_url, title, content, author, comments_count, bookmarks},
+  card: {category, image_url, title, preview, author, comments_count, bookmarks},
 }: Props) {
   return (
     <article className="h-full flex flex-col items-center justify-between font-semibold">
@@ -24,7 +24,7 @@ export default function CardDescription({
         />
         <h3>{title}</h3>
         <div className="min-h-[30px]">
-          <p className="text-[11px] font-light line-clamp-2 px-5">{content}</p>
+          <p className="text-[11px] font-light line-clamp-2 px-5">{preview}</p>
         </div>
       </div>
 
