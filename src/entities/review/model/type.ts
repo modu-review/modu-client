@@ -7,7 +7,7 @@ export type ReviewCard = {
   title: string;
   author: string;
   category: string;
-  content: string;
+  preview: string;
   comments_count: number;
   bookmarks: number;
   image_url: string;
