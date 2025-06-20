@@ -20,8 +20,8 @@ export function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="w-full h-full overflow-y-auto">
-      <body className={`${pretandard.className} antialiased flex flex-col w-full overflow-x-hidden`}>
+    <html lang="en">
+      <body className={`${pretandard.className} antialiased flex flex-col w-full`}>
         <Providers>
           <Header />
           <main className="grow w-full mx-auto">{children}</main>
