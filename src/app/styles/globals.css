@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+html,
+body {
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+html {
+  overflow-y: auto;
+}
+
 body {
   /* Firefox */
   scrollbar-width: 4px;
