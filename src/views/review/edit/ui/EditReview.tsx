@@ -1,4 +1,5 @@
 import {getReviewDetail} from '@/entities/review';
+import EditReviewClient from './EditReviewClient';
 
 type Props = {
   reviewId: number;
@@ -12,5 +13,5 @@ export default async function EditReview({reviewId, sessionUserEmail}: Props) {
     throw new Error('작성자만 리뷰를 수정할 수 있습니다.');
   }
 
-  return <>{/* TODO: EditReviewClient 컴포넌트 구현 후 onSave 콜백을 Editor 컴포넌트로 주입 */}</>;
+  return <EditReviewClient data={data} reviewId={reviewId} />;
 }
