@@ -17,7 +17,7 @@ export default function usePatchReview() {
 
   const {mutate, ...rest} = useMutation({
     mutationFn: ({data, reviewId}: MutationVariables) => patchReview(data, reviewId),
-    onSuccess: (_data, {category}) => {
+    onSuccess: (_data, {category, reviewId}) => {
       toast.success({
         title: '리뷰를 성공적으로 수정했어요.',
       });
@@ -26,7 +26,7 @@ export default function usePatchReview() {
       // queryClient.invalidateQueries(reviewQueryKeys.search(category, 'recent'));
       // queryClient.invalidateQueries(reviewQueryKeys.search('all', 'recent'));
 
-      router.push('/search');
+      router.push(`/reviews/${reviewId}`);
     },
   });
 
