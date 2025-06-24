@@ -1,5 +1,6 @@
 import {Suspense} from 'react';
 import {cookies} from 'next/headers';
+import EditReview from './EditReview';
 import {LoadingSpinner} from '@/shared/ui/components';
 
 type Props = {
@@ -20,7 +21,7 @@ export default async function ReviewEditPage({params}: Props) {
   return (
     <section className="fixed inset-0 bg-white">
       <Suspense fallback={<LoadingSpinner text="리뷰 정보를 불러오고 있어요." />}>
-        {/* TODO: 에디터 컴포넌트를 사용한 리뷰 수정 기능 구현 */}
+        <EditReview reviewId={parsedReviewId} sessionUserEmail={sessionUserEmail.value} />
       </Suspense>
     </section>
   );
