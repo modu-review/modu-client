@@ -3,19 +3,24 @@
 import EditorMetaForm from './EditorMetaForm';
 import EditorContainer from './EditorContainer';
 import EditorFooter from './EditorFooter';
-import {Viewer, ViewerModal} from '../../viewer';
-import {usePreview, useSaveReview, useSubmitReview} from '../lib';
+import {usePreview, useSubmitReview} from '../lib';
 import {EditorInitialData} from '../model/type';
+import {Viewer, ViewerModal} from '@/features/review/viewer';
+import {ReviewPayload} from '@/entities/review';
 import {Modal} from '@/shared/ui/modal';
 import {LoadingSpinner} from '@/shared/ui/components';
 
-export default function Editor({title, category, content}: EditorInitialData) {
+type Props = {
+  onSave: (data: ReviewPayload) => void;
+  isPending: boolean;
+} & EditorInitialData;
+
+export default function Editor({title, category, content, onSave, isPending}: Props) {
   const {preview, openModal, handleModalClose, openPreview} = usePreview();
-  const {saveReview, isPending} = useSaveReview();
 
   const {handleSetActionPreview, handleSetActionSave, handleSetContentGetter, handleSubmit} = useSubmitReview({
     onPreview: openPreview,
-    onSave: saveReview,
+    onSave,
   });
 
   return (

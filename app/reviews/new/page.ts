@@ -1,1 +1,1 @@
-export {ReviewWritePage as default} from '@/views/review/new';
+export {NewReviewPage as default} from '@/views/review/new';
