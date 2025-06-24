@@ -1,0 +1,1 @@
+export {EditReviewPage as default} from '@/views/review/edit';
