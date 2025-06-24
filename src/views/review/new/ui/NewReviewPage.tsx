@@ -1,7 +1,7 @@
 import {Editor} from '@/features/review/editor';
 import checkSession from '@/shared/lib/utils/checkSession';
 
-export default async function ReviewWritePage() {
+export default async function NewReviewPage() {
   await checkSession();
 
   return (
