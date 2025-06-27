@@ -10,3 +10,4 @@ export {default as useMyReviews} from './model/useMyReviews';
 export {default as useMyBookmarkedReviews} from './model/useMyBookmarkedReviews';
 export {default as ReviewsGridLoading} from './ui/ReviewsGridLoading';
 export {default as NoSearchResults} from './ui/NoSearchResults';
+export {default as DeleteButton} from './ui/DeleteButton';

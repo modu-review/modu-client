@@ -79,7 +79,7 @@ export async function PATCH(req: NextRequest, {params}: {params: Promise<{review
 }
 
 export async function DELETE() {
-  return NextResponse.json({}, {status: 204});
+  return NextResponse.json({status: 204});
 }
 
 // TODO: 백엔드 API 구현 완료 후 주석 해제
