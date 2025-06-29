@@ -29,7 +29,14 @@ export default function DeleteButton({category, reviewId}: Props) {
 
   return (
     <>
-      <button className="text-gray-500 hover:text-gray-700" onClick={handleDelete} disabled={isPending}>
+      <button
+        className="text-gray-500 hover:text-gray-700"
+        onClick={handleDelete}
+        disabled={isPending}
+        tabIndex={isPending ? -1 : 0}
+        aria-label="리뷰 삭제"
+        aria-disabled={isPending}
+      >
         삭제
       </button>
       {isPending && (
