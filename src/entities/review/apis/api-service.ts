@@ -8,7 +8,7 @@ import {
   ReviewPayload,
   UploadImageProps,
 } from '../model/type';
-import {requestGet, requestPatch, requestPost} from '@/shared/apis';
+import {requestDelete, requestGet, requestPatch, requestPost} from '@/shared/apis';
 import {createClientError} from '@/shared/lib/utils/client-error';
 import {TErrorInfo} from '@/shared/apis/request-type';
 import {RequestGetError} from '@/shared/apis/request-error';
@@ -27,6 +27,13 @@ export async function patchReview(data: ReviewPayload, reviewId: number) {
     baseUrl: process.env.NEXT_PUBLIC_CLIENT_URL,
     endpoint: `/api/reviews/${reviewId}`,
     body: data,
+  });
+}
+
+export async function deleteReview(reviewId: number) {
+  await requestDelete({
+    baseUrl: process.env.NEXT_PUBLIC_CLIENT_URL,
+    endpoint: `/api/reviews/${reviewId}`,
   });
 }
 
