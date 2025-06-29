@@ -34,7 +34,7 @@ export default function DeleteButton({category, reviewId}: Props) {
       </button>
       {isPending && (
         <section className="fixed inset-0 z-50 bg-black/70">
-          <LoadingSpinner text="리뷰를 삭제 중이에요." />
+          <LoadingSpinner text="리뷰를 삭제 중이에요." className="text-white" />
         </section>
       )}
     </>
