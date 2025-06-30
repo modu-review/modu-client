@@ -1,6 +1,6 @@
 import Empty from './Empty';
-import ReviewList from './ReviewList';
-import {useMyBookmarkedReviews} from '@/entities/reviews';
+import Pagination from '@/widgets/pagination';
+import {ReviewsGrid, useMyBookmarkedReviews} from '@/entities/reviews';
 
 type Props = {
   currentPage: number;
@@ -15,7 +15,19 @@ export default function MyBookmarkedReviews({currentPage}: Props) {
 
   return (
     <section>
-      <ReviewList reviews={results} currentPage={currentPage} totalPages={total_pages} tabs="myBookmarks" />
+      <ReviewsGrid
+        reviews={results}
+        from="myPage"
+        onEdit={() => console.log('수정')}
+        onDelete={() => console.log('삭제')}
+      />
+      <Pagination
+        currentPage={currentPage}
+        totalPages={total_pages}
+        generateUrl={(page: number) => `?tabs=myBookmarks&page=${page}`}
+        className="bg-white px-1.5 md:px-5 py-1.5 rounded-md shadow-md mb-4"
+        scrollToTop={false}
+      />
     </section>
   );
 }
