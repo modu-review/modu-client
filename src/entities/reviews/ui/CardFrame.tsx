@@ -31,7 +31,6 @@ type MyPageProps = BaseProps & {
   from: 'myPage';
   isAuthor: boolean;
   reviewId: string;
-  onEdit: () => void;
   onDelete: () => void;
 };
 
