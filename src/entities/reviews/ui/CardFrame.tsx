@@ -28,6 +28,7 @@ type BestReviewProps = BaseProps & {
 
 type MyPageProps = BaseProps & {
   from: 'myPage';
+  isAuthor: boolean;
   onEdit: () => void;
   onDelete: () => void;
 };
@@ -36,25 +37,34 @@ type ReviewCardProps = BestReviewProps | MyPageProps;
 
 type Props = ReviewCardProps & VariantProps<typeof cardVariants>;
 
-export default function CardFrame({card, from, className, onEdit, onDelete}: Props) {
-  const cardActions = {
-    myPage: (
-      <div className="absolute w-full px-4 pt-1 flex justify-between">
-        <button onClick={onEdit} aria-label="리뷰 수정">
-          <LucideIcon name="PencilLine" size={20} />
-        </button>
-        <button onClick={onDelete} aria-label="리뷰 삭제">
-          <LucideIcon name="X" size={20} />
-        </button>
-      </div>
-    ),
-    bestReview: null,
-  };
+export default function CardFrame(props: Props) {
+  const {card, from, className, onEdit, onDelete} = props;
 
-  return (
-    <section className={cn(cardVariants({from}), className)}>
-      {cardActions[from]}
-      <CardDescription card={card} />
-    </section>
-  );
+  function renderCard() {
+    switch (from) {
+      case 'bestReview':
+        return <CardDescription card={card} />;
+      case 'myPage':
+        return (
+          <>
+            {props.isAuthor && (
+              <div className="absolute w-full px-4 pt-1 flex justify-between">
+                <button onClick={onEdit} aria-label="리뷰 수정">
+                  <LucideIcon name="PencilLine" size={20} />
+                </button>
+                <button onClick={onDelete} aria-label="리뷰 삭제">
+                  <LucideIcon name="X" size={20} />
+                </button>
+              </div>
+            )}
+            <CardDescription card={card} />
+          </>
+        );
+      default:
+        const _exhaustiveCheck: never = from;
+        throw new Error(`허용되지 않은 'from' 값: ${_exhaustiveCheck}`);
+    }
+  }
+
+  return <section className={cn(cardVariants({from}), className)}>{renderCard()}</section>;
 }
