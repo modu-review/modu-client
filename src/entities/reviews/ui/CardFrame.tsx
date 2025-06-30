@@ -3,6 +3,7 @@ import {ReviewCard} from '@/entities/review';
 import CardDescription from './CardDescription';
 import {cn} from '@/shared/lib/utils/cn';
 import {LucideIcon} from '@/shared/ui/icons';
+import Link from 'next/link';
 
 const cardVariants = cva('relative bg-white', {
   variants: {
@@ -29,7 +30,7 @@ type BestReviewsProps = BaseProps & {
 type MyPageProps = BaseProps & {
   from: 'myPage';
   isAuthor: boolean;
-  onEdit: () => void;
+  reviewId: string;
   onDelete: () => void;
 };
 
@@ -38,7 +39,7 @@ type ReviewCardProps = BestReviewsProps | MyPageProps;
 type Props = ReviewCardProps & VariantProps<typeof cardVariants>;
 
 export default function CardFrame(props: Props) {
-  const {card, from, className, onEdit, onDelete} = props;
+  const {card, from, className, onDelete} = props;
 
   function renderCard() {
     switch (from) {
@@ -49,9 +50,9 @@ export default function CardFrame(props: Props) {
           <>
             {props.isAuthor && (
               <div className="absolute w-full px-4 pt-1 flex justify-between">
-                <button onClick={onEdit} aria-label="리뷰 수정">
+                <Link href={`/reviews/${props.reviewId}/edit`} aria-label="리뷰 수정">
                   <LucideIcon name="PencilLine" size={20} />
-                </button>
+                </Link>
                 <button onClick={onDelete} aria-label="리뷰 삭제">
                   <LucideIcon name="X" size={20} />
                 </button>

@@ -15,12 +15,7 @@ export default function MyReviews({currentPage}: Props) {
 
   return (
     <section>
-      <ReviewsGrid
-        reviews={results}
-        from="myReviews"
-        onEdit={() => console.log('수정')}
-        onDelete={() => console.log('삭제')}
-      />
+      <ReviewsGrid reviews={results} from="myReviews" onDelete={() => console.log('삭제')} />
       <Pagination
         currentPage={currentPage}
         totalPages={total_pages}
