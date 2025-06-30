@@ -6,17 +6,9 @@ const reviewsGridVariants = cva(
   'w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 content-center justify-items-center',
   {
     variants: {
-      cols: {
-        bestReview: 'xl:grid-cols-4',
-        myPage: '',
-      },
-      gap: {
-        bestReview: 'gap-y-14 md:gap-y-20',
-        myPage: 'gap-y-10',
-      },
-      margin: {
-        bestReview: 'mb-16',
-        myPage: 'mb-10',
+      variant: {
+        bestReview: 'xl:grid-cols-4 gap-y-14 md:gap-y-20 mb-16',
+        myPage: 'gap-y-10 mb-10',
       },
     },
   },
@@ -29,22 +21,53 @@ type Props =
     }
   | {
       reviews: ReviewCard[];
-      from: 'myPage';
+      from: 'myReview';
+      onDelete: () => void;
+      onEdit: () => void;
+    }
+  | {
+      reviews: ReviewCard[];
+      from: 'myBookmarkedReview';
+      userId: string | null;
       onDelete: () => void;
       onEdit: () => void;
     };
 
 export default function ReviewsGrid(props: Props) {
   const {reviews, from} = props;
-  return (
-    <ul className={reviewsGridVariants({cols: from, gap: from, margin: from})}>
-      {reviews.map(card =>
-        from === 'myPage' ? (
-          <CardFrame key={card.board_id} card={card} from="myPage" onDelete={props.onDelete} onEdit={props.onEdit} />
-        ) : (
-          <CardFrame key={card.board_id} card={card} from="bestReview" />
-        ),
-      )}
-    </ul>
-  );
+  const variant = from === 'bestReview' ? 'bestReview' : 'myPage';
+
+  function renderCardFrame(card: ReviewCard) {
+    switch (from) {
+      case 'myReview':
+        return (
+          <CardFrame
+            key={card.board_id}
+            card={card}
+            from="myPage"
+            isAuthor={true}
+            onDelete={props.onDelete}
+            onEdit={props.onEdit}
+          />
+        );
+      case 'myBookmarkedReview':
+        return (
+          <CardFrame
+            key={card.board_id}
+            card={card}
+            from="myPage"
+            isAuthor={props.userId === card.author}
+            onDelete={props.onDelete}
+            onEdit={props.onEdit}
+          />
+        );
+      case 'bestReview':
+        return <CardFrame key={card.board_id} card={card} from="bestReview" />;
+      default:
+        const _exhaustiveCheck: never = from;
+        throw new Error(`허용되지 않은 'from' 값: ${_exhaustiveCheck}`);
+    }
+  }
+
+  return <ul className={reviewsGridVariants({variant})}>{reviews.map(card => renderCardFrame(card))}</ul>;
 }
