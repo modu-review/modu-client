@@ -7,7 +7,7 @@ const reviewsGridVariants = cva(
   {
     variants: {
       variant: {
-        bestReview: 'xl:grid-cols-4 gap-y-14 md:gap-y-20 mb-16',
+        bestReviews: 'xl:grid-cols-4 gap-y-14 md:gap-y-20 mb-16',
         myPage: 'gap-y-10 mb-10',
       },
     },
@@ -17,17 +17,17 @@ const reviewsGridVariants = cva(
 type Props =
   | {
       reviews: ReviewCard[];
-      from: 'bestReview';
+      from: 'bestReviews';
     }
   | {
       reviews: ReviewCard[];
-      from: 'myReview';
+      from: 'myReviews';
       onDelete: () => void;
       onEdit: () => void;
     }
   | {
       reviews: ReviewCard[];
-      from: 'myBookmarkedReview';
+      from: 'myBookmarkedReviews';
       userId: string | null;
       onDelete: () => void;
       onEdit: () => void;
@@ -35,11 +35,11 @@ type Props =
 
 export default function ReviewsGrid(props: Props) {
   const {reviews, from} = props;
-  const variant = from === 'bestReview' ? 'bestReview' : 'myPage';
+  const variant = from === 'bestReviews' ? 'bestReviews' : 'myPage';
 
   function renderCardFrame(card: ReviewCard) {
     switch (from) {
-      case 'myReview':
+      case 'myReviews':
         return (
           <CardFrame
             key={card.board_id}
@@ -50,7 +50,7 @@ export default function ReviewsGrid(props: Props) {
             onEdit={props.onEdit}
           />
         );
-      case 'myBookmarkedReview':
+      case 'myBookmarkedReviews':
         return (
           <CardFrame
             key={card.board_id}
@@ -61,8 +61,8 @@ export default function ReviewsGrid(props: Props) {
             onEdit={props.onEdit}
           />
         );
-      case 'bestReview':
-        return <CardFrame key={card.board_id} card={card} from="bestReview" />;
+      case 'bestReviews':
+        return <CardFrame key={card.board_id} card={card} from="bestReviews" />;
       default:
         const _exhaustiveCheck: never = from;
         throw new Error(`허용되지 않은 'from' 값: ${_exhaustiveCheck}`);

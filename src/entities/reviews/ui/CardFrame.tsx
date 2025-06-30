@@ -7,7 +7,7 @@ import {LucideIcon} from '@/shared/ui/icons';
 const cardVariants = cva('relative bg-white', {
   variants: {
     from: {
-      bestReview:
+      bestReviews:
         'rounded-t-[115px] rounded-b-xl pt-7 w-[290px] h-[400px] md:w-[300px] md:h-[400px] lg:w-[280px] lg:h-[370px] shadow-lg shadow-black',
       myPage:
         'rounded-xl pt-4 w-[290px] h-[400px] md:w-[300px] md:h-[400px] lg:w-[260px] lg:h-[350px] shadow-md shadow-mediumBlue hover:translate-y-[-2px] hover:shadow-lg hover:shadow-boldBlue transition-all',
@@ -21,7 +21,7 @@ type BaseProps = {
 };
 
 type BestReviewProps = BaseProps & {
-  from: 'bestReview';
+  from: 'bestReviews';
   onEdit?: never;
   onDelete?: never;
 };
@@ -42,7 +42,7 @@ export default function CardFrame(props: Props) {
 
   function renderCard() {
     switch (from) {
-      case 'bestReview':
+      case 'bestReviews':
         return <CardDescription card={card} />;
       case 'myPage':
         return (

@@ -19,7 +19,7 @@ export default function MyBookmarkedReviews({currentPage}: Props) {
     <section>
       <ReviewsGrid
         reviews={results}
-        from="myBookmarkedReview"
+        from="myBookmarkedReviews"
         userId={userId}
         onEdit={() => console.log('수정')}
         onDelete={() => console.log('삭제')}
