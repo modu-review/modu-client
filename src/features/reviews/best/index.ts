@@ -1,1 +1,1 @@
-export {default as BestReview} from './ui/BestReview';
+export {default as BestReviews} from './ui/BestReviews';

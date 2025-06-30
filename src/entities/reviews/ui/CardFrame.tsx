@@ -20,7 +20,7 @@ type BaseProps = {
   className?: string;
 };
 
-type BestReviewProps = BaseProps & {
+type BestReviewsProps = BaseProps & {
   from: 'bestReviews';
   onEdit?: never;
   onDelete?: never;
@@ -33,7 +33,7 @@ type MyPageProps = BaseProps & {
   onDelete: () => void;
 };
 
-type ReviewCardProps = BestReviewProps | MyPageProps;
+type ReviewCardProps = BestReviewsProps | MyPageProps;
 
 type Props = ReviewCardProps & VariantProps<typeof cardVariants>;
 

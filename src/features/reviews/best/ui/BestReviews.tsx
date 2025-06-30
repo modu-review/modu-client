@@ -10,7 +10,7 @@ type Props = {
   reviews: BestReviewsResult;
 };
 
-export default function BestReview({reviews}: Props) {
+export default function BestReviews({reviews}: Props) {
   const {selectedCategory, handleSelectCategory} = useSelectCategory();
   const filteredReview = reviews[selectedCategory];
 
