@@ -21,5 +21,5 @@ export default function ReviewList({filteredReview}: Props) {
     );
   }
 
-  return <ReviewsGrid from="bestReview" reviews={reviews} />;
+  return <ReviewsGrid from="bestReviews" reviews={reviews} />;
 }
