@@ -17,7 +17,7 @@ export default function MyReviews({currentPage}: Props) {
     <section>
       <ReviewsGrid
         reviews={results}
-        from="myPage"
+        from="myReview"
         onEdit={() => console.log('수정')}
         onDelete={() => console.log('삭제')}
       />
