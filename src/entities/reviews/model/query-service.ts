@@ -8,11 +8,19 @@ import {
 } from '../apis/api-service';
 
 export const reviewsQueryKeys = {
-  best: ['best'] as const,
-  category: (categoryId: string, sort: string) => ['category', categoryId, sort] as const,
-  keyword: (keyword: string, page: number, sort: string) => ['keyword', keyword, page, sort] as const,
-  my: (page: number) => ['my', page] as const,
-  myBookmarks: (page: number) => ['myBookmarks', page] as const,
+  // 베이스 키 (depth1)
+  all: () => ['reviews'] as const,
+  my: () => [...reviewsQueryKeys.all(), 'my'] as const,
+  myBookmarks: () => [...reviewsQueryKeys.all(), 'myBookmarks'] as const,
+  keyword: () => [...reviewsQueryKeys.all(), 'keyword'] as const,
+  category: () => [...reviewsQueryKeys.all(), 'category'] as const,
+  best: () => [...reviewsQueryKeys.all(), 'best'] as const,
+
+  // best: ['best'] as const,
+  // category: (categoryId: string, sort: string) => ['category', categoryId, sort] as const,
+  // keyword: (keyword: string, page: number, sort: string) => ['keyword', keyword, page, sort] as const,
+  // my: (page: number) => ['my', page] as const,
+  // myBookmarks: (page: number) => ['myBookmarks', page] as const,
 };
 
 export const reviewsQueryOptions = {
