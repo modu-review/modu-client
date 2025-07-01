@@ -14,12 +14,14 @@ export const reviewsQueryKeys = {
   },
   keyword: {
     all: () => [...reviewsQueryKeys.all(), 'keyword'] as const,
+    keyword: (keyword: string) => [...reviewsQueryKeys.keyword.all(), keyword] as const,
     page: (keyword: string, page: number, sort: string) =>
-      [...reviewsQueryKeys.keyword.all(), keyword, page, sort] as const,
+      [...reviewsQueryKeys.keyword.keyword(keyword), page, sort] as const,
   },
   category: {
     all: () => [...reviewsQueryKeys.all(), 'category'] as const,
-    page: (categoryId: string, sort: string) => [...reviewsQueryKeys.category.all(), categoryId, sort] as const,
+    category: (categoryId: string) => [...reviewsQueryKeys.category.all(), categoryId] as const,
+    page: (categoryId: string, sort: string) => [...reviewsQueryKeys.category.category(categoryId), sort] as const,
   },
 };
 

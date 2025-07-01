@@ -5,6 +5,7 @@ import {useRouter} from 'next/navigation';
 import {deleteReview} from '../apis/api-service';
 import {Category} from './type';
 import toast from '@/shared/lib/utils/toastService';
+import {reviewsQueryKeys} from '@/entities/reviews';
 
 type MutationVariables = {
   category: Category;
@@ -16,15 +17,21 @@ export default function useDeleteReview() {
   const router = useRouter();
 
   const {mutate, ...rest} = useMutation({
-    mutationFn: ({category, reviewId}: MutationVariables) => deleteReview(reviewId),
-    onSuccess: (_data, {category, reviewId}) => {
+    mutationFn: ({reviewId}: MutationVariables) => deleteReview(reviewId),
+    onSuccess: (_data, {category}) => {
       toast.success({
         title: '리뷰를 성공적으로 삭제했어요.',
       });
 
-      // TODO: reviewQueryKeys => reviewsQueryKeys로 변경 후 주석 해제
-      // queryClient.invalidateQueries(reviewQueryKeys.search(category, 'recent'));
-      // queryClient.invalidateQueries(reviewQueryKeys.search('all', 'recent'));
+      const invalidateKeys = [
+        reviewsQueryKeys.category.category('all'),
+        reviewsQueryKeys.category.category(category),
+        reviewsQueryKeys.keyword.all(),
+      ];
+
+      invalidateKeys.forEach(key => {
+        queryClient.invalidateQueries({queryKey: key});
+      });
 
       router.push('/search');
     },
