@@ -8,19 +8,29 @@ import {
 } from '../apis/api-service';
 
 export const reviewsQueryKeys = {
-  // 베이스 키 (depth1)
   all: () => ['reviews'] as const,
-  my: () => [...reviewsQueryKeys.all(), 'my'] as const,
-  myBookmarks: () => [...reviewsQueryKeys.all(), 'myBookmarks'] as const,
-  keyword: () => [...reviewsQueryKeys.all(), 'keyword'] as const,
-  category: () => [...reviewsQueryKeys.all(), 'category'] as const,
-  best: () => [...reviewsQueryKeys.all(), 'best'] as const,
 
-  // best: ['best'] as const,
-  // category: (categoryId: string, sort: string) => ['category', categoryId, sort] as const,
-  // keyword: (keyword: string, page: number, sort: string) => ['keyword', keyword, page, sort] as const,
-  // my: (page: number) => ['my', page] as const,
-  // myBookmarks: (page: number) => ['myBookmarks', page] as const,
+  best: {
+    all: () => [...reviewsQueryKeys.all(), 'best'] as const,
+  },
+  my: {
+    all: () => [...reviewsQueryKeys.all(), 'my'] as const,
+    page: (page: number) => [...reviewsQueryKeys.my.all(), page] as const,
+  },
+  myBookmarks: {
+    all: () => [...reviewsQueryKeys.all(), 'myBookmarks'] as const,
+    page: (page: number) => [...reviewsQueryKeys.myBookmarks.all(), page] as const,
+  },
+  keyword: {
+    all: () => [...reviewsQueryKeys.all(), 'keyword'] as const,
+    page: (keyword: string, page: number, sort: string) =>
+      [...reviewsQueryKeys.keyword.all(), keyword, page, sort] as const,
+  },
+  category: {
+    all: () => [...reviewsQueryKeys.all(), 'category'] as const,
+    page: (categoryId: string, sort: string, pageParam: number) =>
+      [...reviewsQueryKeys.category.all(), categoryId, sort, pageParam] as const,
+  },
 };
 
 export const reviewsQueryOptions = {
