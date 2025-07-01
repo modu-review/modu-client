@@ -14,7 +14,7 @@ export default function usePostReviewComment(page: number) {
     mutationFn: ({userId, reviewId, category, content}: CommentPayload) =>
       postReviewComment({userId, reviewId, category, content}),
     onMutate: async ({userId, reviewId, content}) => {
-      const previousComments = queryClient.getQueryData<ReviewComments>(reviewQueryKeys.comments(reviewId, page));
+      const previousComments = queryClient.getQueryData<ReviewComments>(reviewQueryKeys.comments.page(reviewId, page));
 
       if (!previousComments || page !== previousComments.total_pages) {
         return {previousComments, wasNewPageCreated: false};
@@ -37,11 +37,11 @@ export default function usePostReviewComment(page: number) {
           total_pages: previousComments.total_pages + 1,
         };
 
-        queryClient.setQueryData(reviewQueryKeys.comments(reviewId, page + 1), updatedComments);
+        queryClient.setQueryData(reviewQueryKeys.comments.page(reviewId, page + 1), updatedComments);
 
         router.push(`?page=${page + 1}`, {scroll: false});
       } else {
-        await queryClient.cancelQueries({queryKey: reviewQueryKeys.comments(reviewId, page)});
+        await queryClient.cancelQueries({queryKey: reviewQueryKeys.comments.page(reviewId, page)});
 
         const updatedComments = {
           ...previousComments,
@@ -49,13 +49,13 @@ export default function usePostReviewComment(page: number) {
           comments: [...previousComments.comments, newComment],
         };
 
-        queryClient.setQueryData(reviewQueryKeys.comments(reviewId, page), updatedComments);
+        queryClient.setQueryData(reviewQueryKeys.comments.page(reviewId, page), updatedComments);
       }
 
       return {previousComments, wasNewPageCreated};
     },
     onSuccess: (_, {reviewId}) => {
-      queryClient.invalidateQueries({queryKey: [`review-${reviewId}`, 'comments']});
+      queryClient.invalidateQueries({queryKey: reviewQueryKeys.comments.all(reviewId)});
     },
     onError: (_, {reviewId}, context) => {
       if (!context) return;
@@ -63,11 +63,11 @@ export default function usePostReviewComment(page: number) {
       const {previousComments, wasNewPageCreated} = context;
 
       if (wasNewPageCreated) {
-        queryClient.removeQueries({queryKey: reviewQueryKeys.comments(reviewId, page + 1)});
+        queryClient.removeQueries({queryKey: reviewQueryKeys.comments.page(reviewId, page + 1)});
 
         router.push(`?page=${page}`, {scroll: false});
       } else {
-        queryClient.setQueryData(reviewQueryKeys.comments(reviewId, page), previousComments);
+        queryClient.setQueryData(reviewQueryKeys.comments.page(reviewId, page), previousComments);
       }
     },
   });

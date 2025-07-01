@@ -2,8 +2,14 @@ import {keepPreviousData} from '@tanstack/react-query';
 import {getReviewBookmarks, getReviewComments} from '../apis/api-service';
 
 export const reviewQueryKeys = {
-  bookmarks: (reviewId: number) => [`review-${reviewId}`, 'bookmarks'],
-  comments: (reviewId: number, page: number) => [`review-${reviewId}`, 'comments', page],
+  all: () => ['review'] as const,
+  detail: (reviewId: number) => [...reviewQueryKeys.all(), reviewId] as const,
+
+  bookmarks: (reviewId: number) => [...reviewQueryKeys.detail(reviewId), 'bookmarks'] as const,
+  comments: {
+    all: (reviewId: number) => [...reviewQueryKeys.detail(reviewId), 'comments'] as const,
+    page: (reviewId: number, page: number) => [...reviewQueryKeys.comments.all(reviewId), page] as const,
+  },
 };
 
 export const reviewQueryOptions = {
@@ -12,7 +18,7 @@ export const reviewQueryOptions = {
     queryFn: () => getReviewBookmarks(reviewId),
   }),
   comments: (reviewId: number, page: number) => ({
-    queryKey: reviewQueryKeys.comments(reviewId, page),
+    queryKey: reviewQueryKeys.comments.page(reviewId, page),
     queryFn: () => getReviewComments(reviewId, page),
     placeholderData: keepPreviousData,
   }),
