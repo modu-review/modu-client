@@ -10,9 +10,6 @@ import {
 export const reviewsQueryKeys = {
   all: () => ['reviews'] as const,
 
-  best: {
-    all: () => [...reviewsQueryKeys.all(), 'best'] as const,
-  },
   my: {
     all: () => [...reviewsQueryKeys.all(), 'my'] as const,
     page: (page: number) => [...reviewsQueryKeys.my.all(), page] as const,
@@ -34,10 +31,6 @@ export const reviewsQueryKeys = {
 };
 
 export const reviewsQueryOptions = {
-  best: () => ({
-    queryKey: reviewsQueryKeys.best,
-    queryFn: getBestReviews,
-  }),
   category: (categoryId: string, sort: string) => ({
     queryKey: reviewsQueryKeys.category(categoryId, sort),
     queryFn: ({pageParam}: {pageParam: number}) => getCategoryReviews(pageParam, categoryId, sort),
