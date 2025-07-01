@@ -25,8 +25,7 @@ export const reviewsQueryKeys = {
   },
   category: {
     all: () => [...reviewsQueryKeys.all(), 'category'] as const,
-    page: (categoryId: string, sort: string, pageParam: number) =>
-      [...reviewsQueryKeys.category.all(), categoryId, sort, pageParam] as const,
+    page: (categoryId: string, sort: string) => [...reviewsQueryKeys.category.all(), categoryId, sort] as const,
   },
 };
 
