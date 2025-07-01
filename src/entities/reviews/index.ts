@@ -11,3 +11,4 @@ export {default as useMyBookmarkedReviews} from './model/useMyBookmarkedReviews'
 export {default as ReviewsGridLoading} from './ui/ReviewsGridLoading';
 export {default as NoSearchResults} from './ui/NoSearchResults';
 export {default as DeleteButton} from './ui/DeleteButton';
+export {reviewsQueryKeys, reviewsQueryOptions} from './model/query-service';
