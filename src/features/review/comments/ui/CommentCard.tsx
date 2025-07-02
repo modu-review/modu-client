@@ -4,9 +4,10 @@ import {Avatar} from '@/shared/ui/components';
 type Props = {
   comment: Comment;
   userEmail: string | null;
+  reviewId: number;
 };
 
-export default function CommentCard({comment, userEmail}: Props) {
+export default function CommentCard({comment, userEmail, reviewId}: Props) {
   const {author, content, created_at, profile_image} = comment;
   const isAuthor = userEmail === author;
 

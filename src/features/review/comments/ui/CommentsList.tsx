@@ -7,9 +7,10 @@ type Props = {
   comments: Comment[];
   currentPage: number;
   totalPages: number;
+  reviewId: number;
 };
 
-export default function CommentsList({comments, currentPage, totalPages}: Props) {
+export default function CommentsList({comments, currentPage, totalPages, reviewId}: Props) {
   const userEmail = useUserEmail();
 
   return (
@@ -17,7 +18,7 @@ export default function CommentsList({comments, currentPage, totalPages}: Props)
       <ul className="flex flex-col gap-5 mt-6">
         {comments.map(comment => (
           <li key={comment.id}>
-            <CommentCard comment={comment} userEmail={userEmail} />
+            <CommentCard comment={comment} userEmail={userEmail} reviewId={reviewId} />
           </li>
         ))}
       </ul>
