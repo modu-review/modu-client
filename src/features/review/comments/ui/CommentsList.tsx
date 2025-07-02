@@ -1,6 +1,7 @@
-import Pagination from '@/widgets/pagination';
 import CommentCard from './CommentCard';
+import Pagination from '@/widgets/pagination';
 import {Comment} from '@/entities/review';
+import {useUserEmail} from '@/entities/auth';
 
 type Props = {
   comments: Comment[];
@@ -9,12 +10,14 @@ type Props = {
 };
 
 export default function CommentsList({comments, currentPage, totalPages}: Props) {
+  const userEmail = useUserEmail();
+
   return (
     <>
       <ul className="flex flex-col gap-5 mt-6">
         {comments.map(comment => (
           <li key={comment.id}>
-            <CommentCard {...comment} />
+            <CommentCard comment={comment} userEmail={userEmail} />
           </li>
         ))}
       </ul>
