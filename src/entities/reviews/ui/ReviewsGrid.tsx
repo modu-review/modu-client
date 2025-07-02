@@ -23,13 +23,11 @@ type Props =
   | {
       reviews: ReviewCard[];
       from: 'myReviews';
-      onDelete: () => void;
     }
   | {
       reviews: ReviewCard[];
       from: 'myBookmarkedReviews';
       userId: string | null;
-      onDelete: () => void;
     };
 
 export default function ReviewsGrid(props: Props) {
@@ -39,16 +37,10 @@ export default function ReviewsGrid(props: Props) {
   function renderCardFrame(card: ReviewCard) {
     switch (from) {
       case 'myReviews':
-        return <MyPageReviewCard key={card.board_id} card={card} isAuthor={true} onDelete={props.onDelete} />;
+        return <MyPageReviewCard key={card.board_id} card={card} isAuthor={true} context="my" />;
       case 'myBookmarkedReviews':
-        return (
-          <MyPageReviewCard
-            key={card.board_id}
-            card={card}
-            isAuthor={props.userId === card.author}
-            onDelete={props.onDelete}
-          />
-        );
+        const isAuthor = card.author === props.userId;
+        return <MyPageReviewCard key={card.board_id} card={card} isAuthor={isAuthor} context="bookmarks" />;
       case 'bestReviews':
         return <BestReviewCard key={card.board_id} card={card} />;
       default:
