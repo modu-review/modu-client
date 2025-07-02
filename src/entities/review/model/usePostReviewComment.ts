@@ -11,9 +11,9 @@ export default function usePostReviewComment(page: number) {
   const router = useRouter();
 
   const {mutate, ...rest} = useMutation({
-    mutationFn: ({userId, reviewId, category, content}: CommentPayload) =>
-      postReviewComment({userId, reviewId, category, content}),
-    onMutate: async ({userId, reviewId, content}) => {
+    mutationFn: ({userEmail, reviewId, category, content}: CommentPayload) =>
+      postReviewComment({userEmail, reviewId, category, content}),
+    onMutate: async ({userEmail, reviewId, content}) => {
       const previousComments = queryClient.getQueryData<ReviewComments>(reviewQueryKeys.comments.page(reviewId, page));
 
       if (!previousComments || page !== previousComments.total_pages) {
@@ -23,7 +23,7 @@ export default function usePostReviewComment(page: number) {
       const newComment = {
         id: Date.now(),
         profile_image: 'https://picsum.photos/seed/picsum/200/200', // TODO: 실제 사용자 프로필 이미지로 변경.
-        author: userId,
+        author: userEmail,
         content,
         created_at: new Date().toISOString(),
       };
