@@ -1,10 +1,23 @@
 import {Comment} from '@/entities/review';
 import {Avatar} from '@/shared/ui/components';
 
-export default function CommentCard({author, content, created_at, profile_image}: Comment) {
+type Props = {
+  comment: Comment;
+  userEmail: string | null;
+};
+
+export default function CommentCard({comment, userEmail}: Props) {
+  const {author, content, created_at, profile_image} = comment;
+  const isAuthor = userEmail === author;
+
+  const handleDelete = () => {
+    // TODO: 삭제 기능 연결하기
+  };
+
   return (
     <>
-      <div className="flex gap-3 mx-2 px-3 pt-5 pb-8 mb-5 bg-slate-100 rounded-lg">
+      <div className="flex gap-3 mx-2 px-3 pt-5 pb-8 mb-5 bg-slate-100 rounded-lg relative">
+        {isAuthor && <button onClick={handleDelete}>삭제</button>}
         <Avatar src={profile_image} alt={`${author}님의 프로필 이미지`} />
         <article>
           <div className="flex items-center gap-2 mb-1">
