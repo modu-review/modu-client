@@ -23,7 +23,7 @@ export default function Comments({reviewId, category, openLoginModal}: Props) {
         댓글쓰기 <span className="text-lg">{comments_count}</span>
       </h2>
       <CommentsInput reviewId={reviewId} category={category} page={currentPage} openLoginModal={openLoginModal} />
-      <CommentsList comments={comments} currentPage={currentPage} totalPages={total_pages} />
+      <CommentsList comments={comments} currentPage={currentPage} totalPages={total_pages} reviewId={reviewId} />
     </section>
   );
 }
