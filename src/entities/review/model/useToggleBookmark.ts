@@ -1,4 +1,4 @@
-import {bookmarkReview} from '../apis/api-service';
+import {bookmarkReview, unBookmarkReview} from '../apis/api-service';
 import {reviewQueryKeys} from './query-service';
 import {BookmarkPayload, ReviewBookmarks} from './type';
 import {useMutation, useQueryClient} from '@tanstack/react-query';
@@ -7,7 +7,16 @@ export default function useToggleBookmark() {
   const queryClient = useQueryClient();
 
   const {mutate, ...rest} = useMutation({
-    mutationFn: ({userId, reviewId}: BookmarkPayload) => bookmarkReview({userId, reviewId}),
+    mutationFn: ({userEmail, reviewId}: BookmarkPayload) => {
+      const currentData = queryClient.getQueryData<ReviewBookmarks>(reviewQueryKeys.bookmarks(reviewId));
+      const hasBookmarked = currentData && currentData.hasBookmarked;
+
+      if (hasBookmarked) {
+        return unBookmarkReview({userEmail, reviewId});
+      } else {
+        return bookmarkReview({userEmail, reviewId});
+      }
+    },
     onMutate: async ({reviewId}) => {
       await queryClient.cancelQueries({queryKey: reviewQueryKeys.bookmarks(reviewId)});
 
