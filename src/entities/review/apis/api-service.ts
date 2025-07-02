@@ -92,8 +92,8 @@ export async function uploadImage({
 }
 
 export async function getReviewDetail(reviewId: number) {
-  const url = process.env.NEXT_PUBLIC_CLIENT_URL + `/api/reviews/${reviewId}`;
-  // const url = process.env.NEXT_PUBLIC_API_URL + `/reviews/${reviewId}`; 실제 요청 주소
+  // const url = process.env.NEXT_PUBLIC_CLIENT_URL + `/api/reviews/${reviewId}`;
+  const url = process.env.NEXT_PUBLIC_API_URL + `/reviews/${reviewId}`;
 
   const res = await fetch(url, {
     method: 'GET',
@@ -125,39 +125,37 @@ export async function getReviewDetail(reviewId: number) {
 
 export async function getReviewBookmarks(reviewId: number) {
   return requestGet<ReviewBookmarks>({
-    baseUrl: process.env.NEXT_PUBLIC_CLIENT_URL,
-    endpoint: `/api/reviews/${reviewId}/bookmarks`,
+    baseUrl: process.env.NEXT_PUBLIC_API_URL,
+    endpoint: `/reviews/${reviewId}/bookmarks`,
   });
 }
 
-export async function bookmarkReview({userId, reviewId}: BookmarkPayload) {
+export async function bookmarkReview({userEmail, reviewId}: BookmarkPayload) {
   return requestPost({
-    baseUrl: process.env.NEXT_PUBLIC_CLIENT_URL,
-    endpoint: '/api/bookmark',
+    baseUrl: process.env.NEXT_PUBLIC_API_URL,
+    endpoint: `/reviews/${reviewId}/bookmarks`,
     body: {
-      user_id: userId,
-      board_id: reviewId,
+      userEmail: userEmail,
     },
   });
 }
 
 export async function getReviewComments(reviewId: number, page: number) {
   return requestGet<ReviewComments>({
-    baseUrl: process.env.NEXT_PUBLIC_CLIENT_URL,
-    endpoint: `/api/reviews/${reviewId}/comments`,
+    baseUrl: process.env.NEXT_PUBLIC_API_URL,
+    endpoint: `/reviews/${reviewId}/comments`,
     queryParams: {
       page: page,
     },
   });
 }
 
-export async function postReviewComment({userId, reviewId, category, content}: CommentPayload) {
+export async function postReviewComment({userEmail, reviewId, category, content}: CommentPayload) {
   return requestPost({
-    baseUrl: process.env.NEXT_PUBLIC_CLIENT_URL,
-    endpoint: `/api/comment`,
+    baseUrl: process.env.NEXT_PUBLIC_API_URL,
+    endpoint: `/reviews/${reviewId}/comments`,
     body: {
-      user_id: userId,
-      board_id: reviewId,
+      user_email: userEmail,
       category,
       content,
     },
