@@ -12,7 +12,7 @@ export default function useDeleteReviewComment() {
       deleteReviewComment({userEmail, commentId, reviewId}),
     onSuccess: (_data, {reviewId}) => {
       toast.success({
-        title: '리뷰를 성공적으로 삭제했어요.',
+        title: '댓글을 성공적으로 삭제했어요.',
       });
 
       queryClient.invalidateQueries({queryKey: reviewQueryKeys.comments.all(reviewId)});
