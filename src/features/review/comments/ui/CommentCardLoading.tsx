@@ -2,7 +2,7 @@ import {Skeleton} from '@/shared/shadcnComponent/ui/skeleton';
 
 export default function CommentCardLoading() {
   return (
-    <section className="flex gap-3 mx-2 px-3 pt-5 pb-6 mb-5 bg-slate-100 rounded-lg">
+    <section className="flex min-h-[100px] gap-3 mx-2 px-3 pt-5 mb-5 bg-slate-100 rounded-lg">
       <Skeleton className="min-w-10 h-10 md:min-w-11 md:h-11 rounded-full" />
       <div>
         <div className="flex items-center gap-2 mb-3">
