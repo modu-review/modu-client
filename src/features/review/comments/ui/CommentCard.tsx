@@ -1,4 +1,4 @@
-import {Comment} from '@/entities/review';
+import {Comment, useDeleteReviewComment} from '@/entities/review';
 import {Avatar} from '@/shared/ui/components';
 
 type Props = {
@@ -11,8 +11,16 @@ export default function CommentCard({comment, userEmail, reviewId}: Props) {
   const {author, content, created_at, profile_image} = comment;
   const isAuthor = userEmail === author;
 
+  const {deleteReviewComment, isPending} = useDeleteReviewComment();
+
   const handleDelete = () => {
-    // TODO: 삭제 기능 연결하기
+    if (!userEmail) return;
+
+    deleteReviewComment({
+      commentId: comment.id,
+      reviewId,
+      userEmail,
+    });
   };
 
   return (
