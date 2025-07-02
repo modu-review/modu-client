@@ -74,6 +74,12 @@ export type CommentPayload = {
   content: string;
 };
 
+export type DeleteCommentPayload = {
+  userEmail: string;
+  commentId: number;
+  reviewId: number;
+};
+
 export type PresignedProps = {
   presignedUrl: string;
   uuid: string;

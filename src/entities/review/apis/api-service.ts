@@ -1,6 +1,7 @@
 import {
   BookmarkPayload,
   CommentPayload,
+  DeleteCommentPayload,
   PresignedProps,
   ReviewBookmarks,
   ReviewComments,
@@ -168,6 +169,18 @@ export async function postReviewComment({userEmail, reviewId, category, content}
       user_email: userEmail,
       category,
       content,
+    },
+  });
+}
+
+export async function deleteReviewComment({userEmail, commentId, reviewId}: DeleteCommentPayload) {
+  return requestDelete({
+    baseUrl: process.env.NEXT_PUBLIC_API_URL,
+    endpoint: `/reviews/${reviewId}/comments`,
+    body: {
+      user_email: userEmail,
+      board_id: reviewId,
+      comment_id: commentId,
     },
   });
 }
