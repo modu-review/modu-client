@@ -140,6 +140,16 @@ export async function bookmarkReview({userEmail, reviewId}: BookmarkPayload) {
   });
 }
 
+export async function unBookmarkReview({userEmail, reviewId}: BookmarkPayload) {
+  return requestDelete({
+    baseUrl: process.env.NEXT_PUBLIC_API_URL,
+    endpoint: `/reviews/${reviewId}/bookmarks`,
+    body: {
+      user_email: userEmail,
+    },
+  });
+}
+
 export async function getReviewComments(reviewId: number, page: number) {
   return requestGet<ReviewComments>({
     baseUrl: process.env.NEXT_PUBLIC_API_URL,
