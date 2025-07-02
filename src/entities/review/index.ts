@@ -9,3 +9,4 @@ export {default as useToggleBookmark} from './model/useToggleBookmark';
 export {default as useGetReviewComments} from './model/useGetReviewComments';
 export {default as usePostReviewComment} from './model/usePostReviewComment';
 export {default as usePatchReview} from './model/usePatchReview';
+export {default as useDeleteReviewFromMyPage} from './model/useDeleteReviewFromMyPage';
