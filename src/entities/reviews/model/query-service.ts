@@ -1,5 +1,6 @@
 import {keepPreviousData} from '@tanstack/react-query';
 import {getCategoryReviews, getKeywordReviews, getMyBookmarkedReviews, getMyReviews} from '../apis/api-service';
+import {Category} from '@/entities/review/model/type';
 
 export const reviewsQueryKeys = {
   all: () => ['reviews'] as const,
@@ -20,13 +21,13 @@ export const reviewsQueryKeys = {
   },
   category: {
     all: () => [...reviewsQueryKeys.all(), 'category'] as const,
-    category: (categoryId: string) => [...reviewsQueryKeys.category.all(), categoryId] as const,
-    page: (categoryId: string, sort: string) => [...reviewsQueryKeys.category.category(categoryId), sort] as const,
+    category: (categoryId: Category) => [...reviewsQueryKeys.category.all(), categoryId] as const,
+    page: (categoryId: Category, sort: string) => [...reviewsQueryKeys.category.category(categoryId), sort] as const,
   },
 };
 
 export const reviewsQueryOptions = {
-  category: (categoryId: string, sort: string) => ({
+  category: (categoryId: Category, sort: string) => ({
     queryKey: reviewsQueryKeys.category.page(categoryId, sort),
     queryFn: ({pageParam}: {pageParam: number}) => getCategoryReviews(pageParam, categoryId, sort),
     initialPageParam: 0,
