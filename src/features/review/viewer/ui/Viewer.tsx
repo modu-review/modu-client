@@ -3,7 +3,7 @@ import {Badge} from '@/shared/ui/components';
 
 export default function Viewer({title, category, author, created_at, content}: ReviewContent) {
   return (
-    <section className="flex flex-col w-full h-full overflow-auto">
+    <section className="flex flex-col w-full h-full min-h-[350px] md:min-h-[500px] overflow-auto">
       <header className="mx-4 mt-4 pb-4 border-b-2 border-gray-300">
         <Badge>{CATEGORY_MAP[category]}</Badge>
         <h1 className="text-2xl md:text-3xl font-semibold mt-3">{title}</h1>
