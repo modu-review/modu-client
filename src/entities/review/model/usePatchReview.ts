@@ -5,6 +5,7 @@ import {useMutation, useQueryClient} from '@tanstack/react-query';
 import {patchReview} from '../apis/api-service';
 import {ReviewPayload} from './type';
 import toast from '@/shared/lib/utils/toastService';
+import {reviewsQueryKeys} from '@/entities/reviews';
 
 type MutationVariables = {
   data: ReviewPayload;
@@ -17,14 +18,21 @@ export default function usePatchReview() {
 
   const {mutate, ...rest} = useMutation({
     mutationFn: ({data, reviewId}: MutationVariables) => patchReview(data, reviewId),
-    onSuccess: (_data, {category, reviewId}) => {
+    onSuccess: (_data, {data: {category}, reviewId}) => {
       toast.success({
         title: '리뷰를 성공적으로 수정했어요.',
       });
 
-      // TODO: reviewQueryKeys => reviewsQueryKeys로 변경 후 주석 해제
-      // queryClient.invalidateQueries(reviewQueryKeys.search(category, 'recent'));
-      // queryClient.invalidateQueries(reviewQueryKeys.search('all', 'recent'));
+      const invalidateKeys = [
+        reviewsQueryKeys.my.all(),
+        reviewsQueryKeys.category.category('all'),
+        reviewsQueryKeys.category.category(category),
+        reviewsQueryKeys.keyword.all(),
+      ];
+
+      invalidateKeys.forEach(key => {
+        queryClient.invalidateQueries({queryKey: key});
+      });
 
       router.push(`/reviews/${reviewId}`);
     },
