@@ -1,9 +1,10 @@
 'use client';
 
+import {useRouter} from 'next/navigation';
 import {useMutation, useQueryClient} from '@tanstack/react-query';
 import {postReview} from '../apis/api-service';
+import {reviewsQueryKeys} from '@/entities/reviews';
 import toast from '@/shared/lib/utils/toastService';
-import {useRouter} from 'next/navigation';
 
 export function usePostReview() {
   const queryClient = useQueryClient();
@@ -16,12 +17,16 @@ export function usePostReview() {
         title: '리뷰를 성공적으로 등록했어요.',
       });
 
-      /**
-       * Todo: 게시글 모음 페이지 로직 병합 후 주석 해제
-       * 사용자가 등록한 카테고리의 캐시 무효화
-       */
-      //   queryClient.invalidateQueries(reviewQueryKeys.search(category, 'recent'));
-      //   queryClient.invalidateQueries(reviewQueryKeys.search('all', 'recent'));
+      const invalidateKeys = [
+        reviewsQueryKeys.my.all(),
+        reviewsQueryKeys.category.category('all'),
+        reviewsQueryKeys.category.category(category),
+        reviewsQueryKeys.keyword.all(),
+      ];
+
+      invalidateKeys.forEach(key => {
+        queryClient.invalidateQueries({queryKey: key});
+      });
 
       router.push('/search');
     },
