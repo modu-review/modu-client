@@ -1,11 +1,12 @@
 'use client';
 
+import {useEffect, useState} from 'react';
+import {LoginModal} from '@/widgets/login-modal';
 import {Bookmarks, BookmarksLoading} from '@/features/review/bookmarks';
 import {Comments, CommentsLoading} from '@/features/review/comments';
 import {Category} from '@/entities/review';
 import {RQProvider} from '@/shared/providers';
 import {Modal, useModal} from '@/shared/ui/modal';
-import {LoginModal} from '@/widgets/login-modal';
 
 type Props = {
   reviewId: number;
@@ -13,7 +14,21 @@ type Props = {
 };
 
 export default function ReviewDetailInteractive({reviewId, category}: Props) {
+  const [isClient, setIsClient] = useState(false);
   const {openModal: openLoginModal, handleModalOpen, handleModalClose} = useModal();
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) {
+    return (
+      <>
+        <BookmarksLoading />
+        <CommentsLoading />
+      </>
+    );
+  }
 
   return (
     <>
