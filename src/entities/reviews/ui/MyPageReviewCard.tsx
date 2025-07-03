@@ -29,11 +29,11 @@ export default function MyPageReviewCard({card, isAuthor, context}: Props) {
         </div>
       )}
       {isAuthor && (
-        <div className="absolute w-full px-4 pt-1 flex justify-between">
-          <Link href={`/reviews/${card.board_id}/edit`} aria-label="리뷰 수정">
+        <div className="absolute w-full px-4 flex justify-between text-gray-500 transition-colors">
+          <Link className="hover:text-gray-800" href={`/reviews/${card.board_id}/edit`} aria-label="리뷰 수정">
             <LucideIcon name="PencilLine" size={20} />
           </Link>
-          <button onClick={handleDelete} aria-label="리뷰 삭제">
+          <button className="hover:text-gray-800" onClick={handleDelete} aria-label="리뷰 삭제">
             <LucideIcon name="X" size={20} />
           </button>
         </div>
