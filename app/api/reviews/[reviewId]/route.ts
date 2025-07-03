@@ -78,7 +78,22 @@ export async function PATCH(req: NextRequest, {params}: {params: Promise<{review
   }
 }
 
-export async function DELETE() {
+export async function DELETE(_req: NextRequest, {params}: {params: Promise<{reviewId: string}>}) {
+  await new Promise(resolve => setTimeout(resolve, 3000));
+
+  const {reviewId} = await params;
+  const parsedReviewId = Number(reviewId);
+
+  const filePath = path.join(process.cwd(), `public/data`, `search_result_page_1.json`);
+  const fileData = readFileSync(filePath, 'utf-8');
+
+  const reviewData = JSON.parse(fileData);
+
+  const deleteData = reviewData.results.filter(({board_id}: {board_id: number}) => board_id !== parsedReviewId);
+  const newData = {...reviewData, results: deleteData};
+
+  writeFileSync(filePath, JSON.stringify(newData));
+
   return NextResponse.json({status: 204});
 }
 

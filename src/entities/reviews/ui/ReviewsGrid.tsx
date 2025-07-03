@@ -1,5 +1,6 @@
 import {cva} from 'class-variance-authority';
-import CardFrame from './CardFrame';
+import MyPageReviewCard from './MyPageReviewCard';
+import BestReviewCard from './BestReviewCard';
 import {ReviewCard} from '@/entities/review/model/type';
 
 const reviewsGridVariants = cva(
@@ -22,13 +23,11 @@ type Props =
   | {
       reviews: ReviewCard[];
       from: 'myReviews';
-      onDelete: () => void;
     }
   | {
       reviews: ReviewCard[];
       from: 'myBookmarkedReviews';
       userId: string | null;
-      onDelete: () => void;
     };
 
 export default function ReviewsGrid(props: Props) {
@@ -38,29 +37,12 @@ export default function ReviewsGrid(props: Props) {
   function renderCardFrame(card: ReviewCard) {
     switch (from) {
       case 'myReviews':
-        return (
-          <CardFrame
-            key={card.board_id}
-            card={card}
-            from="myPage"
-            isAuthor={true}
-            reviewId={card.board_id}
-            onDelete={props.onDelete}
-          />
-        );
+        return <MyPageReviewCard key={card.board_id} card={card} isAuthor={true} context="my" />;
       case 'myBookmarkedReviews':
-        return (
-          <CardFrame
-            key={card.board_id}
-            card={card}
-            from="myPage"
-            isAuthor={props.userId === card.author}
-            reviewId={card.board_id}
-            onDelete={props.onDelete}
-          />
-        );
+        const isAuthor = card.author === props.userId;
+        return <MyPageReviewCard key={card.board_id} card={card} isAuthor={isAuthor} context="bookmarks" />;
       case 'bestReviews':
-        return <CardFrame key={card.board_id} card={card} from="bestReviews" />;
+        return <BestReviewCard key={card.board_id} card={card} />;
       default:
         const _exhaustiveCheck: never = from;
         throw new Error(`허용되지 않은 'from' 값: ${_exhaustiveCheck}`);
