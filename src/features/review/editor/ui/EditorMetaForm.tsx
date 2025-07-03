@@ -22,6 +22,8 @@ export default function EditorMetaForm({onSubmit, initialTitle, initialCategory}
     },
   });
 
+  const selectableCategories = CATEGORY_LIST.filter(category => category.value !== 'all');
+
   return (
     <Form {...form}>
       <form className="flex flex-col px-2 gap-1" id="editor-meta-form" onSubmit={form.handleSubmit(onSubmit)}>
@@ -37,7 +39,7 @@ export default function EditorMetaForm({onSubmit, initialTitle, initialCategory}
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {CATEGORY_LIST.map(({id, value, label}) => (
+                  {selectableCategories.map(({id, value, label}) => (
                     <SelectItem key={id} value={value}>
                       {label}
                     </SelectItem>
