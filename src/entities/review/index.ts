@@ -10,3 +10,4 @@ export {default as useGetReviewComments} from './model/useGetReviewComments';
 export {default as usePostReviewComment} from './model/usePostReviewComment';
 export {default as usePatchReview} from './model/usePatchReview';
 export {default as useDeleteReviewFromMyPage} from './model/useDeleteReviewFromMyPage';
+export {default as useDeleteReviewComment} from './model/useDeleteReviewComment';

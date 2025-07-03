@@ -63,15 +63,21 @@ export type ReviewPayload = {
 };
 
 export type BookmarkPayload = {
-  userId: string;
+  userEmail: string;
   reviewId: number;
 };
 
 export type CommentPayload = {
-  userId: string;
+  userEmail: string;
   category: Category;
   reviewId: number;
   content: string;
+};
+
+export type DeleteCommentPayload = {
+  userEmail: string;
+  commentId: number;
+  reviewId: number;
 };
 
 export type PresignedProps = {
