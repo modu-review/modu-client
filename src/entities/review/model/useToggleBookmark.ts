@@ -44,8 +44,18 @@ export default function useToggleBookmark() {
     },
   });
 
+  const toggleBookmark = (payload: BookmarkPayload) => {
+    const currentData = queryClient.getQueryData<ReviewBookmarks>(reviewQueryKeys.bookmarks(payload.reviewId));
+    const hasBookmarked = currentData ? currentData.hasBookmarked : false;
+
+    mutate({
+      ...payload,
+      hasBookmarked,
+    });
+  };
+
   return {
-    toggleBookmark: mutate,
+    toggleBookmark,
     ...rest,
   };
 }
