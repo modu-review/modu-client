@@ -3,7 +3,6 @@
 import {Category} from '@/entities/review/model/type';
 import useDeleteReview from '@/entities/review/model/useDeleteReview';
 import {LoadingSpinner} from '@/shared/ui/components';
-import {useEffect} from 'react';
 
 type Props = {
   category: Category;
@@ -16,17 +15,6 @@ export default function DeleteButton({category, reviewId}: Props) {
   const handleDelete = () => {
     deleteReview({category, reviewId});
   };
-
-  useEffect(() => {
-    const prevHtmlOverflow = document.documentElement.style.overflow;
-
-    if (isPending) {
-      document.documentElement.style.overflow = 'hidden';
-    } else {
-      document.documentElement.style.overflow = prevHtmlOverflow;
-    }
-  }, [isPending]);
-
   return (
     <>
       <button
