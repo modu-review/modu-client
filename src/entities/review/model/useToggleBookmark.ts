@@ -3,14 +3,15 @@ import {reviewQueryKeys} from './query-service';
 import {BookmarkPayload, ReviewBookmarks} from './type';
 import {useMutation, useQueryClient} from '@tanstack/react-query';
 
+type MutationVariables = {
+  hasBookmarked: boolean;
+} & BookmarkPayload;
+
 export default function useToggleBookmark() {
   const queryClient = useQueryClient();
 
   const {mutate, ...rest} = useMutation({
-    mutationFn: ({userEmail, reviewId}: BookmarkPayload) => {
-      const currentData = queryClient.getQueryData<ReviewBookmarks>(reviewQueryKeys.bookmarks(reviewId));
-      const hasBookmarked = currentData && currentData.hasBookmarked;
-
+    mutationFn: ({userEmail, reviewId, hasBookmarked}: MutationVariables) => {
       if (hasBookmarked) {
         return unBookmarkReview({userEmail, reviewId});
       } else {
