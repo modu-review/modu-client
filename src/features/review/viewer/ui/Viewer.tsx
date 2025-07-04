@@ -1,7 +1,7 @@
 import {CATEGORY_MAP, ReviewContent} from '@/entities/review';
 import {Badge} from '@/shared/ui/components';
 
-export default function Viewer({title, category, author, created_at, content}: ReviewContent) {
+export default function Viewer({title, category, author_id, created_at, content}: ReviewContent) {
   return (
     <section className="flex flex-col w-full h-full min-h-[350px] md:min-h-[500px] overflow-auto">
       <header className="mx-4 mt-4 pb-4 border-b-2 border-gray-300">
@@ -10,7 +10,7 @@ export default function Viewer({title, category, author, created_at, content}: R
         <div className="flex items-center gap-2 ml-0.5 mt-2">
           <div className="flex items-center gap-2">
             <div className="w-[35px] h-[35px] bg-gray-400 rounded-full" />
-            <p>{author}</p>
+            <p>{author_id}</p>
           </div>
           <p className="text-gray-500">{created_at}</p>
         </div>
