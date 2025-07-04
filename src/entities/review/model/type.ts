@@ -30,7 +30,8 @@ export type ReviewContent = {
 export type Comment = {
   id: number;
   profile_image: string;
-  author: string;
+  author_id: string;
+  author_email: string;
   content: string;
   created_at: string;
 };
