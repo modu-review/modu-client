@@ -5,7 +5,8 @@ export type Category = (typeof CATEGORY_LIST)[number]['value'];
 export type ReviewCard = {
   board_id: number;
   title: string;
-  author: string;
+  author_id: string;
+  author_email: string;
   category: Category;
   preview: string;
   comments_count: number;
