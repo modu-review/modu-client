@@ -1,7 +1,7 @@
 import Empty from './Empty';
 import Pagination from '@/widgets/pagination';
 import {ReviewsGrid, useMyBookmarkedReviews} from '@/entities/reviews';
-import {useUserId} from '@/entities/auth';
+import {useUserEmail} from '@/entities/auth';
 
 type Props = {
   currentPage: number;
@@ -9,7 +9,7 @@ type Props = {
 
 export default function MyBookmarkedReviews({currentPage}: Props) {
   const {results, total_pages} = useMyBookmarkedReviews(currentPage);
-  const userId = useUserId();
+  const userEmail = useUserEmail();
 
   if (results.length === 0) {
     return <Empty title="아직 저장한 후기가 없어요." linkText="후기 보러가기" linkHref="/search" />;
@@ -17,7 +17,7 @@ export default function MyBookmarkedReviews({currentPage}: Props) {
 
   return (
     <section>
-      <ReviewsGrid reviews={results} from="myBookmarkedReviews" userId={userId} />
+      <ReviewsGrid reviews={results} from="myBookmarkedReviews" userEmail={userEmail} />
       <Pagination
         currentPage={currentPage}
         totalPages={total_pages}
