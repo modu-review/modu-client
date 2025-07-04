@@ -45,7 +45,7 @@ function useSubmitReview({onPreview, onSave}: Props) {
 
     switch (type) {
       case 'preview':
-        return onPreview({...commonPayload, author: userId, created_at: '0000-00-00'});
+        return onPreview({...commonPayload, author_id: userId, author_email: userEmail, created_at: '0000-00-00'});
       case 'save':
         return onSave({...commonPayload, authorEmail: userEmail});
       default:

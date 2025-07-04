@@ -27,7 +27,7 @@ type Props =
   | {
       reviews: ReviewCard[];
       from: 'myBookmarkedReviews';
-      userId: string | null;
+      userEmail: string | null;
     };
 
 export default function ReviewsGrid(props: Props) {
@@ -39,7 +39,7 @@ export default function ReviewsGrid(props: Props) {
       case 'myReviews':
         return <MyPageReviewCard key={card.board_id} card={card} isAuthor={true} context="my" />;
       case 'myBookmarkedReviews':
-        const isAuthor = card.author === props.userId;
+        const isAuthor = card.author_email === props.userEmail;
         return <MyPageReviewCard key={card.board_id} card={card} isAuthor={isAuthor} context="bookmarks" />;
       case 'bestReviews':
         return <BestReviewCard key={card.board_id} card={card} />;

@@ -8,8 +8,8 @@ type Props = {
 };
 
 export default function CommentCard({comment, userEmail, reviewId}: Props) {
-  const {author, content, created_at, profile_image} = comment;
-  const isAuthor = userEmail === author;
+  const {author_id, author_email, content, created_at, profile_image} = comment;
+  const isAuthor = userEmail === author_email;
 
   const {deleteReviewComment, isPending} = useDeleteReviewComment();
 
@@ -27,10 +27,10 @@ export default function CommentCard({comment, userEmail, reviewId}: Props) {
     <>
       <div className="flex min-h-[100px] gap-3 mx-2 px-3 pt-5 mb-5 bg-slate-100 rounded-lg relative">
         {isPending && <div className="z-10 absolute inset-0 bg-gray-300/50 rounded-lg animate-pulse" />}
-        <Avatar src={profile_image} alt={`${author}님의 프로필 이미지`} />
+        <Avatar src={profile_image} alt={`${author_id}님의 프로필 이미지`} />
         <article className="w-full flex flex-col">
           <div className="flex items-center gap-2 mb-1">
-            <span className="text-sm md:text-base font-semibold">{author.split('@')[0]}</span>
+            <span className="text-sm md:text-base font-semibold">{author_id}</span>
             <time className="text-xs md:text-sm text-gray-500" dateTime={created_at}>
               ({created_at})
             </time>
