@@ -39,7 +39,8 @@ export type ReviewDetail = {
   board_id: number;
   title: string;
   category: Category;
-  author: string;
+  author_id: string;
+  author_email: string;
   created_at: string;
   content: string;
   bookmarks: number;
