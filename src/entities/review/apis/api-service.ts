@@ -136,7 +136,7 @@ export async function bookmarkReview({userEmail, reviewId}: BookmarkPayload) {
     baseUrl: process.env.NEXT_PUBLIC_API_URL,
     endpoint: `/reviews/${reviewId}/bookmarks`,
     body: {
-      userEmail: userEmail,
+      user_email: userEmail,
     },
   });
 }
