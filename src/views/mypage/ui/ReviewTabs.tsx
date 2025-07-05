@@ -1,12 +1,22 @@
 'use client';
 
+import {useEffect, useRef} from 'react';
 import {useRouter, useSearchParams} from 'next/navigation';
-import {MyBookmarkedReviews, MyReviews} from '@/features/reviews/my';
+import {ReviewsGridLoading} from '@/entities/reviews';
 import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/shared/shadcnComponent/ui/tabs';
 import {RQProvider} from '@/shared/providers';
 import {LucideIcon} from '@/shared/ui/icons';
-import {ReviewsGridLoading} from '@/entities/reviews';
-import {useEffect, useRef} from 'react';
+import dynamic from 'next/dynamic';
+
+const MyReviews = dynamic(() => import('@/features/reviews/my/ui/MyReviews'), {
+  ssr: false,
+  loading: () => <ReviewsGridLoading />,
+});
+
+const MyBookmarkedReviews = dynamic(() => import('@/features/reviews/my/ui/MyBookmarkedReviews'), {
+  ssr: false,
+  loading: () => <ReviewsGridLoading />,
+});
 
 export default function ReviewTabs() {
   const router = useRouter();
