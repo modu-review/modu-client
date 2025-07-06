@@ -54,7 +54,7 @@ export default function ReviewsWithScroll({selectedCategory, sort}: Props) {
         </div>
       ) : (
         <div className="w-full flex flex-col justify-center items-center mt-10">
-          <LucideIcon name="PackageOpen" className="w-32 h-32" />
+          <LucideIcon name="PackageOpen" className="w-20 h-20" />
           <p className="md:text-lg mt-3 mb-6">모든 게시글을 조회했어요.</p>
         </div>
       )}
