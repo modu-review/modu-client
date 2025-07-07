@@ -94,6 +94,21 @@ export default {
           },
         },
       },
+      animation: {
+        'fade-up': 'fade-up 150ms ease-in-out',
+      },
+      keyframes: {
+        'fade-up': {
+          '0%': {
+            opacity: '0',
+            transform: 'translateY(1rem)',
+          },
+          '100%': {
+            opacity: '1',
+            transform: 'translateY(0)',
+          },
+        },
+      },
     },
   },
   plugins: [require('tailwindcss-animate'), require('@tailwindcss/typography')],
