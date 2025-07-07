@@ -3,6 +3,7 @@ import CardDescription from './CardDescription';
 import {ReviewCard, useDeleteReviewFromMyPage} from '@/entities/review';
 import {LucideIcon} from '@/shared/ui/icons';
 import {LoadingSpinner} from '@/shared/ui/components';
+import {Modal, useModal, DeleteConfirmModal} from '@/shared/ui/modal';
 
 type Props = {
   card: ReviewCard;
@@ -12,6 +13,7 @@ type Props = {
 
 export default function MyPageReviewCard({card, isAuthor, context}: Props) {
   const {deleteReview, isPending} = useDeleteReviewFromMyPage();
+  const {openModal, handleModalOpen, handleModalClose} = useModal();
 
   const handleDelete = () => {
     deleteReview({
@@ -19,10 +21,21 @@ export default function MyPageReviewCard({card, isAuthor, context}: Props) {
       category: card.category,
       context,
     });
+
+    handleModalClose();
   };
 
   return (
     <article className="relative bg-white rounded-xl pt-4 w-[290px] h-[400px] md:w-[300px] md:h-[400px] lg:w-[260px] lg:h-[350px] shadow-md shadow-mediumBlue hover:translate-y-[-2px] hover:shadow-lg hover:shadow-boldBlue transition-all">
+      {openModal && (
+        <Modal onClose={handleModalClose}>
+          <DeleteConfirmModal
+            onDelete={handleDelete}
+            onDeleteCancel={handleModalClose}
+            text="삭제된 리뷰는 복구할 수 없어요."
+          />
+        </Modal>
+      )}
       {isPending && (
         <div className="absolute inset-0 bg-black/60 rounded-xl z-50">
           <LoadingSpinner text="리뷰를 삭제하고 있어요." className="text-white mt-3" textSize="text-xl" />
@@ -35,7 +48,7 @@ export default function MyPageReviewCard({card, isAuthor, context}: Props) {
           </Link>
           <button
             className="hover:text-gray-800"
-            onClick={handleDelete}
+            onClick={handleModalOpen}
             disabled={isPending}
             tabIndex={isPending ? -1 : 0}
             aria-label="리뷰 삭제"
