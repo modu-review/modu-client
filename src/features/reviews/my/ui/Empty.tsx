@@ -8,7 +8,7 @@ type Props = {
 
 export default function Empty({linkText, linkHref, title}: Props) {
   return (
-    <section className="w-full h-[290px] md:h-[380px] pb-10 md:pb-0 flex flex-col justify-center items-center">
+    <section className="w-full h-[290px] md:h-[420px] pb-10 md:pb-0 flex flex-col justify-center items-center">
       <p className="text-lg md:text-xl font-semibold mb-2 text-boldBlue">{title}</p>
       <Link
         href={linkHref}
