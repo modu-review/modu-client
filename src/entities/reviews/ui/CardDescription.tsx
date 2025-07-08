@@ -22,9 +22,9 @@ export default function CardDescription({
           priority
           alt={image_url}
         />
-        <h3>{title}</h3>
+        <h3 className="mt-2">{title}</h3>
         <div className="min-h-[30px]">
-          <p className="text-[11px] font-light line-clamp-2 px-5">{preview}</p>
+          <p className="text-[12px] font-light line-clamp-2 px-5">{preview}</p>
         </div>
       </div>
 
