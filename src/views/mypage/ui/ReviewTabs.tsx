@@ -43,7 +43,7 @@ export default function ReviewTabs() {
   }, [currentPage]);
 
   return (
-    <Tabs ref={tabsRef} value={tabValue} onValueChange={handleTabChange} defaultValue="my" className="w-full">
+    <Tabs ref={tabsRef} value={tabValue} onValueChange={handleTabChange} defaultValue="my" className="w-full relative">
       <TabsList className="grid w-full grid-cols-2 gap-2">
         <TabsTrigger value="my">내가 작성한 후기</TabsTrigger>
         <TabsTrigger value="myBookmarks">내가 저장한 후기</TabsTrigger>

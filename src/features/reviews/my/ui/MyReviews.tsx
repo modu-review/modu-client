@@ -20,7 +20,7 @@ export default function MyReviews({currentPage}: Props) {
         currentPage={currentPage}
         totalPages={total_pages}
         generateUrl={(page: number) => `?tabs=my&page=${page}`}
-        className="bg-white px-1.5 md:px-5 py-1.5 rounded-md shadow-md mb-4"
+        className="bg-white px-1.5 md:px-5 py-1.5 rounded-md shadow-md mb-4 absolute bottom-0"
         scrollToTop={false}
       />
     </section>
