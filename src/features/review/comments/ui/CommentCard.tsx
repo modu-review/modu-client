@@ -1,5 +1,6 @@
 import {Comment, useDeleteReviewComment} from '@/entities/review';
 import {Avatar} from '@/shared/ui/components';
+import {ConfirmDeleteTrigger} from '@/shared/ui/modal';
 
 type Props = {
   comment: Comment;
@@ -38,16 +39,13 @@ export default function CommentCard({comment, userEmail, reviewId}: Props) {
           <p className="text-sm md:text-base flex-1">{content}</p>
           {isAuthor && (
             <section className="flex items-center gap-2 justify-end my-3 pr-2 text-sm text-gray-500 transition-colors">
-              <button
-                className="hover:text-gray-700"
-                onClick={handleDelete}
-                disabled={isPending}
-                tabIndex={isPending ? -1 : 0}
-                aria-label="리뷰 삭제"
-                aria-disabled={isPending}
-              >
-                삭제
-              </button>
+              <ConfirmDeleteTrigger onConfirm={handleDelete} isPending={isPending} label="댓글 삭제">
+                {props => (
+                  <button {...props} className="hover:text-gray-700">
+                    삭제
+                  </button>
+                )}
+              </ConfirmDeleteTrigger>
             </section>
           )}
         </article>

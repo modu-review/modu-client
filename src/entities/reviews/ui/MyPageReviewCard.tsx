@@ -3,6 +3,7 @@ import CardDescription from './CardDescription';
 import {ReviewCard, useDeleteReviewFromMyPage} from '@/entities/review';
 import {LucideIcon} from '@/shared/ui/icons';
 import {LoadingSpinner} from '@/shared/ui/components';
+import {ConfirmDeleteTrigger} from '@/shared/ui/modal';
 
 type Props = {
   card: ReviewCard;
@@ -33,16 +34,13 @@ export default function MyPageReviewCard({card, isAuthor, context}: Props) {
           <Link className="hover:text-gray-800" href={`/reviews/${card.board_id}/edit`} aria-label="리뷰 수정">
             <LucideIcon name="PencilLine" size={20} />
           </Link>
-          <button
-            className="hover:text-gray-800"
-            onClick={handleDelete}
-            disabled={isPending}
-            tabIndex={isPending ? -1 : 0}
-            aria-label="리뷰 삭제"
-            aria-disabled={isPending}
-          >
-            <LucideIcon name="X" size={20} />
-          </button>
+          <ConfirmDeleteTrigger onConfirm={handleDelete} isPending={isPending} label="리뷰 삭제">
+            {props => (
+              <button {...props} className="hover:text-gray-800">
+                <LucideIcon name="X" size={20} />
+              </button>
+            )}
+          </ConfirmDeleteTrigger>
         </div>
       )}
       <Link href={`/reviews/${card.board_id}`}>
