@@ -16,11 +16,11 @@ export default function CardDescription({
       <div className="flex flex-col gap-1 items-center text-center">
         <Image
           className="rounded-[30px] mb-3 shadow-md shadow-black"
-          src={`https://picsum.photos/seed/picsum/200/200`}
+          src={image_url}
           width={140}
           height={140}
           priority
-          alt={image_url}
+          alt={`카드 이미지: ${title}`}
         />
         <h3 className="mt-2">{title}</h3>
         <div className="min-h-[30px]">
