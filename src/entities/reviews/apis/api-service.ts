@@ -32,7 +32,6 @@ export function getCategoryReviews(cursor: number, categoryId: string, sort: str
       cursor: cursor,
       sort: sort,
     },
-    baseUrl: process.env.NEXT_PUBLIC_API_URL,
   });
 }
 
@@ -42,7 +41,6 @@ export function getMyReviews(page: number) {
     queryParams: {
       page: page,
     },
-    baseUrl: process.env.NEXT_PUBLIC_API_URL,
   });
 }
 
@@ -52,6 +50,5 @@ export function getMyBookmarkedReviews(page: number) {
     queryParams: {
       page: page,
     },
-    baseUrl: process.env.NEXT_PUBLIC_API_URL,
   });
 }
