@@ -1,10 +1,11 @@
 import {useCallback} from 'react';
 import {SortKey} from '@/features/reviews/sorting';
 import {NoSearchResults, ReviewArticle, ReviewArticleLoading, useCategoryReviews} from '@/entities/reviews';
+import {Category} from '@/entities/review';
 import {LucideIcon} from '@/shared/ui/icons';
 
 type Props = {
-  selectedCategory: string;
+  selectedCategory: Category;
   sort: SortKey;
 };
 
