@@ -28,6 +28,8 @@ jobs:
         run: |
           echo "NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}" >> .env
           echo "SERVER_API_URL=${{ secrets.SERVER_API_URL }}" >> .env
+          echo "NEXT_PUBLIC_CLOUDFRONT_URL=${{ secrets.NEXT_PUBLIC_CLOUDFRONT_URL }}" >> .env
+          echo "NEXT_PUBLIC_LOGIN_URL=${{ secrets.NEXT_PUBLIC_LOGIN_URL }}" >> .env
 
       - name: Build with pnpm
         run: pnpm run build
