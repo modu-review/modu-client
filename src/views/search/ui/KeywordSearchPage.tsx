@@ -1,6 +1,7 @@
 import {KeywordReviews} from '@/features/reviews/keyword';
 import {SearchBar} from '@/features/reviews/search-bar';
 import FloatingWriteButton from './FloatingWriteButton';
+import Link from 'next/link';
 
 type Props = {
   params: Promise<{keyword: string}>;
@@ -13,7 +14,12 @@ export default async function KeywordSearchPage({params}: Props) {
 
   return (
     <section className="w-full h-full md:px-8 md:max-w-5xl mx-auto mt-2">
-      <h2 className="font-bold text-2xl mt-3 mb-6 md:mb-8 md:text-3xl px-5">{decodedQuery} 검색 결과</h2>
+      <header className="flex flex-col gap-2 mb-6 md:mb-8 px-5 md:flex-row md:items-center md:justify-between">
+        <h2 className="font-bold text-2xl md:text-3xl">{decodedQuery} 검색 결과</h2>
+        <Link href="/search" className="text-sm text-boldBlue hover:text-extraboldBlue transition-colors md:mr-4">
+          카테고리별로 확인해보세요 →
+        </Link>
+      </header>
       <SearchBar />
       <KeywordReviews />
       <FloatingWriteButton />
