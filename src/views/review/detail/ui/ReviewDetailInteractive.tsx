@@ -1,12 +1,11 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import {LoginModal} from '@/widgets/login-modal';
 import {BookmarksLoading} from '@/features/review/bookmarks';
 import {CommentsLoading} from '@/features/review/comments';
 import {Category} from '@/entities/review';
 import {RQProvider} from '@/shared/providers';
-import {Modal, useModal} from '@/shared/ui/modal';
+import {LoginModal, Modal, useModal} from '@/shared/ui/modal';
 
 const Bookmarks = dynamic(() => import('@/features/review/bookmarks/ui/Bookmarks'), {
   ssr: false,
