@@ -1,5 +1,6 @@
 import {KeywordReviews} from '@/features/reviews/keyword';
 import {SearchBar} from '@/features/reviews/search-bar';
+import FloatingWriteButton from './FloatingWriteButton';
 
 type Props = {
   params: Promise<{keyword: string}>;
@@ -15,6 +16,7 @@ export default async function KeywordSearchPage({params}: Props) {
       <h2 className="font-bold text-2xl mt-3 mb-6 md:mb-8 md:text-3xl px-5">{decodedQuery} 검색 결과</h2>
       <SearchBar />
       <KeywordReviews />
+      <FloatingWriteButton />
     </section>
   );
 }
