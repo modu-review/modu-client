@@ -18,7 +18,9 @@ export default function BestReviews({reviews}: Props) {
     <section className="bg-boldBlue mt-16">
       <div className="w-full max-w-[1400px] mx-auto flex flex-col items-center justify-center py-12 md:px-8">
         <h4 className="text-white font-bold text-2xl mb-8 md:text-3xl">🔥 BEST 후기 🔥</h4>
-        <CategoryBar selectedCategory={selectedCategory} onSelectCategory={handleSelectCategory} />
+        <article className="w-full px-3">
+          <CategoryBar selectedCategory={selectedCategory} onSelectCategory={handleSelectCategory} />
+        </article>
         <ReviewList filteredReview={filteredReview} />
         <Link
           href="/search"
