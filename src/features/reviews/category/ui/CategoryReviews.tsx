@@ -23,7 +23,7 @@ export default function CategoryReviews() {
         <CategoryBar selectedCategory={selectedCategory} onSelectCategory={handleSelectCategory} />
       </article>
       <SearchBar />
-      <article className="px-6">
+      <article className="px-6 mb-10">
         <SelectSortOptions className="ml-auto mt-10 mb-7 md:mr-4" sort={sort} onValueChange={handleChange} />
         <RQProvider
           LoadingFallback={<ReviewsLoading />}
