@@ -50,14 +50,16 @@ export default function ReviewsWithScroll({selectedCategory, sort}: Props) {
         )}
       </ul>
       {hasNextPage ? (
-        <div className="h-[550px] w-full mt-6" ref={observerRef}>
-          {isFetchingNextPage && <ReviewArticleLoading />}
+        <div className="w-full mt-6" ref={observerRef}>
+          {isFetchingNextPage && Array.from({length: 3}, (_, idx) => <ReviewArticleLoading key={idx} />)}
         </div>
       ) : (
-        <div className="w-full flex flex-col justify-center items-center mt-10">
-          <LucideIcon name="PackageOpen" className="w-20 h-20" />
-          <p className="md:text-lg mt-3 mb-6">모든 게시글을 조회했어요.</p>
-        </div>
+        data.pages.length > 1 && (
+          <div className="w-full flex flex-col justify-center items-center">
+            <LucideIcon name="PackageOpen" className="w-20 h-20" />
+            <p className="md:text-lg mt-3 mb-6">모든 게시글을 조회했어요.</p>
+          </div>
+        )
       )}
     </>
   );
