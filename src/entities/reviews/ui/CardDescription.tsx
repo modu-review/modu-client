@@ -14,14 +14,16 @@ export default function CardDescription({
       <p className="text-sm">{category}</p>
 
       <div className="flex flex-col gap-1 items-center text-center">
-        <Image
-          className="rounded-[30px] mb-3 shadow-md shadow-black"
-          src={image_url}
-          width={140}
-          height={140}
-          priority
-          alt={`카드 이미지: ${title}`}
-        />
+        <div className="w-[140px] h-[140px] overflow-hidden rounded-[30px] mb-3 shadow-md shadow-black">
+          <Image
+            className="w-full h-full object-cover aspect-square"
+            src={image_url}
+            width={140}
+            height={140}
+            priority
+            alt={`카드 이미지: ${title}`}
+          />
+        </div>
         <h3 className="mt-2">{title}</h3>
         <div className="min-h-[30px]">
           <p className="text-[12px] font-light line-clamp-2 px-5">{preview}</p>
