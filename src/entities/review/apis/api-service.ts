@@ -17,7 +17,7 @@ import {RequestGetError} from '@/shared/apis/request-error';
 export async function postReview(data: ReviewPayload) {
   await requestPost({
     baseUrl: process.env.NEXT_PUBLIC_API_URL,
-    endpoint: '/review',
+    endpoint: '/reviews/new',
     body: data,
     withResponse: false,
   });
