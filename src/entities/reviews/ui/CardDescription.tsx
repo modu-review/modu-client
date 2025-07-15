@@ -24,7 +24,7 @@ export default function CardDescription({
             alt={`카드 이미지: ${title}`}
           />
         </div>
-        <h3 className="mt-4 mb-2 px-3 line-clamp-2">{title}에 추가로 뭔가 더 길어진다면?</h3>
+        <h3 className="mt-4 mb-2 px-3 line-clamp-1">{title}</h3>
         <div className="min-h-[30px]">
           <p className="text-[13px] font-light line-clamp-2 md:line-clamp-2 px-5">{preview}</p>
         </div>
