@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import {SearchReviewCard} from '@/entities/review';
+import {CATEGORY_MAP, SearchReviewCard} from '@/entities/review';
 import {LucideIcon} from '@/shared/ui/icons';
 
 type Props = {
@@ -21,7 +21,7 @@ export default function ReviewArticle({
             <h3 className="text-lg md:text-xl font-semibold">{title}</h3>
             <p className="text-sm text-gray-500 mb-1">{created_at}</p>
             <div className="flex gap-3 text-sm text-gray-500">
-              <p>{category}</p>
+              <p>{CATEGORY_MAP[category]}</p>
               <p>{author_id}</p>
             </div>
           </article>

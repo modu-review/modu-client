@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import {ReviewCard} from '@/entities/review';
+import {CATEGORY_MAP, ReviewCard} from '@/entities/review';
 import {LucideIcon} from '@/shared/ui/icons';
 
 type Props = {
@@ -11,7 +11,7 @@ export default function CardDescription({
 }: Props) {
   return (
     <article className="h-full flex flex-col items-center justify-between font-semibold">
-      <p className="text-sm">{category}</p>
+      <p className="text-sm">{CATEGORY_MAP[category]}</p>
 
       <div className="flex flex-col gap-1 items-center text-center">
         <div className="w-[140px] h-[140px] overflow-hidden rounded-[30px] mb-3 shadow-md shadow-black">
