@@ -9,7 +9,7 @@ export function getSession() {
   });
 }
 
-export function logout() {
+export async function logout() {
   requestGet({
     endpoint: '/users/logout',
     withResponse: false,
