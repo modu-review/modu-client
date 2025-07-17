@@ -1,4 +1,9 @@
+'use client';
+
 import Link from 'next/link';
+import {usePathname} from 'next/navigation';
+import UserInfo from './UserInfo';
+import LoginRequiredPopover from './LoginRequiredPopover';
 import {
   Sheet,
   SheetClose,
@@ -10,8 +15,6 @@ import {
   SheetTrigger,
 } from '@/shared/shadcnComponent/ui/sheet';
 import {LucideIcon} from '@/shared/ui/icons';
-import LoginRequiredPopover from './LoginRequiredPopover';
-import UserInfo from './UserInfo';
 
 const SIDEBAR_ROUTES = [
   {
@@ -63,6 +66,7 @@ type Props = {
 };
 
 export default function Sidebar({isLoggedIn}: Props) {
+  const pathName = usePathname();
   const LOGIN_URL = process.env.NEXT_PUBLIC_LOGIN_URL;
 
   if (!LOGIN_URL) {
@@ -72,18 +76,26 @@ export default function Sidebar({isLoggedIn}: Props) {
   return (
     <Sheet>
       <SheetTrigger>
-        <LucideIcon name="Menu" />
+        <LucideIcon name="Menu" className="hover:text-boldBlue md:hover:scale-105 transition-all" />
       </SheetTrigger>
-      <SheetContent>
-        <SheetHeader>
-          <SheetTitle>모두의 후기</SheetTitle>
+      <SheetContent className="w-[300px] flex flex-col">
+        <SheetHeader className="border-b-[3px] border-boldBlue pb-3">
+          <SheetTitle className="text-xl md:text-2xl mb-1">모두의 후기</SheetTitle>
           <SheetDescription>세상의 모든 후기를 확인해보세요.</SheetDescription>
         </SheetHeader>
-        <nav>
+        <nav className="flex-1 flex flex-col space-y-11 text-lg mt-5">
           {SIDEBAR_ROUTES.map(({title, href, isActive, requiresAuth}) =>
             !requiresAuth || isLoggedIn ? (
               <SheetClose key={title} asChild>
-                <Link key={title} href={href}>
+                <Link
+                  key={title}
+                  href={href}
+                  className={
+                    isActive(pathName)
+                      ? 'text-boldBlue font-semibold'
+                      : 'text-muted-foreground hover:text-boldBlue transition-colors'
+                  }
+                >
                   <span>{title}</span>
                 </Link>
               </SheetClose>
@@ -92,7 +104,18 @@ export default function Sidebar({isLoggedIn}: Props) {
             ),
           )}
         </nav>
-        <SheetFooter>{isLoggedIn ? <UserInfo /> : <Link href={LOGIN_URL}>로그인</Link>}</SheetFooter>
+        <SheetFooter>
+          {isLoggedIn ? (
+            <UserInfo />
+          ) : (
+            <Link
+              href={LOGIN_URL}
+              className="w-full text-center bg-boldBlue text-white py-1.5 font-semibold rounded-md hover:bg-extraboldBlue transition-colors mb-3"
+            >
+              로그인
+            </Link>
+          )}
+        </SheetFooter>
       </SheetContent>
     </Sheet>
   );
