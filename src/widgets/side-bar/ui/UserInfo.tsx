@@ -6,11 +6,11 @@ export default function UserInfo() {
   const userEmail = useUserEmail();
 
   return (
-    <div>
+    <div className="flex items-center gap-2">
       <Avatar src="https://picsum.photos/200/200" alt={`${userId} 프로필 사진`} />
-      <div>
-        <span>{userId}</span>
-        <span>{userEmail}</span>
+      <div className="flex flex-col">
+        <span className="text-sm font-semibold">{userId}</span>
+        <span className="text-xs text-muted-foreground">{userEmail}</span>
       </div>
     </div>
   );
