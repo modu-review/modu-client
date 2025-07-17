@@ -15,8 +15,11 @@ export default function LoginRequiredPopover({title}: Props) {
 
   return (
     <Popover>
-      <PopoverTrigger asChild>
-        <button className="flex items-center text-muted-foreground gap-1 hover:text-boldBlue transition-colors">
+      <PopoverTrigger asChild aria-label={`로그인이 필요한 ${title} 메뉴`}>
+        <button
+          type="button"
+          className="flex items-center text-muted-foreground gap-1 hover:text-boldBlue transition-colors"
+        >
           <LucideIcon name="LockKeyhole" size={20} /> <span>{title}</span>
         </button>
       </PopoverTrigger>
