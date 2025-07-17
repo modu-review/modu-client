@@ -10,7 +10,7 @@ export function getSession() {
 }
 
 export async function logout() {
-  requestGet({
+  await requestGet({
     endpoint: '/users/logout',
     withResponse: false,
     errorHandlingType: 'toast',

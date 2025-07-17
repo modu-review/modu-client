@@ -1,12 +1,18 @@
 'use client';
 
-import {useUserEmail, useUserId} from '@/entities/auth';
+import {logout, useUserEmail, useUserId} from '@/entities/auth';
 import {Button} from '@/shared/shadcnComponent/ui/button';
 import {LucideIcon} from '@/shared/ui/icons';
 
 export default function UserInfo() {
   const userId = useUserId();
   const userEmail = useUserEmail();
+
+  const handleLogout = async () => {
+    await logout();
+
+    window.location.reload();
+  };
 
   return (
     <section className="flex ml-2 md:ml-10">
@@ -20,6 +26,7 @@ export default function UserInfo() {
           className="absolute -left-[0.5rem] -bottom-[3.5rem] md:-bottom-[4rem]"
           variant="logInOut"
           size="logInOut"
+          onClick={handleLogout}
         >
           로그아웃
         </Button>
