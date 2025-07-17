@@ -1,3 +1,15 @@
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/shared/shadcnComponent/ui/sheet';
+import {LucideIcon} from '@/shared/ui/icons';
+import Link from 'next/link';
+
 const SIDEBAR_ROUTES = [
   {
     title: '홈',
@@ -44,5 +56,26 @@ const SIDEBAR_ROUTES = [
 ];
 
 export default function Sidebar() {
-  return;
+  return (
+    <Sheet>
+      <SheetTrigger>
+        <LucideIcon name="Menu" />
+      </SheetTrigger>
+      <SheetContent>
+        <SheetHeader>
+          <SheetTitle>모두의 후기</SheetTitle>
+          <SheetDescription>세상의 모든 후기를 확인해보세요.</SheetDescription>
+        </SheetHeader>
+        <nav>
+          {SIDEBAR_ROUTES.map(({title, href, isActive, requiresAuth}) => (
+            <SheetClose key={title} asChild>
+              <Link key={title} href={href}>
+                <span>{title}</span>
+              </Link>
+            </SheetClose>
+          ))}
+        </nav>
+      </SheetContent>
+    </Sheet>
+  );
 }
