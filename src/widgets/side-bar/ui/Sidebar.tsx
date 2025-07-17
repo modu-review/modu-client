@@ -11,6 +11,7 @@ import {
 } from '@/shared/shadcnComponent/ui/sheet';
 import {LucideIcon} from '@/shared/ui/icons';
 import LoginRequiredPopover from './LoginRequiredPopover';
+import UserInfo from './UserInfo';
 
 const SIDEBAR_ROUTES = [
   {
@@ -91,9 +92,7 @@ export default function Sidebar({isLoggedIn}: Props) {
             ),
           )}
         </nav>
-        <SheetFooter>
-          {isLoggedIn ? <div>{/* TODO: 로그인 사용자 정보 표시 */}</div> : <Link href={LOGIN_URL}>로그인</Link>}
-        </SheetFooter>
+        <SheetFooter>{isLoggedIn ? <UserInfo /> : <Link href={LOGIN_URL}>로그인</Link>}</SheetFooter>
       </SheetContent>
     </Sheet>
   );
