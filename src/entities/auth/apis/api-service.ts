@@ -8,3 +8,11 @@ export function getSession() {
     errorHandlingType: 'toast',
   });
 }
+
+export async function logout() {
+  await requestGet({
+    endpoint: '/users/logout',
+    withResponse: false,
+    errorHandlingType: 'toast',
+  });
+}
