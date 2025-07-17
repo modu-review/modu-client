@@ -10,6 +10,7 @@ import {
   SheetTrigger,
 } from '@/shared/shadcnComponent/ui/sheet';
 import {LucideIcon} from '@/shared/ui/icons';
+import LoginRequiredPopover from './LoginRequiredPopover';
 
 const SIDEBAR_ROUTES = [
   {
@@ -78,13 +79,17 @@ export default function Sidebar({isLoggedIn}: Props) {
           <SheetDescription>세상의 모든 후기를 확인해보세요.</SheetDescription>
         </SheetHeader>
         <nav>
-          {SIDEBAR_ROUTES.map(({title, href, isActive, requiresAuth}) => (
-            <SheetClose key={title} asChild>
-              <Link key={title} href={href}>
-                <span>{title}</span>
-              </Link>
-            </SheetClose>
-          ))}
+          {SIDEBAR_ROUTES.map(({title, href, isActive, requiresAuth}) =>
+            !requiresAuth || isLoggedIn ? (
+              <SheetClose key={title} asChild>
+                <Link key={title} href={href}>
+                  <span>{title}</span>
+                </Link>
+              </SheetClose>
+            ) : (
+              <LoginRequiredPopover key={title} title={title} />
+            ),
+          )}
         </nav>
         <SheetFooter>
           {isLoggedIn ? <div>{/* TODO: 로그인 사용자 정보 표시 */}</div> : <Link href={LOGIN_URL}>로그인</Link>}
