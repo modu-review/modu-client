@@ -87,7 +87,6 @@ export default function Sidebar() {
             !requiresAuth || isLoggedIn ? (
               <SheetClose key={title} asChild>
                 <Link
-                  key={title}
                   href={href}
                   className={
                     isActive(pathName)
