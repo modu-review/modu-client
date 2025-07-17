@@ -93,6 +93,7 @@ export default function Sidebar() {
                       ? 'text-boldBlue font-semibold'
                       : 'text-muted-foreground hover:text-boldBlue transition-colors'
                   }
+                  aria-label={`${title} 메뉴로 이동`}
                 >
                   <span>{title}</span>
                 </Link>
