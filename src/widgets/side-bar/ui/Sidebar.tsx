@@ -74,7 +74,7 @@ export default function Sidebar() {
 
   return (
     <Sheet>
-      <SheetTrigger>
+      <SheetTrigger aria-label="사이드바 네비게이션 열기">
         <LucideIcon name="Menu" className="hover:text-boldBlue md:hover:scale-105 transition-all" />
       </SheetTrigger>
       <SheetContent className="w-[300px] flex flex-col">
