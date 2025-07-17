@@ -1,12 +1,7 @@
-import {Sidebar} from '@/widgets/side-bar';
-import {cookies} from 'next/headers';
 import Link from 'next/link';
+import {Sidebar} from '@/widgets/side-bar';
 
-export default async function Header() {
-  const cookieStore = await cookies();
-
-  const isLoggedIn = cookieStore.has('refreshToken');
-
+export default function Header() {
   return (
     <header className="flex justify-between items-center py-5 px-6 md:px-8 lg:py-6 lg:px-10">
       <Link href="/">

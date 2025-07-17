@@ -4,6 +4,7 @@ import Link from 'next/link';
 import {usePathname} from 'next/navigation';
 import UserInfo from './UserInfo';
 import LoginRequiredPopover from './LoginRequiredPopover';
+import {useIsLoggedIn} from '@/entities/auth';
 import {
   Sheet,
   SheetClose,
@@ -61,12 +62,10 @@ const SIDEBAR_ROUTES = [
   },
 ];
 
-type Props = {
-  isLoggedIn: boolean;
-};
-
-export default function Sidebar({isLoggedIn}: Props) {
+export default function Sidebar() {
   const pathName = usePathname();
+  const isLoggedIn = useIsLoggedIn();
+
   const LOGIN_URL = process.env.NEXT_PUBLIC_LOGIN_URL;
 
   if (!LOGIN_URL) {
