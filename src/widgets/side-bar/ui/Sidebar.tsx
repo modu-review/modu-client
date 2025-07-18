@@ -16,7 +16,7 @@ import {
   SheetTrigger,
 } from '@/shared/shadcnComponent/ui/sheet';
 import {LucideIcon} from '@/shared/ui/icons';
-import getFullPathName from '@/shared/lib/utils/getFullPathName';
+import {useGetFullPathName} from '@/shared/hooks';
 
 const SIDEBAR_ROUTES = [
   {
@@ -67,7 +67,7 @@ export default function Sidebar() {
   const pathName = usePathname();
   const isLoggedIn = useIsLoggedIn();
 
-  const fullPath = getFullPathName();
+  const fullPath = useGetFullPathName();
   const {goLoginPage} = useGoLoginPage();
 
   const handleClickLoginButton = () => {
