@@ -1,5 +1,4 @@
-const LOGIN_URL = 'https://api.modu-review.com/oauth2/authorization/kakao';
-const REDIRECT_STORAGE_KEY = 'redirectAfterLogin';
+import {LOGIN_URL, REDIRECT_STORAGE_KEY} from '../consts/authConstants';
 
 export default function useGoLoginPage() {
   const goLoginPage = (previousPath?: string) => {
