@@ -4,7 +4,7 @@ import Link from 'next/link';
 import {usePathname} from 'next/navigation';
 import UserInfo from './UserInfo';
 import LoginRequiredPopover from './LoginRequiredPopover';
-import {useIsLoggedIn} from '@/entities/auth';
+import {useGoLoginPage, useIsLoggedIn} from '@/entities/auth';
 import {
   Sheet,
   SheetClose,
@@ -16,6 +16,7 @@ import {
   SheetTrigger,
 } from '@/shared/shadcnComponent/ui/sheet';
 import {LucideIcon} from '@/shared/ui/icons';
+import getFullPathName from '@/shared/lib/utils/getFullPathName';
 
 const SIDEBAR_ROUTES = [
   {
@@ -66,11 +67,12 @@ export default function Sidebar() {
   const pathName = usePathname();
   const isLoggedIn = useIsLoggedIn();
 
-  const LOGIN_URL = process.env.NEXT_PUBLIC_LOGIN_URL;
+  const fullPath = getFullPathName();
+  const {goLoginPage} = useGoLoginPage();
 
-  if (!LOGIN_URL) {
-    throw new Error('로그인 URL이 환경변수에 정의되지 않았습니다.');
-  }
+  const handleClickLoginButton = () => {
+    goLoginPage(fullPath);
+  };
 
   return (
     <Sheet>
@@ -107,12 +109,14 @@ export default function Sidebar() {
           {isLoggedIn ? (
             <UserInfo />
           ) : (
-            <Link
-              href={LOGIN_URL}
+            <button
+              type="button"
+              onClick={handleClickLoginButton}
+              aria-label="로그인"
               className="w-full text-center bg-boldBlue text-white py-1.5 font-semibold rounded-md hover:bg-extraboldBlue transition-colors mb-3"
             >
               로그인
-            </Link>
+            </button>
           )}
         </SheetFooter>
       </SheetContent>
