@@ -4,7 +4,7 @@ import Link from 'next/link';
 import {usePathname} from 'next/navigation';
 import UserInfo from './UserInfo';
 import LoginRequiredPopover from './LoginRequiredPopover';
-import {useGoLoginPage, useIsLoggedIn} from '@/entities/auth';
+import {useIsLoggedIn} from '@/entities/auth';
 import {
   Sheet,
   SheetClose,
@@ -16,7 +16,11 @@ import {
   SheetTrigger,
 } from '@/shared/shadcnComponent/ui/sheet';
 import {LucideIcon} from '@/shared/ui/icons';
-import {useGetFullPathName} from '@/shared/hooks';
+import dynamic from 'next/dynamic';
+
+const LoginButton = dynamic(() => import('./LoginButton'), {
+  ssr: false,
+});
 
 const SIDEBAR_ROUTES = [
   {
@@ -67,13 +71,6 @@ export default function Sidebar() {
   const pathName = usePathname();
   const isLoggedIn = useIsLoggedIn();
 
-  const fullPath = useGetFullPathName();
-  const {goLoginPage} = useGoLoginPage();
-
-  const handleClickLoginButton = () => {
-    goLoginPage(fullPath);
-  };
-
   return (
     <Sheet>
       <SheetTrigger aria-label="사이드바 네비게이션 열기">
@@ -105,20 +102,7 @@ export default function Sidebar() {
             ),
           )}
         </nav>
-        <SheetFooter>
-          {isLoggedIn ? (
-            <UserInfo />
-          ) : (
-            <button
-              type="button"
-              onClick={handleClickLoginButton}
-              aria-label="로그인"
-              className="w-full text-center bg-boldBlue text-white py-1.5 font-semibold rounded-md hover:bg-extraboldBlue transition-colors mb-3"
-            >
-              로그인
-            </button>
-          )}
-        </SheetFooter>
+        <SheetFooter>{isLoggedIn ? <UserInfo /> : <LoginButton />}</SheetFooter>
       </SheetContent>
     </Sheet>
   );
