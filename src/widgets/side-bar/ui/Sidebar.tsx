@@ -17,9 +17,11 @@ import {
 } from '@/shared/shadcnComponent/ui/sheet';
 import {LucideIcon} from '@/shared/ui/icons';
 import dynamic from 'next/dynamic';
+import LoginButtonLoading from './LoginButtonLoading';
 
 const LoginButton = dynamic(() => import('./LoginButton'), {
   ssr: false,
+  loading: () => <LoginButtonLoading />,
 });
 
 const SIDEBAR_ROUTES = [
