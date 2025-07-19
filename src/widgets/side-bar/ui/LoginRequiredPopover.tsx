@@ -1,18 +1,18 @@
-import Link from 'next/link';
+import dynamic from 'next/dynamic';
+import {LoginButtonLoading} from '@/features/auth';
 import {Popover, PopoverContent, PopoverTrigger} from '@/shared/shadcnComponent/ui/popover';
 import {LucideIcon} from '@/shared/ui/icons';
+
+const LoginButton = dynamic(() => import('@/features/auth/ui/LoginButton'), {
+  ssr: false,
+  loading: () => <LoginButtonLoading className="text-sm" text="로그인하기" />,
+});
 
 type Props = {
   title: string;
 };
 
 export default function LoginRequiredPopover({title}: Props) {
-  const LOGIN_URL = process.env.NEXT_PUBLIC_LOGIN_URL;
-
-  if (!LOGIN_URL) {
-    throw new Error('로그인 URL이 환경변수에 정의되지 않았습니다.');
-  }
-
   return (
     <Popover>
       <PopoverTrigger asChild aria-label={`로그인이 필요한 ${title} 메뉴`}>
@@ -25,14 +25,9 @@ export default function LoginRequiredPopover({title}: Props) {
       </PopoverTrigger>
       <PopoverContent>
         <div className="flex flex-col">
-          <h3 className="font-semibold mb-2">로그인 후 이용할 수 있어요.</h3>
-          <p className="text-sm text-muted-foreground mb-1">로그인하면 더 많은 기능을 이용할 수 있어요.</p>
-          <Link
-            href={LOGIN_URL}
-            className="w-full text-center text-sm bg-boldBlue text-white py-1.5 font-semibold rounded-md hover:bg-extraboldBlue transition-colors"
-          >
-            로그인하기
-          </Link>
+          <h3 className="font-semibold mb-1">로그인 후 이용할 수 있어요.</h3>
+          <p className="text-sm text-muted-foreground mb-2">로그인하면 더 많은 기능을 이용할 수 있어요.</p>
+          <LoginButton className="text-sm" text="로그인하기" />
         </div>
       </PopoverContent>
     </Popover>

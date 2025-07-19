@@ -1,9 +1,11 @@
 'use client';
 
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import {usePathname} from 'next/navigation';
 import UserInfo from './UserInfo';
 import LoginRequiredPopover from './LoginRequiredPopover';
+import {LoginButtonLoading} from '@/features/auth';
 import {useIsLoggedIn} from '@/entities/auth';
 import {
   Sheet,
@@ -16,6 +18,11 @@ import {
   SheetTrigger,
 } from '@/shared/shadcnComponent/ui/sheet';
 import {LucideIcon} from '@/shared/ui/icons';
+
+const LoginButton = dynamic(() => import('@/features/auth/ui/LoginButton'), {
+  ssr: false,
+  loading: () => <LoginButtonLoading />,
+});
 
 const SIDEBAR_ROUTES = [
   {
@@ -66,12 +73,6 @@ export default function Sidebar() {
   const pathName = usePathname();
   const isLoggedIn = useIsLoggedIn();
 
-  const LOGIN_URL = process.env.NEXT_PUBLIC_LOGIN_URL;
-
-  if (!LOGIN_URL) {
-    throw new Error('로그인 URL이 환경변수에 정의되지 않았습니다.');
-  }
-
   return (
     <Sheet>
       <SheetTrigger aria-label="사이드바 네비게이션 열기">
@@ -103,18 +104,7 @@ export default function Sidebar() {
             ),
           )}
         </nav>
-        <SheetFooter>
-          {isLoggedIn ? (
-            <UserInfo />
-          ) : (
-            <Link
-              href={LOGIN_URL}
-              className="w-full text-center bg-boldBlue text-white py-1.5 font-semibold rounded-md hover:bg-extraboldBlue transition-colors mb-3"
-            >
-              로그인
-            </Link>
-          )}
-        </SheetFooter>
+        <SheetFooter>{isLoggedIn ? <UserInfo /> : <LoginButton />}</SheetFooter>
       </SheetContent>
     </Sheet>
   );
