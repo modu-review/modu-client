@@ -1,16 +1,10 @@
-import Link from 'next/link';
+import LoginButton from './LoginButton';
 
 type Props = {
   onClose: () => void;
 };
 
 export default function LoginModal({onClose}: Props) {
-  const LOGIN_URL = process.env.NEXT_PUBLIC_LOGIN_URL;
-
-  if (!LOGIN_URL) {
-    throw new Error('로그인 URL이 환경변수에 정의되지 않았습니다.');
-  }
-
   return (
     <section className="w-[350px] md:w-[400px] h-[200px] md:h-[250px] bg-white z-30 rounded-lg flex flex-col gap-10 items-center animate-fade-up">
       <div className="flex-1 text-center mt-12 md:mt-20">
@@ -25,14 +19,7 @@ export default function LoginModal({onClose}: Props) {
         >
           닫기
         </button>
-        <Link
-          className="w-full text-center py-1.5 bg-boldBlue text-white rounded-md hover:bg-boldBlue/80 transition-colors"
-          href={LOGIN_URL}
-          aria-label="로그인"
-          role="button"
-        >
-          로그인하기
-        </Link>
+        <LoginButton />
       </div>
     </section>
   );
