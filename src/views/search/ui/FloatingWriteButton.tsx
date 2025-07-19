@@ -3,17 +3,17 @@
 import {useRouter} from 'next/navigation';
 import {useIsLoggedIn} from '@/entities/auth';
 import {LucideIcon} from '@/shared/ui/icons';
-import {LoginModal, Modal, useModal} from '@/shared/ui/modal';
+import {useLoginModal} from '@/features/auth';
 
 export default function FloatingWriteButton() {
   const router = useRouter();
 
   const isLoggedIn = useIsLoggedIn();
-  const {openModal, handleModalOpen, handleModalClose} = useModal();
+  const {isOpenLoginModal, openLoginModal, renderLoginModal} = useLoginModal();
 
   const handleClick = () => {
     if (!isLoggedIn) {
-      handleModalOpen();
+      openLoginModal();
       return;
     }
 
@@ -29,11 +29,7 @@ export default function FloatingWriteButton() {
       >
         <LucideIcon name="Plus" size={24} />
       </button>
-      {openModal && (
-        <Modal onClose={handleModalClose}>
-          <LoginModal onClose={handleModalClose} />
-        </Modal>
-      )}
+      {isOpenLoginModal && renderLoginModal()}
     </>
   );
 }
