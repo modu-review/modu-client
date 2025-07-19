@@ -9,6 +9,16 @@ export function getSession() {
   });
 }
 
+export async function login(email: string) {
+  await requestGet({
+    endpoint: '/users/login',
+    queryParams: {
+      email,
+    },
+    withResponse: false,
+  });
+}
+
 export async function logout() {
   await requestGet({
     endpoint: '/users/logout',
