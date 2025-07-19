@@ -1,8 +1,7 @@
-import {createClientError} from '@/shared/lib/utils/client-error';
-import {useSearchParams} from 'next/navigation';
 import {useEffect} from 'react';
-import {login} from '../apis/api-service';
-import {REDIRECT_STORAGE_KEY} from '../consts/authConstants';
+import {useSearchParams} from 'next/navigation';
+import {login, REDIRECT_STORAGE_KEY} from '@/entities/auth';
+import {createClientError} from '@/shared/lib/utils/client-error';
 
 export default function useKakaoOAuthLogin() {
   const searchParams = useSearchParams();

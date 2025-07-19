@@ -1,4 +1,4 @@
-import {LOGIN_URL, REDIRECT_STORAGE_KEY} from '../consts/authConstants';
+import {LOGIN_URL, REDIRECT_STORAGE_KEY} from '@/entities/auth';
 
 export default function useGoLoginPage() {
   const goLoginPage = (previousPath?: string) => {
