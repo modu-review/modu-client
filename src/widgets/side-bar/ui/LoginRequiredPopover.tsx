@@ -1,9 +1,9 @@
 import dynamic from 'next/dynamic';
-import LoginButtonLoading from './LoginButtonLoading';
+import {LoginButtonLoading} from '@/features/auth';
 import {Popover, PopoverContent, PopoverTrigger} from '@/shared/shadcnComponent/ui/popover';
 import {LucideIcon} from '@/shared/ui/icons';
 
-const LoginButton = dynamic(() => import('./LoginButton'), {
+const LoginButton = dynamic(() => import('@/features/auth/ui/LoginButton'), {
   ssr: false,
   loading: () => <LoginButtonLoading className="text-sm" text="로그인하기" />,
 });

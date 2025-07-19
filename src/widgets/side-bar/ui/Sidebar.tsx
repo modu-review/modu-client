@@ -1,9 +1,11 @@
 'use client';
 
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import {usePathname} from 'next/navigation';
 import UserInfo from './UserInfo';
 import LoginRequiredPopover from './LoginRequiredPopover';
+import {LoginButtonLoading} from '@/features/auth';
 import {useIsLoggedIn} from '@/entities/auth';
 import {
   Sheet,
@@ -16,10 +18,8 @@ import {
   SheetTrigger,
 } from '@/shared/shadcnComponent/ui/sheet';
 import {LucideIcon} from '@/shared/ui/icons';
-import dynamic from 'next/dynamic';
-import LoginButtonLoading from './LoginButtonLoading';
 
-const LoginButton = dynamic(() => import('./LoginButton'), {
+const LoginButton = dynamic(() => import('@/features/auth/ui/LoginButton'), {
   ssr: false,
   loading: () => <LoginButtonLoading />,
 });
