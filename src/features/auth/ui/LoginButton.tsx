@@ -1,4 +1,4 @@
-import {useGoLoginPage} from '@/features/auth';
+import useGoLoginPage from '../lib/useGoLoginPage';
 import {useGetFullPathName} from '@/shared/hooks';
 
 type Props = {
