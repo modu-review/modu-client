@@ -3,17 +3,17 @@
 import {useRouter} from 'next/navigation';
 import {useIsLoggedIn} from '@/entities/auth';
 import {Button} from '@/shared/shadcnComponent/ui/button';
-import {LoginModal, Modal, useModal} from '@/shared/ui/modal';
+import {useLoginModal} from '@/features/auth';
 
 export default function WriteReviewButton() {
   const router = useRouter();
 
   const isLoggedIn = useIsLoggedIn();
-  const {openModal, handleModalOpen, handleModalClose} = useModal();
+  const {isOpenLoginModal, openLoginModal, renderLoginModal} = useLoginModal();
 
   const handleClick = () => {
     if (!isLoggedIn) {
-      handleModalOpen();
+      openLoginModal();
       return;
     }
 
@@ -28,11 +28,7 @@ export default function WriteReviewButton() {
       >
         {'내 경험 공유하기>'}
       </Button>
-      {openModal && (
-        <Modal onClose={handleModalClose}>
-          <LoginModal onClose={handleModalClose} />
-        </Modal>
-      )}
+      {isOpenLoginModal && renderLoginModal()}
     </>
   );
 }
