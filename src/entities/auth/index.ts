@@ -4,3 +4,4 @@ export {useIsLoggedIn, useUserEmail, useUserId, useUpdateUser} from './model/aut
 export {getSession} from './apis/api-service';
 export {logout} from './apis/api-service';
 export {default as useGoLoginPage} from './model/useGoLoginPage';
+export {default as useKakaoOAuthLogin} from './model/useKakaoOAuthLogin';

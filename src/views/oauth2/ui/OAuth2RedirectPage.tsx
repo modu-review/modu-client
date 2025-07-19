@@ -1,6 +1,6 @@
 'use client';
 
-import {useKakaoOAuthLogin} from '@/features/oauth2';
+import {useKakaoOAuthLogin} from '@/entities/auth';
 import {LucideIcon} from '@/shared/ui/icons';
 
 export default function OAuth2RedirectPage() {

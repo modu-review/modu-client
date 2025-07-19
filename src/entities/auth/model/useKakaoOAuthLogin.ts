@@ -1,10 +1,10 @@
 import {createClientError} from '@/shared/lib/utils/client-error';
 import {useSearchParams} from 'next/navigation';
 import {useEffect} from 'react';
-import kakaoLogin from '../apis/api-service';
-import {REDIRECT_STORAGE_KEY} from '@/entities/auth';
+import {login} from '../apis/api-service';
+import {REDIRECT_STORAGE_KEY} from '../consts/authConstants';
 
-function useKakaoOAuthLogin() {
+export default function useKakaoOAuthLogin() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
@@ -14,8 +14,8 @@ function useKakaoOAuthLogin() {
       throw createClientError('EMPTY_USER_EMAIL');
     }
 
-    const login = async () => {
-      await kakaoLogin(email);
+    const kakaoLogin = async () => {
+      await login(email);
 
       const previousPath = sessionStorage.getItem(REDIRECT_STORAGE_KEY);
       sessionStorage.removeItem(REDIRECT_STORAGE_KEY);
@@ -27,8 +27,6 @@ function useKakaoOAuthLogin() {
       }
     };
 
-    login();
+    kakaoLogin();
   }, [searchParams]);
 }
-
-export default useKakaoOAuthLogin;
