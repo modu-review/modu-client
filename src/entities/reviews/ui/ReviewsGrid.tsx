@@ -8,7 +8,7 @@ const reviewsGridVariants = cva(
   {
     variants: {
       variant: {
-        bestReviews: 'xl:grid-cols-4 gap-y-14 md:gap-y-20 mb-16',
+        bestReviews: 'gap-y-14 md:gap-y-20 mb-16',
         myPage: 'gap-y-10 mb-24',
       },
     },
