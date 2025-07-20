@@ -37,8 +37,6 @@ export default function ErrorFallback({
 }: ErrorFallbackProps) {
   const withIcon = icon ? true : false;
 
-  console.log(withIcon);
-
   return (
     <section className={cn(errorFallbackVariants({withIcon}), className)}>
       {icon && icon}
