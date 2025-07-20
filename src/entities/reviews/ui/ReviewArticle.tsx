@@ -5,10 +5,12 @@ import {LucideIcon} from '@/shared/ui/icons';
 
 type Props = {
   searchReview: SearchReviewCard;
+  priority: boolean;
 };
 
 export default function ReviewArticle({
   searchReview: {author_id, board_id, bookmarks, category, comments_count, preview, created_at, image_url, title},
+  priority,
 }: Props) {
   return (
     <Link href={`/reviews/${board_id}`}>
@@ -46,6 +48,7 @@ export default function ReviewArticle({
             alt={`${title} preview image`}
             width={500}
             height={500}
+            priority={priority}
           />
         </div>
       </article>
