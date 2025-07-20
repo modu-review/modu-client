@@ -11,8 +11,8 @@ const buttonVariants = cva(
       variant: {
         default: 'bg-primary text-primary-foreground shadow hover:bg-primary/90',
         logInOut: 'bg-black text-white hover:bg-black/80',
-        activeCategory: 'bg-boldBlue text-white rounded-xl font-bold',
-        inActiveCategory: 'text-black font-semibold md:hover:scale-105 md:hover:font-bold',
+        activeCategory: 'bg-boldBlue text-white rounded-2xl font-bold',
+        inActiveCategory: 'text-black font-semibold md:hover:scale-105 md:hover:font-bold rounded-2xl',
         link: 'text-primary underline-offset-4 hover:underline',
         outline: 'border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground',
         ghost: 'hover:bg-accent hover:text-accent-foreground',
@@ -20,7 +20,7 @@ const buttonVariants = cva(
       size: {
         default: 'h-9 px-4 py-2',
         logInOut: 'text-[13px] lg:text-[15px] w-[120px] lg:w-[135px] h-[30px] lg:h-[35px] rounded-[25px]',
-        category: 'p-1 w-full',
+        category: 'py-1.5 w-full',
         icon: 'h-9 w-9',
       },
     },
