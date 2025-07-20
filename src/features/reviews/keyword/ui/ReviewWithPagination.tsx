@@ -28,9 +28,9 @@ export default function ReviewWithPagination({sort}: Props) {
 
   return (
     <ul className="flex flex-col mb-6">
-      {results.map(searchReview => (
+      {results.map((searchReview, index) => (
         <li key={searchReview.board_id}>
-          <ReviewArticle searchReview={searchReview} />
+          <ReviewArticle searchReview={searchReview} priority={index < 3} />
         </li>
       ))}
       <Pagination
