@@ -26,7 +26,9 @@ export function RootLayout({
     <html lang="en">
       <body className={`${pretandard.className} antialiased flex flex-col w-full`}>
         <Providers>
-          <Header />
+          <header className="sticky top-0 z-10 px-5 bg-white/85 backdrop-blur-xl border-b border-gray-200">
+            <Header />
+          </header>
           <main className="grow w-full mx-auto">{children}</main>
           <div id="modal-root" />
         </Providers>

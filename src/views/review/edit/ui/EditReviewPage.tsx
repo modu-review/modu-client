@@ -18,7 +18,7 @@ export default async function ReviewEditPage({params}: Props) {
   }
 
   return (
-    <section className="fixed inset-0 bg-white">
+    <section className="fixed inset-0 z-20 bg-white">
       <Suspense fallback={<LoadingSpinner text="리뷰 정보를 불러오고 있어요." />}>
         <EditReview reviewId={parsedReviewId} sessionUserEmail={sessionUserEmail} />
       </Suspense>
