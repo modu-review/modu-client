@@ -12,6 +12,9 @@ export const metadata: Metadata = {
     template: '모두의 후기 | %s',
   },
   description: '세상 모든 후기를 확인해보세요',
+  icons: {
+    icon: '/resources/logo.ico',
+  },
 };
 
 export function RootLayout({
