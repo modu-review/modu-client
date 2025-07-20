@@ -90,7 +90,7 @@ export default function Sidebar() {
           <SheetTitle className="text-xl md:text-2xl mb-1">모두의 후기</SheetTitle>
           <SheetDescription>세상의 모든 후기를 확인해보세요.</SheetDescription>
         </SheetHeader>
-        <nav className="flex-1 flex flex-col space-y-9 md:space-y-11 text-lg mt-5 font-semibold">
+        <nav className="flex-1 flex flex-col space-y-10 md:space-y-11 text-lg mt-5 md:font-semibold">
           {SIDEBAR_ROUTES.map(({title, href, isActive, requiresAuth, scrollToTop}) =>
             !requiresAuth || isLoggedIn ? (
               <SheetClose key={title} asChild>
@@ -98,7 +98,7 @@ export default function Sidebar() {
                   href={href}
                   className={
                     isActive(pathName)
-                      ? 'text-boldBlue font-bold'
+                      ? 'text-boldBlue font-semibold md:font-bold'
                       : 'text-muted-foreground hover:text-boldBlue transition-colors'
                   }
                   aria-label={`${title} 메뉴로 이동`}
