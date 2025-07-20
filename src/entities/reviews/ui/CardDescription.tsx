@@ -4,10 +4,12 @@ import {LucideIcon} from '@/shared/ui/icons';
 
 type Props = {
   card: ReviewCard;
+  priority: boolean;
 };
 
 export default function CardDescription({
   card: {category, image_url, title, preview, author_id, comments_count, bookmarks},
+  priority,
 }: Props) {
   return (
     <article className="h-full flex flex-col items-center justify-between font-semibold">
@@ -20,7 +22,7 @@ export default function CardDescription({
             src={image_url}
             width={140}
             height={140}
-            priority
+            priority={priority}
             alt={`카드 이미지: ${title}`}
           />
         </div>

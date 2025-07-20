@@ -9,9 +9,10 @@ type Props = {
   card: ReviewCard;
   isAuthor: boolean;
   context: 'my' | 'bookmarks';
+  priority: boolean;
 };
 
-export default function MyPageReviewCard({card, isAuthor, context}: Props) {
+export default function MyPageReviewCard({card, isAuthor, context, priority}: Props) {
   const {deleteReview, isPending} = useDeleteReviewFromMyPage();
 
   const handleDelete = () => {
@@ -44,7 +45,7 @@ export default function MyPageReviewCard({card, isAuthor, context}: Props) {
         </div>
       )}
       <Link href={`/reviews/${card.board_id}`}>
-        <CardDescription card={card} />
+        <CardDescription card={card} priority={priority} />
       </Link>
     </article>
   );
