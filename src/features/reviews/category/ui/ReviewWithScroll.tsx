@@ -41,12 +41,16 @@ export default function ReviewsWithScroll({selectedCategory, sort}: Props) {
   return (
     <>
       <ul>
-        {data.pages.map(page =>
-          page.results.map(review => (
-            <li key={review.board_id}>
-              <ReviewArticle searchReview={review} />
-            </li>
-          )),
+        {data.pages.map((page, pageIndex) =>
+          page.results.map((review, reviewIndex) => {
+            const shouldPrioritize = pageIndex === 0 && reviewIndex < 3;
+
+            return (
+              <li key={review.board_id}>
+                <ReviewArticle searchReview={review} priority={shouldPrioritize} />
+              </li>
+            );
+          }),
         )}
       </ul>
       {hasNextPage ? (
