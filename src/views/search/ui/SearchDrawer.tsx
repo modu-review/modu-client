@@ -21,7 +21,7 @@ export default function SearchDrawer() {
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
-      <SheetTrigger className="hover:text-boldBlue hover:scale-105 transition-all">
+      <SheetTrigger className="hover:text-boldBlue hover:scale-105 transition-all" aria-label="키워드로 후기 검색">
         <LucideIcon name="Search" className="w-6 h-6 md:w-8 md:h-8" />
       </SheetTrigger>
       <SheetContent side="right" className="w-full md:min-w-[500px]">
@@ -31,6 +31,9 @@ export default function SearchDrawer() {
             <SheetDescription className="md:text-base">원하는 키워드로 후기를 검색해보세요.</SheetDescription>
           </SheetHeader>
           <SearchBar autoFocus={true} closeDrawer={handleCloseDrawer} />
+          <p className="mt-8 md:mt-14 md:text-lg text-muted-foreground text-center">
+            검색어를 입력하고 엔터를 눌러주세요.
+          </p>
         </div>
       </SheetContent>
     </Sheet>
