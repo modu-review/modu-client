@@ -1,7 +1,6 @@
 'use client';
 
 import ReviewsWithScroll from './ReviewWithScroll';
-import {SearchBar} from '@/features/reviews/search-bar';
 import {CategoryBar, useSelectCategoryFromUrl} from '@/features/reviews/filtering';
 import {SelectSortOptions, useSelectSortOption} from '@/features/reviews/sorting';
 import {ReviewsLoading} from '@/entities/reviews';
@@ -22,7 +21,6 @@ export default function CategoryReviews() {
       <article className="px-3">
         <CategoryBar selectedCategory={selectedCategory} onSelectCategory={handleSelectCategory} />
       </article>
-      <SearchBar />
       <article className="px-6 mb-10">
         <SelectSortOptions className="ml-auto mt-10 mb-7 md:mr-4" sort={sort} onValueChange={handleChange} />
         <RQProvider

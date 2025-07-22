@@ -6,7 +6,12 @@ import useSearchValidate from '../lib/useSearchValidate';
 import {Input} from '@/shared/shadcnComponent/ui/input';
 import {LucideIcon} from '@/shared/ui/icons';
 
-export default function SearchBar() {
+type Props = {
+  autoFocus?: boolean;
+  onBlur?: () => void;
+};
+
+export default function SearchBar({autoFocus, onBlur}: Props) {
   const router = useRouter();
   const searchInputRef = useRef<HTMLInputElement>(null);
 
@@ -40,6 +45,8 @@ export default function SearchBar() {
           placeholder="후기를 검색하세요"
           aria-label="검색어 입력"
           onChange={clearError}
+          autoFocus={autoFocus}
+          onBlur={onBlur}
         />
       </form>
       {error && <p className="absolute -bottom-7 text-[14px] md:-bottom-8 md:text-[16px] text-red-500">{error}</p>}
