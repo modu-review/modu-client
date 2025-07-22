@@ -1,5 +1,6 @@
 'use client';
 
+import {useState} from 'react';
 import {SearchBar} from '@/features/reviews/search-bar';
 import {
   Sheet,
@@ -12,8 +13,14 @@ import {
 import {LucideIcon} from '@/shared/ui/icons';
 
 export default function SearchDrawer() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleCloseDrawer = () => {
+    setIsOpen(false);
+  };
+
   return (
-    <Sheet>
+    <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger className="hover:text-boldBlue hover:scale-105 transition-all">
         <LucideIcon name="Search" className="w-6 h-6 md:w-8 md:h-8" />
       </SheetTrigger>
@@ -23,7 +30,7 @@ export default function SearchDrawer() {
             <SheetTitle className="text-xl font-semibold md:text-2xl">후기 검색</SheetTitle>
             <SheetDescription className="md:text-base">원하는 키워드로 후기를 검색해보세요.</SheetDescription>
           </SheetHeader>
-          <SearchBar autoFocus={true} />
+          <SearchBar autoFocus={true} closeDrawer={handleCloseDrawer} />
         </div>
       </SheetContent>
     </Sheet>
