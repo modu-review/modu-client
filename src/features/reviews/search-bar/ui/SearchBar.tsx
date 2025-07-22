@@ -8,10 +8,10 @@ import {LucideIcon} from '@/shared/ui/icons';
 
 type Props = {
   autoFocus?: boolean;
-  closeDrawer?: () => void;
+  onBlur?: () => void;
 };
 
-export default function SearchBar({autoFocus, closeDrawer}: Props) {
+export default function SearchBar({autoFocus, onBlur}: Props) {
   const router = useRouter();
   const searchInputRef = useRef<HTMLInputElement>(null);
 
@@ -46,7 +46,7 @@ export default function SearchBar({autoFocus, closeDrawer}: Props) {
           aria-label="검색어 입력"
           onChange={clearError}
           autoFocus={autoFocus}
-          onBlur={closeDrawer}
+          onBlur={onBlur}
         />
       </form>
       {error && <p className="absolute -bottom-7 text-[14px] md:-bottom-8 md:text-[16px] text-red-500">{error}</p>}

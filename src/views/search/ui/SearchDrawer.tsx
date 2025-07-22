@@ -30,7 +30,7 @@ export default function SearchDrawer() {
             <SheetTitle className="text-xl font-semibold md:text-2xl">후기 검색</SheetTitle>
             <SheetDescription className="md:text-base">원하는 키워드로 후기를 검색해보세요.</SheetDescription>
           </SheetHeader>
-          <SearchBar autoFocus={true} closeDrawer={handleCloseDrawer} />
+          <SearchBar autoFocus={true} onBlur={handleCloseDrawer} />
           <p className="mt-8 md:mt-14 md:text-lg text-muted-foreground text-center">
             검색어를 입력하고 엔터를 눌러주세요.
           </p>
