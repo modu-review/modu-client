@@ -10,7 +10,7 @@ export default async function MyPage() {
 
   return (
     <section className="fixed inset-0 w-full h-full z-20 bg-white overflow-auto">
-      <section className="w-full max-w-5xl mx-auto mb-4 md:mb-8">
+      <section className="w-full mb-4 md:mb-8">
         <section className="bg-lightBlue p-4 flex flex-col justify-between mb-[90px] md:mb-[110px]">
           <header className="flex items-center justify-between mt-2 px-2 md:px-4">
             <div className="flex items-center gap-2">
