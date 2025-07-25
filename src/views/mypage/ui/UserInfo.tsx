@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import {logout, useUserEmail, useUserId} from '@/entities/auth';
 import {Button} from '@/shared/shadcnComponent/ui/button';
+import {Skeleton} from '@/shared/shadcnComponent/ui/skeleton';
 
 export default function UserInfo() {
   const userId = useUserId();
@@ -28,8 +29,16 @@ export default function UserInfo() {
         />
       </div>
       <div className="mt-auto ml-3 md:ml-5 relative">
-        <p className="text-lg md:text-xl text-boldBlue font-semibold mb-1 md:mb-2">{userId}</p>
-        <p className="text-sm text-boldBlue">{userEmail}</p>
+        {userId ? (
+          <p className="text-lg md:text-xl lg:text-2xl text-boldBlue font-semibold mb-1 md:mb-2">{userId}</p>
+        ) : (
+          <Skeleton className="h-5 md:h-6 lg:h-7 w-32 md:w-36 lg:w-40 mb-3" />
+        )}
+        {userEmail ? (
+          <p className="text-sm md:text-base lg:text-lg text-boldBlue">{userEmail}</p>
+        ) : (
+          <Skeleton className="h-4 md:h-5 lg:h-6 w-40 md:w-48 lg:w-52" />
+        )}
         <Button
           className="absolute -left-[0.5rem] -bottom-[3.5rem] md:-bottom-[4rem]"
           variant="logInOut"
