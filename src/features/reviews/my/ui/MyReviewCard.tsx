@@ -24,14 +24,14 @@ export default function MyReviewCard({card, isAuthor, context, priority}: Props)
   };
 
   return (
-    <article className="relative bg-white rounded-xl pt-4 w-[325px] h-[410px] md:w-[300px] md:h-[400px] lg:w-[310px] lg:h-[420px] xl:w-[330px] xl:h-[440px] shadow-md shadow-mediumBlue hover:translate-y-[-2px] hover:shadow-lg hover:shadow-boldBlue transition-all">
+    <article className="relative bg-white rounded-[2rem] pt-4 w-[325px] h-[410px] md:w-[300px] md:h-[400px] lg:w-[310px] lg:h-[420px] xl:w-[330px] xl:h-[440px] shadow-md shadow-mediumBlue hover:translate-y-[-2px] hover:shadow-lg hover:shadow-boldBlue transition-all">
       {isPending && (
         <div className="absolute inset-0 bg-black/60 rounded-xl z-50">
           <LoadingSpinner text="리뷰를 삭제하고 있어요." className="text-white mt-3" textSize="text-xl" />
         </div>
       )}
       {isAuthor && (
-        <div className="absolute w-full px-4 flex justify-between text-gray-500 transition-colors">
+        <div className="absolute w-full px-6 flex justify-between text-gray-500 transition-colors mt-[0.2rem]">
           <Link className="hover:text-gray-800" href={`/reviews/${card.board_id}/edit`} aria-label="리뷰 수정">
             <LucideIcon name="PencilLine" size={20} />
           </Link>
