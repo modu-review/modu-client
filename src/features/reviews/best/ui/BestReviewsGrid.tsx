@@ -1,5 +1,5 @@
+import BestReviewCard from './BestReviewCard';
 import {ReviewCard} from '@/entities/review';
-import BestReviewCard from '@/entities/reviews/ui/BestReviewCard';
 
 type Props = {
   filteredReview: {

@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import CardDescription from './CardDescription';
-import {ReviewCard} from '@/entities/review/model/type';
+import {CardDescription} from '@/entities/reviews';
+import {ReviewCard} from '@/entities/review';
 
 type Props = {
   card: ReviewCard;
