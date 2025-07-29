@@ -1,6 +1,5 @@
 export * from './model/types';
 export {getBestReviews} from './apis/api-service';
-export {default as ReviewsGrid} from './ui/ReviewsGrid';
 export {default as ReviewArticle} from './ui/ReviewArticle';
 export {default as ReviewArticleLoading} from './ui/ReviewArticleLoading';
 export {default as useCategoryReviews} from './model/useCategoryReviews';

@@ -1,5 +1,5 @@
-import {ReviewsGrid} from '@/entities/reviews';
 import {ReviewCard} from '@/entities/review';
+import BestReviewCard from '@/entities/reviews/ui/BestReviewCard';
 
 type Props = {
   filteredReview: {
@@ -8,7 +8,7 @@ type Props = {
   };
 };
 
-export default function ReviewList({filteredReview}: Props) {
+export default function BestReviewsGrid({filteredReview}: Props) {
   const {count, reviews} = filteredReview;
 
   if (count === 0) {
@@ -19,5 +19,13 @@ export default function ReviewList({filteredReview}: Props) {
     );
   }
 
-  return <ReviewsGrid from="bestReviews" reviews={reviews} />;
+  return (
+    <ul className="w-full grid content-center justify-items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-14 md:gap-y-20 mb-16">
+      {reviews.map((card, index) => {
+        const shouldPrioritize = index < 3;
+
+        return <BestReviewCard key={card.board_id} card={card} priority={shouldPrioritize} />;
+      })}
+    </ul>
+  );
 }
