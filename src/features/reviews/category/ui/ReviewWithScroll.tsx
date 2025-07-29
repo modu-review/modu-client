@@ -2,7 +2,6 @@ import {useCallback} from 'react';
 import {SortKey} from '@/features/reviews/sorting';
 import {NoSearchResults, ReviewArticle, ReviewArticleLoading, useCategoryReviews} from '@/entities/reviews';
 import {Category} from '@/entities/review';
-import {LucideIcon} from '@/shared/ui/icons';
 
 type Props = {
   selectedCategory: Category;
@@ -60,8 +59,8 @@ export default function ReviewsWithScroll({selectedCategory, sort}: Props) {
       ) : (
         data.pages.length > 1 && (
           <div className="w-full flex flex-col justify-center items-center">
-            <LucideIcon name="PackageOpen" className="w-20 h-20" />
-            <p className="md:text-lg mt-3 mb-6">모든 게시글을 조회했어요.</p>
+            <p className="font-semibold text-lg md:text-xl mt-4 md:mt-3">더 이상 불러올 게시글이 없어요.</p>
+            <p className="text-muted-foreground mt-1">다른 카테고리를 클릭해 리뷰를 확인해보세요!</p>
           </div>
         )
       )}
