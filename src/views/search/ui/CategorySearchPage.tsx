@@ -1,6 +1,7 @@
 import {CategoryReviews} from '@/features/reviews/category';
 import FloatingWriteButton from './FloatingWriteButton';
 import SearchDrawer from './SearchDrawer';
+import FloatingMoveUpButton from './FloatingMoveUpButton';
 
 export default function CategorySearchPage() {
   return (
@@ -12,7 +13,10 @@ export default function CategorySearchPage() {
         </div>
       </header>
       <CategoryReviews />
-      <FloatingWriteButton />
+      <div className="fixed bottom-4 right-3 md:bottom-8 md:right-6 lg:right-8 flex flex-col gap-2">
+        <FloatingMoveUpButton />
+        <FloatingWriteButton />
+      </div>
     </section>
   );
 }
