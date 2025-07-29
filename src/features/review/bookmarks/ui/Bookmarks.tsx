@@ -33,14 +33,14 @@ export default function Bookmarks({reviewId, openLoginModal}: Props) {
       onClick={handleClick}
       disabled={isPending}
       tabIndex={isPending ? -1 : 0}
-      className={`flex items-center border border-gray-300 rounded-md py-2 px-5 mb-10 gap-0.5 hover:bg-gray-100 transition-colors ${hasBookmarked && 'border-mediumBlue'}`}
+      className={`flex items-center border border-gray-300 rounded-md py-3 px-5 mb-10 gap-0.5 hover:bg-gray-100 transition-colors ${hasBookmarked && 'border-mediumBlue'}`}
     >
       {hasBookmarked ? (
-        <LucideIcon name="BookmarkCheck" className="md:w-8 md:h-8 text-mediumBlue" />
+        <LucideIcon name="BookmarkCheck" className="w-7 h-7 md:w-8 md:h-8 text-mediumBlue" />
       ) : (
-        <LucideIcon name="Bookmark" className="md:w-8 md:h-8" />
+        <LucideIcon name="Bookmark" className="w-7 h-7 md:w-8 md:h-8" />
       )}
-      <p className={`md:text-lg font-semibold ${hasBookmarked && 'text-mediumBlue'}`}>{bookmarks}</p>
+      <p className={`text-lg font-semibold ${hasBookmarked && 'text-mediumBlue'}`}>{bookmarks}</p>
     </button>
   );
 }
