@@ -53,30 +53,6 @@ const authorVariants = cva('text-boldBlue text-sm', {
   },
 });
 
-const statsVariants = cva('flex mb-5 gap-5 text-xs font-normal', {
-  variants: {
-    variant: {
-      default: '',
-      my: 'lg:text-sm',
-    },
-  },
-  defaultVariants: {
-    variant: 'default',
-  },
-});
-
-const iconVariants = cva('', {
-  variants: {
-    variant: {
-      default: '',
-      my: 'w-[18px] h-[18px] lg:w-5 lg:h-5',
-    },
-  },
-  defaultVariants: {
-    variant: 'default',
-  },
-});
-
 type Props = {
   card: ReviewCard;
   priority: boolean;
@@ -111,13 +87,13 @@ export default function CardDescription({
 
       <p className={cn(authorVariants({variant}))}>{author_id}</p>
 
-      <div className={cn(statsVariants({variant}))}>
+      <div className="flex mb-5 gap-7 text-sm font-normal">
         <div className="flex gap-1 items-center">
-          <LucideIcon name="Bookmark" size={16} className={cn(iconVariants({variant}))} />
+          <LucideIcon name="Bookmark" className="w-[18px] h-[18px] lg:w-5 lg:h-5" />
           {bookmarks}
         </div>
         <div className="flex gap-1 items-center">
-          <LucideIcon name="MessageCircle" size={16} className={cn(iconVariants({variant}))} />
+          <LucideIcon name="MessageCircle" className="w-[18px] h-[18px] lg:w-5 lg:h-5" />
           {comments_count}
         </div>
       </div>
