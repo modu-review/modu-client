@@ -1,21 +1,21 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import {useEffect, useRef} from 'react';
 import {useRouter, useSearchParams} from 'next/navigation';
-import {ReviewsGridLoading} from '@/entities/reviews';
+import {MyReviewsGridLoading} from '@/features/reviews/my';
 import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/shared/shadcnComponent/ui/tabs';
 import {RQProvider} from '@/shared/providers';
 import {LucideIcon} from '@/shared/ui/icons';
-import dynamic from 'next/dynamic';
 
 const MyReviews = dynamic(() => import('@/features/reviews/my/ui/MyReviews'), {
   ssr: false,
-  loading: () => <ReviewsGridLoading />,
+  loading: () => <MyReviewsGridLoading />,
 });
 
 const MyBookmarkedReviews = dynamic(() => import('@/features/reviews/my/ui/MyBookmarkedReviews'), {
   ssr: false,
-  loading: () => <ReviewsGridLoading />,
+  loading: () => <MyReviewsGridLoading />,
 });
 
 export default function ReviewTabs() {
@@ -49,12 +49,12 @@ export default function ReviewTabs() {
         <TabsTrigger value="myBookmarks">내가 저장한 후기</TabsTrigger>
       </TabsList>
       <TabsContent value="my">
-        <RQProvider LoadingFallback={<ReviewsGridLoading />} icon={<LucideIcon name="Bug" />}>
+        <RQProvider LoadingFallback={<MyReviewsGridLoading />} icon={<LucideIcon name="Bug" />}>
           <MyReviews currentPage={currentPage} />
         </RQProvider>
       </TabsContent>
       <TabsContent value="myBookmarks">
-        <RQProvider LoadingFallback={<ReviewsGridLoading />} icon={<LucideIcon name="Bug" />}>
+        <RQProvider LoadingFallback={<MyReviewsGridLoading />} icon={<LucideIcon name="Bug" />}>
           <MyBookmarkedReviews currentPage={currentPage} />
         </RQProvider>
       </TabsContent>
