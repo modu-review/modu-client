@@ -1,7 +1,8 @@
+import Link from 'next/link';
+import FloatingWriteButton from './FloatingWriteButton';
+import FloatingMoveUpButton from './FloatingMoveUpButton';
 import {KeywordReviews} from '@/features/reviews/keyword';
 import {SearchBar} from '@/features/reviews/search-bar';
-import FloatingWriteButton from './FloatingWriteButton';
-import Link from 'next/link';
 
 type Props = {
   params: Promise<{keyword: string}>;
@@ -22,7 +23,10 @@ export default async function KeywordSearchPage({params}: Props) {
       </header>
       <SearchBar />
       <KeywordReviews />
-      <FloatingWriteButton />
+      <div className="fixed bottom-4 right-3 md:bottom-8 md:right-6 lg:right-8 flex flex-col gap-2">
+        <FloatingMoveUpButton />
+        <FloatingWriteButton />
+      </div>
     </section>
   );
 }
