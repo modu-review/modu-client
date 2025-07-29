@@ -3,18 +3,7 @@ import {CATEGORY_MAP, ReviewCard} from '@/entities/review';
 import {LucideIcon} from '@/shared/ui/icons';
 import {cva} from 'class-variance-authority';
 import {cn} from '@/shared/lib/utils/cn';
-
-const categoryVariants = cva('text-sm', {
-  variants: {
-    variant: {
-      default: '',
-      my: 'lg:text-base',
-    },
-  },
-  defaultVariants: {
-    variant: 'default',
-  },
-});
+import {Badge} from '@/shared/ui/components';
 
 const imageWrapperVariants = cva('w-[140px] h-[140px] overflow-hidden rounded-[30px] mb-1 shadow-md', {
   variants: {
@@ -101,7 +90,7 @@ export default function CardDescription({
 }: Props) {
   return (
     <article className="h-full flex flex-col items-center justify-between font-semibold">
-      <p className={cn(categoryVariants({variant}))}>{CATEGORY_MAP[category]}</p>
+      <Badge>{CATEGORY_MAP[category]}</Badge>
 
       <div className="flex flex-col items-center text-center">
         <div className={cn(imageWrapperVariants({variant}))}>
