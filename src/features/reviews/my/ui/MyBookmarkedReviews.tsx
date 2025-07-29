@@ -1,6 +1,7 @@
 import Empty from './Empty';
+import MyReviewsGrid from './MyReviewsGrid';
 import Pagination from '@/widgets/pagination';
-import {ReviewsGrid, useMyBookmarkedReviews} from '@/entities/reviews';
+import {useMyBookmarkedReviews} from '@/entities/reviews';
 import {useUserEmail} from '@/entities/auth';
 
 type Props = {
@@ -17,7 +18,7 @@ export default function MyBookmarkedReviews({currentPage}: Props) {
 
   return (
     <section>
-      <ReviewsGrid reviews={results} from="myBookmarkedReviews" userEmail={userEmail} />
+      <MyReviewsGrid reviews={results} context="myBookmarks" userEmail={userEmail} />
       <Pagination
         currentPage={currentPage}
         totalPages={total_pages}

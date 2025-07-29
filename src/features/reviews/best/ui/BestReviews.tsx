@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import ReviewList from './ReviewList';
+import BestReviewsGrid from './BestReviewsGrid';
 import {CategoryBar, useSelectCategory} from '@/features/reviews/filtering';
 import {BestReviewsResult} from '@/entities/reviews';
 import {LucideIcon} from '@/shared/ui/icons';
@@ -23,7 +23,7 @@ export default function BestReviews({reviews}: Props) {
         <article className="w-full max-w-[1150px] mx-auto px-3 mb-2 md:mb-4">
           <CategoryBar selectedCategory={selectedCategory} onSelectCategory={handleSelectCategory} />
         </article>
-        <ReviewList filteredReview={filteredReview} />
+        <BestReviewsGrid filteredReview={filteredReview} />
         <Link
           href="/search"
           className="flex items-center mx-auto animate-bounce cursor-pointer text-white font-bold text-[20px]"

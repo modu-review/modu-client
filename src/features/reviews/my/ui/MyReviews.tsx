@@ -1,6 +1,7 @@
 import Empty from './Empty';
+import MyReviewsGrid from './MyReviewsGrid';
 import Pagination from '@/widgets/pagination';
-import {ReviewsGrid, useMyReviews} from '@/entities/reviews';
+import {useMyReviews} from '@/entities/reviews';
 
 type Props = {
   currentPage: number;
@@ -15,7 +16,7 @@ export default function MyReviews({currentPage}: Props) {
 
   return (
     <section>
-      <ReviewsGrid reviews={results} from="myReviews" />
+      <MyReviewsGrid reviews={results} context="my" />
       <Pagination
         currentPage={currentPage}
         totalPages={total_pages}

@@ -7,7 +7,7 @@ import toast from '@/shared/lib/utils/toastService';
 type MutationVariables = {
   category: Category;
   reviewId: number;
-  context: 'my' | 'bookmarks';
+  context: 'my' | 'myBookmarks';
 };
 
 export default function useDeleteReviewFromMyPage() {
@@ -27,7 +27,7 @@ export default function useDeleteReviewFromMyPage() {
         reviewsQueryKeys.keyword.all(),
       ];
 
-      const invalidateKeys = context === 'bookmarks' ? [...baseKeys, reviewsQueryKeys.myBookmarks.all()] : baseKeys;
+      const invalidateKeys = context === 'myBookmarks' ? [...baseKeys, reviewsQueryKeys.myBookmarks.all()] : baseKeys;
 
       invalidateKeys.forEach(key => {
         queryClient.invalidateQueries({queryKey: key});
