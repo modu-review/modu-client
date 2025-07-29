@@ -8,7 +8,7 @@ import {ConfirmDeleteTrigger} from '@/shared/ui/modal';
 type Props = {
   card: ReviewCard;
   isAuthor: boolean;
-  context: 'my' | 'bookmarks';
+  context: 'my' | 'myBookmarks';
   priority: boolean;
 };
 
