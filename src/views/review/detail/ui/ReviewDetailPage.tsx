@@ -19,7 +19,7 @@ export default async function ReviewDetailPage({params}: Props) {
   const isAuthor = sessionUserEmail === author_email;
 
   return (
-    <section className="flex flex-col w-full max-w-5xl mx-auto items-center relative">
+    <section className="flex flex-col w-full max-w-5xl mx-auto items-center relative pt-1 md:pt-3">
       {isAuthor && (
         <div className="absolute top-[17px] right-6 flex items-center gap-2">
           <Link href={`/reviews/${reviewId}/edit`} className="text-gray-500 hover:text-gray-700">
