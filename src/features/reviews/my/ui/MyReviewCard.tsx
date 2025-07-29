@@ -43,9 +43,9 @@ export default function MyReviewCard({card, isAuthor, context, priority}: Props)
             )}
           </ConfirmDeleteTrigger>
         </div>
-      )}
+      )}{' '}
       <Link href={`/reviews/${card.board_id}`}>
-        <CardDescription card={card} priority={priority} />
+        <CardDescription card={card} priority={priority} variant="my" />
       </Link>
     </article>
   );

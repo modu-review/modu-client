@@ -1,22 +1,110 @@
 import Image from 'next/image';
 import {CATEGORY_MAP, ReviewCard} from '@/entities/review';
 import {LucideIcon} from '@/shared/ui/icons';
+import {cva} from 'class-variance-authority';
+import {cn} from '@/shared/lib/utils/cn';
+
+const categoryVariants = cva('text-sm', {
+  variants: {
+    variant: {
+      default: '',
+      my: 'lg:text-base',
+    },
+  },
+  defaultVariants: {
+    variant: 'default',
+  },
+});
+
+const imageWrapperVariants = cva('w-[140px] h-[140px] overflow-hidden rounded-[30px] mb-1 shadow-md', {
+  variants: {
+    variant: {
+      default: 'shadow-black',
+      my: 'lg:w-[160px] lg:h-[160px] shadow-extraboldBlue',
+    },
+  },
+  defaultVariants: {
+    variant: 'default',
+  },
+});
+
+const titleVariants = cva('mt-4 mb-2 px-3 line-clamp-1', {
+  variants: {
+    variant: {
+      default: '',
+      my: 'lg:text-lg',
+    },
+  },
+  defaultVariants: {
+    variant: 'default',
+  },
+});
+
+const previewVariants = cva('text-[13px] font-light line-clamp-2 px-5', {
+  variants: {
+    variant: {
+      default: 'md:line-clamp-2',
+      my: '2xl:line-clamp-3 lg:px-8',
+    },
+  },
+  defaultVariants: {
+    variant: 'default',
+  },
+});
+
+const authorVariants = cva('text-boldBlue text-sm', {
+  variants: {
+    variant: {
+      default: '',
+      my: 'lg:text-base',
+    },
+  },
+  defaultVariants: {
+    variant: 'default',
+  },
+});
+
+const statsVariants = cva('flex mb-5 gap-5 text-xs font-normal', {
+  variants: {
+    variant: {
+      default: '',
+      my: 'lg:text-sm',
+    },
+  },
+  defaultVariants: {
+    variant: 'default',
+  },
+});
+
+const iconVariants = cva('', {
+  variants: {
+    variant: {
+      default: '',
+      my: 'w-[18px] h-[18px] lg:w-5 lg:h-5',
+    },
+  },
+  defaultVariants: {
+    variant: 'default',
+  },
+});
 
 type Props = {
   card: ReviewCard;
   priority: boolean;
+  variant?: 'default' | 'my';
 };
 
 export default function CardDescription({
   card: {category, image_url, title, preview, author_id, comments_count, bookmarks},
   priority,
+  variant = 'default',
 }: Props) {
   return (
     <article className="h-full flex flex-col items-center justify-between font-semibold">
-      <p className="text-sm">{CATEGORY_MAP[category]}</p>
+      <p className={cn(categoryVariants({variant}))}>{CATEGORY_MAP[category]}</p>
 
       <div className="flex flex-col items-center text-center">
-        <div className="w-[140px] h-[140px] overflow-hidden rounded-[30px] mb-1 shadow-md shadow-black">
+        <div className={cn(imageWrapperVariants({variant}))}>
           <Image
             className="w-full h-full object-cover aspect-square"
             src={image_url}
@@ -26,21 +114,21 @@ export default function CardDescription({
             alt={`카드 이미지: ${title}`}
           />
         </div>
-        <h3 className="mt-4 mb-2 px-3 line-clamp-1">{title}</h3>
+        <h3 className={cn(titleVariants({variant}))}>{title}</h3>
         <div className="min-h-[30px]">
-          <p className="text-[13px] font-light line-clamp-2 md:line-clamp-2 px-5">{preview}</p>
+          <p className={cn(previewVariants({variant}))}>{preview}</p>
         </div>
       </div>
 
-      <p className="text-boldBlue text-sm">{author_id}</p>
+      <p className={cn(authorVariants({variant}))}>{author_id}</p>
 
-      <div className="flex mb-5 gap-5 text-xs font-normal">
+      <div className={cn(statsVariants({variant}))}>
         <div className="flex gap-1 items-center">
-          <LucideIcon name="Bookmark" size={16} />
+          <LucideIcon name="Bookmark" size={16} className={cn(iconVariants({variant}))} />
           {bookmarks}
         </div>
         <div className="flex gap-1 items-center">
-          <LucideIcon name="MessageCircle" size={16} />
+          <LucideIcon name="MessageCircle" size={16} className={cn(iconVariants({variant}))} />
           {comments_count}
         </div>
       </div>
