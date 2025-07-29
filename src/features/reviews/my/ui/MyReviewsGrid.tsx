@@ -1,3 +1,4 @@
+import MyReviewCard from './MyReviewCard';
 import {ReviewCard} from '@/entities/review';
 
 type Props =
@@ -21,7 +22,7 @@ export default function MyReviewsGrid(props: Props) {
         const shouldPrioritize = index < 3;
 
         return (
-          <MyPageReviewCard
+          <MyReviewCard
             key={card.board_id}
             card={card}
             isAuthor={isAuthor}

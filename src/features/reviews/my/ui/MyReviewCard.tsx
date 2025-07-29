@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import CardDescription from './CardDescription';
 import {ReviewCard, useDeleteReviewFromMyPage} from '@/entities/review';
+import {CardDescription} from '@/entities/reviews';
 import {LucideIcon} from '@/shared/ui/icons';
 import {LoadingSpinner} from '@/shared/ui/components';
 import {ConfirmDeleteTrigger} from '@/shared/ui/modal';
@@ -12,7 +12,7 @@ type Props = {
   priority: boolean;
 };
 
-export default function MyPageReviewCard({card, isAuthor, context, priority}: Props) {
+export default function MyReviewCard({card, isAuthor, context, priority}: Props) {
   const {deleteReview, isPending} = useDeleteReviewFromMyPage();
 
   const handleDelete = () => {
