@@ -1,4 +1,5 @@
 import {createPortal} from 'react-dom';
+import {RemoveScroll} from 'react-remove-scroll';
 import {LucideIcon} from '../../icons';
 
 type Props = {
@@ -14,7 +15,7 @@ export default function Modal({children, onClose}: Props) {
   const modal = document.getElementById('modal-root') as HTMLDivElement;
 
   return (
-    <>
+    <RemoveScroll>
       {createPortal(
         <section className="fixed top-0 left-0 w-full h-full z-20 flex flex-col justify-center items-center">
           <button className="fixed z-50 top-4 right-3" onClick={onClose} aria-label="창닫기">
@@ -25,6 +26,6 @@ export default function Modal({children, onClose}: Props) {
         </section>,
         modal,
       )}
-    </>
+    </RemoveScroll>
   );
 }
