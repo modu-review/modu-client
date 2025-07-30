@@ -26,7 +26,7 @@ export default function Editor({title, category, content, onSave, isPending}: Pr
 
   return (
     <RemoveScroll className="h-full">
-      <section className="flex flex-col w-full max-w-5xl h-full mx-auto shadow-lg pt-4">
+      <section className="flex flex-col w-full bg-white max-w-5xl h-full mx-auto shadow-lg pt-4">
         <EditorMetaForm onSubmit={handleSubmit} initialTitle={title} initialCategory={category} />
         <EditorContainer onMount={handleSetContentGetter} initialContent={content} />
         <EditorFooter onPreview={handleSetActionPreview} onSave={handleSetActionSave} isPending={isPending} />

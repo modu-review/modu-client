@@ -5,7 +5,7 @@ export default async function NewReviewPage() {
   await checkSession();
 
   return (
-    <section className="fixed inset-0 z-20 w-full h-full bg-white">
+    <section className="fixed inset-0 z-20 w-full h-full bg-gray-50">
       <NewReviewClient />
     </section>
   );
