@@ -17,14 +17,25 @@ export default function ContactPage() {
   const {
     handleSubmit,
     register,
-    // reset,
-    // getValues,
+    reset,
+    getValues,
     formState: {errors},
   } = useForm<Form>({});
 
+  // 취소버튼 눌렀을 시
+  const handleCancel = () => {
+    handleModalClose();
+  };
+
+  // 확인버튼 눌렀을 시
+  const handleConfirm = () => {
+    const data = getValues();
+    console.log('Form data submitted:', data);
+    reset(); // 폼 초기화
+    handleModalClose(); // 모달 닫기
+  };
+
   const onValid = (data: Form) => {
-    // console.log('Form submitted:', data);
-    // setPendingData(data); // 임시저장
     if (!data) return;
     handleModalOpen(); //모달 열기
   };
@@ -71,7 +82,7 @@ export default function ContactPage() {
       </form>
       {openModal && (
         <Modal onClose={handleModalClose}>
-          <AlertModal />
+          <AlertModal onCancel={handleCancel} onConfirm={handleConfirm} message={'전송을 완료하시겠습니까?'} />
         </Modal>
       )}
     </div>
