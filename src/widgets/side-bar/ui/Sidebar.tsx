@@ -69,8 +69,8 @@ const SIDEBAR_ROUTES = [
   },
   {
     title: '문의하기',
-    href: '/feedback',
-    isActive: (path: string) => path === '/feedback',
+    href: '/contact',
+    isActive: (path: string) => path === '/contact',
     requiresAuth: false,
     scrollToTop: true,
   },
