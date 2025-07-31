@@ -1,7 +1,9 @@
 'use client';
 
+import {Modal, useModal} from '@/shared/ui/modal';
 import React from 'react';
 import {useForm} from 'react-hook-form';
+import AlertModal from './AlertModal';
 
 type Form = {
   name: string;
@@ -10,14 +12,21 @@ type Form = {
 };
 
 export default function ContactPage() {
+  const {openModal, handleModalOpen, handleModalClose} = useModal();
+
   const {
     handleSubmit,
     register,
+    // reset,
+    // getValues,
     formState: {errors},
   } = useForm<Form>({});
 
-  const onValid = async (data: Form) => {
-    console.log('Form Data:', data);
+  const onValid = (data: Form) => {
+    // console.log('Form submitted:', data);
+    // setPendingData(data); // 임시저장
+    if (!data) return;
+    handleModalOpen(); //모달 열기
   };
 
   return (
@@ -60,6 +69,11 @@ export default function ContactPage() {
           전송
         </button>
       </form>
+      {openModal && (
+        <Modal onClose={handleModalClose}>
+          <AlertModal />
+        </Modal>
+      )}
     </div>
   );
 }
