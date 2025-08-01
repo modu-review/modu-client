@@ -1,13 +1,14 @@
 'use client';
 
 import {Modal, useModal} from '@/shared/ui/modal';
-import React from 'react';
+import React, {useState} from 'react';
 import {useForm} from 'react-hook-form';
 import AlertModal from './AlertModal';
 import {Form} from '@/shared/shadcnComponent/ui/form';
 import {Button} from '@/shared/shadcnComponent/ui/button';
 import FormInputField from './FormInputField';
 import {sendSlackMessage} from '@/shared/apis/sendSlackMessage';
+import {motion, AnimatePresence} from 'framer-motion';
 
 type Form = {
   name: string;
@@ -17,6 +18,7 @@ type Form = {
 
 export default function ContactPage() {
   const {openModal, handleModalOpen, handleModalClose} = useModal();
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const form = useForm<Form>({
     defaultValues: {
@@ -37,6 +39,8 @@ export default function ContactPage() {
     const data = getValues();
     try {
       await sendSlackMessage(data);
+      setIsSubmitted(true);
+      setTimeout(() => setIsSubmitted(false), 3000);
       reset(); // 폼 초기화
       handleModalClose(); // 모달 닫기
     } catch (error) {
@@ -50,55 +54,86 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="w-full max-w-md mt-6 p-6 bg-white rounded-lg shadow-md">
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onValid)} className="flex flex-col space-y-4 w-full">
-          <h2 className="text-2xl font-bold mb-6 text-gray-800">Contact Me </h2>
-          <FormInputField
-            control={form.control}
-            name="name"
-            label="이름"
-            placeholder="이름을 입력해주세요."
-            rules={{required: '이름을 입력해주세요.'}}
-            className="p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-300"
-          />
-          <FormInputField
-            control={form.control}
-            name="email"
-            label="이메일"
-            placeholder="이메일을 입력해주세요."
-            rules={{
-              required: '이메일을 입력해주세요.',
-              pattern: {
-                value: /^\S+@\S+$/i,
-                message: '올바른 이메일 형식이 아닙니다.',
-              },
-            }}
-            className="p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-300"
-          />
+    <div className="flex items-start justify-center min-h-screen bg-gray-100">
+      <div className=" bg-white w-full max-w-4xl p-16 min-h-[900px] flex mt-20 items-start rounded-3xl shadow-xl relative overflow-hidden">
+        <AnimatePresence>
+          {isSubmitted && (
+            <motion.div
+              initial={{opacity: 0, y: 40}}
+              animate={{opacity: 1, y: 0}}
+              exit={{opacity: 0, y: -30}}
+              transition={{duration: 0.6}}
+              className="absolute inset-0 z-10 bg-white/80 backdrop-blur-sm flex items-center justify-center text-center rounded-3xl"
+            >
+              <motion.h2
+                initial={{scale: 0.8}}
+                animate={{scale: 1}}
+                transition={{delay: 0.2}}
+                className="text-2xl font-semibold text-gray-800"
+              >
+                문의가 성공적으로 전송되었습니다! 🎉
+                <br />
+                <span className="text-base text-gray-500 mt-2 block">곧 답변드리겠습니다! 감사합니다 ☺️</span>
+              </motion.h2>
+            </motion.div>
+          )}
+        </AnimatePresence>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onValid)} className="flex flex-col justify-between h-full space-y-6 w-full">
+            <motion.h2
+              initial={{opacity: 0, y: -20}}
+              animate={{opacity: 1, y: 0}}
+              transition={{delay: 0.1}}
+              className="text-4xl font-bold m-4 mb-10 text-boldBlue text-center"
+            >
+              문의하기
+            </motion.h2>
+            <FormInputField
+              control={form.control}
+              name="name"
+              label="이름"
+              placeholder="이름을 입력해주세요."
+              rules={{required: '이름을 입력해주세요.'}}
+              className="p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
+            />
+            <FormInputField
+              control={form.control}
+              name="email"
+              label="이메일"
+              placeholder="이메일을 입력해주세요."
+              rules={{
+                required: '이메일을 입력해주세요.',
+                pattern: {
+                  value: /^\S+@\S+$/i,
+                  message: '올바른 이메일 형식이 아닙니다.',
+                },
+              }}
+              className="p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
+            />
 
-          <FormInputField
-            control={form.control}
-            name="message"
-            label="문의 내용"
-            isTextarea
-            placeholder="문의 내용을 입력해주세요."
-            rules={{required: '문의 내용을 입력해주세요.'}}
-            className="p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-300"
-          />
-          <Button
-            type="submit"
-            className="bg-pink-500 text-white font-bold py-3 rounded-lg hover:bg-pink-600 transition"
-          >
-            전송
-          </Button>
-        </form>
-      </Form>
-      {openModal && (
-        <Modal onClose={handleModalClose}>
-          <AlertModal onCancel={handleCancel} onConfirm={handleConfirm} message={'전송을 완료하시겠습니까?'} />
-        </Modal>
-      )}
+            <FormInputField
+              control={form.control}
+              name="message"
+              label="문의 내용"
+              isTextarea
+              placeholder="문의 내용을 입력해주세요."
+              rules={{required: '문의 내용을 입력해주세요.'}}
+              className="!text-lg rounded-lg leading-normal p-4 resize-none h-[250px] focus:outline-none focus:ring-2 focus:ring-gray-500 placeholder:text-[16px]"
+            />
+            <Button
+              type="submit"
+              className="bg-boldBlue !mt-20 text-white font-extrabold py-6 rounded-xl hover:bg-gray-700 transition"
+            >
+              전송
+            </Button>
+          </form>
+        </Form>
+        {openModal && (
+          <Modal onClose={handleModalClose}>
+            <AlertModal onCancel={handleCancel} onConfirm={handleConfirm} message={'전송을 완료하시겠습니까?'} />
+          </Modal>
+        )}
+      </div>
     </div>
   );
 }

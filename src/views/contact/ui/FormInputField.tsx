@@ -30,7 +30,7 @@ export default function FormInputField<T extends FieldValues>({
       rules={rules}
       render={({field}) => (
         <FormItem>
-          <FormLabel>{label}</FormLabel>
+          <FormLabel className="text-[17px] font-semibold">{label}</FormLabel>
           <FormControl>
             {isTextarea ? (
               <Textarea {...field} placeholder={placeholder} className={className} />

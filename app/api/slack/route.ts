@@ -6,7 +6,7 @@ export async function POST(request: Request) {
   const slackWebhookURL = process.env.SLACK_WEBHOOK_URL!;
 
   const slackMessage = {
-    text: `📩 새 문의가 도착했습니다!\n\n👤 이름: ${name}\n📧 이메일: ${email}\n💬 메시지: ${message}`,
+    text: `📩 새 문의가 도착했습니다!📩 \n\n👤 이름: ${name}\n📧 이메일: ${email}\n💬 메시지: ${message}\n\n-----------------------------------------------------------`,
   };
 
   const res = await fetch(slackWebhookURL, {
