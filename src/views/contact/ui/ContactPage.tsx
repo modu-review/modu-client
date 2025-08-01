@@ -7,6 +7,7 @@ import AlertModal from './AlertModal';
 import {Form} from '@/shared/shadcnComponent/ui/form';
 import {Button} from '@/shared/shadcnComponent/ui/button';
 import FormInputField from './FormInputField';
+import {sendSlackMessage} from '@/shared/apis/sendSlackMessage';
 
 type Form = {
   name: string;
@@ -34,21 +35,13 @@ export default function ContactPage() {
   // 확인버튼 눌렀을 시
   const handleConfirm = async () => {
     const data = getValues();
-    console.log('Form data submitted:', data);
     try {
-      await fetch('/api/slack', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-      console.log('Slack 전송완료');
+      await sendSlackMessage(data);
+      reset(); // 폼 초기화
+      handleModalClose(); // 모달 닫기
     } catch (error) {
-      console.error('Slack 전송 실패:', error);
+      console.error('Slack 메시지 전송 실패:', error);
     }
-    reset(); // 폼 초기화
-    handleModalClose(); // 모달 닫기
   };
 
   const onValid = (data: Form) => {
