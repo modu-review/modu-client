@@ -4,10 +4,9 @@ import {Modal, useModal} from '@/shared/ui/modal';
 import React from 'react';
 import {useForm} from 'react-hook-form';
 import AlertModal from './AlertModal';
-import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from '@/shared/shadcnComponent/ui/form';
-import {Input} from '@/shared/shadcnComponent/ui/input';
-import {Textarea} from '@/shared/shadcnComponent/ui/textarea';
+import {Form} from '@/shared/shadcnComponent/ui/form';
 import {Button} from '@/shared/shadcnComponent/ui/button';
+import FormInputField from './FormInputField';
 
 type Form = {
   name: string;
@@ -50,65 +49,37 @@ export default function ContactPage() {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onValid)} className="flex flex-col space-y-4 w-full">
           <h2 className="text-2xl font-bold mb-6 text-gray-800">Contact Me </h2>
-          <FormField
+          <FormInputField
             control={form.control}
             name="name"
-            render={({field}) => (
-              <FormItem>
-                <FormLabel>이름: </FormLabel>
-                <FormControl>
-                  <Input
-                    {...field}
-                    placeholder="이름을 입력해주세요."
-                    className="p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-300"
-                    {...form.register('name', {required: '이름을 입력해주세요. '})}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            label="이름"
+            placeholder="이름을 입력해주세요."
+            rules={{required: '이름을 입력해주세요.'}}
+            className="p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-300"
           />
-          <FormField
+          <FormInputField
             control={form.control}
             name="email"
-            render={({field}) => (
-              <FormItem>
-                <FormLabel>이메일: </FormLabel>
-                <FormControl>
-                  <Input
-                    {...field}
-                    placeholder="이메일을 입력해주세요."
-                    className="p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-300"
-                    {...form.register('email', {
-                      required: '이메일을 입력해주세요.',
-                      pattern: {
-                        value: /^\S+@\S+$/i,
-                        message: '올바른 이메일 형식이 아닙니다.',
-                      },
-                    })}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            label="이메일"
+            placeholder="이메일을 입력해주세요."
+            rules={{
+              required: '이메일을 입력해주세요.',
+              pattern: {
+                value: /^\S+@\S+$/i,
+                message: '올바른 이메일 형식이 아닙니다.',
+              },
+            }}
+            className="p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-300"
           />
-          <FormField
+
+          <FormInputField
             control={form.control}
             name="message"
-            render={({field}) => (
-              <FormItem>
-                <FormLabel>문의 내용: </FormLabel>
-                <FormControl>
-                  <Textarea
-                    {...field}
-                    placeholder="문의 내용을 입력해주세요."
-                    className="p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-300"
-                    {...form.register('message', {required: '문의 내용을 입력해주세요.'})}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            label="문의 내용"
+            isTextarea
+            placeholder="문의 내용을 입력해주세요."
+            rules={{required: '문의 내용을 입력해주세요.'}}
+            className="p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-300"
           />
           <Button
             type="submit"
