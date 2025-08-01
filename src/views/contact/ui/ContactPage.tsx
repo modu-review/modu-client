@@ -32,9 +32,21 @@ export default function ContactPage() {
   };
 
   // 확인버튼 눌렀을 시
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     const data = getValues();
     console.log('Form data submitted:', data);
+    try {
+      await fetch('/api/slack', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+      console.log('Slack 전송완료');
+    } catch (error) {
+      console.error('Slack 전송 실패:', error);
+    }
     reset(); // 폼 초기화
     handleModalClose(); // 모달 닫기
   };
