@@ -32,6 +32,7 @@ const ReactQueryProvider = ({children}: Props) => {
     }),
     mutationCache: new MutationCache({
       onError(error) {
+        if (error instanceof RequestGetError && error.errorHandlingType === 'errorBoundary') return;
         if (error instanceof RequestError) updateError(error);
       },
     }),
