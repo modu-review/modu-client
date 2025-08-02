@@ -55,7 +55,3 @@ export default function ConfirmDeleteTrigger({children, onConfirm, text, isPendi
     </>
   );
 }
-
-export default function ConfirmDeleteTrigger() {
-  return  
-}
