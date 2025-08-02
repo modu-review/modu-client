@@ -12,7 +12,7 @@ export default function AuthProvider({children}: Props) {
   const updateUser = useUpdateUser();
 
   useEffect(() => {
-    if (isSuccess && session) {
+    if (session && session.isLoggedIn) {
       updateUser({
         userId: session.userId,
         userEmail: session.userEmail,
