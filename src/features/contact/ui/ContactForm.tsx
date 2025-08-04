@@ -9,18 +9,15 @@ import FormInputField from './FormInputField';
 import {sendSlackMessage} from '@/shared/apis/sendSlackMessage';
 import {motion} from 'framer-motion';
 import SubmittedContactFormAnimation from './SubmittedContactFormAnimation';
-
-type Form = {
-  name: string;
-  email: string;
-  message: string;
-};
+import {zodResolver} from '@hookform/resolvers/zod';
+import {contactFormSchema, ContactFormSchemaType} from '@/entities/contact';
 
 export default function ContactForm() {
   const {openModal, handleModalOpen, handleModalClose} = useModal();
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const form = useForm<Form>({
+  const form = useForm<ContactFormSchemaType>({
+    resolver: zodResolver(contactFormSchema),
     defaultValues: {
       name: '',
       email: '',
@@ -48,7 +45,7 @@ export default function ContactForm() {
     }
   };
 
-  const onValid = (data: Form) => {
+  const onValid = (data: ContactFormSchemaType) => {
     if (!data) return;
     handleModalOpen(); //모달 열기
   };
@@ -85,7 +82,6 @@ export default function ContactForm() {
               name="name"
               label="이름"
               placeholder="이름을 입력해주세요."
-              rules={{required: '이름을 입력해주세요.'}}
               className="p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
             />
             <FormInputField
@@ -93,13 +89,6 @@ export default function ContactForm() {
               name="email"
               label="이메일"
               placeholder="이메일을 입력해주세요."
-              rules={{
-                required: '이메일을 입력해주세요.',
-                pattern: {
-                  value: /^\S+@\S+$/i,
-                  message: '올바른 이메일 형식이 아닙니다.',
-                },
-              }}
               className="p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
             />
             <FormInputField
@@ -108,7 +97,6 @@ export default function ContactForm() {
               label="문의 내용"
               isTextarea
               placeholder="문의 내용을 입력해주세요."
-              rules={{required: '문의 내용을 입력해주세요.'}}
               className="!text-lg rounded-lg leading-normal p-4 resize-none h-[250px] focus:outline-none focus:ring-2 focus:ring-gray-500 placeholder:text-[16px]"
             />
             <Button
