@@ -32,12 +32,14 @@ export default function FormInputField<T extends FieldValues>({
               <Textarea
                 {...field}
                 placeholder={placeholder}
+                aria-label={label}
                 className="!text-lg rounded-lg leading-normal p-4 resize-none h-[250px] focus:outline-none focus:ring-2 focus:ring-gray-500 placeholder:text-[16px]"
               />
             ) : (
               <Input
                 {...field}
                 placeholder={placeholder}
+                aria-label={label}
                 className="p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
               />
             )}
