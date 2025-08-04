@@ -2,7 +2,7 @@ import {ContactForm} from '@/features/contact';
 
 export default function ContactPage() {
   return (
-    <section className="flex items-start justify-center min-h-screen bg-gray-100 py-20">
+    <section className="flex items-start justify-center bg-gray-100 md:h-full md:py-10 ">
       <ContactForm />
     </section>
   );

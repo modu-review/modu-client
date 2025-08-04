@@ -48,7 +48,7 @@ export default function ContactForm() {
         initial={{scale: 0.95, opacity: 0}}
         animate={{scale: 1, opacity: 1}}
         transition={{duration: 0.5}}
-        className="bg-white w-full max-w-4xl p-16  flex items-start rounded-3xl shadow-xl relative overflow-hidden"
+        className="bg-white w-full max-w-4xl p-6 md:p-16 flex items-start md:rounded-3xl md:shadow-xl relative overflow-hidden"
       >
         {isSubmitted && <SubmittedContactFormAnimation />}
         <Form {...form}>
@@ -65,7 +65,7 @@ export default function ContactForm() {
               initial={{opacity: 0, y: -20}}
               animate={{opacity: 1, y: 0}}
               transition={{delay: 0.1}}
-              className="text-4xl font-bold m-4 mb-10 text-boldBlue text-center"
+              className="text-3xl md:text-4xl font-bold m-4 mb-6 md:mb-10 text-boldBlue text-center"
             >
               문의하기
             </motion.h2>
@@ -81,7 +81,7 @@ export default function ContactForm() {
             ))}
             <Button
               type="submit"
-              className="bg-boldBlue !mt-20 text-white font-extrabold py-6 rounded-xl hover:bg-gray-700 transition"
+              className="bg-boldBlue !mt-8 md:!mt-20 text-white font-extrabold py-6 rounded-xl hover:bg-gray-700 transition"
               disabled={isPending}
               aria-label={isPending ? '전송 중 ...' : '문의하기 버튼'}
               aria-disabled={isPending}
