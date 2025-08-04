@@ -12,7 +12,7 @@ import {Button} from '@/shared/shadcnComponent/ui/button';
 
 export default function ContactForm() {
   const {openModal, handleModalOpen, handleModalClose} = useModal();
-  const {isSubmitted, sendMessage} = useSendSlackMessage();
+  const {isSubmitted, sendMessage, isPending} = useSendSlackMessage();
 
   const form = useForm<ContactFormSchemaType>({
     resolver: zodResolver(contactFormSchema),
@@ -82,8 +82,11 @@ export default function ContactForm() {
             <Button
               type="submit"
               className="bg-boldBlue !mt-20 text-white font-extrabold py-6 rounded-xl hover:bg-gray-700 transition"
+              disabled={isPending}
+              aria-label={isPending ? '전송 중 ...' : '문의하기 버튼'}
+              aria-disabled={isPending}
             >
-              전송
+              {isPending ? '전송 중 . . .' : '전송'}
             </Button>
           </motion.form>
         </Form>
