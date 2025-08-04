@@ -5,12 +5,13 @@ import React, {useState} from 'react';
 import {useForm} from 'react-hook-form';
 import {Form} from '@/shared/shadcnComponent/ui/form';
 import {Button} from '@/shared/shadcnComponent/ui/button';
-import FormInputField from './FormInputField';
+
 import {sendSlackMessage} from '@/shared/apis/sendSlackMessage';
 import {motion} from 'framer-motion';
 import SubmittedContactFormAnimation from './SubmittedContactFormAnimation';
 import {zodResolver} from '@hookform/resolvers/zod';
-import {contactFormSchema, ContactFormSchemaType} from '@/entities/contact';
+import {contactFormSchema, ContactFormSchemaType, FORM_FIELDS} from '@/entities/contact';
+import FormInputField from './FormInputField';
 
 export default function ContactForm() {
   const {openModal, handleModalOpen, handleModalClose} = useModal();
@@ -77,28 +78,16 @@ export default function ContactForm() {
             >
               문의하기
             </motion.h2>
-            <FormInputField
-              control={form.control}
-              name="name"
-              label="이름"
-              placeholder="이름을 입력해주세요."
-              className="p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
-            />
-            <FormInputField
-              control={form.control}
-              name="email"
-              label="이메일"
-              placeholder="이메일을 입력해주세요."
-              className="p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
-            />
-            <FormInputField
-              control={form.control}
-              name="message"
-              label="문의 내용"
-              isTextarea
-              placeholder="문의 내용을 입력해주세요."
-              className="!text-lg rounded-lg leading-normal p-4 resize-none h-[250px] focus:outline-none focus:ring-2 focus:ring-gray-500 placeholder:text-[16px]"
-            />
+            {FORM_FIELDS.map(({name, label, placeholder, isTextarea}) => (
+              <FormInputField
+                key={name}
+                control={form.control}
+                name={name}
+                label={label}
+                placeholder={placeholder}
+                isTextarea={isTextarea}
+              />
+            ))}
             <Button
               type="submit"
               className="bg-boldBlue !mt-20 text-white font-extrabold py-6 rounded-xl hover:bg-gray-700 transition"

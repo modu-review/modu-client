@@ -2,7 +2,7 @@ import {FormControl, FormField, FormItem, FormLabel, FormMessage} from '@/shared
 import {Input} from '@/shared/shadcnComponent/ui/input';
 import {Textarea} from '@/shared/shadcnComponent/ui/textarea';
 import React from 'react';
-import {Control, FieldPath, FieldValues, RegisterOptions} from 'react-hook-form';
+import {Control, FieldPath, FieldValues} from 'react-hook-form';
 
 type Props<T extends FieldValues> = {
   control: Control<T>;
@@ -10,32 +10,36 @@ type Props<T extends FieldValues> = {
   label: string;
   placeholder?: string;
   isTextarea?: boolean;
-  className?: string;
-  rules?: RegisterOptions<T>;
 };
 
 export default function FormInputField<T extends FieldValues>({
   control,
   name,
-  rules,
+
   label,
   placeholder,
   isTextarea,
-  className,
 }: Props<T>) {
   return (
     <FormField
       control={control}
       name={name}
-      rules={rules}
       render={({field}) => (
         <FormItem>
           <FormLabel className="text-[17px] font-semibold">{label}</FormLabel>
           <FormControl>
             {isTextarea ? (
-              <Textarea {...field} placeholder={placeholder} className={className} />
+              <Textarea
+                {...field}
+                placeholder={placeholder}
+                className="!text-lg rounded-lg leading-normal p-4 resize-none h-[250px] focus:outline-none focus:ring-2 focus:ring-gray-500 placeholder:text-[16px]"
+              />
             ) : (
-              <Input {...field} placeholder={placeholder} className={className} />
+              <Input
+                {...field}
+                placeholder={placeholder}
+                className="p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
+              />
             )}
           </FormControl>
           <FormMessage />
