@@ -12,7 +12,7 @@ export default function SubmittedContactFormAnimation() {
         className="absolute inset-0 z-10 bg-white/80 backdrop-blur-sm flex items-center justify-center text-center rounded-3xl"
       >
         <motion.h2
-          className="text-3xl font-bold text-gray-800 mb-2"
+          className="text-xl md:text-3xl font-bold text-gray-800 mb-2"
           initial={{scale: 0.8}}
           animate={{scale: 1}}
           transition={{delay: 0.3}}
