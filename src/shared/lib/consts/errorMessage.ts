@@ -14,6 +14,11 @@ export const SERVER_ERROR_MESSAGE: ErrorMessage = {
 
   // 페이지 기반 에러
   EMPTY_PAGE_PARAM: '페이지 정보가 존재하지 않아요.',
+
+  // 슬랙 메세지 전송 에러
+  SLACK_MESSAGE_SEND_ERROR: '슬랙 메세지 전송에 실패했어요. 다시 시도해주세요.',
+  MISSING_REQUIRED_FIELDS: '이름, 이메일, 메시지 필드가 모두 필요해요.',
+  SLACK_WEBHOOK_URL_NOT_SET: '슬랙 웹훅 URL이 설정되지 않았어요. 관리자에게 문의해주세요.',
 } as const;
 
 export const ERROR_MESSAGE = {
