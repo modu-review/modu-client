@@ -1,21 +1,18 @@
 'use client';
 
-import {AlertModal, Modal, useModal} from '@/shared/ui/modal';
-import React, {useState} from 'react';
 import {useForm} from 'react-hook-form';
+import {zodResolver} from '@hookform/resolvers/zod';
+import {motion} from 'framer-motion';
+import FormInputField from './FormInputField';
+import SubmittedContactFormAnimation from './SubmittedContactFormAnimation';
+import {contactFormSchema, ContactFormSchemaType, FORM_FIELDS, useSendSlackMessage} from '@/entities/contact';
+import {AlertModal, Modal, useModal} from '@/shared/ui/modal';
 import {Form} from '@/shared/shadcnComponent/ui/form';
 import {Button} from '@/shared/shadcnComponent/ui/button';
 
-import {sendSlackMessage} from '@/shared/apis/sendSlackMessage';
-import {motion} from 'framer-motion';
-import SubmittedContactFormAnimation from './SubmittedContactFormAnimation';
-import {zodResolver} from '@hookform/resolvers/zod';
-import {contactFormSchema, ContactFormSchemaType, FORM_FIELDS} from '@/entities/contact';
-import FormInputField from './FormInputField';
-
 export default function ContactForm() {
   const {openModal, handleModalOpen, handleModalClose} = useModal();
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const {isSubmitted, sendMessage} = useSendSlackMessage();
 
   const form = useForm<ContactFormSchemaType>({
     resolver: zodResolver(contactFormSchema),
@@ -35,15 +32,9 @@ export default function ContactForm() {
   // 확인버튼 눌렀을 시
   const handleConfirm = async () => {
     const data = getValues();
-    try {
-      await sendSlackMessage(data);
-      setIsSubmitted(true);
-      setTimeout(() => setIsSubmitted(false), 3000);
-      reset(); // 폼 초기화
-      handleModalClose(); // 모달 닫기
-    } catch (error) {
-      console.error('Slack 메시지 전송 실패:', error);
-    }
+    sendMessage(data);
+    reset(); // 폼 초기화
+    handleModalClose(); // 모달 닫기
   };
 
   const onValid = (data: ContactFormSchemaType) => {
