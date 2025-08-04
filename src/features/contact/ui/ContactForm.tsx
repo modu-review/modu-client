@@ -1,9 +1,8 @@
 'use client';
 
-import {Modal, useModal} from '@/shared/ui/modal';
+import {AlertModal, Modal, useModal} from '@/shared/ui/modal';
 import React, {useState} from 'react';
 import {useForm} from 'react-hook-form';
-import AlertModal from './AlertModal';
 import {Form} from '@/shared/shadcnComponent/ui/form';
 import {Button} from '@/shared/shadcnComponent/ui/button';
 import FormInputField from './FormInputField';
