@@ -1,4 +1,3 @@
-import {reportGlobalError} from '@/entities/error';
 import isBrowser from '../lib/utils/isBrowser';
 import {RequestError, RequestGetError} from './request-error';
 import {
@@ -156,31 +155,6 @@ async function request<T>(props: WithErrorHandling<RequestProps>): Promise<T> {
   return undefined as T;
 }
 
-async function requestWithErrorHandling<T>(fn: () => Promise<T>): Promise<T | never> {
-  try {
-    return await fn();
-  } catch (error) {
-    if (!isBrowser()) {
-      return Promise.reject(error);
-    }
-
-    if (error instanceof RequestGetError) {
-      if (error.errorHandlingType === 'errorBoundary') throw error;
-      else reportGlobalError(error);
-
-      return Promise.reject(error);
-    }
-
-    if (error instanceof RequestError) {
-      reportGlobalError(error);
-
-      return Promise.reject(error);
-    }
-
-    throw error;
-  }
-}
-
 /**
  * @description GET 메서드로 API 요청을 보내는 함수
  * @param {RequestMethodProps} props - API 요청을 위한 프로퍼티 객체 (baseUrl, endpoint, headers, errorHandlingType)
@@ -192,15 +166,13 @@ export async function requestGet<T>({
   withResponse = true,
   ...args
 }: WithErrorHandling<RequestMethodProps>): Promise<T> {
-  return requestWithErrorHandling(() =>
-    request<T>({
-      ...args,
-      method: 'GET',
-      headers,
-      withResponse,
-      errorHandlingType,
-    }),
-  );
+  return request<T>({
+    ...args,
+    method: 'GET',
+    headers,
+    withResponse,
+    errorHandlingType,
+  });
 }
 
 /**
@@ -213,14 +185,12 @@ export async function requestPost<T = void>({
   withResponse = false,
   ...args
 }: RequestMethodProps): Promise<T> {
-  return requestWithErrorHandling(() =>
-    request<T>({
-      ...args,
-      method: 'POST',
-      headers,
-      withResponse,
-    }),
-  );
+  return request<T>({
+    ...args,
+    method: 'POST',
+    headers,
+    withResponse,
+  });
 }
 
 /**
@@ -233,14 +203,12 @@ export async function requestPut<T = void>({
   withResponse = false,
   ...args
 }: RequestMethodProps): Promise<T> {
-  return requestWithErrorHandling(() =>
-    request<T>({
-      ...args,
-      method: 'PUT',
-      headers,
-      withResponse,
-    }),
-  );
+  return request<T>({
+    ...args,
+    method: 'PUT',
+    headers,
+    withResponse,
+  });
 }
 
 /**
@@ -253,14 +221,12 @@ export async function requestDelete<T = void>({
   withResponse = false,
   ...args
 }: RequestMethodProps): Promise<T> {
-  return requestWithErrorHandling(() =>
-    request<T>({
-      ...args,
-      method: 'DELETE',
-      headers,
-      withResponse,
-    }),
-  );
+  return request<T>({
+    ...args,
+    method: 'DELETE',
+    headers,
+    withResponse,
+  });
 }
 
 /**
@@ -273,12 +239,10 @@ export async function requestPatch<T = void>({
   withResponse = false,
   ...args
 }: RequestMethodProps): Promise<T> {
-  return requestWithErrorHandling(() =>
-    request<T>({
-      ...args,
-      method: 'PATCH',
-      headers,
-      withResponse,
-    }),
-  );
+  return request<T>({
+    ...args,
+    method: 'PATCH',
+    headers,
+    withResponse,
+  });
 }

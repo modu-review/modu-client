@@ -29,7 +29,7 @@ export default function ImageUploadPreview({file, progress, status, onRemove}: P
   };
 
   return (
-    <div className="relative border rounded-md py-3 px-4 overflow-hidden">
+    <div className={`relative border rounded-md py-3 px-4 overflow-hidden ${status === 'error' ? 'bg-red-100 border-red-200 text-red-500' : ''}`}>
       {status === 'uploading' && (
         <div
           className={`absolute inset-0 bg-lightBlue`}
@@ -47,7 +47,7 @@ export default function ImageUploadPreview({file, progress, status, onRemove}: P
         <div className="flex items-center gap-2">
           {status === 'uploading' && <p className="text-sm font-semibold">{progress}%</p>}
           <button onClick={handleRemove}>
-            <LucideIcon name="X" className="w-5 h-5" />
+            <LucideIcon name="X" className="w-5 h-5 hover:scale-110 transition-transform" />
           </button>
         </div>
       </div>

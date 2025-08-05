@@ -11,9 +11,9 @@ const Providers = ({children}: Props) => {
   return (
     <UnPredictableErrorBoundary>
       <GlobalErrorDetector>
-        <AuthProvider>
-          <ReactQueryProvider>{children}</ReactQueryProvider>
-        </AuthProvider>
+        <ReactQueryProvider>
+          <AuthProvider>{children}</AuthProvider>
+        </ReactQueryProvider>
       </GlobalErrorDetector>
     </UnPredictableErrorBoundary>
   );

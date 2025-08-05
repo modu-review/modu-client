@@ -1,10 +1,24 @@
 'use client';
 
-import {useKakaoOAuthLogin} from '@/features/auth';
+import {useEffect} from 'react';
+import {useSearchParams} from 'next/navigation';
+import {useLogin} from '@/entities/auth';
+import {createClientError} from '@/shared/lib/utils/client-error';
 import {LucideIcon} from '@/shared/ui/icons';
 
 export default function OAuth2RedirectPage() {
-  useKakaoOAuthLogin();
+  const searchParams = useSearchParams();
+  const {login} = useLogin();
+
+  useEffect(() => {
+    const email = searchParams.get('user_email');
+
+    if (!email) {
+      throw createClientError('EMPTY_USER_EMAIL');
+    }
+
+    login(email);
+  }, [searchParams, login]);
 
   return (
     <section className="w-full h-full flex flex-col justify-center items-center">

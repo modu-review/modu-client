@@ -2,6 +2,7 @@ import {useState} from 'react';
 import {FileItem, UploadOptions} from '../model/type';
 import isAborted from './isAborted';
 import {ClientError, createClientError} from '@/shared/lib/utils/client-error';
+import {RequestError} from '@/shared/apis/request-error';
 
 export default function useFileUpload(options: UploadOptions) {
   const [fileItem, setFileItem] = useState<FileItem | null>(null);
@@ -65,7 +66,11 @@ export default function useFileUpload(options: UploadOptions) {
         return null;
       }
 
-      options.onError?.(error instanceof ClientError ? error : createClientError('UPLOAD_FAILED'));
+      if (error instanceof ClientError || error instanceof RequestError) {
+        options.onError?.(error);
+      } else {
+        options.onError?.(createClientError('UPLOAD_FAILED'));
+      }
 
       return null;
     }

@@ -1,18 +1,17 @@
 'use client';
 
 import Image from 'next/image';
-import {logout, useUserEmail, useUserId} from '@/entities/auth';
+import {useLogout, useUserEmail, useUserId} from '@/entities/auth';
 import {Button} from '@/shared/shadcnComponent/ui/button';
 import {Skeleton} from '@/shared/shadcnComponent/ui/skeleton';
 
 export default function UserInfo() {
   const userId = useUserId();
   const userEmail = useUserEmail();
+  const {logout} = useLogout();
 
   const handleLogout = async () => {
-    await logout();
-
-    window.location.reload();
+    logout();
   };
 
   return (
