@@ -40,11 +40,12 @@ export const SERVER_ERROR_MESSAGE: ErrorMessage = {
    * 후기 작성 관련
    * 이미지 임시 업로드 URL 발급 POST /presign
    * 후기 저장 POST /reviews/new
+   * 후기 수정 PATCH /reviews/{reviewId}
+   * 후기 삭제 DELETE /reviews/{reviewId}
    */
   CAN_NOT_CREATE_PRESIGNED_URL: '이미지 업로드를 위한 임시 URL을 생성할 수 없어요. 다시 시도해주세요.',
   CAN_NOT_CREATE_UUID: '이미지 아이디를 생성하는 데 실패했어요. 다시 시도해주세요.',
   NOT_ALLOWED_HTML_ERROR: '잘못된 HTML 형식이에요. 올바른 HTML을 입력해주세요.',
-
   /**
    * 프로필 관련
    * 프로필 변경 POST /users/me/profileImage
