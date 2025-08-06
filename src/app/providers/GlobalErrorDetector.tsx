@@ -1,12 +1,12 @@
 'use client';
 
 import {useEffect} from 'react';
+import {useRouter} from 'next/navigation';
 import {useGlobalError} from '@/entities/error';
 import isPredictableServerError from '@/shared/lib/utils/isPredictableServerError';
 import isClientError from '@/shared/lib/utils/isClientError';
 import toast from '@/shared/lib/utils/toastService';
 import {ERROR_MESSAGE, SERVER_ERROR_MESSAGE} from '@/shared/lib/consts/errorMessage';
-import {useRouter} from 'next/navigation';
 
 type Props = {
   children: React.ReactNode;
@@ -22,10 +22,10 @@ export default function GlobalErrorDetector({children}: Props) {
     if (isPredictableServerError(globalError)) {
       toast.error({
         title: '에러가 발생했어요.',
-        description: SERVER_ERROR_MESSAGE[globalError.errorCode],
+        description: SERVER_ERROR_MESSAGE[globalError.name],
       });
 
-      if (globalError.errorCode === 'TOKEN_EXPIRED' || globalError.errorCode === 'EMPTY_USER_EMAIL') {
+      if (globalError.name === 'TOKEN_EXPIRED' || globalError.name === 'EMPTY_USER_EMAIL') {
         router.push('/');
       }
 
@@ -35,7 +35,7 @@ export default function GlobalErrorDetector({children}: Props) {
     if (isClientError(globalError)) {
       toast.error({
         title: '에러가 발생했어요.',
-        description: ERROR_MESSAGE[globalError.errorCode],
+        description: ERROR_MESSAGE[globalError.name],
       });
 
       return;

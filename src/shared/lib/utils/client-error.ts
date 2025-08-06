@@ -3,12 +3,12 @@ import {ERROR_MESSAGE} from '../consts/errorMessage';
 export type ClientErrorCode = keyof typeof ERROR_MESSAGE;
 
 class ClientError extends Error {
-  errorCode: ClientErrorCode;
+  name: ClientErrorCode;
 
   constructor(code: ClientErrorCode) {
     super(ERROR_MESSAGE[code]);
 
-    this.errorCode = code;
+    this.name = code;
   }
 }
 
