@@ -1,24 +1,15 @@
 type ErrorMessage = Record<string, string>;
 
 export const SERVER_ERROR_MESSAGE: ErrorMessage = {
-  // 로그인 관련 에러 코드
-  TOKEN_NOT_FOUND: '서비스 이용에 로그인이 필요해요.',
-  TOKEN_EXPIRED: '로그인 세션이 만료되었어요. 다시 로그인해주세요.',
-  TOKEN_INVALID: '로그인 세션이 유효하지 않아요. 다시 로그인해주세요.',
-
-  // 서버 내부적인 에러로 예측 불가
-  INTERNAL_SERVER_ERROR: '서버가 원할하지 않아요. 잠시 후 다시 시도해주세요.',
-
   // OAuth2 로그인 에러 - Next.js API Routes
   EMPTY_USER_EMAIL: '이메일 정보를 찾을 수 없어 로그아웃 됐어요. 다시 로그인해주세요.',
-
-  // 페이지 기반 에러
-  EMPTY_PAGE_PARAM: '페이지 정보가 존재하지 않아요.',
 
   // 슬랙 메세지 전송 에러
   SLACK_MESSAGE_SEND_ERROR: '슬랙 메세지 전송에 실패했어요. 다시 시도해주세요.',
   MISSING_REQUIRED_FIELDS: '이름, 이메일, 메시지 필드가 모두 필요해요.',
-  SLACK_WEBHOOK_URL_NOT_SET: '슬랙 웹훅 URL이 설정되지 않았어요. 관리자에게 문의해주세요.',
+  SLACK_WEBHOOK_URL_NOT_SET: '슬랙 웹훅 URL이 설정되지 않았어요. 관리자에게 문의해주세요.'
+  
+  ,
 } as const;
 
 export const ERROR_MESSAGE = {
