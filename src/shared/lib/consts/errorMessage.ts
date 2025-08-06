@@ -7,9 +7,16 @@ export const SERVER_ERROR_MESSAGE: ErrorMessage = {
   // 슬랙 메세지 전송 에러
   SLACK_MESSAGE_SEND_ERROR: '슬랙 메세지 전송에 실패했어요. 다시 시도해주세요.',
   MISSING_REQUIRED_FIELDS: '이름, 이메일, 메시지 필드가 모두 필요해요.',
-  SLACK_WEBHOOK_URL_NOT_SET: '슬랙 웹훅 URL이 설정되지 않았어요. 관리자에게 문의해주세요.'
-  
-  ,
+  SLACK_WEBHOOK_URL_NOT_SET: '슬랙 웹훅 URL이 설정되지 않았어요. 관리자에게 문의해주세요.',
+
+  // 로그인 에러 /users/login
+  UNAUTHORIZED: '로그인이 필요한 서비스에요. 다시 로그인해주세요.',
+  FORBIDDEN: '접근 권한이 없어요. 관리자에게 문의해주세요.',
+
+  // 로그아웃 에러 /users/logout
+
+  // 베스트 후기 조회 /reviews/best
+  JSON_PROCESSING_ERROR: '서버에서 데이터를 처리하는 중 오류가 발생했어요. 잠시 후 다시 시도해주세요.',
 } as const;
 
 export const ERROR_MESSAGE = {
