@@ -2,7 +2,7 @@ import {ClientError} from '@/shared/lib/utils/client-error';
 
 function isAborted(error: unknown): boolean {
   if (error instanceof ClientError) {
-    return error.errorCode === 'UPLOAD_CANCELLED';
+    return error.name === 'UPLOAD_CANCELLED';
   }
 
   if (error instanceof Error) {
