@@ -36,12 +36,12 @@ export type RequestMethodProps = Omit<RequestProps, 'method'>;
 
 // API 요청 중 발생하는 에러 객체 타입
 export type TRequestError = Error & {
+  title: string;
+  detail: string;
   status: number;
   endpoint: string;
   method?: TMethod;
   requestBody: TBody;
-  errorCode: string;
-  message: string;
 };
 
 export type TErrorHandling = 'toast' | 'errorBoundary';
@@ -57,6 +57,7 @@ export type CreateErrorProps = {
 };
 
 export type TErrorInfo = {
-  errorCode: string;
-  message: string;
+  status: number;
+  title: string;
+  detail: string;
 };
