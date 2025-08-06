@@ -9,22 +9,31 @@ export const SERVER_ERROR_MESSAGE: ErrorMessage = {
   MISSING_REQUIRED_FIELDS: '이름, 이메일, 메시지 필드가 모두 필요해요.',
   SLACK_WEBHOOK_URL_NOT_SET: '슬랙 웹훅 URL이 설정되지 않았어요. 관리자에게 문의해주세요.',
 
+  // 공통
+  FORBIDDEN: '접근 권한이 없어요. 관리자에게 문의해주세요.',
+
   // 로그인 에러 GET /users/login
   UNAUTHORIZED: '로그인이 필요한 서비스에요. 다시 로그인해주세요.',
-  FORBIDDEN: '접근 권한이 없어요. 관리자에게 문의해주세요.',
 
   // 로그아웃 에러 GET /users/logout
 
-  // 베스트 후기 조회 GET /reviews/best
+  /**
+   * 후기 조회 관련
+   * 베스트 후기 조회 GET /reviews/best
+   * 카테고리 후기 조회 GET /reviews/categoryId={categoryId}
+   * 키워드 후기 조회 GET /search/keyword={keyword}
+   */
   JSON_PROCESSING_ERROR: '서버에서 데이터를 처리하는 중 오류가 발생했어요. 잠시 후 다시 시도해주세요.',
-
-  // 카테고리 후기 조회 GET /reviews/categoryId={categoryId}
-
-  // 키워드 후기 조회 GET /search/keyword={keyword}
   BOARD_SEARCH_KEYWORD_NOT_FOUND: '해당 키워드에 대한 후기를 찾을 수 없어요. 다른 키워드로 다시 검색해주세요.',
 
-  // 후기 상세 조회 GET /reviews/{reviewId}
+  /**
+   * 후기 상세 조회 관련
+   * 상세 조회 GET /reviews/{reviewId}
+   * 댓글 조회 GET /reviews/{reviewId}/comments
+   * 북마크 조회 GET /reviews/{reviewId}/bookmarks
+   */
   BOARD_ID_NOT_FOUND: '해당 후기를 찾을 수 없어요. 후기가 삭제되었거나 존재하지 않을 수 있어요.',
+  BOARD_NOT_EXIST: '해당 후기를 찾을 수 없어요. 후기가 삭제되었거나 존재하지 않을 수 있어요.',
 } as const;
 
 export const ERROR_MESSAGE = {
