@@ -11,9 +11,8 @@ export const SERVER_ERROR_MESSAGE: ErrorMessage = {
 
   // 공통
   FORBIDDEN: '접근 권한이 없어요. 관리자에게 문의해주세요.',
-
-  // 로그인 에러 GET /users/login
   UNAUTHORIZED: '로그인이 필요한 서비스에요. 다시 로그인해주세요.',
+  USER_NOT_FOUND: '존재하지 않는 사용자입니다. 다시 로그인해주세요.',
 
   // 로그아웃 에러 GET /users/logout
 
@@ -22,6 +21,8 @@ export const SERVER_ERROR_MESSAGE: ErrorMessage = {
    * 베스트 후기 조회 GET /reviews/best
    * 카테고리 후기 조회 GET /reviews/categoryId={categoryId}
    * 키워드 후기 조회 GET /search/keyword={keyword}
+   * 내가 작성한 후기 조회 GET /users/me/reviews
+   * 내가 저장한 후기 조회 GET /users/me/bookmarks
    */
   JSON_PROCESSING_ERROR: '서버에서 데이터를 처리하는 중 오류가 발생했어요. 잠시 후 다시 시도해주세요.',
   BOARD_SEARCH_KEYWORD_NOT_FOUND: '해당 키워드에 대한 후기를 찾을 수 없어요. 다른 키워드로 다시 검색해주세요.',
