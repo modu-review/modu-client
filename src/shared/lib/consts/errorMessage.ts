@@ -44,6 +44,15 @@ export const SERVER_ERROR_MESSAGE: ErrorMessage = {
   CAN_NOT_CREATE_PRESIGNED_URL: '이미지 업로드를 위한 임시 URL을 생성할 수 없어요. 다시 시도해주세요.',
   CAN_NOT_CREATE_UUID: '이미지 아이디를 생성하는 데 실패했어요. 다시 시도해주세요.',
   NOT_ALLOWED_HTML_ERROR: '잘못된 HTML 형식이에요. 올바른 HTML을 입력해주세요.',
+
+  /**
+   * 프로필 관련
+   * 프로필 변경 POST /users/me/profileImage
+   * 프로필 삭제 DELETE /users/me/profileImage
+   */
+  NOT_SUPPORTED_FILE: '지원하지 않는 이미지 파일 형식이에요. .jpg, .jpeg, .png 파일만 업로드할 수 있어요.',
+  FILE_SIZE_EXCEEDED: '이미지 크기가 너무 커요. 최대 10MB 이하의 이미지를 업로드해주세요.',
+  IMAGE_NOT_FOUND: '사용자님의 프로필 이미지가 존재하지 않아요. 프로필 이미지를 업로드해주세요.',
 } as const;
 
 export const ERROR_MESSAGE = {
