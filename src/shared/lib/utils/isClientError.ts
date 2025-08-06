@@ -3,7 +3,7 @@ import {ClientError} from './client-error';
 
 // 약속한 클라이언트 에러인지 확인합니다.
 function isClientError(error: Error): error is ClientError {
-  return error instanceof ClientError && ERROR_MESSAGE[error.errorCode] !== undefined;
+  return error instanceof ClientError && ERROR_MESSAGE[error.name] !== undefined;
 }
 
 export default isClientError;
