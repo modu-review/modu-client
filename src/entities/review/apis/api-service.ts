@@ -93,7 +93,6 @@ export async function uploadImage({
 }
 
 export async function getReviewDetail(reviewId: number) {
-  // const url = process.env.NEXT_PUBLIC_CLIENT_URL + `/api/reviews/${reviewId}`;
   const url = process.env.NEXT_PUBLIC_API_URL + `/reviews/${reviewId}`;
 
   const res = await fetch(url, {
@@ -105,16 +104,15 @@ export async function getReviewDetail(reviewId: number) {
   });
 
   if (!res.ok) {
-    const {errorCode, message}: TErrorInfo = await res.json();
+    const {title, detail, status}: TErrorInfo = await res.json();
 
     throw new RequestGetError({
-      status: res.status,
+      name: title,
+      message: detail,
+      status: status,
       requestBody: null,
       endpoint: res.url,
-      name: errorCode,
       method: 'GET',
-      errorCode,
-      message,
       errorHandlingType: 'errorBoundary',
     });
   }
