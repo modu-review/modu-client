@@ -79,29 +79,27 @@ async function handleRequestError({
   requestInit,
   errorHandlingType,
 }: WithErrorHandling<CreateErrorProps>): Promise<RequestError | RequestGetError> {
-  const {errorCode, message}: TErrorInfo = await response.json();
+  const {title, detail, status}: TErrorInfo = await response.json();
 
   if (requestInit.method === 'GET') {
     return new RequestGetError({
-      status: response.status,
+      name: title,
+      message: detail,
+      status,
       requestBody: body,
       endpoint: response.url,
-      name: errorCode,
       method: requestInit.method,
-      errorCode,
-      message,
       errorHandlingType,
     });
   }
 
   return new RequestError({
-    status: response.status,
-    requestBody: body,
-    endpoint: response.url,
-    name: errorCode,
+    name: title,
+    message: detail,
+    status,
     method: requestInit.method,
-    errorCode,
-    message,
+    endpoint: response.url,
+    requestBody: body,
   });
 }
 
@@ -127,13 +125,12 @@ async function request<T>(props: WithErrorHandling<RequestProps>): Promise<T> {
     } else {
       if (isBrowser()) {
         throw new RequestError({
+          name: 'TOKEN_EXPIRED',
+          message: '로그인 세션이 만료되었습니다.',
           status: 401,
           endpoint: url,
           method: requestInit.method,
           requestBody: requestInit.body ? JSON.stringify(requestInit.body) : null,
-          errorCode: 'TOKEN_EXPIRED',
-          message: '로그인 세션이 만료되었습니다.',
-          name: 'TOKEN_EXPIRED',
         });
       }
     }

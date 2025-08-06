@@ -7,10 +7,10 @@ class RequestError extends Error {
   endpoint;
   method;
 
-  constructor({title, detail, status, endpoint, method, requestBody}: TRequestError) {
-    super(detail);
+  constructor({name, message, status, endpoint, method, requestBody}: TRequestError) {
+    super(message);
 
-    this.name = title;
+    this.name = name;
     this.status = status;
     this.endpoint = endpoint;
     this.method = method;

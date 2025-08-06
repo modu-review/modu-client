@@ -36,8 +36,6 @@ export type RequestMethodProps = Omit<RequestProps, 'method'>;
 
 // API 요청 중 발생하는 에러 객체 타입
 export type TRequestError = Error & {
-  title: string;
-  detail: string;
   status: number;
   endpoint: string;
   method?: TMethod;
