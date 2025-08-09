@@ -8,7 +8,7 @@ export default async function MyPage() {
   return (
     <section>
       <section className="w-full mb-4 md:mb-8">
-        <section className="bg-lightBlue p-4 flex flex-col justify-between mb-[90px] md:mb-[110px] lg:mb-[130px]">
+        <section className="p-4 flex flex-col justify-between mb-[90px] md:mb-[110px] lg:mb-[130px]">
           <UserInfo />
         </section>
         <ReviewTabs />
