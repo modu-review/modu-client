@@ -1,7 +1,6 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import {useEffect, useRef} from 'react';
 import {useRouter, useSearchParams} from 'next/navigation';
 import {MyReviewsGridLoading} from '@/features/reviews/my';
 import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/shared/shadcnComponent/ui/tabs';
@@ -25,26 +24,12 @@ export default function ReviewTabs() {
   const tabValue = searchParams.get('tabs') || 'my';
   const currentPage = Number(searchParams.get('page')) || 1;
 
-  const prevPageRef = useRef(currentPage);
-  const tabsRef = useRef<HTMLDivElement>(null);
-
   const handleTabChange = (value: string) => {
     router.push('/mypage?tabs=' + value, {scroll: false});
   };
 
-  useEffect(() => {
-    if (prevPageRef.current && prevPageRef.current !== currentPage) {
-      if (tabsRef.current) {
-        tabsRef.current.scrollIntoView({behavior: 'smooth'});
-      }
-    }
-
-    prevPageRef.current = currentPage;
-  }, [currentPage]);
-
   return (
     <Tabs
-      ref={tabsRef}
       value={tabValue}
       onValueChange={handleTabChange}
       defaultValue="my"
