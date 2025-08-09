@@ -9,43 +9,7 @@ const imageWrapperVariants = cva('w-[140px] h-[140px] overflow-hidden rounded-[3
   variants: {
     variant: {
       default: 'shadow-black',
-      my: 'lg:w-[160px] lg:h-[160px] shadow-extraboldBlue',
-    },
-  },
-  defaultVariants: {
-    variant: 'default',
-  },
-});
-
-const titleVariants = cva('mt-4 mb-2 px-3 line-clamp-1', {
-  variants: {
-    variant: {
-      default: '',
-      my: 'lg:text-lg',
-    },
-  },
-  defaultVariants: {
-    variant: 'default',
-  },
-});
-
-const previewVariants = cva('text-[13px] font-light line-clamp-2 px-5', {
-  variants: {
-    variant: {
-      default: 'md:line-clamp-2',
-      my: '2xl:line-clamp-3 lg:px-8',
-    },
-  },
-  defaultVariants: {
-    variant: 'default',
-  },
-});
-
-const authorVariants = cva('text-boldBlue text-sm', {
-  variants: {
-    variant: {
-      default: '',
-      my: 'lg:text-base',
+      my: 'shadow-gray-400',
     },
   },
   defaultVariants: {
@@ -79,13 +43,13 @@ export default function CardDescription({
             alt={`카드 이미지: ${title}`}
           />
         </div>
-        <h3 className={cn(titleVariants({variant}))}>{title}</h3>
+        <h3 className="mt-4 mb-2 px-3 line-clamp-1">{title}</h3>
         <div className="min-h-[30px]">
-          <p className={cn(previewVariants({variant}))}>{preview}</p>
+          <p className="text-[13px] font-light line-clamp-2 px-5">{preview}</p>
         </div>
       </div>
 
-      <p className={cn(authorVariants({variant}))}>{author_id}</p>
+      <p className="text-boldBlue text-sm">{author_id}</p>
 
       <div className="flex mb-5 gap-7 text-sm font-normal">
         <div className="flex gap-1 items-center">
