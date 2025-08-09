@@ -23,7 +23,7 @@ export default function UserInfo() {
       </div>
       <div className="flex flex-col items-center mt-3">
         {userId ? (
-          <p className="text-lg md:text-xl lg:text-2xl font-bold">{userId}</p>
+          <p className="text-xl lg:text-2xl font-bold">{userId}</p>
         ) : (
           <Skeleton className="h-5 md:h-6 lg:h-7 w-32 md:w-36 lg:w-40 mb-1 mt-2 md:mt-0" />
         )}
