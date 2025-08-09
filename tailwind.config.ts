@@ -96,6 +96,7 @@ export default {
       },
       animation: {
         'fade-up': 'fade-up 150ms ease-in-out',
+        'fade-in': 'fade-in 200ms ease-in',
       },
       keyframes: {
         'fade-up': {
@@ -106,6 +107,14 @@ export default {
           '100%': {
             opacity: '1',
             transform: 'translateY(0)',
+          },
+        },
+        'fade-in': {
+          '0%': {
+            opacity: '0',
+          },
+          '100%': {
+            opacity: '1',
           },
         },
       },
