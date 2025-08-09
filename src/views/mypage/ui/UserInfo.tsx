@@ -9,8 +9,8 @@ export default function UserInfo() {
   const userEmail = useUserEmail();
 
   return (
-    <section className="">
-      <div className="w-36 h-36 md:w-40 md:h-40 lg:w-48 lg:h-48 bg-white flex justify-center items-center rounded-full border-lightBlue border-[6px] overflow-hidden">
+    <section className="flex flex-col items-center mt-3 md:mt-5 lg:mt-8">
+      <div className="w-40 h-40 md:w-48 md:h-48 lg:w-52 lg:h-52 bg-white flex justify-center items-center rounded-full border-boldBlue border-[7px] overflow-hidden">
         <Image
           // TODO: 실제 사용자 프로필 이미지로 변경
           src="https://picsum.photos/200/200"
@@ -21,14 +21,14 @@ export default function UserInfo() {
           priority
         />
       </div>
-      <div className="">
+      <div className="flex flex-col items-center mt-3">
         {userId ? (
-          <p className="text-lg md:text-xl lg:text-2xl text-boldBlue font-semibold mb-1 md:mb-2">{userId}</p>
+          <p className="text-lg md:text-xl lg:text-2xl font-bold mb-1">{userId}</p>
         ) : (
           <Skeleton className="h-5 md:h-6 lg:h-7 w-32 md:w-36 lg:w-40 mb-3" />
         )}
         {userEmail ? (
-          <p className="text-sm md:text-base lg:text-lg text-boldBlue">{userEmail}</p>
+          <p className="text-sm md:text-base lg:text-lg font-semibold text-boldBlue">{userEmail}</p>
         ) : (
           <Skeleton className="h-4 md:h-5 lg:h-6 w-40 md:w-48 lg:w-52" />
         )}
