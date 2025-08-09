@@ -9,7 +9,7 @@ export default function UserInfo() {
   const userEmail = useUserEmail();
 
   return (
-    <section className="flex flex-col items-center mt-6 md:mt-8 lg:mt-10">
+    <section className="flex flex-col items-center mt-10 md:mt-8 lg:mt-10">
       <div className="w-36 h-36 md:w-40 md:h-40 lg:w-48 lg:h-48 bg-white flex justify-center items-center rounded-full border-boldBlue border-[7px] overflow-hidden">
         <Image
           // TODO: 실제 사용자 프로필 이미지로 변경
