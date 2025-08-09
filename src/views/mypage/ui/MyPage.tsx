@@ -6,7 +6,7 @@ export default async function MyPage() {
   await checkSession();
 
   return (
-    <section className="w-full max-w-6xl mx-auto">
+    <section className="w-full max-w-[1230px] mx-auto">
       <UserInfo />
       <ReviewTabs />
     </section>
