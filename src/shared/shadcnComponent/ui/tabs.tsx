@@ -5,12 +5,16 @@ import * as TabsPrimitive from '@radix-ui/react-tabs';
 
 import {cn} from '@/shared/lib/utils/cn';
 
-const Tabs = TabsPrimitive.Root;
+const tabsTriggerActiveAfterContent =
+  'data-[state=active]:after:absolute data-[state=active]:after:-top-1.5 md:data-[state=active]:after:-top-2 data-[state=active]:after:animate-fade-in data-[state=active]:after:w-[8px] md:data-[state=active]:after:w-[9px] data-[state=active]:after:h-[8px] md:data-[state=active]:after:h-[9px] data-[state=active]:after:rounded-full data-[state=active]:after:bg-boldBlue';
 
-const tabsTriggerDefaultStyle =
-  'inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1 lg:py-1.5 text-base md:text-lg lg:text-xl text-boldBlue font-medium border-2 border-mediumBlue focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 transition-all';
+const tabsTriggerBaseStyle =
+  'relative inline-flex w-[100px] md:w-[120px] lg:w-[140px] text-gray-400 mx-auto items-center justify-center whitespace-nowrap px-3 py-1 md:text-lg lg:text-xl font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border-b-[4px] border-white';
+
 const tabsTriggerActiveStyle =
-  'data-[state=active]:pb-4 md:data-[state=active]:pb-3.5 data-[state=inactive]:mb-2.5 md:data-[state=inactive]:mb-2 data-[state=active]:bg-lightBlue data-[state=active]:border-lightBlue data-[state=inactive]:hover:bg-lightBlue data-[state=inactive]:hover:text-boldBlue data-[state=inactive]:hover:border-lightBlue data-[state=inactive]:hover:border-lightBlue';
+  'data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:font-bold data-[state=active]:border-b-[3.5px] data-[state=active]:border-boldBlue';
+
+const Tabs = TabsPrimitive.Root;
 
 const TabsList = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.List>,
@@ -18,7 +22,10 @@ const TabsList = React.forwardRef<
 >(({className, ...props}, ref) => (
   <TabsPrimitive.List
     ref={ref}
-    className={cn('inline-flex h-9 items-center justify-center rounded-lg bg-white p-1', className)}
+    className={cn(
+      'inline-flex h-9 items-center justify-center rounded-lg bg-white p-1 text-muted-foreground',
+      className,
+    )}
     {...props}
   />
 ));
@@ -30,7 +37,7 @@ const TabsTrigger = React.forwardRef<
 >(({className, ...props}, ref) => (
   <TabsPrimitive.Trigger
     ref={ref}
-    className={cn(tabsTriggerDefaultStyle, tabsTriggerActiveStyle, className)}
+    className={cn(tabsTriggerBaseStyle, tabsTriggerActiveStyle, tabsTriggerActiveAfterContent, className)}
     {...props}
   />
 ));
@@ -42,10 +49,7 @@ const TabsContent = React.forwardRef<
 >(({className, ...props}, ref) => (
   <TabsPrimitive.Content
     ref={ref}
-    className={cn(
-      'mt-2.5 md:mt-3 lg:mt-4 mx-1 p-3 pt-10 md:pt-16 min-h-[45vh] rounded-b-md md:min-h-[58vh] ring-offset-background bg-lightBlue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
-      className,
-    )}
+    className={cn('mt-2 bg-gray-100 md:rounded-2xl pt-8 md:pt-10 lg:px-8', className)}
     {...props}
   />
 ));
