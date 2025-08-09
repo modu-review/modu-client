@@ -24,7 +24,6 @@ export default function MyBookmarkedReviews({currentPage}: Props) {
         totalPages={total_pages}
         generateUrl={(page: number) => `?tabs=myBookmarks&page=${page}`}
         className="bg-white px-1.5 md:px-5 py-1.5 rounded-md shadow-md mb-6 mt-8"
-        scrollToTop={false}
       />
     </section>
   );
