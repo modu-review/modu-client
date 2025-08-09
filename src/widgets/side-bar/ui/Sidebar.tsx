@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 import {usePathname} from 'next/navigation';
 import UserInfo from './UserInfo';
 import LoginRequiredPopover from './LoginRequiredPopover';
-import {LoginButtonLoading} from '@/features/auth';
+import {LoginButtonLoading, LogoutButton} from '@/features/auth';
 import {useIsLoggedIn} from '@/entities/auth';
 import {
   Sheet,
@@ -85,7 +85,7 @@ export default function Sidebar() {
       <SheetTrigger aria-label="사이드바 네비게이션 열기">
         <LucideIcon
           name="Menu"
-          className="w-6 h-6 md:w-7 md:h-7 xl:w-8 xl:h-8 hover:text-boldBlue md:hover:scale-105 transition-all"
+          className="w-6 h-6 md:w-7 md:h-7 hover:text-boldBlue md:hover:scale-105 transition-all"
         />
       </SheetTrigger>
       <SheetContent className="w-[300px] flex flex-col">
@@ -115,7 +115,16 @@ export default function Sidebar() {
             ),
           )}
         </nav>
-        <SheetFooter>{isLoggedIn ? <UserInfo /> : <LoginButton />}</SheetFooter>
+        <SheetFooter>
+          {isLoggedIn ? (
+            <section className="w-full flex items-center justify-between">
+              <UserInfo />
+              <LogoutButton />
+            </section>
+          ) : (
+            <LoginButton />
+          )}
+        </SheetFooter>
       </SheetContent>
     </Sheet>
   );
