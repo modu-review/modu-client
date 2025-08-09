@@ -24,7 +24,7 @@ export default function MyReviewCard({card, isAuthor, context, priority}: Props)
   };
 
   return (
-    <article className="relative bg-white rounded-[2rem] pt-4 w-[325px] h-[410px] md:w-[300px] md:h-[400px] lg:w-[310px] lg:h-[420px] xl:w-[330px] xl:h-[440px] shadow-md shadow-mediumBlue hover:translate-y-[-2px] hover:shadow-lg hover:shadow-boldBlue transition-all">
+    <article className="relative bg-white rounded-[2rem] pt-4 w-[325px] h-[410px] md:w-[300px] md:h-[400px] shadow-md shadow-gray-400 hover:translate-y-[-2px] hover:shadow-lg hover:shadow-gray-500 transition-all">
       {isPending && (
         <div className="absolute inset-0 bg-black/60 rounded-xl z-50">
           <LoadingSpinner text="리뷰를 삭제하고 있어요." className="text-white mt-3" textSize="text-xl" />
