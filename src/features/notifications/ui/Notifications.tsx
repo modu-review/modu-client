@@ -1,3 +1,9 @@
+import NotificationHeader from './NotificationHeader';
+
 export default function Notifications() {
-  return <section></section>;
+  return (
+    <section>
+      <NotificationHeader />
+    </section>
+  );
 }
