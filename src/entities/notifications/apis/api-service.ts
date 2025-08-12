@@ -19,3 +19,14 @@ export async function markNotificationAsRead(notificationId: number) {
     },
   });
 }
+
+export async function deleteNotification(notificationId: number) {
+  await requestPatch({
+    // TODO: 개발 완료 후 baseUrl 제거.
+    baseUrl: process.env.NEXT_PUBLIC_CLIENT_URL,
+    endpoint: `/api/users/me/notifications/${notificationId}`,
+    body: {
+      isDelete: true,
+    },
+  });
+}
