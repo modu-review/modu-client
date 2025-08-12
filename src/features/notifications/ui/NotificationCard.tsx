@@ -36,12 +36,12 @@ export default function NotificationCard({notification}: Props) {
     router.push(`/reviews/${board_id}`);
 
     if (!isRead) {
-      markNotificationAsRead({notificationId: id, boardId: board_id});
+      markNotificationAsRead(id);
     }
   };
 
   const handleDeleteNotification = () => {
-    deleteNotification({notificationId: id, boardId: board_id});
+    deleteNotification(id);
   };
 
   return (
