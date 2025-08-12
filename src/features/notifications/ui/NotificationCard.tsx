@@ -1,6 +1,6 @@
 'use client';
 
-import {Notification, useMarkNotificationAsRead} from '@/entities/notifications';
+import {Notification, useDeleteNotification, useMarkNotificationAsRead} from '@/entities/notifications';
 import {LucideIcon} from '@/shared/ui/icons';
 import {useRouter} from 'next/navigation';
 
@@ -29,7 +29,8 @@ export default function NotificationCard({notification}: Props) {
 
   const router = useRouter();
 
-  const {markNotificationAsRead} = useMarkNotificationAsRead();
+  const {markNotificationAsRead, isPending: isPendingMarkAsRead} = useMarkNotificationAsRead();
+  const {deleteNotification, isPending: isPendingDelete} = useDeleteNotification();
 
   const handleMarkAsRead = () => {
     if (isRead) {
@@ -39,12 +40,17 @@ export default function NotificationCard({notification}: Props) {
     }
   };
 
+  const handleDeleteNotification = () => {
+    deleteNotification({notificationId: id, boardId: board_id});
+  };
+
   return (
     <>
       <button
-        className={`w-full text-left flex items-center border-b-2 border-neutral-300 ${notification.isRead ? 'bg-gray-200' : 'bg-white'} py-5 px-3 md:px-5 pb-8 md:pb-6 hover:bg-gray-100 transition-colors cursor-pointer`}
+        className={`w-full text-left flex items-center border-b-2 border-neutral-300 ${notification.isRead ? 'bg-gray-200' : 'bg-white'} py-5 px-3 md:px-5 pb-8 md:pb-6 hover:bg-gray-100 transition-colors ${isPendingMarkAsRead ? 'opacity-50 cursor-default' : ''}`}
         onClick={handleMarkAsRead}
         aria-label={`${config.title} - ${config.getMessage(title)} 게시글로 이동`}
+        disabled={isPendingMarkAsRead || isPendingDelete}
       >
         <div className={`${config.bgColor} p-2 md:p-2 rounded-lg mr-3 md:mr-3`}>
           <LucideIcon name={config.icon} className="w-4 h-4 md:w-5 md:h-5 text-white" />
@@ -57,8 +63,12 @@ export default function NotificationCard({notification}: Props) {
           {created_at}
         </p>
       </button>
-      {/* TODO: 알림 삭제 기능 연결 */}
-      <button className="absolute top-2 md:inset-y-0 md:translate-y-[-4%] right-1 md:right-3">
+      <button
+        className="absolute top-2 md:inset-y-0 md:translate-y-[-4%] right-1 md:right-3"
+        onClick={handleDeleteNotification}
+        disabled={isPendingDelete || isPendingMarkAsRead}
+        aria-label={`${config.title} - ${config.getMessage(title)} 알림 삭제`}
+      >
         <LucideIcon name="X" className="w-5 h-5 md:w-5 md:h-5 text-gray-500 hover:text-gray-700" />
       </button>
     </>
