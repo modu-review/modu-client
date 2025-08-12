@@ -21,7 +21,7 @@ const NOTIFICATION_CONFIG = {
 } as const;
 
 export default function NotificationCard({notification}: Props) {
-  const {id, board_id, isRead, title, type} = notification;
+  const {id, board_id, isRead, title, created_at, type} = notification;
   const config = NOTIFICATION_CONFIG[type];
 
   return (
@@ -33,6 +33,7 @@ export default function NotificationCard({notification}: Props) {
         <p>{config.title}</p>
         <p>{config.getMessage(title)}</p>
       </div>
+      <p>{created_at}</p>
       {/* TODO: 알림 삭제 기능 연결 */}
       <button>
         <LucideIcon name="X" />

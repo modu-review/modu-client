@@ -5,6 +5,7 @@ export type Notification = {
   board_id: number;
   type: NotificationType;
   title: string;
+  created_at: string;
   isRead: boolean;
   isDelete: boolean;
 };
