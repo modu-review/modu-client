@@ -25,18 +25,18 @@ export default function NotificationCard({notification}: Props) {
   const config = NOTIFICATION_CONFIG[type];
 
   return (
-    <article>
+    <article className="flex items-center justify-between">
       <div className={`${config.bgColor} p-2 rounded-lg mr-1`}>
         <LucideIcon name={config.icon} className="w-5 h-5 text-white" />
       </div>
-      <div>
-        <p>{config.title}</p>
-        <p>{config.getMessage(title)}</p>
+      <div className="flex flex-col flex-[0.75]">
+        <p className="font-semibold">{config.title}</p>
+        <p className="text-sm text-muted-foreground">{config.getMessage(title)}</p>
       </div>
-      <p>{created_at}</p>
+      <p className="text-sm font-semibold flex-[0.2]">{created_at}</p>
       {/* TODO: 알림 삭제 기능 연결 */}
       <button>
-        <LucideIcon name="X" />
+        <LucideIcon name="X" className="w-5 h-5 text-gray-500 hover:text-gray-700" />
       </button>
     </article>
   );
