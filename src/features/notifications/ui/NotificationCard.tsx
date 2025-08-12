@@ -18,7 +18,7 @@ const NOTIFICATION_CONFIG = {
   bookmark: {
     icon: 'Bookmark' as const,
     bgColor: 'bg-black',
-    title: '누군가 당신의 게시글을 저장했어요.',
+    title: '누군가 게시글을 저장했어요.',
     getMessage: (title: string) => `'${title}' 게시글을 저장했어요!`,
   },
 } as const;
