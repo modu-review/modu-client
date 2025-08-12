@@ -9,8 +9,3 @@ export type Notification = {
   isRead: boolean;
   isDelete: boolean;
 };
-
-export type MutationVariables = {
-  notificationId: number;
-  boardId: number;
-};

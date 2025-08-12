@@ -1,14 +1,14 @@
 import {useMutation, useQueryClient} from '@tanstack/react-query';
 import {deleteNotification} from '../apis/api-service';
-import {MutationVariables, Notification} from './type';
+import {Notification} from './type';
 import {notificationsKeys} from './query-service';
 
 export function useDeleteNotification() {
   const queryClient = useQueryClient();
 
   const {mutate, ...rest} = useMutation({
-    mutationFn: ({notificationId}: MutationVariables) => deleteNotification(notificationId),
-    onMutate: async ({notificationId}) => {
+    mutationFn: (notificationId: number) => deleteNotification(notificationId),
+    onMutate: async notificationId => {
       await queryClient.cancelQueries({queryKey: notificationsKeys.all});
 
       const previousNotifications = queryClient.getQueryData<Notification[]>(notificationsKeys.all);
