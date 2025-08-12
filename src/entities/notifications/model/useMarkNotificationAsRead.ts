@@ -4,11 +4,7 @@ import {useRouter} from 'next/navigation';
 import {useMutation, useQueryClient} from '@tanstack/react-query';
 import {markNotificationAsRead} from '../apis/api-service';
 import {notificationsKeys} from './query-service';
-
-type MutationVariables = {
-  notificationId: number;
-  boardId: number;
-};
+import {MutationVariables} from './type';
 
 export function useMarkNotificationAsRead() {
   const queryClient = useQueryClient();
