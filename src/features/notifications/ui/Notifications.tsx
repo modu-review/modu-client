@@ -4,7 +4,7 @@ import NotificationList from './NotificationList';
 
 export default function Notifications() {
   return (
-    <section className=" h-full bg-gray-100 rounded-lg pt-7 md:px-8">
+    <section className="h-full bg-gray-100 rounded-lg pt-7 md:pt-10 md:px-8 shadow-md">
       <NotificationHeader />
       <Suspense fallback={<div>...loading</div>}>
         <NotificationList />
