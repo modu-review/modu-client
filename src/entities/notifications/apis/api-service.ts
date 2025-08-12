@@ -9,7 +9,7 @@ export async function getNotifications() {
   });
 }
 
-export async function markNotificationAsRead(notificationId: string) {
+export async function markNotificationAsRead(notificationId: number) {
   await requestPatch({
     // TODO: 개발 완료 후 baseUrl 제거.
     baseUrl: process.env.NEXT_PUBLIC_CLIENT_URL,
