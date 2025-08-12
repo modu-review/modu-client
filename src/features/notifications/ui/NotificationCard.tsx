@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import {Notification} from '@/entities/notifications';
 import {LucideIcon} from '@/shared/ui/icons';
 
@@ -25,21 +26,27 @@ export default function NotificationCard({notification}: Props) {
   const config = NOTIFICATION_CONFIG[type];
 
   return (
-    <article className="flex items-center justify-between relative pb-4 md:pb-0">
-      <div className={`${config.bgColor} p-2 md:p-2 rounded-lg mr-3 md:mr-1`}>
-        <LucideIcon name={config.icon} className="w-4 h-4 md:w-5 md:h-5 text-white" />
-      </div>
-      <div className="flex flex-col flex-1 md:flex-[0.75]">
-        <p className="font-semibold">{config.title}</p>
-        <p className="text-[13px] md:text-sm text-muted-foreground">{config.getMessage(title)}</p>
-      </div>
-      <p className="absolute right-1 -bottom-2 md:static text-[11px] md:text-sm font-semibold flex-[0.2] whitespace-nowrap">
-        {created_at}
-      </p>
+    <>
+      <Link href={`/reviews/${board_id}`}>
+        <article
+          className={`w-full flex items-center border-b-2 border-neutral-300 ${notification.isRead ? 'bg-gray-200' : 'bg-white'} py-5 px-3 md:px-5 pb-8 md:pb-6 hover:bg-gray-100 transition-colors`}
+        >
+          <div className={`${config.bgColor} p-2 md:p-2 rounded-lg mr-3 md:mr-3`}>
+            <LucideIcon name={config.icon} className="w-4 h-4 md:w-5 md:h-5 text-white" />
+          </div>
+          <div className="flex flex-col flex-1 md:flex-[0.75]">
+            <p className="font-semibold">{config.title}</p>
+            <p className="text-[13px] md:text-sm text-muted-foreground">{config.getMessage(title)}</p>
+          </div>
+          <p className="absolute right-3 bottom-2 md:static text-[12px] md:text-sm font-semibold flex-[0.2] whitespace-nowrap">
+            {created_at}
+          </p>
+        </article>
+      </Link>
       {/* TODO: 알림 삭제 기능 연결 */}
-      <button className="absolute md:static -top-1 right-0">
-        <LucideIcon name="X" className="w-4 h-4 md:w-5 md:h-5 text-gray-500 hover:text-gray-700" />
+      <button className="absolute top-2 md:inset-y-0 md:translate-y-[-4%] right-1 md:right-3">
+        <LucideIcon name="X" className="w-5 h-5 md:w-5 md:h-5 text-gray-500 hover:text-gray-700" />
       </button>
-    </article>
+    </>
   );
 }
