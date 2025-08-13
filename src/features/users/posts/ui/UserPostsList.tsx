@@ -6,6 +6,7 @@ import Image from 'next/image';
 import {SelectSortOptions, useSelectSortOption} from '@/features/reviews/sorting';
 import {LucideIcon} from '@/shared/ui/icons';
 import {CATEGORY_MAP} from '@/entities/review';
+import {UserPost} from '@/entities/users';
 
 type Props = {
   userId: string;
@@ -22,7 +23,7 @@ export default function UserPostsList({userId}: Props) {
             preview:
               '루미키 65 하우징 후기입니다. HMX Emo 스위치를 적용한 보드로, 타건감, 통울림, 흡음이 인상적이며...',
             created_at: '2025-08-12 08:00',
-            author: 'wldus4225',
+            author_id: 'wldus4225',
             category: '전체공개',
             image_url: '/images/sample.jpg',
             comments_count: 2,
@@ -38,7 +39,7 @@ export default function UserPostsList({userId}: Props) {
             preview:
               '루미키 65 하우징 후기입니다. HMX Emo 스위치를 적용한 보드로, 타건감, 통울림, 흡음이 인상적이며...',
             created_at: '2025-08-12 08:00',
-            author: 'wldus4225',
+            author_id_id: 'wldus4225',
             category: '전체공개',
             image_url: '/images/sample.jpg',
             comments_count: 2,
@@ -54,7 +55,7 @@ export default function UserPostsList({userId}: Props) {
             preview:
               '루미키 65 하우징 후기입니다. HMX Emo 스위치를 적용한 보드로, 타건감, 통울림, 흡음이 인상적이며...',
             created_at: '2025-08-12 08:00',
-            author: 'wldus4225',
+            author_id_id: 'wldus4225',
             category: '전체공개',
             image_url: '/images/sample.jpg',
             comments_count: 2,
@@ -70,7 +71,7 @@ export default function UserPostsList({userId}: Props) {
             preview:
               '루미키 65 하우징 후기입니다. HMX Emo 스위치를 적용한 보드로, 타건감, 통울림, 흡음이 인상적이며...',
             created_at: '2025-08-12 08:00',
-            author: 'wldus4225',
+            author_id_id: 'wldus4225',
             category: '전체공개',
             image_url: '/images/sample.jpg',
             comments_count: 2,
@@ -86,15 +87,18 @@ export default function UserPostsList({userId}: Props) {
             preview:
               '루미키 65 하우징 후기입니다. HMX Emo 스위치를 적용한 보드로, 타건감, 통울림, 흡음이 인상적이며...',
             created_at: '2025-08-12 08:00',
-            author: 'wldus4225',
+            author_id_id: 'wldus4225',
             category: '전체공개',
             image_url: '/images/sample.jpg',
-            comments_count: 2,
+            comments_count: 20,
             bookmarks: 3,
           },
         ],
       },
     ],
+    next_cursor: 2, // => 다음 커서 번호
+    has_next: true, // => 다음 데이터가 있는지
+    total_results: 23, // => 총 몇 개의 검색 결과가 있는지
   };
 
   const {sort, handleChange} = useSelectSortOption({
@@ -121,46 +125,7 @@ export default function UserPostsList({userId}: Props) {
 
             return (
               <li key={review.board_id} className="bg-slate-100 rounded-xl shadow p-6 md:p-6 flex gap-4 items-start">
-                {/* 썸네일 */}
-                <div className="flex-shrink-0 w-[100px] h-[100px] overflow-hidden rounded-md border mt-2 border-gray-300">
-                  <Image
-                    width={100}
-                    height={100}
-                    src={review.image_url}
-                    alt={`${review.title} 썸네일`}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-
-                {/* 콘텐츠 영역 */}
-                <div className="flex flex-col flex-1">
-                  {/* 제목 */}
-                  <div className="flex justify-between items-start">
-                    <h4 className="text-base md:text-lg font-semibold leading-tight">{review.title}</h4>
-                    <span className="text-xs font-bold text-white bg-mediumBlue px-4 py-2 rounded-xl shrink-0">
-                      {'전자제품'}
-                      {/* {CATEGORY_MAP[category]} // TODO: 실제카테고리가져오기 */}
-                    </span>
-                  </div>
-
-                  {/* 날짜 */}
-                  <p className="text-xs text-muted-foreground mt-1">{review.created_at}</p>
-
-                  {/* 내용 요약 */}
-                  <p className="text-sm mt-2 line-clamp-2">{review.preview}</p>
-
-                  {/* 하단 아이콘 영역 */}
-                  <div className="flex justify-start items-center gap-4 mt-4 text-sm">
-                    <div className="flex items-center gap-1">
-                      <LucideIcon name="MessageCircle" size={16} />
-                      {review.comments_count}
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <LucideIcon name="Bookmark" size={16} />
-                      {review.bookmarks}
-                    </div>
-                  </div>
-                </div>
+                <UserPost userReview={review} priorit={shouldPrioritize} />
               </li>
             );
           }),
