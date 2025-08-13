@@ -9,7 +9,7 @@ export default function UserInfo() {
   const userEmail = useUserEmail();
 
   return (
-    <section className="bg-slate-400 px-5 pt-10 pb-10 md:pb-14 lg:pb-20">
+    <section className="px-5 pt-10 pb-10 md:pb-14 lg:pb-20">
       <div className="flex items-start">
         <div className="w-36 h-36 md:w-40 md:h-40 lg:w-48 lg:h-48 bg-white flex justify-center items-center mr-4 rounded-full border-boldBlue border-[7px] overflow-hidden">
           <Image
@@ -24,7 +24,9 @@ export default function UserInfo() {
 
         <div className="flex flex-col justify-center mt-20">
           {userId ? (
-            <p className="text-xl lg:text-2xl font-bold mb-2">{userId}</p>
+            <p className="text-xl lg:text-2xl font-bold mb-2">
+              {userId} 님의 <span className=" text-3xl">프로필 </span>
+            </p>
           ) : (
             <Skeleton className="h-5 md:h-6 lg:h-7 w-32 md:w-36 lg:w-40 mb-1 mt-2 md:mt-0" />
           )}
