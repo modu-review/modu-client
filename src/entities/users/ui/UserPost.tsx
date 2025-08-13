@@ -1,6 +1,5 @@
 import {LucideIcon} from '@/shared/ui/icons';
 import Image from 'next/image';
-import {PostsByUserResult} from '../model/types';
 import {SearchReviewCard} from '@/entities/review';
 
 type Props = {
@@ -8,7 +7,7 @@ type Props = {
   priority: boolean;
 };
 export default function UserPost({
-  userReview: {author_id, board_id, bookmarks, category, comments_count, preview, created_at, image_url, title},
+  userReview: {bookmarks, category, comments_count, preview, created_at, image_url, title},
   priority,
 }: Props) {
   return (
@@ -21,6 +20,7 @@ export default function UserPost({
           src={image_url}
           alt={`${title} 썸네일`}
           className="w-full h-full object-cover"
+          priority={priority}
         />
       </div>
 
