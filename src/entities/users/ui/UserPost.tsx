@@ -12,7 +12,7 @@ export default function UserPost({
   priority,
 }: Props) {
   return (
-    <Link href={`/reviews/${board_id}`} className="flex">
+    <Link href={`/reviews/${board_id}`} className="flex w-full">
       {/* 썸네일 */}
       <div className="flex-shrink-0 w-[100px] h-[100px] overflow-hidden rounded-md border mt-2 mr-4 border-gray-300">
         <Image

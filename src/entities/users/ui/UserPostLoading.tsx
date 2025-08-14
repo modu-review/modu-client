@@ -2,20 +2,35 @@ import {Skeleton} from '@/shared/shadcnComponent/ui/skeleton';
 
 export default function UserPostLoading() {
   return (
-    <section className="flex flex-col-reverse md:flex-row md:justify-between rounded-md md:rounded-none overflow-hidden shadow-xl shadow-gray-500 md:shadow-none md:px-4 md: border-b-2 md:border-gray-400 md:pb-6 mb-6">
-      <div className="flex flex-col">
-        <div className="p-4 md:p-0 flex flex-col md:flex-1">
-          <Skeleton className="w-[220px] h-[22px] md:w-[250px] mb-1" />
-          <Skeleton className="w-[160px] h-[18px] mb-2" />
-          <Skeleton className="w-[140px] h-[18px] mb-3" />
-          <Skeleton className="w-full md:w-[350px] lg:w-[500px] h-[55px] md:h-[65px]" />
+    <li>
+      <div className="flex p-4 md:p-6 border border-gray-200 rounded-lg shadow-sm mb-4">
+        {/* 썸네일 이미지 Skeleton */}
+        <div className="flex-shrink-0 w-[100px] h-[100px] overflow-hidden rounded-md border mr-4">
+          <Skeleton className="w-full h-full" />
         </div>
-        <div className="flex gap-6 border-t md:border-none px-4 pt-4 md:p-0">
-          <Skeleton className="w-[50px] h-[25px] mb-3" />
-          <Skeleton className="w-[50px] h-[25px] mb-3" />
+
+        {/* 텍스트 콘텐츠 영역 */}
+        <div className="flex flex-col flex-1">
+          {/* 제목 + 카테고리 */}
+          <div className="flex justify-between items-start">
+            <Skeleton className="w-2/3 h-5 mb-2" />
+            <Skeleton className="w-[85px] h-6 rounded-xl" />
+          </div>
+
+          {/* 날짜 */}
+          <Skeleton className="w-[100px] h-3 mb-3" />
+
+          {/* 본문 요약 */}
+          <Skeleton className="w-full h-4 mb-1" />
+          <Skeleton className="w-3/4 h-4 mb-3" />
+
+          {/* 하단 아이콘 영역 */}
+          <div className="flex gap-6 mt-2">
+            <Skeleton className="w-[40px] h-[20px]" />
+            <Skeleton className="w-[40px] h-[20px]" />
+          </div>
         </div>
       </div>
-      <Skeleton className="w-full h-[300px] md:w-[200px] md:h-[200px]" />
-    </section>
+    </li>
   );
 }

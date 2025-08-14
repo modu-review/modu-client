@@ -69,16 +69,16 @@ export default function UserPostsList({userId}: Props) {
           }),
         )}
       </ul>
+
       {hasNextPage ? (
         <div className="w-full mt-6" ref={observerRef}>
-          {/* TODO:  ReviewArticleLoading skeleton ui 만들어서 변경해주기*/}
           {isFetchingNextPage && Array.from({length: 3}, (_, idx) => <UserPostLoading key={idx} />)}
         </div>
       ) : (
         data.pages.length > 1 && (
-          <div className="w-full flex flex-col justify-center items-center">
-            <p className="font-semibold text-lg md:text-xl mt-4 md:mt-3">더 이상 불러올 게시글이 없어요.</p>
-            <p className="text-muted-foreground mt-1">다른 카테고리를 클릭해 리뷰를 확인해보세요!</p>
+          <div className="w-full flex flex-col justify-center items-center my-20">
+            <p className="font-semibold text-lg md:text-xl mt-4 md:mt-3">- 끝 -</p>
+            <p className="text-muted-foreground mt-1">더 이상 불러올 게시글이 없어요.</p>
           </div>
         )
       )}
