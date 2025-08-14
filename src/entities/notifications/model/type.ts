@@ -7,5 +7,5 @@ export type Notification = {
   title: string;
   created_at: string;
   isRead: boolean;
-  isDelete: boolean;
+  isDeleted: boolean;
 };
