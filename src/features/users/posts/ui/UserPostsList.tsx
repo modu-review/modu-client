@@ -2,9 +2,10 @@
 
 import {useCallback} from 'react';
 import {NoSearchResults} from '@/entities/reviews';
-import {SelectSortOptions, useSelectSortOption} from '@/features/reviews/sorting';
+import {SelectSortOptions, SortButtons, useSelectSortOption} from '@/features/reviews/sorting';
 import {useGetPostsByUser, UserPost} from '@/entities/users';
 import UserPostLoading from '@/entities/users/ui/UserPostLoading';
+import {useMediaQuery} from '@/shared/hooks/useMediaQuery';
 
 type Props = {
   userId: string;
@@ -16,6 +17,8 @@ export default function UserPostsList({userId}: Props) {
       page: '1',
     },
   });
+
+  const isMobile = useMediaQuery('(max-width: 768px)');
 
   const {data, hasNextPage, fetchNextPage, isFetchingNextPage} = useGetPostsByUser(userId, sort);
 
@@ -49,11 +52,15 @@ export default function UserPostsList({userId}: Props) {
     <section className="px-4 md:px-6 lg:px-12">
       <header className="flex justify-between items-end mb-4">
         <h3 className="text-lg md:text-xl font-semibold">
-          전체 게시글 수 <span className="text-primary text-boldBlue font-bold"> ({data.pages[0].total_results})</span>
+          전체 게시글 수 <span className=" text-boldBlue font-extrabold"> ({data.pages[0].total_results})</span>
         </h3>
       </header>
-      <div>
-        <SelectSortOptions className="ml-auto mb-6 md:mr-5" sort={sort} onValueChange={handleChange} />
+      <div className="flex justify-end">
+        {isMobile ? (
+          <SelectSortOptions className="ml-auto mb-6 md:mr-5" sort={sort} onValueChange={handleChange} />
+        ) : (
+          <SortButtons className="ml-auto mb-6 md:mr-5" sort={sort} onValueChange={handleChange} />
+        )}
       </div>
 
       <ul className="space-y-6">
