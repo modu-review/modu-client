@@ -3,13 +3,13 @@ import {getPostsByUser} from '../apis/api-service';
 export const usersQueryKeys = {
   all: () => ['users'] as const,
 
-  reviews: (userId: string, sort: string) => [usersQueryKeys.all(), userId, sort] as const,
+  reviews: (userEmail: string, sort: string) => [usersQueryKeys.all(), userEmail, sort] as const,
 };
 
 export const usersQueryOptions = {
-  reviews: (userId: string, sort: string) => ({
-    queryKey: usersQueryKeys.reviews(userId, sort),
-    queryFn: ({pageParam}: {pageParam: number}) => getPostsByUser(pageParam, userId, sort),
+  reviews: (userEmail: string, sort: string) => ({
+    queryKey: usersQueryKeys.reviews(userEmail, sort),
+    queryFn: ({pageParam}: {pageParam: number}) => getPostsByUser(pageParam, userEmail, sort),
     initialPageParam: 0,
   }),
 };
