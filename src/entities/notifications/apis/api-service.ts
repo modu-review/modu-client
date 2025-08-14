@@ -1,8 +1,8 @@
-import {Notification} from '../model/type';
+import {Notifications} from '../model/type';
 import {requestGet, requestPatch} from '@/shared/apis';
 
 export async function getNotifications(page: number) {
-  return await requestGet<Notification[]>({
+  return await requestGet<Notifications>({
     // TODO: 개발 완료 후 baseUrl 제거.
     baseUrl: process.env.NEXT_PUBLIC_CLIENT_URL,
     endpoint: '/api/users/me/notifications',
@@ -29,7 +29,7 @@ export async function deleteNotification(notificationId: number) {
     baseUrl: process.env.NEXT_PUBLIC_CLIENT_URL,
     endpoint: `/api/users/me/notifications/${notificationId}`,
     body: {
-      isDelete: true,
+      isDeleted: true,
     },
   });
 }

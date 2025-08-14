@@ -9,3 +9,9 @@ export type Notification = {
   isRead: boolean;
   isDeleted: boolean;
 };
+
+export type Notifications = {
+  results: Notification[];
+  current_page: number;
+  total_pages: number;
+};
