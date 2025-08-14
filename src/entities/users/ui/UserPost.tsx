@@ -1,6 +1,6 @@
 import {LucideIcon} from '@/shared/ui/icons';
 import Image from 'next/image';
-import {SearchReviewCard} from '@/entities/review';
+import {CATEGORY_MAP, SearchReviewCard} from '@/entities/review';
 
 type Props = {
   userReview: SearchReviewCard;
@@ -30,8 +30,7 @@ export default function UserPost({
         <div className="flex justify-between items-start">
           <h4 className="text-base md:text-lg font-semibold leading-tight">{title}</h4>
           <span className="text-xs font-bold text-white bg-mediumBlue px-4 py-2 rounded-xl shrink-0">
-            {'전자제품'}
-            {/* {CATEGORY_MAP[category]} // TODO: 실제카테고리가져오기 */}
+            {CATEGORY_MAP[category]}
           </span>
         </div>
 

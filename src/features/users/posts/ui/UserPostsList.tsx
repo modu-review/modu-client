@@ -3,111 +3,21 @@
 import {useCallback} from 'react';
 import {NoSearchResults} from '@/entities/reviews';
 import {SelectSortOptions, useSelectSortOption} from '@/features/reviews/sorting';
-import {CATEGORY_MAP} from '@/entities/review';
 import {useGetPostsByUser, UserPost} from '@/entities/users';
 import UserPostLoading from '@/entities/users/ui/UserPostLoading';
 
 type Props = {
-  userEmail: string;
+  userId: string;
 };
 
-export default function UserPostsList({userEmail}: Props) {
-  // const data = {
-  //   pages: [
-  //     {
-  //       results: [
-  //         {
-  //           board_id: 1,
-  //           title: '루미키 65배열 크림 하우징 후기',
-  //           preview:
-  //             '루미키 65 하우징 후기입니다. HMX Emo 스위치를 적용한 보드로, 타건감, 통울림, 흡음이 인상적이며...',
-  //           created_at: '2025-08-12 08:00',
-  //           author_id: 'wldus4225',
-  //           category: '전체공개',
-  //           image_url: '/images/sample.jpg',
-  //           comments_count: 2,
-  //           bookmarks: 3,
-  //         },
-  //       ],
-  //     },
-  //     {
-  //       results: [
-  //         {
-  //           board_id: 1,
-  //           title: '루미키 65배열 크림 하우징 후기',
-  //           preview:
-  //             '루미키 65 하우징 후기입니다. HMX Emo 스위치를 적용한 보드로, 타건감, 통울림, 흡음이 인상적이며...',
-  //           created_at: '2025-08-12 08:00',
-  //           author_id_id: 'wldus4225',
-  //           category: '전체공개',
-  //           image_url: '/images/sample.jpg',
-  //           comments_count: 2,
-  //           bookmarks: 3,
-  //         },
-  //       ],
-  //     },
-  //     {
-  //       results: [
-  //         {
-  //           board_id: 1,
-  //           title: '루미키 65배열 크림 하우징 후기',
-  //           preview:
-  //             '루미키 65 하우징 후기입니다. HMX Emo 스위치를 적용한 보드로, 타건감, 통울림, 흡음이 인상적이며...',
-  //           created_at: '2025-08-12 08:00',
-  //           author_id_id: 'wldus4225',
-  //           category: '전체공개',
-  //           image_url: '/images/sample.jpg',
-  //           comments_count: 2,
-  //           bookmarks: 3,
-  //         },
-  //       ],
-  //     },
-  //     {
-  //       results: [
-  //         {
-  //           board_id: 1,
-  //           title: '루미키 65배열 크림 하우징 후기',
-  //           preview:
-  //             '루미키 65 하우징 후기입니다. HMX Emo 스위치를 적용한 보드로, 타건감, 통울림, 흡음이 인상적이며...',
-  //           created_at: '2025-08-12 08:00',
-  //           author_id_id: 'wldus4225',
-  //           category: '전체공개',
-  //           image_url: '/images/sample.jpg',
-  //           comments_count: 2,
-  //           bookmarks: 3,
-  //         },
-  //       ],
-  //     },
-  //     {
-  //       results: [
-  //         {
-  //           board_id: 1,
-  //           title: '루미키 65배열 크림 하우징 후기',
-  //           preview:
-  //             '루미키 65 하우징 후기입니다. HMX Emo 스위치를 적용한 보드로, 타건감, 통울림, 흡음이 인상적이며...',
-  //           created_at: '2025-08-12 08:00',
-  //           author_id_id: 'wldus4225',
-  //           category: '전체공개',
-  //           image_url: '/images/sample.jpg',
-  //           comments_count: 20,
-  //           bookmarks: 3,
-  //         },
-  //       ],
-  //     },
-  //   ],
-  //   next_cursor: 2, // => 다음 커서 번호
-  //   has_next: true, // => 다음 데이터가 있는지
-  //   total_results: 23, // => 총 몇 개의 검색 결과가 있는지
-  // };
-
+export default function UserPostsList({userId}: Props) {
   const {sort, handleChange} = useSelectSortOption({
     options: {
       page: '1',
     },
   });
 
-  const {data, hasNextPage, fetchNextPage, isFetchingNextPage} = useGetPostsByUser(userEmail);
-  console.log(data);
+  const {data, hasNextPage, fetchNextPage, isFetchingNextPage} = useGetPostsByUser(userId, sort);
 
   const observerRef = useCallback(
     (node: HTMLDivElement | null) => {
@@ -129,7 +39,7 @@ export default function UserPostsList({userEmail}: Props) {
   if (data.pages[0].results.length === 0) {
     return (
       <NoSearchResults
-        title={`아직 ${userEmail}님의 게시글이 등록되지 않았어요.`}
+        title={`아직 ${userId}님의 게시글이 등록되지 않았어요.`}
         description="다른 사용자들의 게시글을 클릭해 리뷰를 확인해보세요!"
       />
     );
@@ -139,7 +49,7 @@ export default function UserPostsList({userEmail}: Props) {
     <section className="px-4 md:px-6 lg:px-12">
       <header className="flex justify-between items-end mb-4">
         <h3 className="text-lg md:text-xl font-semibold">
-          전체 게시글 수 <span className="text-primary text-boldBlue font-bold"> {data.pages[0].total_results}</span>
+          전체 게시글 수 <span className="text-primary text-boldBlue font-bold"> ({data.pages[0].total_results})</span>
         </h3>
       </header>
       <div>
