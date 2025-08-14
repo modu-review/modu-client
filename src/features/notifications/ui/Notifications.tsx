@@ -1,7 +1,14 @@
+'use client';
+
 import {Suspense} from 'react';
+import dynamic from 'next/dynamic';
 import NotificationHeader from './NotificationHeader';
-import NotificationList from './NotificationList';
 import NotificationListLoading from './NotificationListLoading';
+
+const NotificationList = dynamic(() => import('./NotificationList'), {
+  ssr: false,
+  loading: () => <NotificationListLoading />,
+});
 
 export default function Notifications() {
   return (
