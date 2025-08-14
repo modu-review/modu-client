@@ -1,5 +1,6 @@
 import {CATEGORY_MAP, ReviewContent} from '@/entities/review';
 import {Badge} from '@/shared/ui/components';
+import Link from 'next/link';
 
 export default function Viewer({title, category, author_id, created_at, content}: ReviewContent) {
   return (
@@ -10,7 +11,7 @@ export default function Viewer({title, category, author_id, created_at, content}
         <div className="flex items-center gap-2 ml-0.5 mt-2">
           <div className="flex items-center gap-2">
             <div className="w-[35px] h-[35px] bg-gray-400 rounded-full" />
-            <p>{author_id}</p>
+            <Link href={`/users/${author_id}`}>{author_id}</Link>
           </div>
           <p className="text-gray-500">{created_at}</p>
         </div>

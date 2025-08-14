@@ -1,19 +1,20 @@
 import {LucideIcon} from '@/shared/ui/icons';
 import Image from 'next/image';
 import {CATEGORY_MAP, SearchReviewCard} from '@/entities/review';
+import Link from 'next/link';
 
 type Props = {
   userReview: SearchReviewCard;
   priority: boolean;
 };
 export default function UserPost({
-  userReview: {bookmarks, category, comments_count, preview, created_at, image_url, title},
+  userReview: {board_id, bookmarks, category, comments_count, preview, created_at, image_url, title},
   priority,
 }: Props) {
   return (
-    <>
+    <Link href={`/reviews/${board_id}`} className="flex">
       {/* 썸네일 */}
-      <div className="flex-shrink-0 w-[100px] h-[100px] overflow-hidden rounded-md border mt-2 border-gray-300">
+      <div className="flex-shrink-0 w-[100px] h-[100px] overflow-hidden rounded-md border mt-2 mr-4 border-gray-300">
         <Image
           width={100}
           height={100}
@@ -29,7 +30,7 @@ export default function UserPost({
         {/* 제목 */}
         <div className="flex justify-between items-start">
           <h4 className="text-base md:text-lg font-semibold leading-tight">{title}</h4>
-          <span className="text-xs font-bold text-white bg-mediumBlue px-4 py-2 rounded-xl shrink-0">
+          <span className="text-xs font-bold text-white bg-mediumBlue w-[85px] py-2 text-center rounded-xl shrink-0">
             {CATEGORY_MAP[category]}
           </span>
         </div>
@@ -52,6 +53,6 @@ export default function UserPost({
           </div>
         </div>
       </div>
-    </>
+    </Link>
   );
 }

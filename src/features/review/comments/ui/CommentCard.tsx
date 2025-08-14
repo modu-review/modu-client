@@ -1,6 +1,7 @@
 import {Comment, useDeleteReviewComment} from '@/entities/review';
 import {Avatar} from '@/shared/ui/components';
 import {ConfirmDeleteTrigger} from '@/shared/ui/modal';
+import Link from 'next/link';
 
 type Props = {
   comment: Comment;
@@ -31,7 +32,9 @@ export default function CommentCard({comment, userEmail, reviewId}: Props) {
         <Avatar src={profile_image} alt={`${author_id}님의 프로필 이미지`} />
         <article className="w-full flex flex-col">
           <div className="flex items-center gap-2 mb-1">
-            <span className="text-sm md:text-base font-semibold">{author_id}</span>
+            <Link href={`/users/${author_id}`} className="text-sm md:text-base font-semibold">
+              {author_id}
+            </Link>
             <time className="text-xs md:text-sm text-gray-500" dateTime={created_at}>
               ({created_at})
             </time>
