@@ -6,6 +6,7 @@ import {useRouter} from 'next/navigation';
 
 type Props = {
   notification: Notification;
+  page: number;
 };
 
 const NOTIFICATION_CONFIG = {
@@ -23,7 +24,7 @@ const NOTIFICATION_CONFIG = {
   },
 } as const;
 
-export default function NotificationCard({notification}: Props) {
+export default function NotificationCard({notification, page}: Props) {
   const {id, board_id, isRead, title, created_at, type} = notification;
   const config = NOTIFICATION_CONFIG[type];
 
@@ -41,7 +42,7 @@ export default function NotificationCard({notification}: Props) {
   };
 
   const handleDeleteNotification = () => {
-    deleteNotification(id);
+    deleteNotification({notificationId: id, page});
   };
 
   return (
