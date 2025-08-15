@@ -5,7 +5,6 @@ import {NoSearchResults} from '@/entities/reviews';
 import {SelectSortOptions, SortButtons, useSelectSortOption} from '@/features/reviews/sorting';
 import {useGetPostsByUser, UserPost} from '@/entities/users';
 import UserPostLoading from '@/entities/users/ui/UserPostLoading';
-import {useMediaQuery} from '@/shared/hooks/useMediaQuery';
 
 type Props = {
   userId: string;
@@ -17,8 +16,6 @@ export default function UserPostsList({userId}: Props) {
       page: '1',
     },
   });
-
-  const isMobile = useMediaQuery('(max-width: 768px)');
 
   const {data, hasNextPage, fetchNextPage, isFetchingNextPage} = useGetPostsByUser(userId, sort);
 
@@ -56,11 +53,11 @@ export default function UserPostsList({userId}: Props) {
         </h3>
       </header>
       <div className="flex justify-end">
-        {isMobile ? (
-          <SelectSortOptions className="ml-auto mb-6 md:mr-5" sort={sort} onValueChange={handleChange} />
-        ) : (
-          <SortButtons className="ml-auto mb-6 md:mr-5" sort={sort} onValueChange={handleChange} />
-        )}
+        <div className="block md:hidden">
+          <SelectSortOptions className="ml-auto mb-6 md:mr-5 " sort={sort} onValueChange={handleChange} />
+        </div>
+
+        <SortButtons className="ml-auto mb-6 md:mr-5 hidden md:flex" sort={sort} onValueChange={handleChange} />
       </div>
 
       <ul className="space-y-6">
