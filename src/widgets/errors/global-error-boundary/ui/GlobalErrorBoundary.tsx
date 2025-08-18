@@ -1,9 +1,9 @@
 'use client';
 
 import {useEffect} from 'react';
-import {captureException, withScope} from '@sentry/nextjs';
 import {Button} from '@/shared/shadcnComponent/ui/button';
 import {LucideIcon} from '@/shared/ui/icons';
+import {reportErrorToSentry} from '@/shared/lib/utils/reportErrorToSentry';
 
 type Props = {
   error: Error & {digest?: string};
@@ -11,12 +11,7 @@ type Props = {
 
 function GlobalErrorBoundary({error}: Props) {
   useEffect(() => {
-    withScope(scope => {
-      scope.setLevel('fatal');
-      scope.setTag('error_type', 'Rendering - UnPredictableError');
-
-      captureException(error);
-    });
+    reportErrorToSentry({level: 'fatal', error, type: 'Rendering'});
   }, [error]);
 
   return (

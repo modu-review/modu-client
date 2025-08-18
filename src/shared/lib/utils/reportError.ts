@@ -11,6 +11,6 @@ export function reportError(error: RequestError | ClientError) {
 
   // 500번대 에러는 예측 불가능한 에러로 센트리에 fatal 레벨로 보고해 즉시 슬랙으로 알림
   if (error.status >= 500 && error.status < 600) {
-    reportErrorToSentry({level: 'fatal', error});
+    reportErrorToSentry({level: 'fatal', error, type: 'API'});
   }
 }
