@@ -1,18 +1,22 @@
 'use client';
 
 import {useEffect} from 'react';
-import {captureException} from '@sentry/nextjs';
+import {captureException, withScope} from '@sentry/nextjs';
 import {Button} from '@/shared/shadcnComponent/ui/button';
 import {LucideIcon} from '@/shared/ui/icons';
 
 type Props = {
   error: Error & {digest?: string};
-  resetErrorBoundary: () => void;
 };
 
-function GlobalErrorBoundary({error, resetErrorBoundary}: Props) {
+function GlobalErrorBoundary({error}: Props) {
   useEffect(() => {
-    captureException(error);
+    withScope(scope => {
+      scope.setLevel('fatal');
+      scope.setTag('error_type', 'Rendering - UnPredictableError');
+
+      captureException(error);
+    });
   }, [error]);
 
   return (
@@ -25,7 +29,7 @@ function GlobalErrorBoundary({error, resetErrorBoundary}: Props) {
         <p>인터넷 연결 상태 확인 후 다시 시도해주세요.</p>
         <p>아래 버튼을 클릭해 새로고침할 수 있어요.</p>
       </div>
-      <Button className="px-6" onClick={resetErrorBoundary}>
+      <Button className="px-6" onClick={() => window.location.reload()}>
         새로고침
       </Button>
     </section>

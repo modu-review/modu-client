@@ -9,6 +9,7 @@ type ReportErrorToSentry = {
 export function reportErrorToSentry({level = 'error', error}: ReportErrorToSentry) {
   withScope(scope => {
     scope.setLevel(level);
+    scope.setTag('error_type', 'API - RequestError');
 
     const {name, message, endpoint, status, requestBody, method} = error;
     scope.setTags({
