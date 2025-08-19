@@ -43,9 +43,6 @@ Sentry.init({
 
   // 성능 최적화 설정
   maxBreadcrumbs: 50, // 기본 100에서 축소
-  maxValueLength: 1000, // 긴 값 자르기
-  normalizeDepth: 5, // 객체 깊이 제한
-  normalizeMaxBreadth: 1000, // 객체 속성 개수 제한
 
   integrations: [
     Sentry.replayIntegration({
