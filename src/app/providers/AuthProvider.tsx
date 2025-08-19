@@ -12,16 +12,14 @@ export default function AuthProvider({children}: Props) {
   const updateUser = useUpdateUser();
 
   useEffect(() => {
-    if (session && session.isLoggedIn) {
+    if (session && session.isLoggedIn && session.userNickname) {
       updateUser({
-        userId: session.userId,
-        userEmail: session.userEmail,
+        userNickname: decodeURIComponent(session.userNickname),
         isLoggedIn: true,
       });
     } else {
       updateUser({
-        userId: null,
-        userEmail: null,
+        userNickname: null,
         isLoggedIn: false,
       });
     }
