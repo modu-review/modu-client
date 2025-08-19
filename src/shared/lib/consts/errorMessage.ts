@@ -3,6 +3,7 @@ type ErrorMessage = Record<string, string>;
 export const SERVER_ERROR_MESSAGE: ErrorMessage = {
   // OAuth2 로그인 에러 - Next.js API Routes
   EMPTY_USER_EMAIL: '이메일 정보를 찾을 수 없어 로그아웃 됐어요. 다시 로그인해주세요.',
+  EMPTY_USER_NICKNAME: '닉네임 정보를 찾을 수 없어 로그아웃 됐어요. 다시 로그인해주세요.',
 
   // 슬랙 메세지 전송 에러
   SLACK_MESSAGE_SEND_ERROR: '슬랙 메세지 전송에 실패했어요. 다시 시도해주세요.',
