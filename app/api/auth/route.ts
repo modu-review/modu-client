@@ -7,25 +7,22 @@ export async function GET() {
   if (!cookieStore.has('refreshToken')) {
     return NextResponse.json({
       isLoggedIn: false,
-      userEmail: null,
-      userId: null,
+      userNickname: null,
     });
   }
 
-  const userEmailCookie = cookieStore.get('userEmail');
+  const userNicknameCookie = cookieStore.get('userNickname');
 
-  if (!userEmailCookie) {
-    return NextResponse.json({errorCode: 'EMPTY_USER_EMAIL'}, {status: 400});
+  if (!userNicknameCookie) {
+    return NextResponse.json({errorCode: 'EMPTY_USER_NICKNAME'}, {status: 400});
   }
 
-  const userEmail = userEmailCookie.value;
-  const userId = userEmail.split('@')[0];
+  const userNickname = userNicknameCookie.value;
 
   return NextResponse.json(
     {
       isLoggedIn: true,
-      userEmail,
-      userId,
+      userNickname,
     },
     {status: 200},
   );
