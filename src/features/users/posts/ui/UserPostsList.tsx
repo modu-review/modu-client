@@ -7,17 +7,17 @@ import {useGetPostsByUser, UserPost} from '@/entities/users';
 import UserPostLoading from '@/entities/users/ui/UserPostLoading';
 
 type Props = {
-  userId: string;
+  userNickname: string;
 };
 
-export default function UserPostsList({userId}: Props) {
+export default function UserPostsList({userNickname}: Props) {
   const {sort, handleChange} = useSelectSortOption({
     options: {
       page: '1',
     },
   });
 
-  const {data, hasNextPage, fetchNextPage, isFetchingNextPage} = useGetPostsByUser(userId, sort);
+  const {data, hasNextPage, fetchNextPage, isFetchingNextPage} = useGetPostsByUser(userNickname, sort);
 
   const observerRef = useCallback(
     (node: HTMLDivElement | null) => {
@@ -39,7 +39,7 @@ export default function UserPostsList({userId}: Props) {
   if (data.pages[0].results.length === 0) {
     return (
       <NoSearchResults
-        title={`아직 ${userId}님의 게시글이 등록되지 않았어요.`}
+        title={`아직 ${userNickname}님의 게시글이 등록되지 않았어요.`}
         description="다른 사용자들의 게시글을 클릭해 리뷰를 확인해보세요!"
       />
     );
