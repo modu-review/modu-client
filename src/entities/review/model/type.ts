@@ -5,8 +5,7 @@ export type Category = (typeof CATEGORY_LIST)[number]['value'];
 export type ReviewCard = {
   board_id: number;
   title: string;
-  author_id: string;
-  author_email: string;
+  author_nickname: string;
   category: Category;
   preview: string;
   comments_count: number;
@@ -21,8 +20,7 @@ export type SearchReviewCard = ReviewCard & {
 export type ReviewContent = {
   title: string;
   category: Category;
-  author_id: string;
-  author_email: string;
+  author_nickname: string;
   created_at: string;
   content: string;
 };
@@ -30,8 +28,7 @@ export type ReviewContent = {
 export type Comment = {
   id: number;
   profile_image: string;
-  author_id: string;
-  author_email: string;
+  author_nickname: string;
   content: string;
   created_at: string;
 };
@@ -40,8 +37,7 @@ export type ReviewDetail = {
   board_id: number;
   title: string;
   category: Category;
-  author_id: string;
-  author_email: string;
+  author_nickname: string;
   created_at: string;
   content: string;
   bookmarks: number;
@@ -62,24 +58,20 @@ export type ReviewComments = {
 export type ReviewPayload = {
   title: string;
   category: Category;
-  authorEmail: string;
   content: string;
 };
 
 export type BookmarkPayload = {
-  userEmail: string;
   reviewId: number;
 };
 
 export type CommentPayload = {
-  userEmail: string;
   category: Category;
   reviewId: number;
   content: string;
 };
 
 export type DeleteCommentPayload = {
-  userEmail: string;
   commentId: number;
   reviewId: number;
 };
