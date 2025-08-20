@@ -1,7 +1,7 @@
 import CommentCard from './CommentCard';
 import Pagination from '@/widgets/pagination';
 import {Comment} from '@/entities/review';
-import {useUserNickname} from '@/entities/auth/model/authStore';
+import {useUserNickname} from '@/entities/auth';
 
 type Props = {
   comments: Comment[];

@@ -1,6 +1,6 @@
 'use client';
 
-import {useUserNickname} from '@/entities/auth/model/authStore';
+import {useUserNickname} from '@/entities/auth';
 import {Category, usePostReviewComment} from '@/entities/review';
 import {Textarea} from '@/shared/shadcnComponent/ui/textarea';
 import {useRef} from 'react';
