@@ -5,7 +5,7 @@ import {RequestError} from '@/shared/apis/request-error';
 
 export function reportError(error: RequestError | ClientError) {
   // 개발 완료 후 주석 해제.
-  //   if (isDevelopment) return;
+  if (isDevelopment) return;
 
   if (error instanceof ClientError) return;
 
