@@ -66,6 +66,7 @@ export type BookmarkPayload = {
 };
 
 export type CommentPayload = {
+  userNickname: string;
   category: Category;
   reviewId: number;
   content: string;

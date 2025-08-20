@@ -153,7 +153,7 @@ export async function getReviewComments(reviewId: number, page: number) {
   });
 }
 
-export async function postReviewComment({reviewId, category, content}: CommentPayload) {
+export async function postReviewComment({reviewId, category, content}: Omit<CommentPayload, 'userNickname'>) {
   return requestPost({
     baseUrl: process.env.NEXT_PUBLIC_API_URL,
     endpoint: `/reviews/${reviewId}/comments`,

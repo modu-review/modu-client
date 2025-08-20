@@ -8,8 +8,7 @@ export default function useDeleteReviewComment() {
   const queryClient = useQueryClient();
 
   const {mutate, ...rest} = useMutation({
-    mutationFn: ({userEmail, commentId, reviewId}: DeleteCommentPayload) =>
-      deleteReviewComment({userEmail, commentId, reviewId}),
+    mutationFn: ({commentId, reviewId}: DeleteCommentPayload) => deleteReviewComment({commentId, reviewId}),
     onSuccess: (_data, {reviewId}) => {
       toast.success({
         title: '댓글을 성공적으로 삭제했어요.',
