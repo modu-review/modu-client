@@ -24,7 +24,7 @@ type Props = {
 };
 
 export default function CardDescription({
-  card: {category, image_url, title, preview, author_id, comments_count, bookmarks},
+  card: {category, image_url, title, preview, author_nickname, comments_count, bookmarks},
   priority,
   variant = 'default',
 }: Props) {
@@ -49,7 +49,7 @@ export default function CardDescription({
         </div>
       </div>
 
-      <p className="text-boldBlue text-sm">{author_id}</p>
+      <p className="text-boldBlue text-sm">{author_nickname}</p>
 
       <div className="flex mb-5 gap-7 text-sm font-normal">
         <div className="flex gap-1 items-center">
