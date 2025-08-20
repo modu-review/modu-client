@@ -11,11 +11,11 @@ export default function useToggleBookmark() {
   const queryClient = useQueryClient();
 
   const {mutate, ...rest} = useMutation({
-    mutationFn: ({userEmail, reviewId, hasBookmarked}: MutationVariables) => {
+    mutationFn: ({reviewId, hasBookmarked}: MutationVariables) => {
       if (hasBookmarked) {
-        return unBookmarkReview({userEmail, reviewId});
+        return unBookmarkReview({reviewId});
       } else {
-        return bookmarkReview({userEmail, reviewId});
+        return bookmarkReview({reviewId});
       }
     },
     onMutate: async ({reviewId}) => {

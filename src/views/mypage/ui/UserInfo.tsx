@@ -1,12 +1,11 @@
 'use client';
 
 import Image from 'next/image';
-import {useUserEmail, useUserId} from '@/entities/auth';
+import {useUserNickname} from '@/entities/auth';
 import {Skeleton} from '@/shared/shadcnComponent/ui/skeleton';
 
 export default function UserInfo() {
-  const userId = useUserId();
-  const userEmail = useUserEmail();
+  const userNickname = useUserNickname();
 
   return (
     <section className="flex flex-col items-center mt-10 md:mt-8 lg:mt-10">
@@ -14,7 +13,7 @@ export default function UserInfo() {
         <Image
           // TODO: 실제 사용자 프로필 이미지로 변경
           src="https://picsum.photos/seed/ee2/200/200"
-          alt={`${userId} 프로필 사진`}
+          alt={`${userNickname} 프로필 사진`}
           width={160}
           height={160}
           className="w-full h-full object-cover"
@@ -22,15 +21,10 @@ export default function UserInfo() {
         />
       </div>
       <div className="flex flex-col items-center mt-3">
-        {userId ? (
-          <p className="text-xl lg:text-2xl font-bold">{userId}</p>
+        {userNickname ? (
+          <p className="text-xl lg:text-2xl font-bold">{userNickname}</p>
         ) : (
           <Skeleton className="h-5 md:h-6 lg:h-7 w-32 md:w-36 lg:w-40 mb-1 mt-2 md:mt-0" />
-        )}
-        {userEmail ? (
-          <p className="text-sm md:text-base font-semibold text-boldBlue">{userEmail}</p>
-        ) : (
-          <Skeleton className="h-4 md:h-5 lg:h-6 w-40 md:w-48 lg:w-52" />
         )}
       </div>
     </section>
