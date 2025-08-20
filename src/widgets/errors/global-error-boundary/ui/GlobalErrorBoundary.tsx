@@ -1,9 +1,19 @@
 'use client';
 
+import {useEffect} from 'react';
 import {Button} from '@/shared/shadcnComponent/ui/button';
 import {LucideIcon} from '@/shared/ui/icons';
+import {reportErrorToSentry} from '@/shared/lib/utils/reportErrorToSentry';
 
-function GlobalErrorBoundary() {
+type Props = {
+  error: Error & {digest?: string};
+};
+
+function GlobalErrorBoundary({error}: Props) {
+  useEffect(() => {
+    reportErrorToSentry({level: 'fatal', error, type: 'Rendering'});
+  }, [error]);
+
   return (
     <section className="h-full flex flex-col items-center justify-center text-center gap-4">
       <div>
