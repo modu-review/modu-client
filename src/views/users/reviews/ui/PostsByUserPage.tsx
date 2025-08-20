@@ -8,12 +8,12 @@ type Props = {
 };
 export default async function PostsByUserPage({params}: Props) {
   const {userNickname} = await params;
-
+  const decodedUserNickname = decodeURIComponent(userNickname);
   return (
     <section className="w-full max-w-[1230px] mx-auto">
-      <UserInfo userNickname={userNickname} />
+      <UserInfo userNickname={decodedUserNickname} />
       <Suspense fallback={<UserPostLoading />}>
-        <UserPostsList userNickname={userNickname} />
+        <UserPostsList userNickname={decodedUserNickname} />
       </Suspense>
     </section>
   );
