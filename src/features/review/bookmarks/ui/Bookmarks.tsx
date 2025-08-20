@@ -1,6 +1,6 @@
 'use client';
 
-import {useUserEmail} from '@/entities/auth';
+import {useIsLoggedIn} from '@/entities/auth';
 import {useGetReviewBookmarks, useToggleBookmark} from '@/entities/review';
 import {LucideIcon} from '@/shared/ui/icons';
 
@@ -14,16 +14,16 @@ export default function Bookmarks({reviewId, openLoginModal}: Props) {
     data: {bookmarks, hasBookmarked},
   } = useGetReviewBookmarks(reviewId);
 
-  const userEmail = useUserEmail();
+  const isLoggedIn = useIsLoggedIn();
   const {toggleBookmark, isPending} = useToggleBookmark();
 
   const handleClick = () => {
-    if (!userEmail) {
+    if (!isLoggedIn) {
       openLoginModal();
       return;
     }
 
-    toggleBookmark({userEmail, reviewId});
+    toggleBookmark({reviewId});
   };
 
   return (
