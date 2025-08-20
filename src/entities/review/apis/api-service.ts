@@ -129,23 +129,17 @@ export async function getReviewBookmarks(reviewId: number) {
   });
 }
 
-export async function bookmarkReview({userEmail, reviewId}: BookmarkPayload) {
+export async function bookmarkReview({reviewId}: BookmarkPayload) {
   return requestPost({
     baseUrl: process.env.NEXT_PUBLIC_API_URL,
     endpoint: `/reviews/${reviewId}/bookmarks`,
-    body: {
-      user_email: userEmail,
-    },
   });
 }
 
-export async function unBookmarkReview({userEmail, reviewId}: BookmarkPayload) {
+export async function unBookmarkReview({reviewId}: BookmarkPayload) {
   return requestDelete({
     baseUrl: process.env.NEXT_PUBLIC_API_URL,
     endpoint: `/reviews/${reviewId}/bookmarks`,
-    body: {
-      user_email: userEmail,
-    },
   });
 }
 
@@ -159,24 +153,22 @@ export async function getReviewComments(reviewId: number, page: number) {
   });
 }
 
-export async function postReviewComment({userEmail, reviewId, category, content}: CommentPayload) {
+export async function postReviewComment({reviewId, category, content}: Omit<CommentPayload, 'userNickname'>) {
   return requestPost({
     baseUrl: process.env.NEXT_PUBLIC_API_URL,
     endpoint: `/reviews/${reviewId}/comments`,
     body: {
-      user_email: userEmail,
       category,
       content,
     },
   });
 }
 
-export async function deleteReviewComment({userEmail, commentId, reviewId}: DeleteCommentPayload) {
+export async function deleteReviewComment({commentId, reviewId}: DeleteCommentPayload) {
   return requestDelete({
     baseUrl: process.env.NEXT_PUBLIC_API_URL,
     endpoint: `/reviews/${reviewId}/comments`,
     body: {
-      user_email: userEmail,
       board_id: reviewId,
       comment_id: commentId,
     },

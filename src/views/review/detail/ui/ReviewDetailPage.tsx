@@ -3,7 +3,7 @@ import ReviewDetailInteractive from './ReviewDetailInteractive';
 import {Viewer} from '@/features/review/viewer';
 import {DeleteButton} from '@/entities/reviews';
 import {getReviewDetail} from '@/entities/review';
-import getSessionUserEmail from '@/shared/lib/utils/getSessionUserEmail';
+import getSessionUserNickname from '@/shared/lib/utils/getSessionUserNickname';
 
 type Props = {
   params: Promise<{reviewId: string}>;
@@ -13,10 +13,10 @@ export default async function ReviewDetailPage({params}: Props) {
   const {reviewId} = await params;
   const parsedReviewId = Number(reviewId);
 
-  const {author_id, author_email, content, category, created_at, title} = await getReviewDetail(parsedReviewId);
+  const {author_nickname, content, category, created_at, title} = await getReviewDetail(parsedReviewId);
 
-  const sessionUserEmail = await getSessionUserEmail();
-  const isAuthor = sessionUserEmail === author_email;
+  const sessionUserNickname = await getSessionUserNickname();
+  const isAuthor = sessionUserNickname === author_nickname;
 
   return (
     <section className="flex flex-col w-full max-w-5xl mx-auto items-center relative pt-1 md:pt-3">
@@ -30,8 +30,7 @@ export default async function ReviewDetailPage({params}: Props) {
       )}
       <Viewer
         title={title}
-        author_id={author_id}
-        author_email={author_email}
+        author_nickname={author_nickname}
         content={content}
         category={category}
         created_at={created_at}
