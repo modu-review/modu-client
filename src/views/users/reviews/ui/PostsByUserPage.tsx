@@ -4,16 +4,16 @@ import {UserPostsList} from '@/features/users/posts';
 import {UserPostLoading} from '@/entities/users';
 
 type Props = {
-  params: Promise<{userId: string}>;
+  params: Promise<{userNickname: string}>;
 };
 export default async function PostsByUserPage({params}: Props) {
-  const {userId} = await params;
+  const {userNickname} = await params;
 
   return (
     <section className="w-full max-w-[1230px] mx-auto">
-      <UserInfo userId={userId} />
+      <UserInfo userNickname={userNickname} />
       <Suspense fallback={<UserPostLoading />}>
-        <UserPostsList userId={userId} />
+        <UserPostsList userNickname={userNickname} />
       </Suspense>
     </section>
   );
