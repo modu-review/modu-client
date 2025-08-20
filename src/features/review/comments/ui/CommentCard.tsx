@@ -1,6 +1,7 @@
 import {Comment, useDeleteReviewComment} from '@/entities/review';
 import {Avatar} from '@/shared/ui/components';
 import {ConfirmDeleteTrigger} from '@/shared/ui/modal';
+import Link from 'next/link';
 
 type Props = {
   comment: Comment;
