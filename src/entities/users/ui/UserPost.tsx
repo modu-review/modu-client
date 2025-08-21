@@ -32,9 +32,7 @@ export default function UserPost({
       <div className="flex flex-col flex-1">
         {/* 제목 */}
         <div className="flex flex-col md:flex-row gap-2 justify-between items-center">
-          <h4 className="text-base md:text-lg font-semibold leading-tight line-clamp-1">
-            {title}인데 만약 제목이 정말 길다면??
-          </h4>
+          <h4 className="text-base md:text-lg font-semibold leading-tight line-clamp-1">{title}</h4>
           <span className="hidden md:block text-xs font-bold text-white bg-mediumBlue w-[85px] py-2 text-center rounded-2xl">
             {CATEGORY_MAP[category]}
           </span>
