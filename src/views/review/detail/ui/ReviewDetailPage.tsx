@@ -34,6 +34,7 @@ export default async function ReviewDetailPage({params}: Props) {
         content={content}
         category={category}
         created_at={created_at}
+        authorProfileUrl={`/users/${author_nickname}`}
       />
       <ReviewDetailInteractive reviewId={parsedReviewId} category={category} />
     </section>
