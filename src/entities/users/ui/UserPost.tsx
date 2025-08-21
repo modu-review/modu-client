@@ -12,9 +12,12 @@ export default function UserPost({
   priority,
 }: Props) {
   return (
-    <Link href={`/reviews/${board_id}`} className="flex w-full">
+    <Link
+      href={`/reviews/${board_id}`}
+      className="flex w-full bg-slate-100 hover:bg-slate-200 transition-colors rounded-xl shadow px-3 py-5 md:p-6"
+    >
       {/* 썸네일 */}
-      <div className="flex-shrink-0 w-[100px] h-[100px] overflow-hidden rounded-md border mt-2 mr-4 border-gray-300">
+      <div className="w-[100px] h-[100px] overflow-hidden rounded-md border md:mt-1 mr-3 border-gray-300">
         <Image
           width={100}
           height={100}
@@ -28,9 +31,11 @@ export default function UserPost({
       {/* 콘텐츠 영역 */}
       <div className="flex flex-col flex-1">
         {/* 제목 */}
-        <div className="flex justify-between items-start">
-          <h4 className="text-base md:text-lg font-semibold leading-tight">{title}</h4>
-          <span className="text-xs font-bold text-white bg-mediumBlue w-[85px] py-2 text-center rounded-xl shrink-0">
+        <div className="flex flex-col md:flex-row gap-2 justify-between items-center">
+          <h4 className="text-base md:text-lg font-semibold leading-tight line-clamp-1">
+            {title}인데 만약 제목이 정말 길다면??
+          </h4>
+          <span className="hidden md:block text-xs font-bold text-white bg-mediumBlue w-[85px] py-2 text-center rounded-2xl">
             {CATEGORY_MAP[category]}
           </span>
         </div>
