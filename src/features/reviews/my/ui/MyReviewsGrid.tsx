@@ -9,7 +9,7 @@ type Props =
   | {
       reviews: ReviewCard[];
       context: 'myBookmarks';
-      userEmail: string | null;
+      userNickname: string | null;
     };
 
 export default function MyReviewsGrid(props: Props) {
@@ -18,7 +18,7 @@ export default function MyReviewsGrid(props: Props) {
   return (
     <ul className="w-full grid content-center justify-items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-14 md:gap-y-10">
       {reviews.map((card, index) => {
-        const isAuthor = context === 'my' || card.author_email === props.userEmail;
+        const isAuthor = context === 'my' || card.author_nickname === props.userNickname;
         const shouldPrioritize = index < 3;
 
         return (
