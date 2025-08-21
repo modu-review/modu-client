@@ -6,3 +6,7 @@ export type PostsByUserResult = {
   has_next: boolean;
   total_results: number;
 };
+
+export type ProfileImage = {
+  profileImage: string;
+};
