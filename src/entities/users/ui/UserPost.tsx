@@ -14,7 +14,7 @@ export default function UserPost({
   return (
     <Link
       href={`/reviews/${board_id}`}
-      className="flex w-full bg-slate-100 hover:bg-slate-200 transition-colors rounded-xl shadow px-3 py-5 md:p-6"
+      className="flex w-full bg-white hover:bg-slate-200 transition-colors rounded-xl shadow px-3 py-5 md:p-6 md:bg-slate-100 lg:bg-slate-100 lg:h-[210px] lg:pt-10"
     >
       {/* 썸네일 */}
       <div className="w-[100px] h-[100px] overflow-hidden rounded-md border md:mt-1 mr-3 border-gray-300">
