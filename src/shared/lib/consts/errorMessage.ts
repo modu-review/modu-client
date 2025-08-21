@@ -47,6 +47,8 @@ export const SERVER_ERROR_MESSAGE: ErrorMessage = {
   CAN_NOT_CREATE_PRESIGNED_URL: '이미지 업로드를 위한 임시 URL을 생성할 수 없어요. 다시 시도해주세요.',
   CAN_NOT_CREATE_UUID: '이미지 아이디를 생성하는 데 실패했어요. 다시 시도해주세요.',
   NOT_ALLOWED_HTML_ERROR: '잘못된 HTML 형식이에요. 올바른 HTML을 입력해주세요.',
+  REVIEW_ID_MISSING: '리뷰 ID가 제공되지 않았습니다. 다시 시도해주세요.',
+  CAN_NOT_SAVE_DATA: '리뷰 데이터를 저장하는데 실패했어요. 다시 시도해주세요.',
   /**
    * 프로필 관련
    * 프로필 변경 POST /users/me/profileImage

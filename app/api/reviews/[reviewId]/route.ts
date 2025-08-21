@@ -8,8 +8,9 @@ export async function PATCH(req: NextRequest, {params}: {params: Promise<{review
   if (!reviewId) {
     return NextResponse.json(
       {
-        errorCode: 'REVIEW_ID_MISSING',
-        message: '리뷰 ID가 제공되지 않았습니다.',
+        title: 'REVIEW_ID_MISSING',
+        detail: '리뷰 ID가 제공되지 않았습니다. 다시 시도해주세요',
+        status: 400,
       },
       {
         status: 400,
@@ -18,13 +19,16 @@ export async function PATCH(req: NextRequest, {params}: {params: Promise<{review
   }
 
   const cookieStore = await cookies();
-  const accessToken = cookieStore.get('accessToken');
 
-  if (!accessToken) {
+  const accessToken = cookieStore.get('accessToken');
+  const userNicknameToken = cookieStore.get('userNickname');
+
+  if (!accessToken || !userNicknameToken) {
     return NextResponse.json(
       {
-        errorCode: 'UNAUTHORIZED',
-        message: '로그인이 필요합니다.',
+        title: 'UNAUTHORIZED',
+        detail: '로그인이 필요한 서비스에요. 다시 로그인해주세요.',
+        status: 401,
       },
       {
         status: 401,
@@ -38,20 +42,21 @@ export async function PATCH(req: NextRequest, {params}: {params: Promise<{review
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
-      Cookie: `accessToken=${accessToken.value}`,
+      Cookie: `accessToken=${accessToken.value}; userNickname=${encodeURIComponent(userNicknameToken.value)}`,
     },
     body: JSON.stringify(reviewData),
   });
 
   if (!res.ok) {
-    const errorData = await res.json();
+    const errorResponse = await res.json();
     return NextResponse.json(
       {
-        errorCode: errorData.errorCode || 'INTERNAL_SERVER_ERROR',
-        message: errorData.message || '서버 오류가 발생했습니다.',
+        title: errorResponse.title || 'INTERNAL_SERVER_ERROR',
+        detail: errorResponse.detail || '예상치 못한 서버 오류가 발생했습니다.',
+        status: errorResponse.status || 500,
       },
       {
-        status: res.status,
+        status: errorResponse.status || 500,
       },
     );
   }
@@ -71,8 +76,9 @@ export async function DELETE(_: NextRequest, {params}: {params: Promise<{reviewI
   if (!reviewId) {
     return NextResponse.json(
       {
-        errorCode: 'REVIEW_ID_MISSING',
-        message: '리뷰 ID가 제공되지 않았습니다.',
+        title: 'REVIEW_ID_MISSING',
+        detail: '리뷰 ID가 제공되지 않았습니다. 다시 시도해주세요',
+        status: 400,
       },
       {
         status: 400,
@@ -81,13 +87,16 @@ export async function DELETE(_: NextRequest, {params}: {params: Promise<{reviewI
   }
 
   const cookieStore = await cookies();
-  const accessToken = cookieStore.get('accessToken');
 
-  if (!accessToken) {
+  const accessToken = cookieStore.get('accessToken');
+  const userNicknameToken = cookieStore.get('userNickname');
+
+  if (!accessToken || !userNicknameToken) {
     return NextResponse.json(
       {
-        errorCode: 'UNAUTHORIZED',
-        message: '로그인이 필요합니다.',
+        title: 'UNAUTHORIZED',
+        detail: '로그인이 필요한 서비스에요. 다시 로그인해주세요.',
+        status: 401,
       },
       {
         status: 401,
@@ -99,19 +108,20 @@ export async function DELETE(_: NextRequest, {params}: {params: Promise<{reviewI
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
-      Cookie: `accessToken=${accessToken.value}`,
+      Cookie: `accessToken=${accessToken.value}; userNickname=${encodeURIComponent(userNicknameToken.value)}`,
     },
   });
 
   if (!res.ok) {
-    const errorData = await res.json();
+    const errorResponse = await res.json();
     return NextResponse.json(
       {
-        errorCode: errorData.errorCode || 'INTERNAL_SERVER_ERROR',
-        message: errorData.message || '서버 오류가 발생했습니다.',
+        title: errorResponse.title || 'INTERNAL_SERVER_ERROR',
+        detail: errorResponse.detail || '예상치 못한 서버 오류가 발생했습니다.',
+        status: errorResponse.status || 500,
       },
       {
-        status: res.status,
+        status: errorResponse.status || 500,
       },
     );
   }
