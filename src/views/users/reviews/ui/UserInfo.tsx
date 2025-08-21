@@ -22,7 +22,8 @@ export default function UserInfo({userNickname}: Props) {
         </div>
 
         <p className="text-xl mt-20 lg:text-2xl font-bold mb-2">
-          {userNickname} 님 <div className=" text-3xl">게시글</div>
+          {userNickname}
+          {/* <div className=" text-3xl">게시글</div> */}
         </p>
       </div>
 
