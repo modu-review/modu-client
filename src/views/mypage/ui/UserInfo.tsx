@@ -1,9 +1,9 @@
 'use client';
 
+import {Suspense} from 'react';
+import {ProfileImage} from '@/features/users/profileImage';
 import {useUserNickname} from '@/entities/auth';
 import {Skeleton} from '@/shared/shadcnComponent/ui/skeleton';
-import {Suspense} from 'react';
-import ProfileImage from '@/features/users/profileImage/ui/ProfileImage';
 
 export default function UserInfo() {
   const userNickname = useUserNickname();
@@ -11,10 +11,7 @@ export default function UserInfo() {
   return (
     <section className="flex flex-col items-center mt-10 md:mt-8 lg:mt-10">
       <Suspense fallback={<div>loading...</div>}>
-        <ProfileImage
-          userNickname={userNickname}
-          className="w-36 h-36 md:w-40 md:h-40 lg:w-48 lg:h-48 flex justify-center items-center rounded-full border-boldBlue border-[7px] overflow-hidden"
-        />
+        <ProfileImage userNickname={userNickname} page="my" />
       </Suspense>
       <div className="flex flex-col items-center mt-3">
         {userNickname ? (
