@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import {Comment, useDeleteReviewComment} from '@/entities/review';
-import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from '@/shared/shadcnComponent/ui/tooltip';
 import {Avatar} from '@/shared/ui/components';
 import {ConfirmDeleteTrigger} from '@/shared/ui/modal';
 
