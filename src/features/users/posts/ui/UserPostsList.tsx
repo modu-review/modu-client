@@ -11,11 +11,7 @@ type Props = {
 };
 
 export default function UserPostsList({userNickname}: Props) {
-  const {sort, handleChange} = useSelectSortOption({
-    options: {
-      page: '1',
-    },
-  });
+  const {sort, handleChange} = useSelectSortOption();
 
   const {data, hasNextPage, fetchNextPage, isFetchingNextPage} = useGetPostsByUser(userNickname, sort);
 
