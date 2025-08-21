@@ -1,6 +1,5 @@
 import {CATEGORY_MAP, ReviewContent} from '@/entities/review';
 import {Badge} from '@/shared/ui/components';
-import Link from 'next/link';
 
 export default function Viewer({title, category, author_nickname, created_at, content}: ReviewContent) {
   return (
