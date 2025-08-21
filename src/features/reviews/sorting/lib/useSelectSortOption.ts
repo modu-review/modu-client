@@ -3,10 +3,10 @@ import isSortKey from './isSortKey';
 import {SortKey} from '../model/type';
 
 type Props = {
-  options: Record<string, string>;
+  options?: Record<string, string>;
 };
 
-export default function useSelectSortOption({options}: Props) {
+export default function useSelectSortOption({options = {}}: Props = {}) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
