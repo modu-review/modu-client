@@ -34,7 +34,7 @@ export default function CommentCard({comment, userNickname, reviewId}: Props) {
           <div className="flex items-center gap-2 mb-1">
             <Link
               href={`/users/${author_nickname}`}
-              className="text-sm md:text-base font-semibold hover:text-boldBlue transition-colors"
+              className="text-sm md:text-base font-semibold hover:underline underline-offset-[3px]"
             >
               {author_nickname}
             </Link>
