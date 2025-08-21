@@ -1,5 +1,5 @@
 import {requestGet} from '@/shared/apis';
-import {PostsByUserResult} from '../model/types';
+import {PostsByUserResult, ProfileImage} from '../model/types';
 
 export function getPostsByUser(cursor: number, userNickname: string, sort: string) {
   return requestGet<PostsByUserResult>({
@@ -8,5 +8,13 @@ export function getPostsByUser(cursor: number, userNickname: string, sort: strin
       cursor: cursor,
       sort: sort,
     },
+  });
+}
+
+export function getProfileImageByUserNickname(userNickname: string) {
+  return requestGet<ProfileImage>({
+    // TODO: 개발 완료 후 baseUrl 제거
+    baseUrl: process.env.NEXT_PUBLIC_CLIENT_URL,
+    endpoint: `/users/${userNickname}/profileImage`,
   });
 }
