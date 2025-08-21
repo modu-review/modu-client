@@ -66,7 +66,7 @@ export default function UserPostsList({userNickname}: Props) {
             const shouldPrioritize = pageIndex === 0 && reviewIndex < 3;
 
             return (
-              <li key={review.board_id} className="bg-slate-100 rounded-xl shadow p-6 md:p-6 flex gap-4 items-start">
+              <li key={review.board_id}>
                 <UserPost userReview={review} priority={shouldPrioritize} />
               </li>
             );
@@ -75,7 +75,7 @@ export default function UserPostsList({userNickname}: Props) {
       </ul>
 
       {hasNextPage ? (
-        <div className="w-full mt-6" ref={observerRef}>
+        <div className="w-full mt-6 space-y-6" ref={observerRef}>
           {isFetchingNextPage && Array.from({length: 3}, (_, idx) => <UserPostLoading key={idx} />)}
         </div>
       ) : (
