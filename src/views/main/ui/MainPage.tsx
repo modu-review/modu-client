@@ -9,6 +9,8 @@ export default async function MainPage() {
     <section>
       <Hero />
       <BestReviews reviews={data} />
+      <BestReviews reviews={data} />
+      <Hero />
     </section>
   );
 }

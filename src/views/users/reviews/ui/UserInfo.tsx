@@ -21,10 +21,7 @@ export default function UserInfo({userNickname}: Props) {
           />
         </div>
 
-        <p className="text-xl mt-4 lg:text-2xl font-bold mb-2">
-          {userNickname}
-          {/* <div className=" text-3xl">게시글</div> */}
-        </p>
+        <p className="text-xl mt-4 lg:text-2xl font-bold mb-2">{userNickname}</p>
       </div>
     </section>
   );
