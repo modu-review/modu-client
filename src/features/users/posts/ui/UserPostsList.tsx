@@ -44,13 +44,13 @@ export default function UserPostsList({userNickname}: Props) {
   return (
     <section className="px-4 md:px-6 lg:px-12">
       <header className="flex justify-between items-end mb-4">
-        <h3 className="text-lg md:text-xl font-semibold">
-          전체 게시글 수 <span className=" text-boldBlue font-extrabold"> ({data.pages[0].total_results})</span>
+        <h3 className="text-md md:text-xl font-semibold">
+          작성된 게시글 수 <span className=" text-boldBlue font-extrabold"> ({data.pages[0].total_results})</span>
         </h3>
       </header>
       <div className="flex justify-end">
         <div className="block md:hidden">
-          <SelectSortOptions className="ml-auto mb-6 md:mr-5 " sort={sort} onValueChange={handleChange} />
+          <SelectSortOptions className="ml-auto mb-6 md:mr-5 bg-white" sort={sort} onValueChange={handleChange} />
         </div>
 
         <SortButtons className="ml-auto mb-6 md:mr-5 hidden md:flex" sort={sort} onValueChange={handleChange} />
