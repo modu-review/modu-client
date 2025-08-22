@@ -1,11 +1,11 @@
 import {Skeleton} from '@/shared/shadcnComponent/ui/skeleton';
 import {cva, VariantProps} from 'class-variance-authority';
 
-const profileImageVariant = cva('', {
+const profileImageVariant = cva('rounded-full border-boldBlue border-[7px]', {
   variants: {
     page: {
-      my: 'w-36 h-36 md:w-40 md:h-40 lg:w-48 lg:h-48 rounded-full border-boldBlue border-[7px]',
-      postsByUser: '',
+      my: 'w-36 h-36 md:w-40 md:h-40 lg:w-48 lg:h-48',
+      postsByUser: 'w-36 h-36 md:w-40 md:h-40 lg:w-48 lg:h-48',
     },
   },
 });

@@ -4,14 +4,17 @@ import {cva, VariantProps} from 'class-variance-authority';
 import {useGetProfileImageByUserNickname} from '@/entities/users';
 import {cn} from '@/shared/lib/utils/cn';
 
-const profileImageVariant = cva('', {
-  variants: {
-    page: {
-      my: 'w-36 h-36 md:w-40 md:h-40 lg:w-48 lg:h-48 flex justify-center items-center rounded-full border-boldBlue border-[7px] overflow-hidden',
-      postsByUser: '',
+const profileImageVariant = cva(
+  'flex justify-center items-center rounded-full border-boldBlue border-[7px] overflow-hidden',
+  {
+    variants: {
+      page: {
+        my: 'w-36 h-36 md:w-40 md:h-40 lg:w-48 lg:h-48',
+        postsByUser: 'w-36 h-36 md:w-40 md:h-40 lg:w-48 lg:h-48',
+      },
     },
   },
-});
+);
 
 type Props = {
   userNickname: string;
