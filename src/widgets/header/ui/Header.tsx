@@ -4,14 +4,14 @@ import Link from 'next/link';
 import {Sidebar} from '@/widgets/side-bar';
 import {usePathname} from 'next/navigation';
 import {LoginButton, LoginButtonLoading, LogoutButton} from '@/features/auth';
-import {useLogin} from '@/entities/auth';
+import {useIsLoggedIn} from '@/entities/auth';
 import LoginRequiredPopover from '@/widgets/side-bar/ui/LoginRequiredPopover';
 // import {dynamic} from '../../../../app/search/page';
 
 export default function Header() {
   const pathName = usePathname();
   const isMainPage = pathName === '/';
-  const isLoggedIn = useLogin();
+  const isLoggedIn = useIsLoggedIn();
 
   // const LoginButton = dynamic(() => import('@/features/auth/ui/LoginButton'), {
   //   ssr: false,
@@ -66,7 +66,7 @@ export default function Header() {
       <div className="hidden md:flex lg:flex w-full max-w-[1250px] justify-end">
         <div className="flex justify-end w-full gap-4">
           {/* 메뉴 영역 */}
-          <nav className="flex gap-6 text-lg flex-wrap">
+          <nav className="flex gap-6 text-lg items-center flex-wrap">
             {SIDEBAR_ROUTES.map(({title, href, isActive, requiresAuth, scrollToTop}) =>
               !requiresAuth || isLoggedIn ? (
                 <Link
