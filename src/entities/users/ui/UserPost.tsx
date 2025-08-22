@@ -14,7 +14,7 @@ export default function UserPost({
   return (
     <Link
       href={`/reviews/${board_id}`}
-      className="flex w-full bg-slate-100 hover:bg-slate-200 transition-colors rounded-xl shadow px-3 py-5 md:p-6"
+      className="flex w-full bg-white hover:bg-slate-200 transition-colors rounded-xl shadow px-3 py-5 md:p-6 md:bg-slate-100 lg:bg-slate-100 lg:h-[210px] lg:pt-10"
     >
       {/* 썸네일 */}
       <div className="w-[100px] h-[100px] overflow-hidden rounded-md border md:mt-1 mr-3 border-gray-300">
@@ -31,7 +31,7 @@ export default function UserPost({
       {/* 콘텐츠 영역 */}
       <div className="flex flex-col flex-1">
         {/* 제목 */}
-        <div className="flex flex-col md:flex-row gap-2 justify-between items-center">
+        <div className="flex flex-col md:flex-row gap-2 justify-between">
           <h4 className="text-base md:text-lg font-semibold leading-tight line-clamp-1">{title}</h4>
           <span className="hidden md:block text-xs font-bold text-white bg-mediumBlue w-[85px] py-2 text-center rounded-2xl">
             {CATEGORY_MAP[category]}

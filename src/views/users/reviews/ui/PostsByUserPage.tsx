@@ -10,7 +10,7 @@ export default async function PostsByUserPage({params}: Props) {
   const {userNickname} = await params;
   const decodedUserNickname = decodeURIComponent(userNickname);
   return (
-    <section className="w-full max-w-[1230px] mx-auto pb-6 md:pb-10">
+    <section className="w-full max-w-[1230px] h-full mx-auto pb-6 bg-[#f1f5f9] md:pb-10 md:bg-white lg:bg-white">
       <UserInfo userNickname={decodedUserNickname} />
       <Suspense fallback={<UserPostsLoading />}>
         <UserPostsList userNickname={decodedUserNickname} />
