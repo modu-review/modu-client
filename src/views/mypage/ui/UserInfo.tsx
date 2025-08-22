@@ -1,7 +1,7 @@
 'use client';
 
 import {Suspense} from 'react';
-import {ProfileImage, ProfileImageLoading} from '@/features/users/profileImage';
+import {ProfileImage, ProfileImageLoading, EditProfileImage} from '@/features/users/profileImage';
 import {useUserNickname} from '@/entities/auth';
 import {Skeleton} from '@/shared/shadcnComponent/ui/skeleton';
 
@@ -10,13 +10,16 @@ export default function UserInfo() {
 
   return (
     <section className="flex flex-col items-center mt-10 md:mt-8 lg:mt-10">
-      {userNickname ? (
-        <Suspense fallback={<ProfileImageLoading page="my" />}>
-          <ProfileImage userNickname={userNickname} page="my" />
-        </Suspense>
-      ) : (
-        <ProfileImageLoading page="my" />
-      )}
+      <div className="relative">
+        {userNickname ? (
+          <Suspense fallback={<ProfileImageLoading page="my" />}>
+            <ProfileImage userNickname={userNickname} page="my" />
+            <EditProfileImage />
+          </Suspense>
+        ) : (
+          <ProfileImageLoading page="my" />
+        )}
+      </div>
       <div className="flex flex-col items-center mt-3">
         {userNickname ? (
           <p className="text-xl lg:text-2xl font-bold">{userNickname}</p>
