@@ -19,8 +19,8 @@ export function getProfileImageByUserNickname(userNickname: string) {
   });
 }
 
-export function postProfileImage(body: FormData) {
-  requestPost({
+export async function postProfileImage(body: FormData) {
+  await requestPost({
     // TODO: 개발 완료 후 baseUrl 제거
     baseUrl: process.env.NEXT_PUBLIC_CLIENT_URL,
     endpoint: '/api/users/me/profileImage',
