@@ -1,3 +1,5 @@
+'use client';
+
 import {DragEvent, useRef, useState} from 'react';
 import {ClientError, createClientError} from '@/shared/lib/utils/client-error';
 
