@@ -1,5 +1,6 @@
 'use client';
 
+import {ChangeEvent, useState} from 'react';
 import {useUpdateGlobalError} from '@/entities/error';
 import {createClientError} from '@/shared/lib/utils/client-error';
 import {
@@ -12,7 +13,6 @@ import {
 } from '@/shared/shadcnComponent/ui/dialog';
 import {ImageUploadDragArea} from '@/shared/ui/components';
 import {LucideIcon} from '@/shared/ui/icons';
-import {ChangeEvent, useState} from 'react';
 
 const ACCEPTED_IMAGE_TYPES = ['image/jpeg', 'image/jpg', 'image/png'];
 const MAX_SIZE_EXCEEDED = 5 * 1024 * 1024;
@@ -66,7 +66,7 @@ export default function ChangeProfileImageDialog() {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>프로필 이미지 수정</DialogTitle>
-          <DialogDescription>사진을 선택하거나 드래그해 업로드할 수 있어요.</DialogDescription>
+          <DialogDescription>사진을 드래그하거나 클릭해 업로드할 수 있어요.</DialogDescription>
         </DialogHeader>
         {file ? (
           <div>{/* TODO: 프로필 이미지 프리뷰 구현 */}</div>
@@ -80,7 +80,19 @@ export default function ChangeProfileImageDialog() {
               accept={ACCEPTED_IMAGE_TYPES.join(',')}
               onChange={handleChangeImage}
             />
-            <label htmlFor="profile-image">프로필 이미지 선택</label>
+            <label
+              htmlFor="profile-image"
+              className="w-full h-full flex flex-col items-center justify-center select-none cursor-pointer py-6"
+            >
+              <LucideIcon name="FileImage" className="w-12 h-12 md:w-14 md:h-14 mb-2 text-gray-600" />
+              <div className="text-center">
+                <p className="text-sm md:text-base text-gray-600 mb-1">
+                  사진을 드래그하거나 클릭해 업로드할 수 있어요.
+                </p>
+                <p className="text-xs md:text-sm text-gray-500">최대 크기: {MAX_SIZE_EXCEEDED / 1024 / 1024}MB</p>
+                <p className="text-xs md:text-sm text-gray-500">지원되는 파일 형식: JPEG, JPG, PNG</p>
+              </div>
+            </label>
           </ImageUploadDragArea>
         )}
       </DialogContent>
