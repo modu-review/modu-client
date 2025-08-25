@@ -12,6 +12,8 @@ import {
 } from '@/shared/shadcnComponent/ui/dialog';
 import {LucideIcon} from '@/shared/ui/icons';
 import ChangeProfileImagePreview from './ChangeProfileImagePreview';
+import {useUserNickname} from '@/entities/auth';
+import {usePostProfileImage} from '@/entities/users';
 
 type ProfileImage = {
   file: File;
@@ -21,13 +23,24 @@ type ProfileImage = {
 export default function ChangeProfileImageDialog() {
   const [profileImage, setProfileImage] = useState<ProfileImage | null>(null);
 
+  const userNickname = useUserNickname();
+  const {updateProfileImage} = usePostProfileImage();
+
   const handleSetFile = (file: File) => {
     const url = URL.createObjectURL(file);
     setProfileImage({file, url});
   };
 
   const handleSubmit = () => {
-    // TODO: 이미지 업로드 기능 연결
+    if (!profileImage || !userNickname) return;
+
+    const formData = new FormData();
+    formData.append('profileImage', profileImage.file);
+
+    updateProfileImage({
+      imageData: formData,
+      userNickname,
+    });
   };
 
   const handleCancel = () => {
