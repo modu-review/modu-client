@@ -1,3 +1,5 @@
+import {useUserNickname} from '@/entities/auth';
+import {useDeleteProfileImage} from '@/entities/users';
 import {
   Dialog,
   DialogClose,
@@ -12,6 +14,15 @@ import {LucideIcon} from '@/shared/ui/icons';
 import {PopoverClose} from '@radix-ui/react-popover';
 
 export default function DeleteProfileImageDialog() {
+  const userNickname = useUserNickname();
+  const {deleteProfileImage} = useDeleteProfileImage();
+
+  const handleDelete = () => {
+    if (!userNickname) return;
+
+    deleteProfileImage({userNickname});
+  };
+
   return (
     <Dialog>
       <DialogTrigger className="w-full flex items-center justify-between hover:bg-gray-100 py-1.5 px-3 rounded-xl transition-colors">
@@ -36,6 +47,7 @@ export default function DeleteProfileImageDialog() {
             <button
               className="w-full text-center py-1.5 bg-boldBlue text-white rounded-md hover:bg-boldBlue/80 transition-colors"
               aria-label="프로필 이미지 삭제"
+              onClick={handleDelete}
             >
               삭제
             </button>
