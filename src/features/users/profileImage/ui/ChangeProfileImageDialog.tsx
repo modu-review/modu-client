@@ -1,8 +1,7 @@
 'use client';
 
-import {ChangeEvent, useEffect, useState} from 'react';
-import {useUpdateGlobalError} from '@/entities/error';
-import {createClientError} from '@/shared/lib/utils/client-error';
+import {useEffect, useState} from 'react';
+import ChangeProfileImageSelector from './ChangeProfileImageSelector';
 import {
   Dialog,
   DialogContent,
@@ -11,7 +10,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/shared/shadcnComponent/ui/dialog';
-import {ImageUploadDragArea} from '@/shared/ui/components';
 import {LucideIcon} from '@/shared/ui/icons';
 
 type ProfileImage = {
@@ -19,48 +17,12 @@ type ProfileImage = {
   url: string;
 };
 
-const ACCEPTED_IMAGE_TYPES = ['image/jpeg', 'image/jpg', 'image/png'];
-const MAX_SIZE_EXCEEDED = 5 * 1024 * 1024;
-
 export default function ChangeProfileImageDialog() {
   const [profileImage, setProfileImage] = useState<ProfileImage | null>(null);
-
-  const updateGlobalError = useUpdateGlobalError();
 
   const handleSetFile = (file: File) => {
     const url = URL.createObjectURL(file);
     setProfileImage({file, url});
-  };
-
-  const validateFile = (file: File) => {
-    if (!ACCEPTED_IMAGE_TYPES.includes(file.type)) {
-      updateGlobalError(createClientError('NOT_SUPPORTED_FILE'));
-
-      return false;
-    }
-
-    if (file.size > MAX_SIZE_EXCEEDED) {
-      updateGlobalError(createClientError('FILE_SIZE_EXCEEDED'));
-
-      return false;
-    }
-
-    return true;
-  };
-
-  const handleDropImage = (file: File) => {
-    if (validateFile(file)) {
-      handleSetFile(file);
-    }
-  };
-
-  const handleChangeImage = (event: ChangeEvent<HTMLInputElement>) => {
-    event.preventDefault();
-
-    const files = event.target.files;
-    if (files && files[0] && validateFile(files[0])) {
-      handleSetFile(files[0]);
-    }
   };
 
   const handleSubmit = () => {
@@ -89,29 +51,7 @@ export default function ChangeProfileImageDialog() {
         {profileImage ? (
           <div>{/* TODO: 프로필 이미지 프리뷰 구현 */}</div>
         ) : (
-          <ImageUploadDragArea onFile={handleDropImage} onError={updateGlobalError}>
-            <input
-              className="hidden"
-              id="profile-image"
-              type="file"
-              size={MAX_SIZE_EXCEEDED}
-              accept={ACCEPTED_IMAGE_TYPES.join(',')}
-              onChange={handleChangeImage}
-            />
-            <label
-              htmlFor="profile-image"
-              className="w-full h-full flex flex-col items-center justify-center select-none cursor-pointer py-6"
-            >
-              <LucideIcon name="FileImage" className="w-12 h-12 md:w-14 md:h-14 mb-2 text-gray-600" />
-              <div className="text-center">
-                <p className="text-sm md:text-base text-gray-600 mb-1">
-                  사진을 드래그하거나 클릭해 업로드할 수 있어요.
-                </p>
-                <p className="text-xs md:text-sm text-gray-500">최대 크기: {MAX_SIZE_EXCEEDED / 1024 / 1024}MB</p>
-                <p className="text-xs md:text-sm text-gray-500">지원되는 파일 형식: JPEG, JPG, PNG</p>
-              </div>
-            </label>
-          </ImageUploadDragArea>
+          <ChangeProfileImageSelector onSelectFile={handleSetFile} />
         )}
       </DialogContent>
     </Dialog>
