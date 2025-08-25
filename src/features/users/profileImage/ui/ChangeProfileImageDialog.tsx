@@ -11,6 +11,7 @@ import {
   DialogTrigger,
 } from '@/shared/shadcnComponent/ui/dialog';
 import {LucideIcon} from '@/shared/ui/icons';
+import ChangeProfileImagePreview from './ChangeProfileImagePreview';
 
 type ProfileImage = {
   file: File;
@@ -27,6 +28,13 @@ export default function ChangeProfileImageDialog() {
 
   const handleSubmit = () => {
     // TODO: 이미지 업로드 기능 연결
+  };
+
+  const handleCancel = () => {
+    if (profileImage) {
+      URL.revokeObjectURL(profileImage.url);
+      setProfileImage(null);
+    }
   };
 
   useEffect(() => {
@@ -49,7 +57,7 @@ export default function ChangeProfileImageDialog() {
           <DialogDescription>사진을 드래그하거나 클릭해 업로드할 수 있어요.</DialogDescription>
         </DialogHeader>
         {profileImage ? (
-          <div>{/* TODO: 프로필 이미지 프리뷰 구현 */}</div>
+          <ChangeProfileImagePreview imageUrl={profileImage.url} onSubmit={handleSubmit} onCancel={handleCancel} />
         ) : (
           <ChangeProfileImageSelector onSelectFile={handleSetFile} />
         )}
