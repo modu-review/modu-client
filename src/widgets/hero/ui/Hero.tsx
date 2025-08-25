@@ -33,7 +33,7 @@ const textItems = [
 export default function Hero() {
   return (
     <section className="flex flex-col justify-center items-center mt-20">
-      <article className="text-center font-semibold mb-8 text-[20px] md:text-[26px] lg:text-[32px]">
+      <article className="text-center font-semibold mb-5 md:mb-8 lg:mb-8 text-[18px] md:text-[26px] lg:text-[32px]">
         {textItems.map((text, index) => (
           <motion.p
             key={index}
@@ -44,7 +44,7 @@ export default function Hero() {
               duration: 0.6,
               ease: 'easeOut',
             }}
-            className="mb-3 md:mb-0"
+            className="mb-1 md:mb-0"
           >
             {index === 2 ? (
               <>
