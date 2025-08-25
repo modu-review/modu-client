@@ -5,3 +5,4 @@ export {default as UserPostLoading} from './ui/UserPostLoading';
 export {default as UserPostsLoading} from './ui/UserPostsLoading';
 export {useGetProfileImageByUserNickname} from './model/useGetProfileImageByUserNickname';
 export {usePostProfileImage} from './model/usePostProfileImage';
+export {useDeleteProfileImage} from './model/useDeleteProfileImage';
