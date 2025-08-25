@@ -1,10 +1,10 @@
 'use client';
 
-import Link from 'next/link';
+// import Link from 'next/link';
 import BestReviewsGrid from './BestReviewsGrid';
 import {CategoryBar, useSelectCategory} from '@/features/reviews/filtering';
 import {BestReviewsResult} from '@/entities/reviews';
-import {LucideIcon} from '@/shared/ui/icons';
+// import {LucideIcon} from '@/shared/ui/icons';
 
 type Props = {
   reviews: BestReviewsResult;
@@ -24,13 +24,13 @@ export default function BestReviews({reviews}: Props) {
           <CategoryBar selectedCategory={selectedCategory} onSelectCategory={handleSelectCategory} />
         </article>
         <BestReviewsGrid filteredReview={filteredReview} />
-        <Link
+        {/* <Link
           href="/search"
           className="flex items-center mx-auto animate-bounce cursor-pointer text-white font-bold text-[20px]"
           aria-label="더 많은 후기 보러가기"
         >
           더 많은 후기 보기 <LucideIcon name="ArrowRight" size={20} />
-        </Link>
+        </Link> */}
       </div>
     </section>
   );

@@ -91,6 +91,8 @@
 
 import {ReviewCard} from '@/entities/review';
 import Image from 'next/image';
+import Link from 'next/link';
+import {LucideIcon} from '@/shared/ui/icons';
 
 const mockPosts: Partial<ReviewCard>[] = [
   {
@@ -132,11 +134,11 @@ const mockPosts: Partial<ReviewCard>[] = [
 ];
 
 export default function RecentReviews() {
-  //   const duplicated = [...mockPosts, ...mockPosts, ...mockPosts]; // 무한 루프용
-  const duplicated = Array(3).fill(mockPosts).flat(); // 또는 [...mockPosts, ...mockPosts, ...mockPosts, ...mockPosts];
+  const duplicated = [...mockPosts, ...mockPosts]; // 무한 루프용
+  //   const duplicated = Array(3).fill(mockPosts).flat(); // 또는 [...mockPosts, ...mockPosts, ...mockPosts, ...mockPosts];
 
   return (
-    <div className="relative w-full overflow-hidden mb-32">
+    <div className="relative w-full overflow-hidden mb-24 ">
       <h2 className="text-center text-3xl font-bold my-16">최근 등록된 리뷰</h2>
 
       {/* 1행 - 왼쪽으로 슬라이드 */}
@@ -159,7 +161,7 @@ export default function RecentReviews() {
       </div>
 
       {/* 2행 - 오른쪽으로 슬라이드 */}
-      <div className="carousel-wrapper mt-8">
+      <div className="hidden md:block lg:block carousel-wrapper mt-8">
         <div className="carousel-track-right">
           {duplicated.map((post, idx) => (
             <div key={`row2-${post.board_id}-${idx}`} className="carousel-item">
@@ -226,6 +228,37 @@ export default function RecentReviews() {
           }
         }
       `}</style>
+      {/* <div className="flex w-full mt-24">
+        <Link
+          href="/search"
+          className="flex items-center mx-auto cursor-pointer animate-pulse text-boldBlue font-extrabold shadow-lg text-[20px] hover:text-black"
+          aria-label="더 많은 후기 보러가기"
+        >
+          더 많은 후기 보기 <LucideIcon name="ArrowRight" size={20} />
+        </Link>
+      </div> */}
+      <div className="flex w-full mt-24">
+        <Link
+          href="/search"
+          aria-label="더 많은 후기 보러가기"
+          className="relative inline-flex items-center justify-center mx-auto px-6 py-4 group transition-transform active:scale-95"
+        >
+          {/* 배경 확장용 span */}
+          <span className="absolute inset-0 bg-pink-300 rounded-full transition-all duration-300 ease-in-out group-hover:w-full w-14 h-14 group-hover:bg-pink-400"></span>
+
+          {/* 텍스트 */}
+          <span className="relative font-extrabold text-[16px] tracking-widest uppercase text-boldBlue group-hover:text-white">
+            더 많은 후기 보기
+          </span>
+
+          {/* 아이콘 */}
+          <LucideIcon
+            name="ArrowRight"
+            size={20}
+            className="relative ml-2 transition-transform duration-300 ease-in-out transform -translate-x-2 group-hover:translate-x-0 stroke-[2px]"
+          />
+        </Link>
+      </div>
     </div>
   );
 }

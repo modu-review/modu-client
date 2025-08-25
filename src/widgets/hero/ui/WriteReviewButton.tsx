@@ -23,7 +23,7 @@ export default function WriteReviewButton() {
   return (
     <>
       <Button
-        className=" bg-boldBlue rounded-3xl hover:bg-extraboldBlue p-5 text-[14px] md:text-[16px] md:p-6 lg:text-[18px] mb-8 md:mb-10 lg:mb-10"
+        className=" bg-boldBlue rounded-3xl font-bold hover:bg-extraboldBlue p-5 text-[14px] md:text-[16px] md:p-6 lg:text-[18px] mb-8 md:mb-10 lg:mb-10"
         onClick={handleClick}
       >
         {'내 경험 공유하기'}
