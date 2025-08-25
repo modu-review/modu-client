@@ -11,7 +11,8 @@ export default function ContactUs() {
         {/* Headline */}
         <h2 className="text-2xl sm:text-xl font-bold text-gray-900 mb-6 leading-tight">
           💬 후기는 모였고, 이제 아이디어 차례! <br />
-          사이트에 바라는 점이나 번뜩이는 의견이 있다면, 여기에 살포시 남겨주세요.
+          사이트에 바라는 점이나 번뜩이는 의견이 있다면, <br />
+          여기 <span className=" inline-block animate-bounce mt-2">👇🏻</span> 살포시 남겨주세요.
         </h2>
 
         {/* Button */}
