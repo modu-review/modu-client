@@ -2,9 +2,9 @@
 export default function ContactUs() {
   return (
     <section className="flex justify-center items-center py-20 md:py-24 lg:py-24 px-4 bg-[#f9fafb]">
-      <div className="w-full max-w-4xl rounded-[2rem] shadow-xl bg-white text-center py-10 md:py-20 lg:py-20 px-6">
+      <div className="w-full max-w-4xl rounded-[2rem] shadow-xl bg-white text-center py-20 px-6">
         {/* Badge */}
-        <div className="inline-flex items-center justify-center px-4 py-1 rounded-full bg-[#ecfdf5] mb-6">
+        <div className="inline-flex items-center justify-center px-4 py-1 rounded-full bg-[#ecfdf5] mb-10">
           <span className="h-2 w-2 bg-green-500 rounded-full mr-2" />
           <span className="text-sm font-medium text-[#065f46]">항시 대기중</span>
         </div>
