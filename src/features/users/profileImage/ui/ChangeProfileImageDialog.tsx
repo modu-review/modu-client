@@ -1,7 +1,8 @@
 'use client';
 
-import {useEffect, useState} from 'react';
 import ChangeProfileImageSelector from './ChangeProfileImageSelector';
+import ChangeProfileImagePreview from './ChangeProfileImagePreview';
+import {useChangeProfileImage} from '../lib/useChangeProfileImage';
 import {
   Dialog,
   DialogContent,
@@ -11,52 +12,9 @@ import {
   DialogTrigger,
 } from '@/shared/shadcnComponent/ui/dialog';
 import {LucideIcon} from '@/shared/ui/icons';
-import ChangeProfileImagePreview from './ChangeProfileImagePreview';
-import {useUserNickname} from '@/entities/auth';
-import {usePostProfileImage} from '@/entities/users';
-
-type ProfileImage = {
-  file: File;
-  url: string;
-};
 
 export default function ChangeProfileImageDialog() {
-  const [profileImage, setProfileImage] = useState<ProfileImage | null>(null);
-
-  const userNickname = useUserNickname();
-  const {updateProfileImage} = usePostProfileImage();
-
-  const handleSetFile = (file: File) => {
-    const url = URL.createObjectURL(file);
-    setProfileImage({file, url});
-  };
-
-  const handleSubmit = () => {
-    if (!profileImage || !userNickname) return;
-
-    const formData = new FormData();
-    formData.append('profileImage', profileImage.file);
-
-    updateProfileImage({
-      imageData: formData,
-      userNickname,
-    });
-  };
-
-  const handleCancel = () => {
-    if (profileImage) {
-      URL.revokeObjectURL(profileImage.url);
-      setProfileImage(null);
-    }
-  };
-
-  useEffect(() => {
-    return () => {
-      if (profileImage) {
-        URL.revokeObjectURL(profileImage.url);
-      }
-    };
-  }, [profileImage]);
+  const {profileImage, handleSetFile, handleSubmit, handleCancel} = useChangeProfileImage();
 
   return (
     <Dialog>
