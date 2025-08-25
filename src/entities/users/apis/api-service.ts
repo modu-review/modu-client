@@ -1,4 +1,4 @@
-import {requestGet, requestPost} from '@/shared/apis';
+import {requestDelete, requestGet, requestPost} from '@/shared/apis';
 import {PostsByUserResult, ProfileImage} from '../model/types';
 
 export function getPostsByUser(cursor: number, userNickname: string, sort: string) {
@@ -25,5 +25,13 @@ export async function postProfileImage(body: FormData) {
     baseUrl: process.env.NEXT_PUBLIC_CLIENT_URL,
     endpoint: '/api/users/me/profileImage',
     body,
+  });
+}
+
+export async function deleteProfileImage() {
+  await requestDelete({
+    // TODO: 개발 완료 후 baseUrl 제거
+    baseUrl: process.env.NEXT_PUBLIC_CLIENT_URL,
+    endpoint: '/api/users/me/profileImage',
   });
 }
