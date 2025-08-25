@@ -1,4 +1,5 @@
 import ChangeProfileImageDialog from './ChangeProfileImageDialog';
+import DeleteProfileImageDialog from './DeleteProfileImageDialog';
 import {Popover, PopoverContent, PopoverTrigger} from '@/shared/shadcnComponent/ui/popover';
 import {LucideIcon} from '@/shared/ui/icons';
 
@@ -10,10 +11,7 @@ export default function EditProfileImage() {
       </PopoverTrigger>
       <PopoverContent className="flex flex-col items-start w-[160px] gap-2 rounded-2xl px-3">
         <ChangeProfileImageDialog />
-        <button className="w-full flex items-center justify-between hover:bg-gray-100 py-1.5 px-3 rounded-xl transition-colors">
-          <span>삭제</span>
-          <LucideIcon name="Trash2" className="w-5 h-5 text-red-500" />
-        </button>
+        <DeleteProfileImageDialog />
       </PopoverContent>
     </Popover>
   );
