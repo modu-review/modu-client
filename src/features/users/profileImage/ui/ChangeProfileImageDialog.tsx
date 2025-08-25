@@ -1,6 +1,6 @@
 'use client';
 
-import {ChangeEvent, useState} from 'react';
+import {ChangeEvent, useEffect, useState} from 'react';
 import {useUpdateGlobalError} from '@/entities/error';
 import {createClientError} from '@/shared/lib/utils/client-error';
 import {
@@ -14,13 +14,23 @@ import {
 import {ImageUploadDragArea} from '@/shared/ui/components';
 import {LucideIcon} from '@/shared/ui/icons';
 
+type ProfileImage = {
+  file: File;
+  url: string;
+};
+
 const ACCEPTED_IMAGE_TYPES = ['image/jpeg', 'image/jpg', 'image/png'];
 const MAX_SIZE_EXCEEDED = 5 * 1024 * 1024;
 
 export default function ChangeProfileImageDialog() {
-  const [file, setFile] = useState<File | null>(null);
+  const [profileImage, setProfileImage] = useState<ProfileImage | null>(null);
 
   const updateGlobalError = useUpdateGlobalError();
+
+  const handleSetFile = (file: File) => {
+    const url = URL.createObjectURL(file);
+    setProfileImage({file, url});
+  };
 
   const validateFile = (file: File) => {
     if (!ACCEPTED_IMAGE_TYPES.includes(file.type)) {
@@ -40,7 +50,7 @@ export default function ChangeProfileImageDialog() {
 
   const handleDropImage = (file: File) => {
     if (validateFile(file)) {
-      setFile(file);
+      handleSetFile(file);
     }
   };
 
@@ -49,13 +59,21 @@ export default function ChangeProfileImageDialog() {
 
     const files = event.target.files;
     if (files && files[0] && validateFile(files[0])) {
-      setFile(files[0]);
+      handleSetFile(files[0]);
     }
   };
 
   const handleSubmit = () => {
     // TODO: 이미지 업로드 기능 연결
   };
+
+  useEffect(() => {
+    return () => {
+      if (profileImage) {
+        URL.revokeObjectURL(profileImage.url);
+      }
+    };
+  }, [profileImage]);
 
   return (
     <Dialog>
@@ -68,7 +86,7 @@ export default function ChangeProfileImageDialog() {
           <DialogTitle>프로필 이미지 수정</DialogTitle>
           <DialogDescription>사진을 드래그하거나 클릭해 업로드할 수 있어요.</DialogDescription>
         </DialogHeader>
-        {file ? (
+        {profileImage ? (
           <div>{/* TODO: 프로필 이미지 프리뷰 구현 */}</div>
         ) : (
           <ImageUploadDragArea onFile={handleDropImage} onError={updateGlobalError}>
