@@ -24,7 +24,6 @@ const config = getEnvironmentConfig();
 
 Sentry.init({
   dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
-  enabled: true, // 개발 완료 후 제거.
 
   environment: process.env.NODE_ENV,
 
