@@ -37,7 +37,7 @@ export default function ContactUs() {
           <span className="text-sm font-medium text-[#065f46]">항시 대기중</span>
         </div>
 
-        {/* Headline */}
+        {/* Content */}
         <h2 className="text-xl md:text-2xl lg:text-2xl font-bold text-white mb-6 leading-tight">
           💬 후기는 모였고, 이제 아이디어 차례! <br />
           사이트에 바라는 점이나 <br /> 번뜩이는 의견이 있다면, <br />
@@ -46,7 +46,7 @@ export default function ContactUs() {
 
         {/* Button */}
         <button className="mt-6 px-6 py-3 rounded-full  bg-white shadow-2xl text-black hover:bg-lightBlue transition text-lg font-bold">
-          Contact Us
+          Contact us
         </button>
       </div>
     </section>
