@@ -1,9 +1,9 @@
 'use client';
 
 import {ReviewCard} from '@/entities/review';
-import Image from 'next/image';
 import Link from 'next/link';
 import {LucideIcon} from '@/shared/ui/icons';
+import RecentReviewsCarousel from './RecentReviewsCarousel';
 
 const mockPosts: Partial<ReviewCard>[] = [
   {
@@ -45,54 +45,18 @@ const mockPosts: Partial<ReviewCard>[] = [
 ];
 
 export default function RecentReviews() {
-  const duplicated = [...mockPosts, ...mockPosts];
+  const duplicated = [...mockPosts, ...mockPosts]; // loop용
 
   return (
     <div className="relative w-full overflow-hidden mb-24">
       <h2 className="text-boldBlue text-center text-2xl font-bold my-16 lg:text-3xl">최근 등록된 후기</h2>
 
-      {/* 1행 - 왼쪽으로 슬라이드 */}
-      <div className="overflow-hidden w-full">
-        <div className="flex w-max animate-scroll-left">
-          {duplicated.map((post, idx) => (
-            <div
-              key={`row1-${post.board_id}-${idx}`}
-              className="min-w-[260px] bg-white border-[0.3rem] border-boldBlue rounded-2xl p-4 mx-2 shadow-md flex-shrink-0"
-            >
-              <Image
-                src={post.image_url || '/images/placeholder.png'}
-                width={400}
-                height={200}
-                alt={post.title ?? '리뷰 이미지'}
-                className="w-full h-40 object-cover rounded-md mb-2"
-              />
-              <h3 className="font-semibold text-lg">{post.title}</h3>
-              <p className="text-sm text-gray-600">{post.preview}</p>
-            </div>
-          ))}
-        </div>
-      </div>
+      {/* 1행(왼쪽방향슬라이딩) */}
+      <RecentReviewsCarousel posts={duplicated} direction="left" />
 
-      {/* 2행 - 오른쪽으로 슬라이드 */}
-      <div className="hidden md:block lg:block overflow-hidden w-full mt-8">
-        <div className="flex w-max animate-scroll-right">
-          {duplicated.map((post, idx) => (
-            <div
-              key={`row2-${post.board_id}-${idx}`}
-              className="min-w-[260px] bg-white border-[0.3rem] border-boldBlue rounded-2xl p-4 mx-2 shadow-md flex-shrink-0"
-            >
-              <Image
-                src={post.image_url || '/images/placeholder.png'}
-                width={400}
-                height={200}
-                alt={post.title ?? '리뷰 이미지'}
-                className="w-full h-40 object-cover rounded-md mb-2"
-              />
-              <h3 className="font-semibold text-lg">{post.title}</h3>
-              <p className="text-sm text-gray-600">{post.preview}</p>
-            </div>
-          ))}
-        </div>
+      {/* 2행(오른쪽방향슬라이딩_데스크탑에서만 표시 */}
+      <div className="hidden md:block lg:block mt-8">
+        <RecentReviewsCarousel posts={duplicated} direction="right" />
       </div>
 
       {/* 버튼 */}
@@ -102,12 +66,13 @@ export default function RecentReviews() {
           aria-label="더 많은 후기 보러가기"
           className="relative inline-flex items-center justify-center mx-auto px-6 py-4 group transition-transform active:scale-95"
         >
+          {/* 배경 우너형 애니메이션 */}
           <span className="absolute inset-0 bg-lightBlue rounded-full transition-all duration-300 ease-in-out w-14 h-14 group-hover:w-full group-hover:bg-boldBlue"></span>
-
+          {/* 텍스트 */}
           <span className="relative font-extrabold text-[16px] tracking-widest uppercase text-boldBlue group-hover:text-white">
             더 많은 후기 보기
           </span>
-
+          {/* 아이콘 */}
           <LucideIcon
             name="ArrowRight"
             size={20}
