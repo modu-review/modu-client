@@ -15,7 +15,7 @@ export default function BestReviews({reviews}: Props) {
   const filteredReview = reviews[selectedCategory];
 
   return (
-    <section className="bg-boldBlue mt-12 md:mt-16">
+    <section className="bg-boldBlue">
       <div className="w-full max-w-[1250px] mx-auto flex flex-col justify-center py-6 md:py-9 md:px-8">
         <h4 className="text-white font-bold text-2xl text-center md:text-start md:ml-14 mb-5 md:mb-8 md:text-3xl">
           실시간 베스트 리뷰

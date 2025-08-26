@@ -91,7 +91,7 @@ export default function Sidebar() {
       <SheetContent className="w-[300px] flex flex-col">
         <SheetHeader className="border-b-[3px] border-boldBlue pb-3">
           <SheetTitle className="text-xl md:text-2xl mb-1">모두의 후기</SheetTitle>
-          <SheetDescription>세상의 모든 후기를 확인해보세요.</SheetDescription>
+          <SheetDescription>당신이 찾던 그 후기를 확인해보세요.</SheetDescription>
         </SheetHeader>
         <nav className="flex-1 flex flex-col space-y-10 md:space-y-11 text-lg mt-5 md:font-semibold">
           {SIDEBAR_ROUTES.map(({title, href, isActive, requiresAuth, scrollToTop}) =>
