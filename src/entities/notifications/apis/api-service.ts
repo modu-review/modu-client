@@ -43,8 +43,5 @@ export async function preflightNotifications() {
     credentials: 'include',
   });
 
-  return {
-    ok: response.ok,
-    status: response.status,
-  };
+  return response;
 }

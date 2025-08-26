@@ -34,7 +34,5 @@ export async function tokenRefresh() {
     credentials: 'include',
   });
 
-  return {
-    ok: response.ok,
-  };
+  return response;
 }
