@@ -1,4 +1,3 @@
-import {useUserNickname} from '@/entities/auth';
 import {NO_PROFILE_IMAGE_URL, useDeleteProfileImage, useGetProfileImageByUserNickname} from '@/entities/users';
 import {
   Dialog,
@@ -13,18 +12,11 @@ import {
 import {LucideIcon} from '@/shared/ui/icons';
 import {PopoverClose} from '@radix-ui/react-popover';
 
-export default function DeleteProfileImageDialog() {
-  const userNickname = useUserNickname();
+type Props = {
+  userNickname: string;
+};
 
-  if (!userNickname) {
-    return (
-      <p className="w-full flex items-center justify-between hover:bg-gray-100 py-1.5 px-3 rounded-xl transition-colors">
-        <span>삭제</span>
-        <LucideIcon name="Trash2" className="w-5 h-5 text-red-500" />
-      </p>
-    );
-  }
-
+export default function DeleteProfileImageDialog({userNickname}: Props) {
   const {deleteProfileImage} = useDeleteProfileImage();
   const {data} = useGetProfileImageByUserNickname(userNickname);
 
