@@ -26,3 +26,15 @@ export async function logout() {
     errorHandlingType: 'toast',
   });
 }
+
+export async function tokenRefresh() {
+  const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/token/refresh', {
+    cache: 'no-cache',
+    next: {revalidate: 0},
+    credentials: 'include',
+  });
+
+  return {
+    ok: response.ok,
+  };
+}
