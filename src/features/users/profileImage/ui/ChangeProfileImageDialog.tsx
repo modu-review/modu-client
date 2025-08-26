@@ -22,7 +22,7 @@ export default function ChangeProfileImageDialog() {
         <span>사진 선택</span>
         <LucideIcon name="Image" className="w-5 h-5" />
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="w-[90%] md:w-full rounded-lg">
         <DialogHeader>
           <DialogTitle>프로필 이미지 수정</DialogTitle>
           <DialogDescription>사진을 드래그하거나 클릭해 업로드할 수 있어요.</DialogDescription>
