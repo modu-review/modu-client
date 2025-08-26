@@ -20,14 +20,14 @@ export default function Header() {
 
   const SIDEBAR_ROUTES = [
     {
-      title: '후기 작성하기',
+      title: '후기쓰기',
       href: '/reviews/new',
       isActive: (path: string) => path === '/reviews/new',
       requiresAuth: true,
       scrollToTop: false,
     },
     {
-      title: '후기 둘러보기',
+      title: '둘러보기',
       href: '/search',
       isActive: (path: string) => path === '/search',
       requiresAuth: false,
@@ -55,18 +55,18 @@ export default function Header() {
       className={`flex justify-between items-center py-5 px-5 md:px-8 lg:py-6 lg:px-10 ${isMainPage || ' border-b border-gray-200'}`}
     >
       <Link href="/">
-        <h2 className="text-2xl md:text-3xl font-bold whitespace-nowrap text-boldBlue">모두의 : 후기</h2>
+        <h2 className="text-2xl md:text-3xl font-extrabold whitespace-nowrap text-boldBlue">모두의 : 후기</h2>
       </Link>
       {/* 모바일 */}
-      <div className="md:hidden lg:hidden">
+      <div className="lg:hidden">
         <Sidebar />
       </div>
 
       {/* 데스크탑 */}
-      <div className="hidden md:flex lg:flex w-full max-w-[1250px] justify-end">
-        <div className="flex justify-end w-full gap-4">
+      <div className="hidden lg:flex w-full lg:max-w-screen-2xl items-center">
+        <div className="flex justify-center items-center w-full gap-4">
           {/* 메뉴 영역 */}
-          <nav className="flex gap-6 text-lg items-center flex-wrap">
+          <nav className="hidden md:flex absolute left-1/2 -translate-x-1/2 gap-14 text-medium items-center flex-wrap">
             {SIDEBAR_ROUTES.map(({title, href, isActive, requiresAuth, scrollToTop}) =>
               !requiresAuth || isLoggedIn ? (
                 <Link
@@ -80,17 +80,20 @@ export default function Header() {
                   aria-label={`${title} 메뉴로 이동`}
                   scroll={scrollToTop}
                 >
-                  <span>{title}</span>
+                  <span className="relative group font-medium">
+                    <span className="invisible group-hover:visible absolute -left-2">[</span>
+                    <span className="px-2">{title}</span>
+                    <span className="invisible group-hover:visible absolute -right-2">]</span>
+                  </span>
                 </Link>
               ) : (
                 <LoginRequiredPopover key={title} title={title} />
               ),
             )}
           </nav>
-
-          {/* 로그인/로그아웃 버튼 */}
-          <div className="flex-shrink-0">{isLoggedIn ? <LogoutButton /> : <LoginButton />}</div>
         </div>
+        {/* 로그인/로그아웃 버튼 */}
+        <div className="flex-shrink-0">{isLoggedIn ? <LogoutButton /> : <LoginButton className="px-6" />}</div>
       </div>
     </header>
   );
