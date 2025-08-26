@@ -1,5 +1,5 @@
 import {useUserNickname} from '@/entities/auth';
-import {useDeleteProfileImage} from '@/entities/users';
+import {NO_PROFILE_IMAGE_URL, useDeleteProfileImage, useGetProfileImageByUserNickname} from '@/entities/users';
 import {
   Dialog,
   DialogClose,
@@ -15,17 +15,37 @@ import {PopoverClose} from '@radix-ui/react-popover';
 
 export default function DeleteProfileImageDialog() {
   const userNickname = useUserNickname();
+
+  if (!userNickname) {
+    return (
+      <p className="w-full flex items-center justify-between hover:bg-gray-100 py-1.5 px-3 rounded-xl transition-colors">
+        <span>삭제</span>
+        <LucideIcon name="Trash2" className="w-5 h-5 text-red-500" />
+      </p>
+    );
+  }
+
   const {deleteProfileImage} = useDeleteProfileImage();
+  const {data} = useGetProfileImageByUserNickname(userNickname);
+
+  const isDefaultImage = NO_PROFILE_IMAGE_URL === data.profileImage;
+
+  if (isDefaultImage) {
+    return null;
+  }
 
   const handleDelete = () => {
-    if (!userNickname) return;
+    if (!userNickname || isDefaultImage) return;
 
     deleteProfileImage({userNickname});
   };
 
   return (
     <Dialog>
-      <DialogTrigger className="w-full flex items-center justify-between hover:bg-gray-100 py-1.5 px-3 rounded-xl transition-colors">
+      <DialogTrigger
+        disabled={isDefaultImage}
+        className="w-full flex items-center justify-between py-1.5 px-3 rounded-xl hover:bg-gray-100 transition-colors"
+      >
         <span>삭제</span>
         <LucideIcon name="Trash2" className="w-5 h-5 text-red-500" />
       </DialogTrigger>

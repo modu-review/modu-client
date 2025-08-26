@@ -1,12 +1,11 @@
 import {useMutation, useQueryClient} from '@tanstack/react-query';
 import {deleteProfileImage} from '../apis/api-service';
 import {usersQueryKeys} from './query-service';
+import {NO_PROFILE_IMAGE_URL} from '../consts/defaultProfileImage';
 
 type MutationVariables = {
   userNickname: string;
 };
-
-const NO_PROFILE_IMAGE_URL = 'https://d1izijuzr22yly.cloudfront.net/no-profileImage.png';
 
 export function useDeleteProfileImage() {
   const queryClient = useQueryClient();
