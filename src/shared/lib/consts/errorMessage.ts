@@ -83,4 +83,8 @@ export const ERROR_MESSAGE = {
   NO_IMAGE_SELECTED: '이미지를 선택해주세요.',
   TOO_MANY_IMAGES_SELECTED: '이미지는 1개만 선택할 수 있어요.',
   UPLOAD_CANCELLED: '이미지 업로드가 취소되었어요.',
+
+  // 프로필 이미지 관련 에러
+  NOT_SUPPORTED_FILE: '지원하지 않는 이미지 파일 형식이에요. .jpg, .jpeg, .png 파일만 업로드할 수 있어요.',
+  FILE_SIZE_EXCEEDED: '이미지 크기가 너무 커요. 최대 5MB 이하의 이미지를 업로드해주세요.',
 } as const;
