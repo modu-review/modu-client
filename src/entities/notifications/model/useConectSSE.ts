@@ -1,12 +1,18 @@
 import {useCallback, useEffect, useRef} from 'react';
 import {preflightNotifications} from '../apis/api-service';
+import {MetaEvent, NotificationEvent} from './type';
 import {useIsLoggedIn} from '@/entities/auth';
 import {tokenRefresh} from '@/entities/auth/apis/api-service';
 import {useUpdateGlobalError} from '@/entities/error';
 import {RequestError} from '@/shared/apis/request-error';
 import {TErrorInfo} from '@/shared/apis/request-type';
 
-export function useConnectSSE() {
+type Props = {
+  onMeta: (data: MetaEvent) => {};
+  onNotification: (data: NotificationEvent) => {};
+};
+
+export function useConnectSSE({onMeta, onNotification}: Props) {
   const eventSourceRef = useRef<EventSource | null>(null);
 
   const isLoggedIn = useIsLoggedIn();
@@ -17,15 +23,17 @@ export function useConnectSSE() {
       withCredentials: true,
     });
 
-    newEventSource.onmessage = event => {
-      console.log('메세지 이벤트 발생', event);
-    };
+    newEventSource.addEventListener('meta', event => {
+      const data: MetaEvent = JSON.parse(event.data);
 
-    newEventSource.onerror = event => {
-      console.error('에러 이벤트 발생', event);
+      onMeta(data);
+    });
 
-      newEventSource.close();
-    };
+    newEventSource.addEventListener('notification', event => {
+      const data: NotificationEvent = JSON.parse(event.data);
+
+      onNotification(data);
+    });
 
     eventSourceRef.current = newEventSource;
   }, []);
