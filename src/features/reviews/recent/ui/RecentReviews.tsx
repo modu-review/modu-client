@@ -139,7 +139,7 @@ export default function RecentReviews() {
 
   return (
     <div className="relative w-full overflow-hidden mb-24 ">
-      <h2 className="text-center text-3xl font-bold my-16">최근 등록된 리뷰</h2>
+      <h2 className="text-boldBlue text-center text-2xl font-bold my-16 lg:text-3xl">최근 등록된 후기</h2>
 
       {/* 1행 - 왼쪽으로 슬라이드 */}
       <div className="carousel-wrapper">
@@ -244,7 +244,7 @@ export default function RecentReviews() {
           className="relative inline-flex items-center justify-center mx-auto px-6 py-4 group transition-transform active:scale-95"
         >
           {/* 배경 확장용 span */}
-          <span className="absolute inset-0 bg-pink-300 rounded-full transition-all duration-300 ease-in-out group-hover:w-full w-14 h-14 group-hover:bg-pink-400"></span>
+          <span className="absolute inset-0 bg-lightBlue rounded-full transition-all duration-300 ease-in-out group-hover:w-full w-14 h-14 group-hover:bg-boldBlue"></span>
 
           {/* 텍스트 */}
           <span className="relative font-extrabold text-[16px] tracking-widest uppercase text-boldBlue group-hover:text-white">
@@ -255,7 +255,7 @@ export default function RecentReviews() {
           <LucideIcon
             name="ArrowRight"
             size={20}
-            className="relative ml-2 transition-transform duration-300 ease-in-out transform -translate-x-2 group-hover:translate-x-0 stroke-[2px]"
+            className="stroke-current text-boldBlue group-hover:text-white relative ml-2 transition-transform duration-300 ease-in-out transform -translate-x-2 group-hover:translate-x-0 stroke-[2px]"
           />
         </Link>
       </div>

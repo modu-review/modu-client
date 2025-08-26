@@ -29,7 +29,7 @@
 // blue mode
 export default function ContactUs() {
   return (
-    <section className="flex justify-center items-center py-24 px-4 bg-white">
+    <section className="flex justify-center items-center py-24 px-4 bg-white border-t-[0.3rem] border-t-[#F1F3F5] border-dashed">
       <div className="w-full max-w-4xl rounded-[2rem] shadow-2xl bg-boldBlue text-center py-20 px-6">
         {/* Badge */}
         <div className="inline-flex items-center justify-center px-4 py-1 rounded-full bg-[#ecfdf5] mb-6">
@@ -38,14 +38,14 @@ export default function ContactUs() {
         </div>
 
         {/* Headline */}
-        <h2 className="text-2xl sm:text-xl font-bold text-white mb-6 leading-tight">
+        <h2 className="text-xl md:text-2xl lg:text-2xl font-bold text-white mb-6 leading-tight">
           💬 후기는 모였고, 이제 아이디어 차례! <br />
-          사이트에 바라는 점이나 번뜩이는 의견이 있다면, <br />
-          여기 <span className=" inline-block animate-bounce mt-2">👇🏻</span> 살포시 남겨주세요.
+          사이트에 바라는 점이나 <br /> 번뜩이는 의견이 있다면, <br />
+          여기 <span className=" inline-block animate-bounce mt-2">👇🏻</span> 살포시 남겨주세요. 💬
         </h2>
 
         {/* Button */}
-        <button className="mt-6 px-6 py-3 rounded-full  bg-white shadow-2xl text-black hover:bg-blue-200 transition text-lg font-bold">
+        <button className="mt-6 px-6 py-3 rounded-full  bg-white shadow-2xl text-black hover:bg-lightBlue transition text-lg font-bold">
           Contact Us
         </button>
       </div>
