@@ -46,10 +46,13 @@ export default function ContactUs() {
         </h2>
 
         {/* Button */}
-        <Link href="/contact">
-          <button className="mt-6 px-6 py-3 rounded-full  bg-white shadow-2xl text-black hover:bg-lightBlue transition text-lg font-bold">
-            Contact us
-          </button>
+        <Link
+          href="/contact"
+          className="mt-6 px-6 py-3 rounded-full  bg-white shadow-2xl text-black hover:bg-lightBlue transition text-lg font-bold"
+        >
+          {/* <button > */}
+          Contact us
+          {/* </button> */}
         </Link>
       </div>
     </section>
