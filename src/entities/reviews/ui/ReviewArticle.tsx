@@ -16,7 +16,7 @@ export default function ReviewArticle({
     <Link href={`/reviews/${board_id}`}>
       <article
         key={board_id}
-        className="w-full overflow-hidden mb-6 flex flex-col-reverse md:flex-row md:justify-between shadow-xl shadow-gray-300 md:shadow-none rounded-md md:rounded-none md:border-b-2 md:border-gray-500 md:px-4 md:pb-6"
+        className="w-full overflow-hidden mb-6 flex flex-col-reverse md:flex-row md:justify-between shadow-xl shadow-gray-300 md:shadow-none rounded-md md:rounded-none md:border-b-2 md:border-gray-300 md:px-4 md:pb-6"
       >
         <section className="flex flex-col">
           <article className="mb-4 pt-4 px-4 md:p-0">
