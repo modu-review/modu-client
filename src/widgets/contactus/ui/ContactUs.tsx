@@ -10,6 +10,8 @@
 //           <span className="text-sm font-medium text-[#065f46]">항시 대기중</span>
 //         </div>
 
+import Link from 'next/link';
+
 //         {/* Headline */}
 //         <h2 className="text-medium md:text-xl lg:text-xl font-bold text-gray-900 mb-6 leading-tight">
 //           💬 후기는 모였고, 이제 아이디어 차례! <br />
@@ -45,9 +47,11 @@ export default function ContactUs() {
         </h2>
 
         {/* Button */}
-        <button className="mt-6 px-6 py-3 rounded-full  bg-white shadow-2xl text-black hover:bg-lightBlue transition text-lg font-bold">
-          Contact us
-        </button>
+        <Link href="/contact">
+          <button className="mt-6 px-6 py-3 rounded-full  bg-white shadow-2xl text-black hover:bg-lightBlue transition text-lg font-bold">
+            Contact us
+          </button>
+        </Link>
       </div>
     </section>
   );
