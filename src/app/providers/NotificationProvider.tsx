@@ -2,6 +2,7 @@
 
 import {useCallback} from 'react';
 import {MetaEvent, NotificationEvent, useConnectSSE, useSetHasNotifications} from '@/entities/notifications';
+import toast from '@/shared/lib/utils/toastService';
 
 type Props = {
   children: React.ReactNode;
@@ -16,7 +17,11 @@ export default function NotificationProvider({children}: Props) {
 
   const handleNotification = useCallback((data: NotificationEvent) => {
     setHasNotification(true);
-    // TODO: 토스트 처리
+    toast.notification({
+      title: data.title,
+      type: data.type,
+      board_id: data.board_id,
+    });
   }, []);
 
   useConnectSSE({
