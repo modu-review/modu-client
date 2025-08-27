@@ -1,6 +1,5 @@
 import {CATEGORY_MAP, ReviewContent} from '@/entities/review';
 import {Badge} from '@/shared/ui/components';
-import Link from 'next/link';
 
 type Props = ReviewContent & {
   authorProfileUrl?: string;

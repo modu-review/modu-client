@@ -1,5 +1,6 @@
 import AuthProvider from './AuthProvider';
 import GlobalErrorDetector from './GlobalErrorDetector';
+import NotificationProvider from './NotificationProvider';
 import ReactQueryProvider from './ReactQueryProvider';
 import UnPredictableErrorBoundary from './UnPredictableErrorBoundary';
 
@@ -12,7 +13,9 @@ const Providers = ({children}: Props) => {
     <UnPredictableErrorBoundary>
       <GlobalErrorDetector>
         <ReactQueryProvider>
-          <AuthProvider>{children}</AuthProvider>
+          <AuthProvider>
+            <NotificationProvider>{children}</NotificationProvider>
+          </AuthProvider>
         </ReactQueryProvider>
       </GlobalErrorDetector>
     </UnPredictableErrorBoundary>

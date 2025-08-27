@@ -1,8 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import {Sidebar} from '@/widgets/side-bar';
 import {usePathname} from 'next/navigation';
+import {Sidebar} from '@/widgets/side-bar';
+import {NotificationBell} from '@/features/notifications';
 
 export default function Header() {
   const pathName = usePathname();
@@ -15,7 +16,10 @@ export default function Header() {
       <Link href="/">
         <h2 className="text-2xl md:text-3xl font-bold text-boldBlue">모두의 : 후기</h2>
       </Link>
-      <Sidebar />
+      <div className="flex items-center gap-4 md:gap-6">
+        <NotificationBell />
+        <Sidebar />
+      </div>
     </header>
   );
 }
