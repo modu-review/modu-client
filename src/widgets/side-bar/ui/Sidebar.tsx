@@ -18,63 +18,12 @@ import {
   SheetTrigger,
 } from '@/shared/shadcnComponent/ui/sheet';
 import {LucideIcon} from '@/shared/ui/icons';
+import {SIDEBAR_ROUTES} from '../const/sidebarRoutes';
 
 const LoginButton = dynamic(() => import('@/features/auth/ui/LoginButton'), {
   ssr: false,
   loading: () => <LoginButtonLoading />,
 });
-
-const SIDEBAR_ROUTES = [
-  {
-    title: '홈',
-    href: '/',
-    isActive: (path: string) => path === '/',
-    requiresAuth: false,
-    scrollToTop: true,
-  },
-  {
-    title: '마이페이지',
-    href: '/mypage',
-    isActive: (path: string) => path === '/mypage',
-    requiresAuth: true,
-    scrollToTop: false,
-  },
-  {
-    title: '후기 작성하기',
-    href: '/reviews/new',
-    isActive: (path: string) => path === '/reviews/new',
-    requiresAuth: true,
-    scrollToTop: false,
-  },
-  {
-    title: '후기 둘러보기',
-    href: '/search',
-    isActive: (path: string) => path === '/search',
-    requiresAuth: false,
-    scrollToTop: true,
-  },
-  {
-    title: '내가 작성한 후기',
-    href: '/mypage?tabs=my',
-    isActive: (path: string) => path === '/mypage?tabs=my',
-    requiresAuth: true,
-    scrollToTop: false,
-  },
-  {
-    title: '내가 저장한 후기',
-    href: '/mypage?tabs=myBookmarks',
-    isActive: (path: string) => path === '/mypage?tabs=myBookmarks',
-    requiresAuth: true,
-    scrollToTop: false,
-  },
-  {
-    title: '문의하기',
-    href: '/contact',
-    isActive: (path: string) => path === '/contact',
-    requiresAuth: false,
-    scrollToTop: true,
-  },
-];
 
 export default function Sidebar() {
   const pathName = usePathname();

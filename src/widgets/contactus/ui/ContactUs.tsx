@@ -40,9 +40,7 @@ export default function ContactUs() {
 
         {/* Content */}
         <h2 className="text-xl md:text-2xl lg:text-2xl font-semibold text-white mb-6 leading-tight">
-          {/* 후기는 모였고, 이제 아이디어 차례! <br /> */}
           사이트에 바라는 점이나 <br /> 번뜩이는 의견이 있다면, 여기 남겨주세요.
-          {/* 여기 <span className=" inline-block animate-bounce mt-2">👇🏻</span> 살포시 남겨주세요. */}
         </h2>
 
         {/* Button */}

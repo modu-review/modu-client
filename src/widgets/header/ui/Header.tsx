@@ -1,54 +1,23 @@
 'use client';
 
 import Link from 'next/link';
-import {Sidebar} from '@/widgets/side-bar';
+import dynamic from 'next/dynamic';
 import {usePathname} from 'next/navigation';
-import {LoginButton, LoginButtonLoading, LogoutButton} from '@/features/auth';
+import {Sidebar} from '@/widgets/side-bar';
+import {LoginButtonLoading, LogoutButton} from '@/features/auth';
 import {useIsLoggedIn} from '@/entities/auth';
+import {SIDEBAR_ROUTES} from '@/widgets/side-bar/const/sidebarRoutes';
 import LoginRequiredPopover from '@/widgets/side-bar/ui/LoginRequiredPopover';
-// import {dynamic} from '../../../../app/search/page';
 
 export default function Header() {
   const pathName = usePathname();
   const isMainPage = pathName === '/';
   const isLoggedIn = useIsLoggedIn();
 
-  // const LoginButton = dynamic(() => import('@/features/auth/ui/LoginButton'), {
-  //   ssr: false,
-  //   loading: () => <LoginButtonLoading />,
-  // });
-
-  const SIDEBAR_ROUTES = [
-    {
-      title: '후기쓰기',
-      href: '/reviews/new',
-      isActive: (path: string) => path === '/reviews/new',
-      requiresAuth: true,
-      scrollToTop: false,
-    },
-    {
-      title: '둘러보기',
-      href: '/search',
-      isActive: (path: string) => path === '/search',
-      requiresAuth: false,
-      scrollToTop: true,
-    },
-    {
-      title: '마이페이지',
-      href: '/mypage',
-      isActive: (path: string) => path === '/mypage',
-      requiresAuth: true,
-      scrollToTop: false,
-    },
-
-    {
-      title: '문의하기',
-      href: '/contact',
-      isActive: (path: string) => path === '/contact',
-      requiresAuth: false,
-      scrollToTop: true,
-    },
-  ];
+  const LoginButton = dynamic(() => import('@/features/auth/ui/LoginButton'), {
+    ssr: false,
+    loading: () => <LoginButtonLoading />,
+  });
 
   return (
     <header
