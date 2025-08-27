@@ -98,20 +98,10 @@ export default {
         },
       },
       animation: {
-        'scroll-left': 'scroll-left 50s linear infinite',
-        'scroll-right': 'scroll-right 50s linear infinite',
         'fade-up': 'fade-up 150ms ease-in-out',
         'fade-in': 'fade-in 200ms ease-in',
       },
       keyframes: {
-        'scroll-left': {
-          '0%': {transform: 'translateX(0%)'},
-          '100%': {transform: 'translateX(-33.333%)'},
-        },
-        'scroll-right': {
-          '0%': {transform: 'translateX(-33.333%)'},
-          '100%': {transform: 'translateX(0%)'},
-        },
         'fade-up': {
           '0%': {
             opacity: '0',
