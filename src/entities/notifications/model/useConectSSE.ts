@@ -36,7 +36,7 @@ export function useConnectSSE({onMeta, onNotification}: Props) {
     });
 
     eventSourceRef.current = newEventSource;
-  }, []);
+  }, [onMeta, onNotification]);
 
   const connectSSE = useCallback(async () => {
     if (eventSourceRef.current) return;

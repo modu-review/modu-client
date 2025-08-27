@@ -17,7 +17,7 @@ export function useGetNotifications(page: number) {
     if (page > 1) {
       queryClient.prefetchQuery(notificationsOptions.page(page - 1));
     }
-  }, [page, data.total_pages]);
+  }, [page, data.total_pages, queryClient]);
 
   return data;
 }

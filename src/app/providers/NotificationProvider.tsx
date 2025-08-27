@@ -15,14 +15,17 @@ export default function NotificationProvider({children}: Props) {
     setHasNotification(data.hasNotification);
   }, []);
 
-  const handleNotification = useCallback((data: NotificationEvent) => {
-    setHasNotification(true);
-    toast.notification({
-      title: data.title,
-      type: data.type,
-      board_id: data.board_id,
-    });
-  }, []);
+  const handleNotification = useCallback(
+    (data: NotificationEvent) => {
+      setHasNotification(true);
+      toast.notification({
+        title: data.title,
+        type: data.type,
+        board_id: data.board_id,
+      });
+    },
+    [setHasNotification],
+  );
 
   useConnectSSE({
     onMeta: handleMeta,
