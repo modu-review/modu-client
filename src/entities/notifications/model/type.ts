@@ -23,7 +23,7 @@ export type MetaEvent = {
 export type NotificationEvent = {
   id: number;
   board_id: number;
-  type: string;
+  type: NotificationType;
   title: string;
   isRead: boolean;
   isDeleted: boolean;

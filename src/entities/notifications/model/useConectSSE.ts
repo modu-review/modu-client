@@ -8,8 +8,8 @@ import {RequestError} from '@/shared/apis/request-error';
 import {TErrorInfo} from '@/shared/apis/request-type';
 
 type Props = {
-  onMeta: (data: MetaEvent) => {};
-  onNotification: (data: NotificationEvent) => {};
+  onMeta: (data: MetaEvent) => void;
+  onNotification: (data: NotificationEvent) => void;
 };
 
 export function useConnectSSE({onMeta, onNotification}: Props) {
