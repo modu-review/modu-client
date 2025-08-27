@@ -4,12 +4,21 @@ import {
   KeywordReviewsResult,
   MyBookmarkedReviews,
   MyReviews,
+  RecentReviews,
 } from '../model/types';
 import {requestGet} from '@/shared/apis';
 
 export function getBestReviews() {
   return requestGet<BestReviewsResult>({
     endpoint: '/reviews/best',
+  });
+}
+
+export function getRecentReviews() {
+  return requestGet<RecentReviews>({
+    endpoint: '/reviews/latest',
+    // endpoint: '/api/reviews/latest',
+    // baseUrl: process.env.NEXT_PUBLIC_CLIENT_URL,
   });
 }
 

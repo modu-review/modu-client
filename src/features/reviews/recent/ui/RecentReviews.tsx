@@ -1,62 +1,27 @@
 'use client';
 
-import {ReviewCard} from '@/entities/review';
 import Link from 'next/link';
 import {LucideIcon} from '@/shared/ui/icons';
 import RecentReviewsCarousel from './RecentReviewsCarousel';
-
-const mockPosts: Partial<ReviewCard>[] = [
-  {
-    board_id: 1,
-    title: '초코 케이크 리뷰',
-    preview: '달달하고 부드러웠어요!',
-    image_url: '/images/choco.jpg',
-  },
-  {
-    board_id: 2,
-    title: '수제 버거 리뷰',
-    preview: '정말 두툼한 패티!',
-    image_url: '/images/burger.jpg',
-  },
-  {
-    board_id: 3,
-    title: '촉촉한 로션 후기',
-    preview: '민감성 피부에 강추',
-    image_url: '/images/lotion.jpg',
-  },
-  {
-    board_id: 4,
-    title: '감자튀김 후기',
-    preview: '바삭하고 고소해요!',
-    image_url: '/images/fries.jpg',
-  },
-  {
-    board_id: 5,
-    title: '딸기 스무디 리뷰',
-    preview: '상큼하고 시원했어요!',
-    image_url: '/images/smoothie.jpg',
-  },
-  {
-    board_id: 6,
-    title: '에센스 후기',
-    preview: '흡수가 빠르고 끈적이지 않아요.',
-    image_url: '/images/essence.jpg',
-  },
-];
+import {useGetRecentReviews} from '@/entities/reviews';
 
 export default function RecentReviews() {
-  const duplicated = [...mockPosts, ...mockPosts]; // loop용
+  const {
+    data: {latest_reviews},
+  } = useGetRecentReviews();
+  // console.log('latest_reviews', latest_reviews);
+  // const duplicated = [...mockPosts, ...mockPosts]; // loop용
 
   return (
     <div className="relative w-full overflow-hidden mb-24">
       <h2 className="text-boldBlue text-center text-2xl font-bold my-16 lg:text-3xl">최근 등록된 후기</h2>
 
       {/* 1행(왼쪽방향슬라이딩) */}
-      <RecentReviewsCarousel posts={duplicated} direction="left" />
+      <RecentReviewsCarousel posts={latest_reviews} rowKey="row1" />
 
       {/* 2행(오른쪽방향슬라이딩_데스크탑에서만 표시 */}
       <div className="hidden md:block lg:block mt-8">
-        <RecentReviewsCarousel posts={duplicated} direction="right" />
+        <RecentReviewsCarousel posts={latest_reviews} rightToLeft={false} rowKey="row2" />
       </div>
 
       {/* 버튼 */}

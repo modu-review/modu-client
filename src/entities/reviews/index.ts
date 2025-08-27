@@ -11,3 +11,4 @@ export {default as NoSearchResults} from './ui/NoSearchResults';
 export {default as DeleteButton} from './ui/DeleteButton';
 export {reviewsQueryKeys, reviewsQueryOptions} from './model/query-service';
 export {default as CardDescription} from './ui/CardDescription';
+export {useGetRecentReviews} from './model/useGetRecentReviews';

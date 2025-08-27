@@ -1,18 +1,24 @@
 import {ReviewCard} from '@/entities/review';
 import RecentReviewCard from './RecentReviewCard';
+import MultiCarousel from './MultiCarousel';
 
 type Props = {
-  posts: Partial<ReviewCard>[];
-  direction: 'left' | 'right';
+  posts: ReviewCard[];
+  rightToLeft?: boolean;
+  rowKey: string;
 };
-export default function RecentReviewsCarousel({posts, direction}: Props) {
+export default function RecentReviewsCarousel({posts, rightToLeft, rowKey}: Props) {
   return (
     <div className="overflow-hidden w-full">
-      <div className={`flex w-max ${direction === 'left' ? 'animate-scroll-left' : 'animate-scroll-right'}`}>
+      <MultiCarousel rightToLeft={rightToLeft}>
         {posts.map((post, idx) => (
-          <RecentReviewCard key={`row1-${post.board_id}-${idx}`} post={post} />
+          <RecentReviewCard
+            key={`${rowKey}-${post.board_id}-${idx}`}
+            post={post}
+            uniqueKey={`${rowKey}-${post.board_id}-${idx}`}
+          />
         ))}
-      </div>
+      </MultiCarousel>
     </div>
   );
 }

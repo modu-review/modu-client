@@ -30,3 +30,7 @@ export type MyBookmarkedReviews = {
   current_page: number;
   total_pages: number;
 };
+
+export type RecentReviews = {
+  latest_reviews: ReviewCard[];
+};
