@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import {usePathname} from 'next/navigation';
-import LoginRequiredPopover from '@/widgets/side-bar/ui/LoginRequiredPopover';
+import {LoginRequiredPopover} from '@/features/auth';
 import {useIsLoggedIn} from '@/entities/auth';
 import {ROUTES} from '@/shared/lib/consts/routes';
 

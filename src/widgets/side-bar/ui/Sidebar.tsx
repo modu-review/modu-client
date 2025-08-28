@@ -4,8 +4,7 @@ import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import {usePathname} from 'next/navigation';
 import UserInfo from './UserInfo';
-import LoginRequiredPopover from './LoginRequiredPopover';
-import {LoginButtonLoading, LogoutButton} from '@/features/auth';
+import {LoginButtonLoading, LoginRequiredPopover, LogoutButton} from '@/features/auth';
 import {useIsLoggedIn} from '@/entities/auth';
 import {
   Sheet,

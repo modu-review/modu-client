@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import {LoginButtonLoading} from '@/features/auth';
+import LoginButtonLoading from './LoginButtonLoading';
 import {Popover, PopoverContent, PopoverTrigger} from '@/shared/shadcnComponent/ui/popover';
 import {LucideIcon} from '@/shared/ui/icons';
 

@@ -4,3 +4,4 @@ export {default as LoginButton} from './ui/LoginButton';
 export {default as LoginButtonLoading} from './ui/LoginButtonLoading';
 export {default as LoginModal} from './ui/LoginModal';
 export {default as LogoutButton} from './ui/LogoutButton';
+export {default as LoginRequiredPopover} from './ui/LoginRequiredPopover';
