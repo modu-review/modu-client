@@ -1,6 +1,8 @@
 import Hero from '@/widgets/hero';
-import {getBestReviews} from '@/entities/reviews';
+import ContactUs from '@/widgets/contactus';
 import {BestReviews} from '@/features/reviews/best';
+import {RecentReviews} from '@/features/reviews/recent';
+import {getBestReviews} from '@/entities/reviews';
 
 export default async function MainPage() {
   const data = await getBestReviews();
@@ -9,6 +11,8 @@ export default async function MainPage() {
     <section>
       <Hero />
       <BestReviews reviews={data} />
+      <RecentReviews />
+      <ContactUs />
     </section>
   );
 }

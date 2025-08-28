@@ -8,12 +8,21 @@ import {Badge} from '@/shared/ui/components';
 const imageWrapperVariants = cva('w-[140px] h-[140px] overflow-hidden rounded-[30px] mb-1 shadow-md', {
   variants: {
     variant: {
-      default: 'shadow-black',
+      default: 'shadow-black w-[250px] h-[180px] mt-3 mb-3',
       my: 'shadow-gray-400',
     },
   },
   defaultVariants: {
     variant: 'default',
+  },
+});
+
+const badgeVariants = cva('', {
+  variants: {
+    variant: {
+      default: 'hidden',
+      my: '',
+    },
   },
 });
 
@@ -30,7 +39,7 @@ export default function CardDescription({
 }: Props) {
   return (
     <article className="h-full flex flex-col items-center justify-between font-semibold">
-      <Badge>{CATEGORY_MAP[category]}</Badge>
+      <Badge className={badgeVariants({variant})}>{CATEGORY_MAP[category]}</Badge>
 
       <div className="flex flex-col items-center text-center">
         <div className={cn(imageWrapperVariants({variant}))}>

@@ -33,7 +33,7 @@ export default function SearchBar({autoFocus, onBlur}: Props) {
     <div className="w-full flex flex-col items-center px-4 relative">
       <form
         onSubmit={handleSearch}
-        className="flex items-center w-full max-w-[480px] md:max-w-[550px] lg:max-w-[712px] h-full shadow-md rounded-3xl border px-4 py-1"
+        className="flex items-center w-full max-w-[480px] md:max-w-[550px] lg:max-w-[712px] md:h-full lg:h-full h-11 shadow-md rounded-3xl border px-4 py-1"
       >
         <button type="submit" className="focus:outline-none" aria-label="검색">
           <LucideIcon name="Search" size={24} color="#53587E" />

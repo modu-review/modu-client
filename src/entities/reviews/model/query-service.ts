@@ -1,5 +1,11 @@
 import {keepPreviousData} from '@tanstack/react-query';
-import {getCategoryReviews, getKeywordReviews, getMyBookmarkedReviews, getMyReviews} from '../apis/api-service';
+import {
+  getCategoryReviews,
+  getKeywordReviews,
+  getMyBookmarkedReviews,
+  getMyReviews,
+  getRecentReviews,
+} from '../apis/api-service';
 import {Category} from '@/entities/review/model/type';
 
 export const reviewsQueryKeys = {
@@ -24,6 +30,7 @@ export const reviewsQueryKeys = {
     category: (categoryId: Category) => [...reviewsQueryKeys.category.all(), categoryId] as const,
     page: (categoryId: Category, sort: string) => [...reviewsQueryKeys.category.category(categoryId), sort] as const,
   },
+  recent: () => [...reviewsQueryKeys.all(), 'recent'] as const,
 };
 
 export const reviewsQueryOptions = {
@@ -46,5 +53,9 @@ export const reviewsQueryOptions = {
     queryKey: reviewsQueryKeys.myBookmarks.page(page),
     queryFn: () => getMyBookmarkedReviews(page),
     placeholderData: keepPreviousData,
+  }),
+  recent: () => ({
+    queryKey: reviewsQueryKeys.recent(),
+    queryFn: getRecentReviews,
   }),
 };
