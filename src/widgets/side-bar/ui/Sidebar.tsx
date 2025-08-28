@@ -18,7 +18,7 @@ import {
   SheetTrigger,
 } from '@/shared/shadcnComponent/ui/sheet';
 import {LucideIcon} from '@/shared/ui/icons';
-import {SIDEBAR_ROUTES} from '../const/sidebarRoutes';
+import {ROUTES} from '@/shared/lib/consts/routes';
 
 const LoginButton = dynamic(() => import('@/features/auth/ui/LoginButton'), {
   ssr: false,
@@ -43,7 +43,7 @@ export default function Sidebar() {
           <SheetDescription>당신이 찾던 그 후기를 확인해보세요.</SheetDescription>
         </SheetHeader>
         <nav className="flex-1 flex flex-col space-y-10 md:space-y-11 text-lg mt-5 md:font-semibold">
-          {SIDEBAR_ROUTES.map(({title, href, isActive, requiresAuth, scrollToTop}) =>
+          {ROUTES.map(({title, href, isActive, requiresAuth, scrollToTop}) =>
             !requiresAuth || isLoggedIn ? (
               <SheetClose key={title} asChild>
                 <Link

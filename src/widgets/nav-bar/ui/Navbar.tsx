@@ -1,8 +1,8 @@
 import Link from 'next/link';
-import {SIDEBAR_ROUTES} from '@/widgets/side-bar/const/sidebarRoutes';
-import LoginRequiredPopover from '@/widgets/side-bar/ui/LoginRequiredPopover';
 import {usePathname} from 'next/navigation';
+import LoginRequiredPopover from '@/widgets/side-bar/ui/LoginRequiredPopover';
 import {useIsLoggedIn} from '@/entities/auth';
+import {ROUTES} from '@/shared/lib/consts/routes';
 
 export default function Navbar() {
   const pathName = usePathname();
@@ -10,7 +10,7 @@ export default function Navbar() {
 
   return (
     <nav className="hidden md:flex absolute left-1/2 -translate-x-1/2 gap-14 text-medium items-center flex-wrap">
-      {SIDEBAR_ROUTES.map(({title, href, isActive, requiresAuth, scrollToTop}) =>
+      {ROUTES.map(({title, href, isActive, requiresAuth, scrollToTop}) =>
         !requiresAuth || isLoggedIn ? (
           <Link
             key={href}

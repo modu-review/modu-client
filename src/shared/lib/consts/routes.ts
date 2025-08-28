@@ -1,4 +1,4 @@
-export const SIDEBAR_ROUTES = [
+export const ROUTES = [
   {
     title: '후기쓰기',
     href: '/reviews/new',
