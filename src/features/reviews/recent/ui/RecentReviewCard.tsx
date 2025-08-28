@@ -2,15 +2,13 @@ import {ReviewCard} from '@/entities/review';
 import Image from 'next/image';
 
 type Props = {
-  key: string;
   post: ReviewCard;
-  uniqueKey: string;
 };
-export default function RecentReviewCard({uniqueKey, post}: Props) {
+
+export default function RecentReviewCard({post}: Props) {
   return (
     <div
       dir="ltr"
-      key={uniqueKey}
       className="flex flex-col text-left w-[85%] lg:max-w-[400px] bg-white border-[0.15rem] border-boldBlue rounded-2xl p-4 mx-2 shadow-lg flex-shrink-0"
     >
       <div className="w-full h-[200px] overflow-hidden rounded-md mb-3">
