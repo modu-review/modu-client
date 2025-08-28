@@ -16,7 +16,7 @@ export default function Header() {
 
   const LoginButton = dynamic(() => import('@/features/auth/ui/LoginButton'), {
     ssr: false,
-    loading: () => <LoginButtonLoading />,
+    loading: () => <LoginButtonLoading className="px-6" />,
   });
 
   return (
