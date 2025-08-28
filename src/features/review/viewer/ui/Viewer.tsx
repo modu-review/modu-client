@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import {CATEGORY_MAP, ReviewContent} from '@/entities/review';
 import {Badge} from '@/shared/ui/components';
 

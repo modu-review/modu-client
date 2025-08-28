@@ -11,9 +11,12 @@ type Props = {
 export default function NotificationProvider({children}: Props) {
   const setHasNotification = useSetHasNotifications();
 
-  const handleMeta = useCallback((data: MetaEvent) => {
-    setHasNotification(data.hasNotification);
-  }, []);
+  const handleMeta = useCallback(
+    (data: MetaEvent) => {
+      setHasNotification(data.hasNotification);
+    },
+    [setHasNotification],
+  );
 
   const handleNotification = useCallback(
     (data: NotificationEvent) => {
