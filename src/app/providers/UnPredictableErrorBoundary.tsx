@@ -6,5 +6,5 @@ type Props = {
 };
 
 export default function UnPredictableErrorBoundary({children}: Props) {
-  return <ErrorBoundary fallback={<GlobalErrorBoundary />}>{children}</ErrorBoundary>;
+  return <ErrorBoundary FallbackComponent={GlobalErrorBoundary}>{children}</ErrorBoundary>;
 }

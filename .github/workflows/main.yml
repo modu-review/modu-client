@@ -32,6 +32,8 @@ jobs:
           echo "NEXT_PUBLIC_LOGIN_URL=${{ secrets.NEXT_PUBLIC_LOGIN_URL }}" >> .env
           echo "NEXT_PUBLIC_CLIENT_URL=${{ secrets.NEXT_PUBLIC_CLIENT_URL }}" >> .env
           echo "NEXT_SLACK_WEBHOOK_URL=${{ secrets.NEXT_SLACK_WEBHOOK_URL }}" >> .env
+          echo "NEXT_PUBLIC_SENTRY_DSN=${{ secrets.NEXT_PUBLIC_SENTRY_DSN }}" >> .env
+          echo "SENTRY_SUPPRESS_GLOBAL_ERROR_HANDLER_FILE_WARNING=${{ secrets.SENTRY_SUPPRESS_GLOBAL_ERROR_HANDLER_FILE_WARNING }}" >> .env
 
       - name: Build with pnpm
         run: pnpm run build

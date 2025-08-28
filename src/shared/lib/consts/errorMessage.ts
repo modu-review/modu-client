@@ -47,6 +47,8 @@ export const SERVER_ERROR_MESSAGE: ErrorMessage = {
   CAN_NOT_CREATE_PRESIGNED_URL: '이미지 업로드를 위한 임시 URL을 생성할 수 없어요. 다시 시도해주세요.',
   CAN_NOT_CREATE_UUID: '이미지 아이디를 생성하는 데 실패했어요. 다시 시도해주세요.',
   NOT_ALLOWED_HTML_ERROR: '잘못된 HTML 형식이에요. 올바른 HTML을 입력해주세요.',
+  REVIEW_ID_MISSING: '리뷰 ID가 제공되지 않았습니다. 다시 시도해주세요.',
+  CAN_NOT_SAVE_DATA: '리뷰 데이터를 저장하는데 실패했어요. 다시 시도해주세요.',
   /**
    * 프로필 관련
    * 프로필 변경 POST /users/me/profileImage
@@ -81,4 +83,8 @@ export const ERROR_MESSAGE = {
   NO_IMAGE_SELECTED: '이미지를 선택해주세요.',
   TOO_MANY_IMAGES_SELECTED: '이미지는 1개만 선택할 수 있어요.',
   UPLOAD_CANCELLED: '이미지 업로드가 취소되었어요.',
+
+  // 프로필 이미지 관련 에러
+  NOT_SUPPORTED_FILE: '지원하지 않는 이미지 파일 형식이에요. .jpg, .jpeg, .png 파일만 업로드할 수 있어요.',
+  FILE_SIZE_EXCEEDED: '이미지 크기가 너무 커요. 최대 5MB 이하의 이미지를 업로드해주세요.',
 } as const;

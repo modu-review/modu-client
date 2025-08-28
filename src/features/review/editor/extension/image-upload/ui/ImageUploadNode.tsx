@@ -2,10 +2,10 @@ import {ChangeEvent, useRef} from 'react';
 import {NodeViewProps, NodeViewWrapper} from '@tiptap/react';
 import useFileUpload from '../lib/useFileUpload';
 import {UploadOptions} from '../model/type';
-import ImageUploadDragArea from './ImageUploadDragArea';
 import ImageUploadDropZone from './ImageUploadDropZone';
 import ImageUploadPreview from './ImageUploadPreview';
 import {createClientError} from '@/shared/lib/utils/client-error';
+import {ImageUploadDragArea} from '@/shared/ui/components';
 
 function ImageUploadNode(props: NodeViewProps) {
   const {accept, maxSize} = props.node.attrs;

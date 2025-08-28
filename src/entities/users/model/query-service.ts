@@ -1,9 +1,10 @@
-import {getPostsByUser} from '../apis/api-service';
+import {getPostsByUser, getProfileImageByUserNickname} from '../apis/api-service';
 
 export const usersQueryKeys = {
   all: () => ['users'] as const,
 
   reviews: (userNickname: string, sort: string) => [usersQueryKeys.all(), userNickname, sort] as const,
+  profileImage: (userNickname: string) => [usersQueryKeys.all(), userNickname] as const,
 };
 
 export const usersQueryOptions = {
@@ -11,5 +12,9 @@ export const usersQueryOptions = {
     queryKey: usersQueryKeys.reviews(userNickname, sort),
     queryFn: ({pageParam}: {pageParam: number}) => getPostsByUser(pageParam, userNickname, sort),
     initialPageParam: 0,
+  }),
+  profileImage: (userNickname: string) => ({
+    queryKey: usersQueryKeys.profileImage(userNickname),
+    queryFn: () => getProfileImageByUserNickname(userNickname),
   }),
 };

@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import {usePathname} from 'next/navigation';
 import {Sidebar} from '@/widgets/side-bar';
 import {LoginButtonLoading, LogoutButton} from '@/features/auth';
+import {NotificationBell} from '@/features/notifications';
 import {useIsLoggedIn} from '@/entities/auth';
 import {Navbar} from '@/widgets/nav-bar';
 
@@ -26,7 +27,8 @@ export default function Header() {
         <h2 className="text-2xl md:text-3xl font-extrabold whitespace-nowrap text-boldBlue">모두의 : 후기</h2>
       </Link>
       {/* 모바일 */}
-      <div className="lg:hidden">
+      <div className="lg:hidden flex gap-6">
+        {isLoggedIn && <NotificationBell />}
         <Sidebar />
       </div>
 
@@ -37,8 +39,12 @@ export default function Header() {
           <Navbar />
         </div>
         {/* 로그인/로그아웃 버튼 */}
-        <div className="flex-shrink-0">{isLoggedIn ? <LogoutButton /> : <LoginButton className="px-6" />}</div>
+        <div className="flex gap-8">
+          {isLoggedIn && <NotificationBell />}
+          <div className="flex-shrink-0">{isLoggedIn ? <LogoutButton /> : <LoginButton className="px-6" />}</div>
+        </div>
       </div>
     </header>
   );
 }
+

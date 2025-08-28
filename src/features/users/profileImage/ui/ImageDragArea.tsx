@@ -7,7 +7,7 @@ type Props = {
   children?: React.ReactNode;
 };
 
-export default function ImageUploadDragArea({onFile, onError, children}: Props) {
+export default function ImageDragArea({onFile, onError, children}: Props) {
   const [dragging, setDragging] = useState(false);
   const dragCounter = useRef(0);
 
