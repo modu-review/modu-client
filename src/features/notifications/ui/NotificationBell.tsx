@@ -14,7 +14,7 @@ export default function NotificationBell() {
 
   return (
     <Link href="/notifications" className="relative" onClick={handleReadNotifications}>
-      <LucideIcon name="Bell" className="w-5 h-5 md:w-6 md:h-6 hover:text-boldBlue md:hover:scale-105 transition-all" />
+      <LucideIcon name="Bell" className="w-6 h-6 hover:text-boldBlue md:hover:scale-105 transition-all" />
       {hasNotifications && <div className="absolute -top-0.5 right-0.5 bg-boldBlue w-3 h-3 rounded-full" />}
     </Link>
   );
