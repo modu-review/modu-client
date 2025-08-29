@@ -17,6 +17,7 @@ const userStore = create<State & Action>(set => ({
 
 const useIsLoggedIn = () => userStore(state => state.isLoggedIn);
 const useUserNickname = () => userStore(state => state.userNickname);
+const useUserEmail = () => userStore(state => state.userEmail);
 const useUpdateUser = () => userStore(state => state.updateUser);
 
-export {useIsLoggedIn, useUserNickname, useUpdateUser};
+export {useIsLoggedIn, useUserNickname, useUserEmail, useUpdateUser};
