@@ -13,7 +13,7 @@ export default async function ReviewDetailPage({params}: Props) {
   const {reviewId} = await params;
   const parsedReviewId = Number(reviewId);
 
-  const {author_nickname, content, category, created_at, title} = await getReviewDetail(parsedReviewId);
+  const {author_nickname, content, category, created_at, title, profile_image} = await getReviewDetail(parsedReviewId);
 
   const sessionUserNickname = await getSessionUserNickname();
   const isAuthor = sessionUserNickname === author_nickname;
@@ -31,6 +31,7 @@ export default async function ReviewDetailPage({params}: Props) {
       <Viewer
         title={title}
         author_nickname={author_nickname}
+        profile_image={profile_image}
         content={content}
         category={category}
         created_at={created_at}

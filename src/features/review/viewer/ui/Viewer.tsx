@@ -1,12 +1,18 @@
 import Link from 'next/link';
 import {CATEGORY_MAP, ReviewContent} from '@/entities/review';
-import {Badge} from '@/shared/ui/components';
+import {Avatar, Badge} from '@/shared/ui/components';
 
-type Props = ReviewContent & {
-  authorProfileUrl?: string;
-};
+type Props = ReviewContent;
 
-export default function Viewer({title, category, author_nickname, created_at, content, authorProfileUrl}: Props) {
+export default function Viewer({
+  title,
+  category,
+  author_nickname,
+  created_at,
+  content,
+  authorProfileUrl,
+  profile_image,
+}: Props) {
   const AuthorNickname = () => {
     if (authorProfileUrl) {
       return (
@@ -19,6 +25,14 @@ export default function Viewer({title, category, author_nickname, created_at, co
     return <p>{author_nickname}</p>;
   };
 
+  const ProfileImage = () => {
+    if (profile_image) {
+      return <Avatar src={profile_image} alt={`${author_nickname} 프로필 이미지`} rounded="rounded-full" />;
+    }
+
+    return <div className="min-w-10 h-10 md:min-w-11 md:h-11 bg-boldBlue rounded-full" />;
+  };
+
   return (
     <section className="flex flex-col w-full h-full min-h-[350px] md:min-h-[500px] overflow-auto">
       <header className="mx-4 mt-4 pb-4 border-b-2 border-gray-300">
@@ -26,7 +40,7 @@ export default function Viewer({title, category, author_nickname, created_at, co
         <h1 className="text-2xl md:text-3xl font-semibold mt-3">{title}</h1>
         <div className="flex items-center gap-2 ml-0.5 mt-2">
           <div className="flex items-center gap-2">
-            <div className="w-[35px] h-[35px] bg-gray-400 rounded-full" />
+            <ProfileImage />
             <AuthorNickname />
           </div>
           <p className="text-gray-500">{created_at}</p>

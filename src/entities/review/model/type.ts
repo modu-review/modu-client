@@ -23,6 +23,8 @@ export type ReviewContent = {
   author_nickname: string;
   created_at: string;
   content: string;
+  authorProfileUrl?: string;
+  profile_image?: string;
 };
 
 export type Comment = {
@@ -38,9 +40,9 @@ export type ReviewDetail = {
   title: string;
   category: Category;
   author_nickname: string;
+  profile_image: string;
   created_at: string;
   content: string;
-  bookmarks: number;
 };
 
 export type ReviewBookmarks = {
