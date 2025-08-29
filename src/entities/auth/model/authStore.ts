@@ -10,6 +10,7 @@ type Action = {
 const userStore = create<State & Action>(set => ({
   isLoggedIn: false,
   userNickname: null,
+  userEmail: null,
 
   updateUser: user => set({...user}),
 }));
