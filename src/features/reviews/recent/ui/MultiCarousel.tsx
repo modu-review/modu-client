@@ -4,6 +4,8 @@ import React from 'react';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 
+const isMobile = typeof window !== 'undefined' && window.innerWidth < 780;
+
 const responsive = {
   superLargeDesktop: {
     breakpoint: {max: 4000, min: 3000},
@@ -41,15 +43,17 @@ export default function MultiCarousel({children, rightToLeft = true}: Props) {
     <Carousel
       infinite
       autoPlay
-      autoPlaySpeed={1}
-      customTransition="transform 30s linear"
+      autoPlaySpeed={isMobile ? 4000 : 1}
+      transitionDuration={isMobile ? 2000 : 30000}
+      customTransition={isMobile ? 'transform 2s ease-in-out' : 'transform 30s linear'}
       partialVisible
-      transitionDuration={30000}
       responsive={responsive}
       containerClass="flex"
       itemClass="px-[8px] sm:px-[15px] mb-[10px]"
       rtl={rightToLeft}
       arrows={false}
+      minimumTouchDrag={80}
+      shouldResetAutoplay
     >
       {children}
     </Carousel>

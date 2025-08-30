@@ -8,7 +8,7 @@ import {useEffect, useState} from 'react';
 const textItems = [
   '내가 경험하지 못한 것을 누군가는 경험했습니다.',
   '당신이 찾던 그 후기를',
-  "바로 여기 '모두의 : 후기'에서 경험하세요.",
+  '바로 여기 모두의 : 후기에서 경험하세요.',
 ];
 
 export default function Hero() {
