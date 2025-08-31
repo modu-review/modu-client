@@ -37,7 +37,7 @@ export default function CommentCard({comment, userNickname, reviewId}: Props) {
             >
               {author_nickname}
             </Link>
-            <time className="text-xs md:text-sm text-gray-500" dateTime={created_at}>
+            <time className="text-[10.5px] md:text-sm text-gray-500" dateTime={created_at}>
               ({created_at})
             </time>
           </div>
