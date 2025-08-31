@@ -14,6 +14,7 @@ export const SERVER_ERROR_MESSAGE: ErrorMessage = {
   FORBIDDEN: '접근 권한이 없어요. 관리자에게 문의해주세요.',
   UNAUTHORIZED: '로그인이 필요한 서비스에요. 다시 로그인해주세요.',
   USER_NOT_FOUND: '존재하지 않는 사용자입니다. 다시 로그인해주세요.',
+  INTERNAL_SERVER_ERROR: '서버에서 알 수 없는 오류가 발생했어요. 잠시 후 다시 시도해주세요.',
 
   // 로그아웃 에러 GET /users/logout
 
