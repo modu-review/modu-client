@@ -65,7 +65,7 @@ export default function NotificationCard({notification, page}: Props) {
         </p>
       </button>
       <button
-        className="absolute top-2 md:inset-y-0 md:translate-y-[-4%] right-1 md:right-3"
+        className="absolute top-2 md:inset-y-0 md:translate-y-[-4%] right-2 md:right-6"
         onClick={handleDeleteNotification}
         disabled={isPendingDelete}
         aria-label={`${config.title} - ${config.getMessage(title)} 알림 삭제`}
