@@ -12,7 +12,7 @@ const NotificationList = dynamic(() => import('./NotificationList'), {
 
 export default function Notifications() {
   return (
-    <section className="h-full bg-gray-100 rounded-lg pt-5 md:pt-8 md:px-8 shadow-md">
+    <section className="h-full flex flex-col bg-gray-100 rounded-lg pt-5 md:pt-8 md:px-8 shadow-md">
       <NotificationHeader />
       <RQProvider LoadingFallback={<NotificationListLoading />}>
         <NotificationList />
