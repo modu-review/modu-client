@@ -11,9 +11,24 @@ export const metadata: Metadata = {
     default: '모두의 후기',
     template: '모두의 후기 | %s',
   },
-  description: '세상 모든 후기를 확인해보세요',
+  description: '당신이 찾던 그 후기를 확인해보세요',
   icons: {
     icon: '/resources/logo.ico',
+  },
+  openGraph: {
+    title: '모두의 후기',
+    description: '당신이 찾던 그 후기를 확인해보세요',
+    url: 'https://modu-review.com',
+    siteName: '모두의 후기',
+    images: [
+      {
+        url: 'https://modu-review.com/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: '모두의 후기 썸네일',
+      },
+    ],
+    type: 'website',
   },
 };
 
