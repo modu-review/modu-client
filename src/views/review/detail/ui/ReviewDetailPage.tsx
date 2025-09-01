@@ -4,6 +4,7 @@ import {Viewer} from '@/features/review/viewer';
 import {DeleteButton} from '@/entities/reviews';
 import {getReviewDetail} from '@/entities/review';
 import getSessionUserNickname from '@/shared/lib/utils/getSessionUserNickname';
+import {notFound} from 'next/navigation';
 
 type Props = {
   params: Promise<{reviewId: string}>;
@@ -13,7 +14,13 @@ export default async function ReviewDetailPage({params}: Props) {
   const {reviewId} = await params;
   const parsedReviewId = Number(reviewId);
 
-  const {author_nickname, content, category, created_at, title, profile_image} = await getReviewDetail(parsedReviewId);
+  const post = await getReviewDetail(parsedReviewId);
+
+  if (!post) {
+    notFound();
+  }
+
+  const {author_nickname, content, category, created_at, title, profile_image} = post;
 
   const sessionUserNickname = await getSessionUserNickname();
   const isAuthor = sessionUserNickname === author_nickname;

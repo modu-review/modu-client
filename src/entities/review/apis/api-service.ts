@@ -106,6 +106,8 @@ export async function getReviewDetail(reviewId: number) {
   if (!res.ok) {
     const {title, detail, status}: TErrorInfo = await res.json();
 
+    if (title === 'BOARD_ID_NOT_FOUND') return null;
+
     throw new RequestGetError({
       name: title,
       message: detail,
