@@ -43,7 +43,7 @@ export default function Viewer({
             <ProfileImage />
             <AuthorNickname />
           </div>
-          <p className="text-gray-500 text-[12px]">{created_at}</p>
+          <p className="text-gray-500 text-[12px] md:text-sm">{created_at}</p>
         </div>
       </header>
       <div
