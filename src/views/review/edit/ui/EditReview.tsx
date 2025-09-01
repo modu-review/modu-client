@@ -1,3 +1,4 @@
+import {notFound} from 'next/navigation';
 import EditReviewClient from './EditReviewClient';
 import {getReviewDetail} from '@/entities/review';
 
@@ -8,6 +9,10 @@ type Props = {
 
 export default async function EditReview({reviewId, sessionUserNickname}: Props) {
   const data = await getReviewDetail(reviewId);
+
+  if (!data) {
+    notFound();
+  }
 
   if (data.author_nickname !== sessionUserNickname) {
     throw new Error('작성자만 리뷰를 수정할 수 있습니다.');

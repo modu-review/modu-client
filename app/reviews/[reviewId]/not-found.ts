@@ -1,1 +1,1 @@
-export {ReviewDetailNotFound as default} from '@/views/review/detail';
+export {ReviewNotFound as default} from '@/widgets/errors/not-found';

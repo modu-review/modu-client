@@ -4,7 +4,7 @@ import {Button} from '@/shared/shadcnComponent/ui/button';
 import {LucideIcon} from '@/shared/ui/icons';
 import Link from 'next/link';
 
-export default function ReviewDetailNotFound() {
+export default function ReviewNotFound() {
   return (
     <section className="h-full flex flex-col items-center justify-center text-center gap-4">
       <div>
