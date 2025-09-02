@@ -8,6 +8,16 @@ type Props = {
   params: Promise<{keyword: string}>;
 };
 
+export async function generateMetadata({params}: Props) {
+  const {keyword} = await params;
+  const decodedQuery = decodeURIComponent(keyword);
+
+  return {
+    title: `${decodedQuery} 검색 결과`,
+    description: `${decodedQuery}에 관련된 후기글을 모아보세요.`,
+  };
+}
+
 export default async function KeywordSearchPage({params}: Props) {
   const {keyword} = await params;
 
