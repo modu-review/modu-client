@@ -17,6 +17,14 @@ export async function generateMetadata({params}: Props) {
     openGraph: {
       title: `${decodedUserNickname}님의 후기글 모음`,
       description: `${decodedUserNickname}님의 후기글을 모아보세요.`,
+      images: [
+        {
+          url: '/resources/og-image.png',
+          width: 1200,
+          height: 630,
+          alt: '모두의 후기',
+        },
+      ],
     },
   };
 }

@@ -23,6 +23,14 @@ export async function generateMetadata({params}: Props) {
       openGraph: {
         title: post.title,
         description: `${post.title}에 대한 자세한 후기를 확인해보세요.`,
+        images: [
+          {
+            url: '/resources/og-image.png',
+            width: 1200,
+            height: 630,
+            alt: '모두의 후기',
+          },
+        ],
       },
     };
   }

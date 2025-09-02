@@ -7,6 +7,14 @@ export const metadata: Metadata = {
   openGraph: {
     title: '문의하기',
     description: '문의사항을 작성해주세요.',
+    images: [
+      {
+        url: '/resources/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: '모두의 후기',
+      },
+    ],
   },
 };
 
