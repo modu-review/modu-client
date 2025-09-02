@@ -11,7 +11,7 @@ export default function MyReviews({currentPage}: Props) {
   const {results, total_pages} = useMyReviews(currentPage);
 
   if (results.length === 0) {
-    return <Empty title="아직 작성한 후기가 없어요." linkText="후기 작성하기" linkHref="/review/write" />;
+    return <Empty title="아직 작성한 후기가 없어요." linkText="후기 작성하기" linkHref="/reviews/new" />;
   }
 
   return (
