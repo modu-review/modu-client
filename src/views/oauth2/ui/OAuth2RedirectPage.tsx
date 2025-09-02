@@ -1,10 +1,16 @@
 'use client';
 
 import {useEffect} from 'react';
+import {Metadata} from 'next';
 import {useSearchParams} from 'next/navigation';
 import {useLogin} from '@/entities/auth';
 import {createClientError} from '@/shared/lib/utils/client-error';
 import {LucideIcon} from '@/shared/ui/icons';
+
+export const metadata: Metadata = {
+  title: '로그인 중..',
+  description: '로그인 처리가 진행 중입니다.',
+};
 
 export default function OAuth2RedirectPage() {
   const searchParams = useSearchParams();
