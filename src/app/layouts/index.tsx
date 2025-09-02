@@ -7,6 +7,7 @@ import {Footer} from '@/widgets/footer';
 import {Toaster} from 'sonner';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://modu-review.com'),
   title: {
     default: '모두의 후기',
     template: '%s | 모두의 후기',
