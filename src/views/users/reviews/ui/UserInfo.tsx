@@ -1,6 +1,5 @@
 'use client';
 
-import {Suspense} from 'react';
 import {ProfileImage, ProfileImageLoading} from '@/features/users/profileImage';
 import {RQProvider} from '@/shared/providers';
 
