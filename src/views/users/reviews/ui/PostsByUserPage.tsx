@@ -6,6 +6,17 @@ import {UserPostsLoading} from '@/entities/users';
 type Props = {
   params: Promise<{userNickname: string}>;
 };
+
+export async function generateMetadata({params}: Props) {
+  const {userNickname} = await params;
+  const decodedUserNickname = decodeURIComponent(userNickname);
+
+  return {
+    title: `${decodedUserNickname}님의 후기글 모음`,
+    description: `${decodedUserNickname}님의 후기글을 모아보세요.`,
+  };
+}
+
 export default async function PostsByUserPage({params}: Props) {
   const {userNickname} = await params;
   const decodedUserNickname = decodeURIComponent(userNickname);
