@@ -7,6 +7,15 @@ type Props = {
   params: Promise<{reviewId: string}>;
 };
 
+export async function generateMetadata({params}: Props) {
+  const {reviewId} = await params;
+
+  return {
+    title: `${reviewId} 후기 수정`,
+    description: `${reviewId} 후기글을 수정해보세요.`,
+  };
+}
+
 export default async function ReviewEditPage({params}: Props) {
   const {reviewId} = await params;
   const parsedReviewId = Number(reviewId);
