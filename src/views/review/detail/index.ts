@@ -1,1 +1,1 @@
-export {default as ReviewDetailPage} from './ui/ReviewDetailPage';
+export {default as ReviewDetailPage, generateMetadata} from './ui/ReviewDetailPage';

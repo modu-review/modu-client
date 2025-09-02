@@ -1,1 +1,1 @@
-export {MyPage as default} from '@/views/mypage';
+export {MyPage as default, metadata} from '@/views/mypage';

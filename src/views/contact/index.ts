@@ -1,1 +1,1 @@
-export {default as ContactPage} from './ui/ContactPage';
+export {default as ContactPage, metadata} from './ui/ContactPage';

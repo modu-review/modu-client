@@ -9,7 +9,7 @@ import {Toaster} from 'sonner';
 export const metadata: Metadata = {
   title: {
     default: '모두의 후기',
-    template: '모두의 후기 | %s',
+    template: '%s | 모두의 후기',
   },
   description: '당신이 찾던 그 후기를 확인해보세요.',
   icons: {

@@ -7,6 +7,10 @@ import {CategoryReviews} from '@/features/reviews/category';
 export const metadata: Metadata = {
   title: '후기글 모음',
   description: '카테고리별로 후기글을 모아보세요.',
+  openGraph: {
+    title: '후기글 모음',
+    description: '카테고리별로 후기글을 모아보세요.',
+  },
 };
 
 export default function CategorySearchPage() {

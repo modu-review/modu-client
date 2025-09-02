@@ -14,6 +14,10 @@ export async function generateMetadata({params}: Props) {
   return {
     title: `${decodedUserNickname}님의 후기글 모음`,
     description: `${decodedUserNickname}님의 후기글을 모아보세요.`,
+    openGraph: {
+      title: `${decodedUserNickname}님의 후기글 모음`,
+      description: `${decodedUserNickname}님의 후기글을 모아보세요.`,
+    },
   };
 }
 

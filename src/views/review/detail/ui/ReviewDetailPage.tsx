@@ -20,6 +20,10 @@ export async function generateMetadata({params}: Props) {
     return {
       title: post.title,
       description: `${post.title}에 대한 자세한 후기를 확인해보세요.`,
+      openGraph: {
+        title: post.title,
+        description: `${post.title}에 대한 자세한 후기를 확인해보세요.`,
+      },
     };
   }
 }
