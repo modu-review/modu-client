@@ -1,5 +1,5 @@
-import {ContactForm} from '@/features/contact';
 import {Metadata} from 'next';
+import {ContactForm} from '@/features/contact';
 
 export const metadata: Metadata = {
   title: '문의하기',
