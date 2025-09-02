@@ -1,4 +1,10 @@
+import {Metadata} from 'next';
 import {Notifications} from '@/features/notifications';
+
+export const metadata: Metadata = {
+  title: '알림',
+  description: '생성된 알림을 확인하세요.',
+};
 
 export default function NotificationsPage() {
   return (
