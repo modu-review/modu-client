@@ -10,6 +10,20 @@ type Props = {
   params: Promise<{reviewId: string}>;
 };
 
+export async function generateMetadata({params}: Props) {
+  const {reviewId} = await params;
+  const parsedReviewId = Number(reviewId);
+
+  const post = await getReviewDetail(parsedReviewId);
+
+  if (post) {
+    return {
+      title: post.title,
+      description: `${post.title}에 대한 자세한 후기를 확인해보세요.`,
+    };
+  }
+}
+
 export default async function ReviewDetailPage({params}: Props) {
   const {reviewId} = await params;
   const parsedReviewId = Number(reviewId);
