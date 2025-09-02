@@ -1,1 +1,1 @@
-export {ContactPage as default} from '@/views/contact';
+export {ContactPage as default, metadata} from '@/views/contact';

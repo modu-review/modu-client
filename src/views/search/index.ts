@@ -1,2 +1,2 @@
-export {default as CategorySearchPage} from './ui/CategorySearchPage';
-export {default as KeywordSearchPage} from './ui/KeywordSearchPage';
+export {default as CategorySearchPage, metadata} from './ui/CategorySearchPage';
+export {default as KeywordSearchPage, generateMetadata} from './ui/KeywordSearchPage';

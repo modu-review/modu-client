@@ -1,1 +1,1 @@
-export {default as NotificationsPage} from './ui/NotificationsPage';
+export {default as NotificationsPage, metadata} from './ui/NotificationsPage';

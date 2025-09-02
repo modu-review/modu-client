@@ -1,1 +1,1 @@
-export {ReviewDetailPage as default} from '@/views/review/detail';
+export {ReviewDetailPage as default, generateMetadata} from '@/views/review/detail';

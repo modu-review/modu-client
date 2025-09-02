@@ -1,3 +1,3 @@
 export const dynamic = 'force-dynamic';
 
-export {OAuth2RedirectPage as default} from '@/views/oauth2';
+export {OAuth2RedirectPage as default, metadata} from '@/views/oauth2';

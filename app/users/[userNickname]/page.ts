@@ -1,1 +1,1 @@
-export {PostsByUserPage as default} from '@/views/users/reviews';
+export {PostsByUserPage as default, generateMetadata} from '@/views/users/reviews';

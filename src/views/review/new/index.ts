@@ -1,1 +1,1 @@
-export {default as NewReviewPage} from './ui/NewReviewPage';
+export {default as NewReviewPage, metadata} from './ui/NewReviewPage';

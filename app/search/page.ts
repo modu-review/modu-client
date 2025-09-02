@@ -1,3 +1,3 @@
 export const dynamic = 'force-dynamic';
 
-export {CategorySearchPage as default} from '@/views/search';
+export {CategorySearchPage as default, metadata} from '@/views/search';

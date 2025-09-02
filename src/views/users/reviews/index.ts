@@ -1,1 +1,1 @@
-export {default as PostsByUserPage} from './ui/PostsByUserPage';
+export {default as PostsByUserPage, generateMetadata} from './ui/PostsByUserPage';

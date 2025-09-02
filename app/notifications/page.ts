@@ -1,1 +1,1 @@
-export {NotificationsPage as default} from '@/views/notifications';
+export {NotificationsPage as default, metadata} from '@/views/notifications';
