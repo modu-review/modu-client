@@ -1,7 +1,7 @@
-import {Suspense} from 'react';
 import UserInfo from './UserInfo';
 import {UserPostsList} from '@/features/users/posts';
 import {UserPostsLoading} from '@/entities/users';
+import {RQProvider} from '@/shared/providers';
 
 type Props = {
   params: Promise<{userNickname: string}>;
@@ -35,9 +35,9 @@ export default async function PostsByUserPage({params}: Props) {
   return (
     <section className="w-full max-w-[1230px] h-full mx-auto pb-6 bg-[#f1f5f9] md:pb-10 md:bg-white lg:bg-white">
       <UserInfo userNickname={decodedUserNickname} />
-      <Suspense fallback={<UserPostsLoading />}>
+      <RQProvider LoadingFallback={<UserPostsLoading />}>
         <UserPostsList userNickname={decodedUserNickname} />
-      </Suspense>
+      </RQProvider>
     </section>
   );
 }
