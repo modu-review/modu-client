@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import DOMPurify from 'isomorphic-dompurify';
 import {CATEGORY_MAP, ReviewContent} from '@/entities/review';
 import {Avatar, Badge} from '@/shared/ui/components';
 
@@ -13,6 +14,8 @@ export default function Viewer({
   authorProfileUrl,
   profile_image,
 }: Props) {
+  const clean = DOMPurify.sanitize(content);
+
   const AuthorNickname = () => {
     if (authorProfileUrl) {
       return (
@@ -48,7 +51,7 @@ export default function Viewer({
       </header>
       <div
         className="prose prose-p:my-3 prose-h1:font-bold prose-h1:text-[1.9em] md:prose-h1:text-[2.1em] lg:prose-lg focus:outline-none p-5"
-        dangerouslySetInnerHTML={{__html: content}}
+        dangerouslySetInnerHTML={{__html: clean}}
       />
     </section>
   );
