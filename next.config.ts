@@ -12,7 +12,7 @@ const nextConfig: NextConfig = {
 };
 
 export default withSentryConfig(nextConfig, {
-  org: 'modu-review.com',
+  org: 'modu-review',
   project: 'javascript-nextjs-5r',
   authToken: process.env.NEXT_SENTRY_AUTH_TOKEN,
 
