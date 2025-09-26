@@ -1,6 +1,5 @@
 import {useState} from 'react';
 import {FileItem, UploadOptions} from '../model/type';
-import isAborted from './isAborted';
 import {ClientError, createClientError} from '@/shared/lib/utils/client-error';
 import {RequestError} from '@/shared/apis/request-error';
 
@@ -51,20 +50,18 @@ export default function useFileUpload(options: UploadOptions) {
 
       return url;
     } catch (error) {
-      if (!abortController.signal.aborted) {
-        setFileItem(prev => {
-          if (!prev) return null;
-          return {
-            ...prev,
-            status: 'error',
-            progress: 0,
-          };
-        });
-      }
-
-      if (isAborted(error)) {
+      if (abortController.signal.aborted) {
         return null;
       }
+
+      setFileItem(prev => {
+        if (!prev) return null;
+        return {
+          ...prev,
+          status: 'error',
+          progress: 0,
+        };
+      });
 
       if (error instanceof ClientError || error instanceof RequestError) {
         options.onError?.(error);

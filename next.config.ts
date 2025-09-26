@@ -13,8 +13,15 @@ const nextConfig: NextConfig = {
 export default withSentryConfig(nextConfig, {
   org: 'modu-review.com',
   project: 'javascript-nextjs-5r',
+  authToken: process.env.NEXT_SENTRY_AUTH_TOKEN,
 
   silent: !process.env.CI,
 
   disableLogger: true,
+  sourcemaps: {
+    disable: false,
+    assets: ['**/*.js', '**/*.js.map'],
+    ignore: ['**/node_modules/**'],
+    deleteSourcemapsAfterUpload: true,
+  },
 });
