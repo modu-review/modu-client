@@ -19,6 +19,8 @@ export default withSentryConfig(nextConfig, {
   silent: !process.env.CI,
 
   disableLogger: true,
+
+  widenClientFileUpload: true,
   sourcemaps: {
     disable: false,
     assets: ['**/*.js', '**/*.js.map'],
