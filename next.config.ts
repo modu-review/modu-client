@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
       {protocol: 'https', hostname: 'd1izijuzr22yly.cloudfront.net'},
     ],
   },
+  productionBrowserSourceMaps: true,
 };
 
 export default withSentryConfig(nextConfig, {
