@@ -22,7 +22,7 @@ export default withSentryConfig(nextConfig, {
   widenClientFileUpload: true,
   sourcemaps: {
     disable: false,
-    assets: ['.next/server/chunks/*.js', '.next/server/chunks/*.js.map'],
+    assets: ['.next/server/chunks/*.js', '.next/server/chunks/*.js.map', '.next/static/chunks/*.js'],
     ignore: ['**/node_modules/**'],
     deleteSourcemapsAfterUpload: true,
   },
