@@ -1,9 +1,9 @@
 'use client';
 
+import {useEffect, useState} from 'react';
 import {motion} from 'framer-motion';
 import WriteReviewButton from './WriteReviewButton';
 import {SearchBar} from '@/features/reviews/search-bar';
-import {useEffect, useState} from 'react';
 
 const textItems = [
   '내가 경험하지 못한 것을 누군가는 경험했습니다.',

@@ -1,9 +1,9 @@
 'use client';
 
 import {useRouter} from 'next/navigation';
+import {useLoginModal} from '@/features/auth';
 import {useIsLoggedIn} from '@/entities/auth';
 import {Button} from '@/shared/shadcnComponent/ui/button';
-import {useLoginModal} from '@/features/auth';
 
 export default function WriteReviewButton() {
   const router = useRouter();

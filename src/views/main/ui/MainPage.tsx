@@ -1,4 +1,4 @@
-import Hero from '@/widgets/hero';
+import Hero from './Hero';
 import ContactUs from '@/widgets/contactus';
 import {BestReviews} from '@/features/reviews/best';
 import {RecentReviews} from '@/features/reviews/recent';
