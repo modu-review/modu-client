@@ -1,5 +1,5 @@
 import Hero from './Hero';
-import ContactUs from '@/widgets/contactus';
+import ContactUs from './ContactUs';
 import {BestReviews} from '@/features/reviews/best';
 import {RecentReviews} from '@/features/reviews/recent';
 import {getBestReviews} from '@/entities/reviews';
