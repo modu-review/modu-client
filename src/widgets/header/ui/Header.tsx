@@ -3,11 +3,11 @@
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import {usePathname} from 'next/navigation';
-import {Sidebar} from '@/widgets/side-bar';
+import {Navbar} from '../nav-bar';
+import {Sidebar} from '../side-bar';
 import {LoginButtonLoading, LogoutButton} from '@/features/auth';
 import {NotificationBell} from '@/features/notifications';
 import {useIsLoggedIn} from '@/entities/auth';
-import {Navbar} from '@/widgets/nav-bar';
 
 const LoginButton = dynamic(() => import('@/features/auth/ui/LoginButton'), {
   ssr: false,
@@ -47,4 +47,3 @@ export default function Header() {
     </header>
   );
 }
-
