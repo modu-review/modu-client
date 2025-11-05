@@ -1,10 +1,10 @@
 import Link from 'next/link';
+import {notFound} from 'next/navigation';
+import DeleteButton from './DeleteButton';
 import ReviewDetailInteractive from './ReviewDetailInteractive';
 import {Viewer} from '@/features/review/viewer';
-import {DeleteButton} from '@/entities/reviews';
 import {getReviewDetail} from '@/entities/review';
 import getSessionUserNickname from '@/shared/lib/utils/getSessionUserNickname';
-import {notFound} from 'next/navigation';
 
 type Props = {
   params: Promise<{reviewId: string}>;

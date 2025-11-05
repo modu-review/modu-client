@@ -1,7 +1,6 @@
 'use client';
 
-import {Category} from '@/entities/review/model/type';
-import useDeleteReview from '@/entities/review/model/useDeleteReview';
+import {Category, useDeleteReview} from '@/entities/review';
 import {LoadingSpinner} from '@/shared/ui/components';
 import {ConfirmDeleteTrigger} from '@/shared/ui/modal';
 
