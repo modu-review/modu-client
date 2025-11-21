@@ -11,6 +11,7 @@ SYMLINK_PATH="/home/ubuntu/application"
 PREVIOUS_RELEASE=$(readlink -f $SYMLINK_PATH)
 PROJECT_NAME='Modu-Review-Client'
 
+SLACK_SCRIPT="/home/ubuntu/utils/send_slack.sh"
 LOG_FILE="/home/ubuntu/log/DeployLog_$CURRENT_TIME.log"
 echo "SERVER_IP: $SERVER_IP" >> $LOG_FILE
 
@@ -79,6 +80,12 @@ if [ $HEALTH_CHECK_SUCCESS = false ]; then
     echo "Health Check에 모두 실패해 배포를 중단합니다. : $CURRENT_TIME" >> $LOG_FILE
     $PM2_PATH delete $NEW_NAME >> $LOG_FILE 2>&1
     ln -sfn $PREVIOUS_RELEASE $SYMLINK_PATH
+
+    FAIL_LOG=$(sed -n '/필요한 의존성을 설치합니다/,$p' $LOG_FILE | sed 's/"/\\"/g')
+
+    if [ -x "$SLACK_SCRIPT" ]; then
+        $SLACK_SCRIPT "배포 실패 (Rollback)" "Health Check 실패로 롤백되었습니다.\n\n*상세 로그:*\n\`\`\`$FAIL_LOG\`\`\`\n<@U089097D57X>" "fail"
+    fi
     exit 1
 fi
 
@@ -98,4 +105,4 @@ sleep 90 # kill time 90초가 지나도 기존 요청이 마무리되지 않는�
 echo "기존 서버를 종료합니다 : $CURRENT_TIME" >> $LOG_FILE
 $PM2_PATH delete $OLD_NAME >> $LOG_FILE 2>&1
 
-
+$SLACK_SCRIPT "배포 성공" "새로운 버전이 $NEW_PORT 포트에서 서비스 중입니다.\n<@U089097D57X>" "success"
