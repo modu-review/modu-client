@@ -6,23 +6,13 @@ import {RecentReviewsCarouselLoading} from './RecentReviewsCarouselLoading';
 
 const RecentReviewsCarousel = dynamic(() => import('./RecentReviewsCarousel'), {
   ssr: false,
-  loading: () => (
-    <div>
-      <RecentReviewsCarouselLoading />
-    </div>
-  ),
+  loading: () => <RecentReviewsCarouselLoading />,
 });
 
 export default function RecentReviewsClient() {
   return (
     <section>
-      <RQProvider
-        LoadingFallback={
-          <div>
-            <RecentReviewsCarouselLoading />
-          </div>
-        }
-      >
+      <RQProvider LoadingFallback={<RecentReviewsCarouselLoading />}>
         <RecentReviewsCarousel />
       </RQProvider>
     </section>
