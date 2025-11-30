@@ -1,3 +1,4 @@
+import {reviewsQueryKeys} from '@/entities/reviews';
 import {bookmarkReview, unBookmarkReview} from '../apis/api-service';
 import {reviewQueryKeys} from './query-service';
 import {BookmarkPayload, ReviewBookmarks} from './type';
@@ -35,7 +36,11 @@ export default function useToggleBookmark() {
       return {previousBookmarks};
     },
     onSuccess: (_, {reviewId}) => {
-      queryClient.invalidateQueries({queryKey: reviewQueryKeys.bookmarks(reviewId)});
+      const invalidateKeys = [reviewsQueryKeys.myBookmarks.all(), reviewQueryKeys.bookmarks(reviewId)];
+
+      invalidateKeys.forEach(key => {
+        queryClient.invalidateQueries({queryKey: key});
+      });
     },
     onError: (_, {reviewId}, context) => {
       if (context) {
