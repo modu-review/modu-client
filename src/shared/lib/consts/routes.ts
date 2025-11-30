@@ -18,7 +18,7 @@ export const ROUTES = [
     href: '/mypage',
     isActive: (path: string) => path === '/mypage',
     requiresAuth: true,
-    scrollToTop: false,
+    scrollToTop: true,
   },
 
   {
