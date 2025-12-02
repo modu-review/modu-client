@@ -7,6 +7,7 @@ type Props = {
   comment: Comment;
   userNickname: string | null;
   reviewId: number;
+  page: number;
 };
 
 export default function CommentCard({comment, userNickname, reviewId}: Props) {
