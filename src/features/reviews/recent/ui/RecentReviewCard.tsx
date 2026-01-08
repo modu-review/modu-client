@@ -8,7 +8,7 @@ type Props = {
 
 export default function RecentReviewCard({post}: Props) {
   return (
-    <Link href={`/reviews/${post.board_id}`}>
+    <Link href={`/reviews/${post.board_id}`} tabIndex={-1}>
       <div
         dir="ltr"
         className="flex flex-col text-left w-[85%] lg:max-w-[400px] bg-white rounded-2xl p-4 mx-auto shadow-lg flex-shrink-0"
