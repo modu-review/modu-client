@@ -21,13 +21,15 @@ export default function BestReviewsGrid({filteredReview}: Props) {
 
   return (
     <ul className="w-full grid content-center justify-items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-14 md:gap-y-20 mb-16">
-      <li>
-        {reviews.map((card, index) => {
-          const shouldPrioritize = index < 3;
+      {reviews.map((card, index) => {
+        const shouldPrioritize = index < 3;
 
-          return <BestReviewCard key={card.board_id} card={card} priority={shouldPrioritize} />;
-        })}
-      </li>
+        return (
+          <li key={card.board_id}>
+            <BestReviewCard card={card} priority={shouldPrioritize} />
+          </li>
+        );
+      })}
     </ul>
   );
 }

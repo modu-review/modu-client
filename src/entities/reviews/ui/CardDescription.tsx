@@ -56,7 +56,7 @@ export default function CardDescription({
         </div>
         <h3 className="mt-4 mb-2 px-3 line-clamp-1">{title}</h3>
         <div className="min-h-[30px]">
-          <p className="text-[13px] font-light line-clamp-2 px-5">{preview}</p>
+          <p className="text-[13px] font-normal line-clamp-2 px-5">{preview}</p>
         </div>
       </div>
 
