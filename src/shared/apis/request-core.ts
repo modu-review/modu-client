@@ -82,7 +82,21 @@ export async function handleRequestError({
   requestInit,
   errorHandlingType,
 }: WithErrorHandling<CreateErrorProps>): Promise<RequestError | RequestGetError> {
-  const {title, detail, status}: TErrorInfo = await response.json();
+  const defaultErrorInfo: TErrorInfo = {
+    title: 'UNKNOWN_ERROR',
+    detail: '알 수 없는 에러가 발생했어요.',
+    status: response.status,
+  };
+
+  let parsedErrorInfo: Partial<TErrorInfo> = {};
+
+  try {
+    parsedErrorInfo = await response.json();
+  } catch {
+    // 실패 시 defaultErrorInfo 사용
+  }
+
+  const {title, detail, status} = {...defaultErrorInfo, ...parsedErrorInfo};
 
   if (requestInit.method === 'GET') {
     return new RequestGetError({
@@ -133,7 +147,7 @@ export async function request<T>(props: WithErrorHandling<RequestProps>): Promis
           status: 401,
           endpoint: url,
           method: requestInit.method,
-          requestBody: requestInit.body ? JSON.stringify(requestInit.body) : null,
+          requestBody: requestInit.body ?? null,
         });
       }
     }
@@ -142,7 +156,7 @@ export async function request<T>(props: WithErrorHandling<RequestProps>): Promis
   if (!response.ok) {
     throw await handleRequestError({
       response,
-      body: requestInit.body ? JSON.stringify(requestInit.body) : null,
+      body: requestInit.body ?? null,
       requestInit,
       errorHandlingType: props.errorHandlingType,
     });
