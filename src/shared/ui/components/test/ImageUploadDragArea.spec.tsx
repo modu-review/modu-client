@@ -1,4 +1,4 @@
-import {fireEvent, render, screen} from '@testing-library/react';
+import {createEvent, fireEvent, render, screen} from '@testing-library/react';
 import ImageUploadDragArea from '../ImageUploadDragArea';
 import {ClientError} from '@/shared/lib/utils/client-error';
 
@@ -92,6 +92,19 @@ describe('src/shared/ui/components/ImageUploadDragArea.tsx', () => {
 
       fireEvent.dragLeave(dropArea, {preventDefault: jest.fn()});
       expect(dropArea).toHaveClass('border-gray-400');
+    });
+
+    it('영역 내에서 드래그 중일 때 이벤트의 기본 동작을 막는다.', () => {
+      renderComponent();
+
+      const dropArea = screen.getByText('드래그 영역').parentElement!;
+      const dragOverEvent = createEvent.dragOver(dropArea);
+
+      jest.spyOn(dragOverEvent, 'preventDefault');
+      fireEvent(dropArea, dragOverEvent);
+
+      expect(dragOverEvent.preventDefault).toHaveBeenCalledTimes(1);
+      expect(dragOverEvent.defaultPrevented).toBe(true);
     });
   });
 
