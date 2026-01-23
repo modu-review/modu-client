@@ -2,6 +2,8 @@ import {render, screen} from '@testing-library/react';
 import NotificationDeleteButton from '../NotificationDeleteButton';
 import userEvent from '@testing-library/user-event';
 import {useDeleteNotification} from '@/entities/notifications';
+import {bookmarkNotificationStub} from './stub';
+import {NOTIFICATION_CONFIG} from '../config/notification-config';
 
 jest.mock('@/entities/notifications');
 
@@ -9,6 +11,7 @@ const mockUseDeleteNotification = useDeleteNotification as jest.MockedFunction<t
 const mockDeleteNotificationFn = jest.fn();
 
 describe('src/features/notifications/ui/NotificationDeleteButton.tsx', () => {
+  const page = 1;
   beforeEach(() => {
     jest.clearAllMocks();
 
@@ -19,15 +22,19 @@ describe('src/features/notifications/ui/NotificationDeleteButton.tsx', () => {
   });
 
   it('컴포넌트가 렌더링되고 버튼이 활성화된다.', async () => {
-    const props = {
-      id: 1,
-      page: 1,
-      configTitle: '누군가 게시글을 저장했어요.',
-      configMessage: '테스트 게시글을 저장했어요!',
-    };
-    const ariaLabel = `${props.configTitle} - ${props.configMessage} 알림 삭제`;
+    const notification = bookmarkNotificationStub;
+    const config = NOTIFICATION_CONFIG[notification.type];
 
-    render(<NotificationDeleteButton {...props} />);
+    const ariaLabel = `${config.title} - ${config.getMessage(notification.title)} 알림 삭제`;
+
+    render(
+      <NotificationDeleteButton
+        id={notification.id}
+        page={page}
+        configTitle={config.title}
+        configMessage={config.getMessage(notification.title)}
+      />,
+    );
 
     const button = screen.getByLabelText(ariaLabel, {selector: 'button'});
     expect(button).toBeInTheDocument();
@@ -36,23 +43,27 @@ describe('src/features/notifications/ui/NotificationDeleteButton.tsx', () => {
 
   it('삭제 버튼을 클릭하면 알림 삭제 요청을 보낸다.', async () => {
     const user = userEvent.setup();
-    const props = {
-      id: 1,
-      page: 1,
-      configTitle: '누군가 게시글을 저장했어요.',
-      configMessage: '테스트 게시글을 저장했어요!',
-    };
-    const ariaLabel = `${props.configTitle} - ${props.configMessage} 알림 삭제`;
+    const notification = bookmarkNotificationStub;
+    const config = NOTIFICATION_CONFIG[notification.type];
 
-    render(<NotificationDeleteButton {...props} />);
+    const ariaLabel = `${config.title} - ${config.getMessage(notification.title)} 알림 삭제`;
+
+    render(
+      <NotificationDeleteButton
+        id={notification.id}
+        page={page}
+        configTitle={config.title}
+        configMessage={config.getMessage(notification.title)}
+      />,
+    );
 
     const button = screen.getByLabelText(ariaLabel, {selector: 'button'});
     await user.click(button);
 
     expect(mockDeleteNotificationFn).toHaveBeenCalledTimes(1);
     expect(mockDeleteNotificationFn).toHaveBeenCalledWith({
-      notificationId: props.id,
-      page: props.page,
+      notificationId: notification.id,
+      page,
     });
   });
 
@@ -63,15 +74,19 @@ describe('src/features/notifications/ui/NotificationDeleteButton.tsx', () => {
     } as unknown as ReturnType<typeof useDeleteNotification>);
 
     const user = userEvent.setup();
-    const props = {
-      id: 1,
-      page: 1,
-      configTitle: '누군가 게시글을 저장했어요.',
-      configMessage: '테스트 게시글을 저장했어요!',
-    };
-    const ariaLabel = `${props.configTitle} - ${props.configMessage} 알림 삭제`;
+    const notification = bookmarkNotificationStub;
+    const config = NOTIFICATION_CONFIG[notification.type];
 
-    render(<NotificationDeleteButton {...props} />);
+    const ariaLabel = `${config.title} - ${config.getMessage(notification.title)} 알림 삭제`;
+
+    render(
+      <NotificationDeleteButton
+        id={notification.id}
+        page={page}
+        configTitle={config.title}
+        configMessage={config.getMessage(notification.title)}
+      />,
+    );
 
     const button = screen.getByLabelText(ariaLabel, {selector: 'button'});
     await user.click(button);
