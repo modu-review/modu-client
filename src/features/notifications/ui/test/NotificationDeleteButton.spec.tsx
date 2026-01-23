@@ -1,8 +1,8 @@
 import {render, screen} from '@testing-library/react';
-import NotificationDeleteButton from '../NotificationDeleteButton';
 import userEvent from '@testing-library/user-event';
+import NotificationDeleteButton from '../NotificationDeleteButton';
 import {useDeleteNotification} from '@/entities/notifications';
-import {bookmarkNotificationStub} from './stub';
+import {unReadNotificationStub} from './stub';
 import {NOTIFICATION_CONFIG} from '../config/notification-config';
 
 jest.mock('@/entities/notifications');
@@ -22,7 +22,7 @@ describe('src/features/notifications/ui/NotificationDeleteButton.tsx', () => {
   });
 
   it('컴포넌트가 렌더링되고 버튼이 활성화된다.', async () => {
-    const notification = bookmarkNotificationStub;
+    const notification = unReadNotificationStub;
     const config = NOTIFICATION_CONFIG[notification.type];
 
     const ariaLabel = `${config.title} - ${config.getMessage(notification.title)} 알림 삭제`;
@@ -43,7 +43,7 @@ describe('src/features/notifications/ui/NotificationDeleteButton.tsx', () => {
 
   it('삭제 버튼을 클릭하면 알림 삭제 요청을 보낸다.', async () => {
     const user = userEvent.setup();
-    const notification = bookmarkNotificationStub;
+    const notification = unReadNotificationStub;
     const config = NOTIFICATION_CONFIG[notification.type];
 
     const ariaLabel = `${config.title} - ${config.getMessage(notification.title)} 알림 삭제`;
@@ -74,7 +74,7 @@ describe('src/features/notifications/ui/NotificationDeleteButton.tsx', () => {
     } as unknown as ReturnType<typeof useDeleteNotification>);
 
     const user = userEvent.setup();
-    const notification = bookmarkNotificationStub;
+    const notification = unReadNotificationStub;
     const config = NOTIFICATION_CONFIG[notification.type];
 
     const ariaLabel = `${config.title} - ${config.getMessage(notification.title)} 알림 삭제`;

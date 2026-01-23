@@ -1,7 +1,7 @@
 import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import mockRouter from 'next-router-mock';
-import {bookmarkNotificationStub, readCommentNotificationStub, unReadCommentNotificationStub} from './stub';
+import {readNotificationStub, unReadNotificationStub} from './stub';
 import NotificationItem from '../NotificationItem';
 import {NOTIFICATION_CONFIG} from '../config/notification-config';
 
@@ -18,7 +18,7 @@ describe('src/features/notifications/ui/NotificationItem.tsx', () => {
   });
 
   it('컴포넌트가 렌더링된다.', () => {
-    const notification = bookmarkNotificationStub;
+    const notification = unReadNotificationStub;
     const config = NOTIFICATION_CONFIG[notification.type];
     const ariaLabel = `${config.title} - ${config.getMessage(notification.title)} 게시글로 이동`;
 
@@ -33,7 +33,7 @@ describe('src/features/notifications/ui/NotificationItem.tsx', () => {
   it('알림을 클릭하면 해당 게시글로 이동한다.', async () => {
     const user = userEvent.setup();
 
-    const notification = bookmarkNotificationStub;
+    const notification = unReadNotificationStub;
     const config = NOTIFICATION_CONFIG[notification.type];
     const ariaLabel = `${config.title} - ${config.getMessage(notification.title)} 게시글로 이동`;
 
@@ -48,7 +48,7 @@ describe('src/features/notifications/ui/NotificationItem.tsx', () => {
   it('읽지 않은 알림을 클릭하면 읽음 처리한다.', async () => {
     const user = userEvent.setup();
 
-    const notification = unReadCommentNotificationStub;
+    const notification = unReadNotificationStub;
     const config = NOTIFICATION_CONFIG[notification.type];
     const ariaLabel = `${config.title} - ${config.getMessage(notification.title)} 게시글로 이동`;
 
@@ -65,7 +65,7 @@ describe('src/features/notifications/ui/NotificationItem.tsx', () => {
   it('이미 읽은 알림을 클릭하면 읽음 처리하지 않는다.', async () => {
     const user = userEvent.setup();
 
-    const notification = readCommentNotificationStub;
+    const notification = readNotificationStub;
     const config = NOTIFICATION_CONFIG[notification.type];
     const ariaLabel = `${config.title} - ${config.getMessage(notification.title)} 게시글로 이동`;
 
