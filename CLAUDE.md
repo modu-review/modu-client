@@ -1,6 +1,7 @@
 # CLAUDE.md
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Use Korean to communicate with users
 
 ## Commands
 
@@ -38,20 +39,24 @@ Route files re-export from `src/views/`. Example: `app/layout.ts` exports from `
 ### Key Patterns
 
 **Data Fetching (TanStack Query v5):**
+
 - Query keys and options defined in `entities/*/model/query-service.ts`
 - API functions in `entities/*/apis/api-service.ts`
 - Mutations in dedicated hooks: `usePost*`, `usePatch*`, `useDelete*`
 
 **State Management:**
+
 - Server state: TanStack Query
 - Client state: Zustand stores in `entities/*/model/*Store.ts`
 
 **Error Handling:**
+
 - Custom `RequestError` and `RequestGetError` classes in `shared/apis/request-error.ts`
 - `errorHandlingType` prop controls whether errors use toast or error boundary
 - Sentry integration for error reporting
 
 **Path Aliases:**
+
 - `@/*` maps to `src/*` (configured in tsconfig with baseUrl: "src")
 
 ## Commit Message Convention
