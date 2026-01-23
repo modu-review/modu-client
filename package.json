@@ -9,7 +9,8 @@
     "lint": "next lint",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --watchAll --coverage"
+    "test:coverage": "jest --watchAll --coverage",
+    "test:ci": "jest --ci --watchAll=false --coverage"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
