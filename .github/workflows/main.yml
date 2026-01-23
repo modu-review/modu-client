@@ -36,6 +36,9 @@ jobs:
           echo "SENTRY_SUPPRESS_GLOBAL_ERROR_HANDLER_FILE_WARNING=${{ secrets.SENTRY_SUPPRESS_GLOBAL_ERROR_HANDLER_FILE_WARNING }}" >> .env
           echo "NEXT_SENTRY_AUTH_TOKEN=${{ secrets.NEXT_SENTRY_AUTH_TOKEN }}" >> .env
 
+      - name: Run Tests
+        run: pnpm run test:ci
+
       - name: Build with pnpm
         run: pnpm run build
 
