@@ -6,3 +6,4 @@ export const createMockFile = (size: number = 1024, type: string = 'image/jpeg')
 
 export const MOCK_IMAGE_URL = 'https://example.com/uploaded-image.jpg';
 export const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+export const ACCEPT = ''
