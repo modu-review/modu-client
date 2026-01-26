@@ -75,9 +75,10 @@ Before generating the code, you must follow these steps:
 
 4. Implementation: Write the full test code based on the "Code Style & Patterns" above.
 
-5. PR Documentation (Korean): At the very end, generate a Markdown snippet written in Korean for the Pull Request description. This must summarize the test file location and the scenarios covered. Use the format below.
-   - Generate a separate code block representing a Markdown file named PR_DESC.md.
-   - save this file in the same test folder (e.g., .../ui/test/PR_DESC.md).
+5. PR Documentation: Generate a separate code block for PR_DESC.md.
+   - The content must be in Korean and follow the Consolidated Report Format below.
+   - It must include the File Locations section and the Test Scenarios section.
+   - If multiple files were tested in this prompt, consolidate them into this single block.
 
 ### PR Documentation Format (Korean)
 
@@ -85,30 +86,25 @@ Before generating the code, you must follow these steps:
 # 테스트 수행 내역
 
 ## 테스트 파일 위치:
-- `src/features/reviews/best/ui/test/BestReviews.spec.tsx`
-- `src/features/reviews/best/ui/test/BestReviewsGrid.spec.tsx`
+
+- `src/.../test/ComponentA.spec.tsx`
+- `src/.../test/ComponentB.spec.tsx` (if applicable)
 
 ## 테스트 시나리오
 
-### BestReviews.spec.tsx
+### ComponentA.spec.tsx
 
 #### 정상 케이스
-- 초기 렌더링 시 선택된 카테고리의 리뷰가 BestReviewsGrid에 전달된다
-- 카테고리 변경 시 해당 카테고리의 리뷰가 전달된다
+
+- (예시) 초기 렌더링 시 선택된 카테고리의 리뷰가 그리드에 전달된다
+- (예시) 카테고리 변경 시 해당 카테고리의 리뷰가 전달된다
 
 #### 엣지/예외 케이스
-- 빈 카테고리가 선택되어도 에러 없이 렌더링된다
 
-#### UI 요소
-- 제목이 올바르게 렌더링된다
+- (예시) 빈 카테고리가 선택되어도 에러 없이 렌더링된다
+- (예시) 데이터가 없을 경우 빈 상태 메시지를 표시한다
 
-### BestReviewsGrid.spec.tsx
+#### UI 요소 (Optional)
 
-#### 정상 케이스
-- 리뷰가 있을 때 모든 리뷰 카드가 렌더링된다
-- 처음 3개 카드에는 priority=true가, 이후 카드에는 priority=false가 전달된다
-
-#### 엣지/예외 케이스
-- count가 0일 때 빈 상태 메시지를 표시한다
-- 리뷰가 3개 미만일 때도 정상 동작한다
+- (예시) 제목이 올바르게 렌더링된다
 ```
