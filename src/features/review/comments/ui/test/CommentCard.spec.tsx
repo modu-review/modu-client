@@ -91,7 +91,7 @@ describe('src/features/review/comments/ui/CommentCard.tsx', () => {
       expect(screen.getByText('정말 삭제하시겠어요?')).toBeInTheDocument();
     });
 
-    it('모달에서 삭제 확인 시 deleteReviewComment가 호출된다.', async () => {
+    it('모달에서 삭제 확인 시 삭제 요청한다.', async () => {
       const user = userEvent.setup();
       render(<CommentCard {...defaultProps} />);
 
@@ -109,7 +109,11 @@ describe('src/features/review/comments/ui/CommentCard.tsx', () => {
       });
     });
 
-    it('모달에서 취소 시 deleteReviewComment가 호출되지 않는다.', async () => {
+    it('작성자가 아닌 경우 요청하지 않는다.', async () => {
+
+    });
+
+    it('모달에서 취소 시 삭제 요청이 호출되지 않는다.', async () => {
       const user = userEvent.setup();
       render(<CommentCard {...defaultProps} />);
 
