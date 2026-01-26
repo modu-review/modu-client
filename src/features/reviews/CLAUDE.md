@@ -71,15 +71,17 @@ Before generating the code, you must follow these steps:
 4. Implementation: Write the full test code based on the "Code Style & Patterns" above.
 
 5. PR Documentation (Korean): At the very end, generate a Markdown snippet written in Korean for the Pull Request description. This must summarize the test file location and the scenarios covered. Use the format below.
+   - Generate a separate code block representing a Markdown file named PR_DESC.md.
+   - save this file in the same test folder (e.g., .../ui/test/PR_DESC.md).
 
 ### PR Documentation Format (Korean)
 
 ```md
-## 🧪 테스트 수행 내역
+## 테스트 수행 내역
 
 - **테스트 파일 위치**: `src/.../test/Component.spec.tsx`
 
-### ✅ 테스트 시나리오
+### 테스트 시나리오
 
 - **정상 케이스**
   - [x] (예시) 로그인 상태에서 댓글 입력 시 정상적으로 등록 요청을 보낸다.
