@@ -79,6 +79,7 @@ Before generating the code, you must follow these steps:
    - The content must be in Korean and follow the Consolidated Report Format below.
    - It must include the File Locations section and the Test Scenarios section.
    - If multiple files were tested in this prompt, consolidate them into this single block.
+   - Create the file as 'PR_DESC.md' in the project root path.
 
 ### PR Documentation Format (Korean)
 
