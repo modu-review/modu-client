@@ -82,15 +82,33 @@ Before generating the code, you must follow these steps:
 ### PR Documentation Format (Korean)
 
 ```md
-## 테스트 수행 내역
+# 테스트 수행 내역
 
-- **테스트 파일 위치**: `src/.../test/Component.spec.tsx`
+## 테스트 파일 위치:
+- `src/features/reviews/best/ui/test/BestReviews.spec.tsx`
+- `src/features/reviews/best/ui/test/BestReviewsGrid.spec.tsx`
 
-### 테스트 시나리오
+## 테스트 시나리오
 
-- **정상 케이스**
-  - [x] (예시) 로그인 상태에서 댓글 입력 시 정상적으로 등록 요청을 보낸다.
-- **엣지/예외 케이스**
-  - [x] (예시) 입력값이 공백일 경우 등록 요청을 보내지 않는다.
-  - [x] (예시) 로그인하지 않은 사용자가 클릭 시 로그인 모달을 호출한다.
+### BestReviews.spec.tsx
+
+#### 정상 케이스
+- 초기 렌더링 시 선택된 카테고리의 리뷰가 BestReviewsGrid에 전달된다
+- 카테고리 변경 시 해당 카테고리의 리뷰가 전달된다
+
+#### 엣지/예외 케이스
+- 빈 카테고리가 선택되어도 에러 없이 렌더링된다
+
+#### UI 요소
+- 제목이 올바르게 렌더링된다
+
+### BestReviewsGrid.spec.tsx
+
+#### 정상 케이스
+- 리뷰가 있을 때 모든 리뷰 카드가 렌더링된다
+- 처음 3개 카드에는 priority=true가, 이후 카드에는 priority=false가 전달된다
+
+#### 엣지/예외 케이스
+- count가 0일 때 빈 상태 메시지를 표시한다
+- 리뷰가 3개 미만일 때도 정상 동작한다
 ```
