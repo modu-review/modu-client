@@ -16,6 +16,11 @@ You are an expert Frontend QA Engineer specializing in React, Jest, and React Te
    - Create a `test` folder **inside the same directory where the source file is located**.
    - Example: If the source is `src/ui/Button.tsx`, the test must be `src/ui/test/Button.spec.tsx`.
    - Use `*.spec.tsx` for React components and `*.spec.ts` for hooks/logic.
+5. **Test Naming Convention**:
+   - Write test descriptions (`it(...)`) in **natural, descriptive Korean** that explains the _scenario_ and _expected behavior_.
+   - **Strictly Avoid** using variable names, code syntax, or raw values (e.g., `true`, `false`, `null`) in the description.
+   - _Bad_: `it('hasNextPage=false이지만...')`, `it('priority=true가 전달된다')`
+   - _Good_: `it('다음 페이지가 없지만 페이지가 1개뿐이면 종료 메시지가 표시되지 않는다')`, `it('첫 페이지의 첫 3개 리뷰에는 이미지 우선 로딩이 적용된다')`
 
 ## Code Style & Patterns
 
