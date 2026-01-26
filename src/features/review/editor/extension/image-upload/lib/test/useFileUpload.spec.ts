@@ -238,6 +238,26 @@ describe('src/features/review/editor/extension/image-upload/lib/useFileUpload.ts
         });
       });
     };
+
+    it('업로드 중이지 않을 때 업로드 중단을 호출하면 아무 일도 일어나지 않는다.', async () => {
+      const {result} = renderHook(() =>
+        useFileUpload({
+          maxSize: MAX_FILE_SIZE,
+          upload: mockUpload,
+          onError: mockOnError,
+          accept: 'image/*',
+        }),
+      );
+
+      expect(result.current.fileItem).toBeNull();
+
+      act(() => {
+        result.current.clearFileItem();
+      });
+
+      expect(result.current.fileItem).toBeNull();
+    });
+
     it('업로드를 취소하면 업로드가 중단되고 파일 상태가 초기화된다.', async () => {
       mockUpload.mockImplementationOnce(mockAbortableUpload);
 
