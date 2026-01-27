@@ -1,18 +1,17 @@
+import Link from 'next/link';
 import RecentReviewCard from './RecentReviewCard';
 import MultiCarousel from './MultiCarousel';
 import {useGetRecentReviews} from '@/entities/reviews';
-import Link from 'next/link';
-import {Skeleton} from '@/shared/shadcnComponent/ui/skeleton';
 
 export default function RecentReviewsCarousel() {
   const {
     data: {latest_reviews},
   } = useGetRecentReviews();
 
-  if (false) {
+  if (latest_reviews.length === 0) {
     return (
-      <section>
-        <p>아직 등록된 후기가 없어요.</p>
+      <section className="flex justify-center items-center min-h-[200px]">
+        <p className="text-xl font-semibold">아직 등록된 후기가 없어요.</p>
       </section>
     );
   }
