@@ -30,6 +30,7 @@ describe('src/entities/auth/model/useLogin.ts', () => {
     });
 
     act(() => {
+      mockRouter.setCurrentUrl('/login_redirect');
       result.current.login('test@email.com');
     });
 
@@ -46,6 +47,7 @@ describe('src/entities/auth/model/useLogin.ts', () => {
     });
 
     act(() => {
+      mockRouter.setCurrentUrl('/login_redirect');
       result.current.login('test@email.com');
     });
 
