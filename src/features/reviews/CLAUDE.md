@@ -74,7 +74,7 @@ Before generating the code, you must follow these steps:
 3. To-Do List: List the test cases you plan to write (Success, Edge, Error) to ensure coverage.
 
 4. Implementation: Write the full test code based on the "Code Style & Patterns" above.
-
+   - Run and validate a test each time you create one.
 5. PR Documentation: Generate a separate code block for PR_DESC.md.
    - The content must be in Korean and follow the Consolidated Report Format below.
    - It must include the File Locations section and the Test Scenarios section.
