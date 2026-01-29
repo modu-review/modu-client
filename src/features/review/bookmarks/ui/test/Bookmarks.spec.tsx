@@ -114,8 +114,7 @@ describe('src/features/review/bookmarks/ui/Bookmarks', () => {
       expect(mockBookmarkReview).toHaveBeenCalledTimes(1);
       expect(button).toBeDisabled();
 
-      await user.click(button);
-      expect(mockBookmarkReview).toHaveBeenCalledTimes(1);
+      resolveBookmark();
     });
   });
 
@@ -196,6 +195,42 @@ describe('src/features/review/bookmarks/ui/Bookmarks', () => {
 
       await waitFor(() => {
         expect(screen.getByText('4')).toBeInTheDocument();
+        expect(screen.getByLabelText('북마크 추가하기')).toBeInTheDocument();
+      });
+    });
+
+    it('북마크 요청이 실패하면 미리 변경한 화면을 복구한다.', async () => {
+      const user = userEvent.setup();
+      let rejectBookmark: any;
+
+      mockBookmarkReview.mockImplementation(() => {
+        return new Promise((resolve, reject) => {
+          rejectBookmark = reject;
+        });
+      });
+
+      mockGetReviewBookmarks.mockResolvedValue({bookmarks: 5, hasBookmarked: false});
+
+      render(
+        withAllContext(
+          <Suspense fallback={<div>loading</div>}>
+            <Bookmarks reviewId={5} openLoginModal={() => {}} />
+          </Suspense>,
+        ),
+      );
+
+      await waitForElementToBeRemoved(screen.getByText('loading'));
+      expect(screen.getByText('5')).toBeInTheDocument();
+
+      const button = screen.getByLabelText('북마크 추가하기', {selector: 'button'});
+      await user.click(button);
+
+      expect(screen.getByText('6')).toBeInTheDocument();
+
+      rejectBookmark();
+
+      await waitFor(() => {
+        expect(screen.getByText('5')).toBeInTheDocument();
         expect(screen.getByLabelText('북마크 추가하기')).toBeInTheDocument();
       });
     });
