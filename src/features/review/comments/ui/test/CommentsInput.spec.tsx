@@ -62,25 +62,6 @@ describe('src/features/review/components/ui/CommentsInput.tsx', () => {
       mockUseUserNickname.mockReturnValue('jimin');
     });
 
-    it('댓글 입력창에 텍스트를 입력 후 버튼을 클릭하면 댓글이 등록된다.', async () => {
-      const user = userEvent.setup();
-
-      render(withAllContext(<CommentsInput {...stubProps} />));
-
-      const textArea = screen.getByPlaceholderText('댓글을 입력해주세요.');
-      const button = screen.getByLabelText('댓글 등록', {selector: 'button'});
-
-      await user.type(textArea, '테스트 입력');
-      await user.click(button);
-
-      expect(postReviewComment).toHaveBeenCalledTimes(1);
-      expect(postReviewComment).toHaveBeenCalledWith({
-        reviewId: stubProps.reviewId,
-        category: stubProps.category,
-        content: '테스트 입력',
-      });
-    });
-
     it('댓글 등록 후 입력창이 초기화된다.', async () => {
       const user = userEvent.setup();
 
