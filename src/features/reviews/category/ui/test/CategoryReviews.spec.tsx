@@ -1,188 +1,166 @@
-import {render, screen} from '@testing-library/react';
+import {render, screen, waitFor, waitForElementToBeRemoved} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import mockRouter from 'next-router-mock';
 import CategoryReviews from '../CategoryReviews';
-import {useSelectCategoryFromUrl} from '@/features/reviews/filtering';
-import {useSelectSortOption} from '@/features/reviews/sorting';
+import {SortKey} from '@/features/reviews/sorting';
+import {Category, SearchReviewCard} from '@/entities/review';
+import {CategoryReviewsResult} from '@/entities/reviews';
+import {getCategoryReviews} from '@/entities/reviews/apis/api-service';
+import {withAllContext} from '@/shared/lib/utils/withAllContext';
 
-jest.mock('@/features/reviews/filtering', () => ({
-  CategoryBar: ({selectedCategory, onSelectCategory}: any) => (
-    <div data-testid="category-bar" data-category={selectedCategory}>
-      <button onClick={() => onSelectCategory('food')}>음식</button>
-    </div>
-  ),
-  useSelectCategoryFromUrl: jest.fn(),
-}));
-
-jest.mock('@/features/reviews/sorting', () => ({
-  SelectSortOptions: ({sort, onValueChange, className}: any) => (
-    <select data-testid="sort-options" value={sort} onChange={(e) => onValueChange(e.target.value)} className={className}>
-      <option value="recent">최신순</option>
-      <option value="hotbookmarks">북마크순</option>
-      <option value="hotcomments">댓글순</option>
-    </select>
-  ),
-  useSelectSortOption: jest.fn(),
-}));
-
-jest.mock('@/features/reviews/search-bar', () => ({
-  SearchBar: () => <div data-testid="search-bar">SearchBar</div>,
-}));
-
-jest.mock('../ReviewWithScroll', () => ({
+jest.mock('next/navigation', () => jest.requireActual('next-router-mock/navigation'));
+jest.mock('@/entities/reviews/apis/api-service');
+jest.mock('@/entities/reviews/ui/ReviewsLoading', () => ({
   __esModule: true,
-  default: ({selectedCategory, sort}: any) => (
-    <div data-testid="reviews-with-scroll" data-category={selectedCategory} data-sort={sort}>
-      ReviewsWithScroll
-    </div>
+  default: () => <div>loading</div>,
+}));
+
+window.HTMLElement.prototype.hasPointerCapture = jest.fn();
+window.HTMLElement.prototype.scrollIntoView = jest.fn();
+
+const mockGetCategoryReviews = getCategoryReviews as jest.MockedFunction<typeof getCategoryReviews>;
+
+const createMockSearchReviewCard = (overrides: Partial<SearchReviewCard> = {}): SearchReviewCard => ({
+  board_id: 1,
+  title: '테스트 리뷰',
+  author_nickname: 'testUser',
+  category: 'food',
+  preview: '테스트 미리보기',
+  comments_count: 5,
+  bookmarks: 10,
+  image_url: 'https://example.com/image.jpg',
+  created_at: '2026-01-25',
+  ...overrides,
+});
+
+const createMockCategoryReviewsPage = (
+  category: Category = 'all',
+  reviewCount: number = 3,
+  sort: SortKey = 'recent',
+  hasNext: boolean = false,
+  startId: number = 1,
+): CategoryReviewsResult => ({
+  results: Array.from({length: reviewCount}, (_, idx) =>
+    createMockSearchReviewCard({
+      board_id: startId + idx,
+      title: `${category} 리뷰 ${sort} ${startId + idx}`,
+      category,
+    }),
   ),
-}));
-
-jest.mock('@/shared/providers', () => ({
-  RQProvider: ({children, LoadingFallback, icon}: any) => (
-    <div data-testid="rq-provider" data-has-loading={!!LoadingFallback} data-has-icon={!!icon}>
-      {children}
-    </div>
-  ),
-}));
-
-jest.mock('@/entities/reviews', () => ({
-  ReviewsLoading: () => <div data-testid="reviews-loading">ReviewsLoading</div>,
-}));
-
-jest.mock('@/shared/ui/icons', () => ({
-  LucideIcon: ({name, className}: any) => (
-    <div data-testid="lucide-icon" data-icon-name={name} className={className}>
-      Icon
-    </div>
-  ),
-}));
-
-const mockUseSelectCategoryFromUrl = useSelectCategoryFromUrl as jest.MockedFunction<typeof useSelectCategoryFromUrl>;
-const mockUseSelectSortOption = useSelectSortOption as jest.MockedFunction<typeof useSelectSortOption>;
+  next_cursor: hasNext ? startId + reviewCount : null,
+  has_next: hasNext,
+});
 
 describe('src/features/reviews/category/ui/CategoryReviews.tsx', () => {
-  const mockHandleSelectCategory = jest.fn();
-  const mockHandleChange = jest.fn();
-
   beforeEach(() => {
     jest.clearAllMocks();
+    mockRouter.reset();
+  });
 
-    mockUseSelectCategoryFromUrl.mockReturnValue({
-      selectedCategory: 'all',
-      handleSelectCategory: mockHandleSelectCategory,
-    });
+  describe('렌더링 테스트', () => {
+    it('카테고리 검색 페이지가 렌더링된다.', async () => {
+      mockGetCategoryReviews.mockResolvedValue(createMockCategoryReviewsPage('food'));
+      render(withAllContext(<CategoryReviews />));
 
-    mockUseSelectSortOption.mockReturnValue({
-      sort: 'recent',
-      handleChange: mockHandleChange,
+      await waitForElementToBeRemoved(screen.getByText('loading'));
+
+      expect(screen.getByRole('navigation')).toBeInTheDocument();
+      expect(screen.getByPlaceholderText('후기를 검색하세요')).toBeInTheDocument();
+      expect(screen.getByText('최신순')).toBeInTheDocument();
+      expect(screen.getAllByText(/food 리뷰/)).toHaveLength(3);
     });
   });
 
-  describe('Happy Path', () => {
-    it('초기 렌더링 시 모든 하위 컴포넌트가 정상적으로 렌더링된다', () => {
-      render(<CategoryReviews />);
+  describe('통합 테스트', () => {
+    it("카테고리를 '음식'으로 바꾸면 음식 관련 리뷰를 표시한다.", async () => {
+      const user = userEvent.setup();
 
-      expect(screen.getByTestId('category-bar')).toBeInTheDocument();
-      expect(screen.getByTestId('search-bar')).toBeInTheDocument();
-      expect(screen.getByTestId('sort-options')).toBeInTheDocument();
-      expect(screen.getByTestId('reviews-with-scroll')).toBeInTheDocument();
-    });
+      mockGetCategoryReviews.mockImplementation((_cursor, categoryId) => {
+        if (categoryId === 'food') {
+          return Promise.resolve(createMockCategoryReviewsPage('food', 3));
+        }
 
-    it('카테고리 바 컴포넌트에 선택된 카테고리와 변경 콜백 함수가 전달된다', () => {
-      mockUseSelectCategoryFromUrl.mockReturnValue({
-        selectedCategory: 'food',
-        handleSelectCategory: mockHandleSelectCategory,
+        return Promise.resolve(createMockCategoryReviewsPage('all', 4));
+      });
+      mockRouter.push('/?categoryId=all&sort=recent');
+
+      render(withAllContext(<CategoryReviews />));
+
+      await waitForElementToBeRemoved(screen.getByText('loading'));
+
+      expect(mockGetCategoryReviews).toHaveBeenCalledWith(0, 'all', 'recent');
+
+      await waitFor(() => {
+        expect(screen.getAllByText(/all 리뷰/)).toHaveLength(4);
       });
 
-      render(<CategoryReviews />);
+      const foodCategoryButton = screen.getByRole('button', {name: '카테고리: 음식'});
+      await user.click(foodCategoryButton);
 
-      const categoryBar = screen.getByTestId('category-bar');
-      expect(categoryBar).toHaveAttribute('data-category', 'food');
-    });
-
-    it('정렬 옵션 선택 컴포넌트에 정렬 상태와 변경 콜백 함수가 전달된다', () => {
-      mockUseSelectSortOption.mockReturnValue({
-        sort: 'hotbookmarks',
-        handleChange: mockHandleChange,
-      });
-
-      render(<CategoryReviews />);
-
-      const sortOptions = screen.getByTestId('sort-options');
-      expect(sortOptions).toHaveValue('hotbookmarks');
-    });
-
-    it('무한스크롤 컴포넌트에 선택된 카테고리와 정렬 옵션이 전달된다', () => {
-      mockUseSelectCategoryFromUrl.mockReturnValue({
-        selectedCategory: 'car',
-        handleSelectCategory: mockHandleSelectCategory,
-      });
-
-      mockUseSelectSortOption.mockReturnValue({
-        sort: 'hotcomments',
-        handleChange: mockHandleChange,
-      });
-
-      render(<CategoryReviews />);
-
-      const reviewsWithScroll = screen.getByTestId('reviews-with-scroll');
-      expect(reviewsWithScroll).toHaveAttribute('data-category', 'car');
-      expect(reviewsWithScroll).toHaveAttribute('data-sort', 'hotcomments');
-    });
-
-    it('정렬 옵션 선택 훅에 카테고리 아이디가 포함된 옵션 객체가 전달된다', () => {
-      mockUseSelectCategoryFromUrl.mockReturnValue({
-        selectedCategory: 'cosmetic',
-        handleSelectCategory: mockHandleSelectCategory,
-      });
-
-      render(<CategoryReviews />);
-
-      expect(mockUseSelectSortOption).toHaveBeenCalledWith({
-        options: {
-          categoryId: 'cosmetic',
-        },
+      await waitFor(() => {
+        expect(mockGetCategoryReviews).toHaveBeenLastCalledWith(0, 'food', 'recent');
+        expect(screen.getAllByText(/food 리뷰/)).toHaveLength(3);
       });
     });
-  });
 
-  describe('Edge Case', () => {
-    it('유효하지 않은 카테고리가 선택되어도 에러 없이 렌더링된다', () => {
-      mockUseSelectCategoryFromUrl.mockReturnValue({
-        selectedCategory: 'all',
-        handleSelectCategory: mockHandleSelectCategory,
+    it("정렬 옵션을 '북마크순'으로 바꾸면 리뷰를 북마크순으로 정렬한다.", async () => {
+      const user = userEvent.setup();
+
+      mockGetCategoryReviews.mockImplementation((_cursor, _categoryId, sort) => {
+        if (sort === 'hotbookmarks') {
+          return Promise.resolve(createMockCategoryReviewsPage('all', 3, sort));
+        }
+
+        return Promise.resolve(createMockCategoryReviewsPage('all', 3, 'recent'));
       });
 
-      render(<CategoryReviews />);
+      mockRouter.push('/?categoryId=all&sort=recent');
 
-      expect(screen.getByTestId('category-bar')).toBeInTheDocument();
-      expect(screen.getByTestId('reviews-with-scroll')).toBeInTheDocument();
-    });
+      render(withAllContext(<CategoryReviews />));
 
-    it('유효하지 않은 정렬 옵션이 선택되어도 에러 없이 렌더링된다', () => {
-      mockUseSelectSortOption.mockReturnValue({
-        sort: 'recent',
-        handleChange: mockHandleChange,
+      await waitForElementToBeRemoved(screen.getByText('loading'));
+
+      await waitFor(() => {
+        expect(mockGetCategoryReviews).toHaveBeenCalledWith(0, 'all', 'recent');
+        expect(screen.getAllByText(/all 리뷰 recent/)).toHaveLength(3);
       });
 
-      render(<CategoryReviews />);
+      const sortOptions = screen.getByRole('combobox');
+      await user.click(sortOptions);
 
-      expect(screen.getByTestId('sort-options')).toHaveValue('recent');
-    });
-  });
+      const bookmarkSortOption = screen.getByText('북마크순');
+      await user.click(bookmarkSortOption);
 
-  describe('UI Elements', () => {
-    it('리액트 쿼리 프로바이더에 로딩 대체 UI가 전달된다', () => {
-      render(<CategoryReviews />);
-
-      const rqProvider = screen.getByTestId('rq-provider');
-      expect(rqProvider).toHaveAttribute('data-has-loading', 'true');
+      await waitFor(() => {
+        expect(mockGetCategoryReviews).toHaveBeenLastCalledWith(0, 'all', 'hotbookmarks');
+        expect(screen.getAllByText(/all 리뷰 hotbookmarks/)).toHaveLength(3);
+      });
     });
 
-    it('리액트 쿼리 프로바이더에 아이콘이 전달된다', () => {
-      render(<CategoryReviews />);
+    it("검색창에 'macbook'을 검색하면 'macbook' 키워드 검색 페이지로 이동한다.", async () => {
+      const user = userEvent.setup();
 
-      const rqProvider = screen.getByTestId('rq-provider');
-      expect(rqProvider).toHaveAttribute('data-has-icon', 'true');
+      mockGetCategoryReviews.mockResolvedValue(createMockCategoryReviewsPage());
+
+      render(withAllContext(<CategoryReviews />));
+
+      await waitForElementToBeRemoved(screen.getByText('loading'));
+
+      const searchBar = screen.getByPlaceholderText('후기를 검색하세요');
+      await user.type(searchBar, 'macbook{enter}');
+
+      expect(mockRouter.asPath).toBe('/search/macbook');
+    });
+
+    it('데이터 요청 중 에러가 발생하면 대체 UI를 표시한다.', async () => {
+      jest.spyOn(console, 'error').mockImplementation(() => {});
+      mockGetCategoryReviews.mockRejectedValue({});
+
+      render(withAllContext(<CategoryReviews />));
+
+      await waitForElementToBeRemoved(screen.getByText('loading'));
+
+      expect(screen.getByText('데이터를 가져오는 데 실패했어요.')).toBeInTheDocument();
     });
   });
 });
