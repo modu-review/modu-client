@@ -69,7 +69,7 @@ describe('src/features/reviews/best/ui/BestReviews.tsx', () => {
       render(<BestReviews reviews={createMockBestReviewsResult()} />);
 
       const initialCategoryButton = screen.getByLabelText('카테고리: 전체');
-      expect(initialCategoryButton).toHaveAttribute('aria-pressed');
+      expect(initialCategoryButton).toHaveAttribute('aria-selected');
 
       expect(screen.getByText('전체 리뷰 1')).toBeInTheDocument();
       expect(screen.getByText('전체 리뷰 2')).toBeInTheDocument();
@@ -92,7 +92,7 @@ describe('src/features/reviews/best/ui/BestReviews.tsx', () => {
       await user.click(foodCategoryButton);
 
       // 음식 목록 1개
-      expect(foodCategoryButton).toHaveAttribute('aria-pressed');
+      expect(foodCategoryButton).toHaveAttribute('aria-selected');
       expect(within(reviewList).getAllByRole('listitem')).toHaveLength(1);
       expect(screen.getByText('음식 리뷰 1')).toBeInTheDocument();
 
@@ -100,7 +100,7 @@ describe('src/features/reviews/best/ui/BestReviews.tsx', () => {
       await user.click(cosmeticCategoryButton);
 
       // 화장품 목록 3개
-      expect(cosmeticCategoryButton).toHaveAttribute('aria-pressed');
+      expect(cosmeticCategoryButton).toHaveAttribute('aria-selected');
       expect(within(reviewList).getAllByRole('listitem')).toHaveLength(3);
       expect(screen.getByText('화장품 리뷰 1')).toBeInTheDocument();
       expect(screen.getByText('화장품 리뷰 3')).toBeInTheDocument();
@@ -114,7 +114,7 @@ describe('src/features/reviews/best/ui/BestReviews.tsx', () => {
       const carCategoryButton = screen.getByLabelText('카테고리: 자동차');
       await user.click(carCategoryButton);
 
-      expect(carCategoryButton).toHaveAttribute('aria-pressed');
+      expect(carCategoryButton).toHaveAttribute('aria-selected');
       expect(screen.getByText('해당 카테고리는 아직 베스트 후기가 없어요.')).toBeInTheDocument();
     });
 
