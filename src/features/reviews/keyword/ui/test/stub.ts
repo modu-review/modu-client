@@ -20,6 +20,7 @@ export const createMockSearchReviewCard = (overrides: Partial<SearchReviewCard> 
 });
 
 export const createMockKeywordReviewsResult = (
+  keyword: string,
   reviewCount: number = 3,
   currentPage: number = 1,
   totalPages: number = 1,
@@ -27,15 +28,9 @@ export const createMockKeywordReviewsResult = (
   results: Array.from({length: reviewCount}, (_, idx) =>
     createMockSearchReviewCard({
       board_id: idx + 1,
-      title: `키워드 검색 리뷰 ${idx + 1}`,
+      title: `${keyword} 검색 리뷰 page: ${currentPage}`,
     }),
   ),
   current_page: currentPage,
   total_pages: totalPages,
 });
-
-export const emptyKeywordReviewsResult: KeywordReviewsResult = {
-  results: [],
-  current_page: 1,
-  total_pages: 0,
-};

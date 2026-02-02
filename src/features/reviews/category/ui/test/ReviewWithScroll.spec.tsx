@@ -1,314 +1,162 @@
-import {render, screen} from '@testing-library/react';
+import {act, Suspense} from 'react';
+import {render, screen, waitFor, waitForElementToBeRemoved} from '@testing-library/react';
+import {mockIntersectionObserver} from 'jsdom-testing-mocks';
 import ReviewsWithScroll from '../ReviewWithScroll';
-import {useCategoryReviews} from '@/entities/reviews';
-import {
-  createMockInfiniteQueryData,
-  createMockSearchReviewCard,
-  emptyInfiniteQueryData,
-  createMockCategoryReviewsPage,
-} from './stub';
+import {Category, SearchReviewCard} from '@/entities/review';
+import {CategoryReviewsResult} from '@/entities/reviews';
+import {getCategoryReviews} from '@/entities/reviews/apis/api-service';
+import {withAllContext} from '@/shared/lib/utils/withAllContext';
 
-jest.mock('@/entities/reviews', () => ({
-  useCategoryReviews: jest.fn(),
-  ReviewArticle: ({searchReview, priority}: any) => (
-    <article data-testid={`review-article-${searchReview.board_id}`} data-priority={priority}>
-      {searchReview.title}
-    </article>
+jest.mock('@/entities/reviews/apis/api-service');
+
+const mockGetCategoryReviews = getCategoryReviews as jest.MockedFunction<typeof getCategoryReviews>;
+
+const createMockSearchReviewCard = (overrides: Partial<SearchReviewCard> = {}): SearchReviewCard => ({
+  board_id: 1,
+  title: '테스트 리뷰',
+  author_nickname: 'testUser',
+  category: 'food',
+  preview: '테스트 미리보기',
+  comments_count: 5,
+  bookmarks: 10,
+  image_url: 'https://example.com/image.jpg',
+  created_at: '2026-01-25',
+  ...overrides,
+});
+
+const createMockCategoryReviewsPage = (
+  category: Category = 'all',
+  reviewCount: number = 3,
+  hasNext: boolean = false,
+  startId: number = 1,
+): CategoryReviewsResult => ({
+  results: Array.from({length: reviewCount}, (_, idx) =>
+    createMockSearchReviewCard({
+      board_id: startId + idx,
+      title: `리뷰 ${startId + idx}`,
+      category,
+    }),
   ),
-  ReviewArticleLoading: () => <div data-testid="review-article-loading">Loading...</div>,
-  NoSearchResults: ({title, description}: any) => (
-    <div data-testid="no-search-results">
-      <h3>{title}</h3>
-      <p>{description}</p>
-    </div>
-  ),
-}));
+  next_cursor: hasNext ? startId + reviewCount : null,
+  has_next: hasNext,
+});
 
-const mockUseCategoryReviews = useCategoryReviews as jest.MockedFunction<typeof useCategoryReviews>;
+const intersectionObserver = mockIntersectionObserver();
 
-describe('src/features/reviews/category/ui/ReviewsWithScroll.tsx', () => {
-  const mockFetchNextPage = jest.fn();
-  let intersectionObserverCallback: IntersectionObserverCallback;
-  const mockObserve = jest.fn();
-  const mockDisconnect = jest.fn();
+describe('src/features/reviews/category/ui/ReviewWithScroll.tsx', () => {
+  describe('렌더링 테스트', () => {
+    beforeEach(() => {
+      mockGetCategoryReviews.mockImplementation((_cursor, categoryId) => {
+        if (categoryId === 'food') {
+          return Promise.resolve(createMockCategoryReviewsPage('food', 0));
+        }
 
-  beforeEach(() => {
-    jest.clearAllMocks();
-
-    const mockIntersectionObserver = jest.fn(callback => {
-      intersectionObserverCallback = callback;
-      return {
-        observe: mockObserve,
-        disconnect: mockDisconnect,
-        unobserve: jest.fn(),
-        takeRecords: jest.fn(),
-      };
+        return Promise.resolve(createMockCategoryReviewsPage('all', 5));
+      });
     });
 
-    global.IntersectionObserver = mockIntersectionObserver as any;
-  });
+    it("'전체' 카테고리 리뷰 목록이 표시된다.", async () => {
+      render(
+        withAllContext(
+          <Suspense fallback={<div>loading</div>}>
+            <ReviewsWithScroll selectedCategory="all" sort="recent" />
+          </Suspense>,
+        ),
+      );
 
-  describe('Happy Path', () => {
-    it('리뷰 데이터가 있을 때 리스트 형태로 렌더링된다', () => {
-      mockUseCategoryReviews.mockReturnValue({
-        data: createMockInfiniteQueryData(1, 5),
-        hasNextPage: false,
-        fetchNextPage: mockFetchNextPage,
-        isFetchingNextPage: false,
-      } as any);
-
-      render(<ReviewsWithScroll selectedCategory="food" sort="recent" />);
-
-      expect(screen.getByTestId('review-article-1')).toBeInTheDocument();
-      expect(screen.getByTestId('review-article-2')).toBeInTheDocument();
-      expect(screen.getByTestId('review-article-3')).toBeInTheDocument();
-      expect(screen.getByTestId('review-article-4')).toBeInTheDocument();
-      expect(screen.getByTestId('review-article-5')).toBeInTheDocument();
+      await waitForElementToBeRemoved(screen.getByText('loading'));
+      expect(screen.getAllByText(/리뷰/)).toHaveLength(5);
     });
 
-    it('첫 페이지의 첫 3개 리뷰에는 이미지 우선 로딩이, 나머지는 지연 로딩된다', () => {
-      mockUseCategoryReviews.mockReturnValue({
-        data: createMockInfiniteQueryData(1, 5),
-        hasNextPage: false,
-        fetchNextPage: mockFetchNextPage,
-        isFetchingNextPage: false,
-      } as any);
+    it("'음식' 카테고리 리뷰 목록이 없어 문구가 표시된다.", async () => {
+      render(
+        withAllContext(
+          <Suspense fallback={<div>loading</div>}>
+            <ReviewsWithScroll selectedCategory="food" sort="recent" />
+          </Suspense>,
+        ),
+      );
 
-      render(<ReviewsWithScroll selectedCategory="food" sort="recent" />);
+      await waitForElementToBeRemoved(screen.getByText('loading'));
 
-      expect(screen.getByTestId('review-article-1')).toHaveAttribute('data-priority', 'true');
-      expect(screen.getByTestId('review-article-2')).toHaveAttribute('data-priority', 'true');
-      expect(screen.getByTestId('review-article-3')).toHaveAttribute('data-priority', 'true');
-      expect(screen.getByTestId('review-article-4')).toHaveAttribute('data-priority', 'false');
-      expect(screen.getByTestId('review-article-5')).toHaveAttribute('data-priority', 'false');
-    });
-
-    it('여러 페이지의 리뷰가 모두 렌더링된다', () => {
-      const mockData = {
-        pages: [
-          {
-            results: [
-              createMockSearchReviewCard({board_id: 1, title: '페이지1 리뷰1'}),
-              createMockSearchReviewCard({board_id: 2, title: '페이지1 리뷰2'}),
-            ],
-            has_next: true,
-            next_cursor: 1,
-          },
-          {
-            results: [
-              createMockSearchReviewCard({board_id: 3, title: '페이지2 리뷰1'}),
-              createMockSearchReviewCard({board_id: 4, title: '페이지2 리뷰2'}),
-            ],
-            has_next: false,
-            next_cursor: null,
-          },
-        ],
-        pageParams: [0, 1],
-      };
-
-      mockUseCategoryReviews.mockReturnValue({
-        data: mockData,
-        hasNextPage: false,
-        fetchNextPage: mockFetchNextPage,
-        isFetchingNextPage: false,
-      } as any);
-
-      render(<ReviewsWithScroll selectedCategory="food" sort="recent" />);
-
-      expect(screen.getByText('페이지1 리뷰1')).toBeInTheDocument();
-      expect(screen.getByText('페이지1 리뷰2')).toBeInTheDocument();
-      expect(screen.getByText('페이지2 리뷰1')).toBeInTheDocument();
-      expect(screen.getByText('페이지2 리뷰2')).toBeInTheDocument();
-    });
-
-    it('두 번째 페이지부터는 모든 리뷰의 이미지가 지연 로딩된다', () => {
-      mockUseCategoryReviews.mockReturnValue({
-        data: createMockInfiniteQueryData(2, 3),
-        hasNextPage: false,
-        fetchNextPage: mockFetchNextPage,
-        isFetchingNextPage: false,
-      } as any);
-
-      render(<ReviewsWithScroll selectedCategory="food" sort="recent" />);
-
-      // 첫 페이지 첫 3개는 priority=true
-      expect(screen.getByTestId('review-article-1')).toHaveAttribute('data-priority', 'true');
-      expect(screen.getByTestId('review-article-2')).toHaveAttribute('data-priority', 'true');
-      expect(screen.getByTestId('review-article-3')).toHaveAttribute('data-priority', 'true');
-
-      // 두 번째 페이지 모두 priority=false
-      expect(screen.getByTestId('review-article-4')).toHaveAttribute('data-priority', 'false');
-      expect(screen.getByTestId('review-article-5')).toHaveAttribute('data-priority', 'false');
-      expect(screen.getByTestId('review-article-6')).toHaveAttribute('data-priority', 'false');
-    });
-
-    it('다음 페이지가 존재할 경우 스크롤 감지 요소가 렌더링된다', () => {
-      mockUseCategoryReviews.mockReturnValue({
-        data: createMockInfiniteQueryData(1, 3),
-        hasNextPage: true,
-        fetchNextPage: mockFetchNextPage,
-        isFetchingNextPage: false,
-      } as any);
-
-      render(<ReviewsWithScroll selectedCategory="food" sort="recent" />);
-
-      // observer ref가 연결된 div가 있는지 확인 (class로 찾기)
-      const observerDiv = document.querySelector('.w-full.mt-6');
-      expect(observerDiv).toBeInTheDocument();
-    });
-
-    it('다음 페이지 로딩 중일 때 스켈레톤 UI가 3개 렌더링된다', () => {
-      mockUseCategoryReviews.mockReturnValue({
-        data: createMockInfiniteQueryData(1, 3),
-        hasNextPage: true,
-        fetchNextPage: mockFetchNextPage,
-        isFetchingNextPage: true,
-      } as any);
-
-      render(<ReviewsWithScroll selectedCategory="food" sort="recent" />);
-
-      const loadingComponents = screen.getAllByTestId('review-article-loading');
-      expect(loadingComponents).toHaveLength(3);
-    });
-  });
-
-  describe('Edge Case', () => {
-    it('첫 페이지 리뷰가 비어있으면 검색 결과 없음이 렌더링된다', () => {
-      mockUseCategoryReviews.mockReturnValue({
-        data: emptyInfiniteQueryData,
-        hasNextPage: false,
-        fetchNextPage: mockFetchNextPage,
-        isFetchingNextPage: false,
-      } as any);
-
-      render(<ReviewsWithScroll selectedCategory="food" sort="recent" />);
-
-      expect(screen.getByTestId('no-search-results')).toBeInTheDocument();
       expect(screen.getByText('아직 해당 카테고리에 리뷰가 등록되지 않았어요.')).toBeInTheDocument();
-      expect(screen.getByText('다른 카테고리를 클릭해 리뷰를 확인해보세요!')).toBeInTheDocument();
     });
 
-    it('리뷰가 3개 미만일 때도 모두 이미지 우선 로딩이 적용된다', () => {
-      mockUseCategoryReviews.mockReturnValue({
-        data: {
-          pages: [createMockCategoryReviewsPage(2, false, 1)],
-          pageParams: [0],
-        },
-        hasNextPage: false,
-        fetchNextPage: mockFetchNextPage,
-        isFetchingNextPage: false,
-      } as any);
+    it('첫 페이지의 상위 3개 리뷰 이미지만 우선 로딩된다.', async () => {
+      render(
+        withAllContext(
+          <Suspense fallback={<div>loading</div>}>
+            <ReviewsWithScroll selectedCategory="all" sort="recent" />
+          </Suspense>,
+        ),
+      );
 
-      render(<ReviewsWithScroll selectedCategory="food" sort="recent" />);
+      await waitForElementToBeRemoved(screen.getByText('loading'));
 
-      expect(screen.getByTestId('review-article-1')).toHaveAttribute('data-priority', 'true');
-      expect(screen.getByTestId('review-article-2')).toHaveAttribute('data-priority', 'true');
-    });
+      const img1 = screen.getByRole('img', {name: '리뷰 1 preview image'});
+      const img2 = screen.getByRole('img', {name: '리뷰 2 preview image'});
+      const img3 = screen.getByRole('img', {name: '리뷰 3 preview image'});
 
-    it('리뷰가 1개일 때도 이미지 우선 로딩이 적용된다', () => {
-      mockUseCategoryReviews.mockReturnValue({
-        data: {
-          pages: [createMockCategoryReviewsPage(1, false, 1)],
-          pageParams: [0],
-        },
-        hasNextPage: false,
-        fetchNextPage: mockFetchNextPage,
-        isFetchingNextPage: false,
-      } as any);
+      for (const priorityImg of [img1, img2, img3]) {
+        expect(priorityImg).toHaveAttribute('loading', 'eager');
+      }
 
-      render(<ReviewsWithScroll selectedCategory="food" sort="recent" />);
+      const img4 = screen.getByRole('img', {name: '리뷰 4 preview image'});
+      const img5 = screen.getByRole('img', {name: '리뷰 5 preview image'});
 
-      expect(screen.getByTestId('review-article-1')).toHaveAttribute('data-priority', 'true');
-    });
-
-    it('다음 페이지가 없고 페이지가 2개 이상일 때 종료 메시지가 표시된다', () => {
-      mockUseCategoryReviews.mockReturnValue({
-        data: createMockInfiniteQueryData(2, 3),
-        hasNextPage: false,
-        fetchNextPage: mockFetchNextPage,
-        isFetchingNextPage: false,
-      } as any);
-
-      render(<ReviewsWithScroll selectedCategory="food" sort="recent" />);
-
-      expect(screen.getByText('더 이상 불러올 게시글이 없어요.')).toBeInTheDocument();
-      expect(screen.getByText('다른 카테고리를 클릭해 리뷰를 확인해보세요!')).toBeInTheDocument();
-    });
-
-    it('다음 페이지가 없지만 페이지가 1개뿐이면 종료 메시지가 표시되지 않는다', () => {
-      mockUseCategoryReviews.mockReturnValue({
-        data: createMockInfiniteQueryData(1, 3),
-        hasNextPage: false,
-        fetchNextPage: mockFetchNextPage,
-        isFetchingNextPage: false,
-      } as any);
-
-      render(<ReviewsWithScroll selectedCategory="food" sort="recent" />);
-
-      expect(screen.queryByText('더 이상 불러올 게시글이 없어요.')).not.toBeInTheDocument();
-    });
-
-    it('다음 페이지가 없다면 종료 메시지가 표시되지 않는다', () => {
-      mockUseCategoryReviews.mockReturnValue({
-        data: createMockInfiniteQueryData(2, 3),
-        hasNextPage: true,
-        fetchNextPage: mockFetchNextPage,
-        isFetchingNextPage: false,
-      } as any);
-
-      render(<ReviewsWithScroll selectedCategory="food" sort="recent" />);
-
-      expect(screen.queryByText('더 이상 불러올 게시글이 없어요.')).not.toBeInTheDocument();
+      for (const lazyImg of [img4, img5]) {
+        expect(lazyImg).toHaveAttribute('loading', 'lazy');
+      }
     });
   });
 
-  describe('IntersectionObserver 동작', () => {
-    it('observer가 생성되고 observe가 호출된다', () => {
-      mockUseCategoryReviews.mockReturnValue({
-        data: createMockInfiniteQueryData(1, 3),
-        hasNextPage: true,
-        fetchNextPage: mockFetchNextPage,
-        isFetchingNextPage: false,
-      } as any);
+  describe('기능 테스트', () => {
+    beforeEach(() => {
+      mockGetCategoryReviews.mockImplementation(cursor => {
+        if (cursor === 0) {
+          return Promise.resolve(createMockCategoryReviewsPage('all', 8, true, 0));
+        }
 
-      render(<ReviewsWithScroll selectedCategory="food" sort="recent" />);
+        if (cursor === 8) {
+          return Promise.resolve(createMockCategoryReviewsPage('all', 8, true, 8));
+        }
 
-      expect(global.IntersectionObserver).toHaveBeenCalled();
-      expect(mockObserve).toHaveBeenCalled();
+        return Promise.resolve(createMockCategoryReviewsPage('all', 6, false, 16));
+      });
     });
 
-    it('observer가 감지되고 다음 페이지가 있다면 다음 페이지를 요청한다', () => {
-      mockUseCategoryReviews.mockReturnValue({
-        data: createMockInfiniteQueryData(1, 3),
-        hasNextPage: true,
-        fetchNextPage: mockFetchNextPage,
-        isFetchingNextPage: false,
-      } as any);
+    it('마지막 리뷰까지 스크롤하면 다음 리뷰 목록을 불러오고, 더 이상 불러올 리뷰가 없다면 종료 문구를 표시한다.', async () => {
+      render(
+        withAllContext(
+          <Suspense fallback={<div>loading</div>}>
+            <ReviewsWithScroll selectedCategory="all" sort="recent" />
+          </Suspense>,
+        ),
+      );
 
-      render(<ReviewsWithScroll selectedCategory="food" sort="recent" />);
+      await waitForElementToBeRemoved(screen.getByText('loading'));
 
-      // IntersectionObserver callback을 수동으로 트리거
-      intersectionObserverCallback([{isIntersecting: true} as IntersectionObserverEntry], {} as IntersectionObserver);
+      expect(screen.getAllByRole('listitem')).toHaveLength(8);
 
-      expect(mockFetchNextPage).toHaveBeenCalled();
-    });
+      const observer = screen.getByTestId('observer');
 
-    it('다음 페이지가 없다면 IntersectionObserver가 생성되지 않는다', () => {
-      jest.clearAllMocks(); // 이전 테스트의 호출 횟수 초기화
+      act(() => {
+        intersectionObserver.enterNode(observer);
+      });
 
-      mockUseCategoryReviews.mockReturnValue({
-        data: createMockInfiniteQueryData(1, 3),
-        hasNextPage: false,
-        fetchNextPage: mockFetchNextPage,
-        isFetchingNextPage: false,
-      } as any);
+      await waitFor(() => {
+        expect(screen.getAllByRole('listitem')).toHaveLength(16);
+      });
 
-      render(<ReviewsWithScroll selectedCategory="food" sort="recent" />);
+      act(() => {
+        intersectionObserver.enterNode(observer);
+      });
 
-      // hasNextPage가 false이면 observerRef가 사용되지 않으므로 IntersectionObserver가 생성되지 않음
-      // 종료 메시지가 표시되는 대신 observer div가 렌더링되지 않음
-      const observerDiv = document.querySelector('.w-full.mt-6');
-      expect(observerDiv).not.toBeInTheDocument();
+      await waitFor(() => {
+        expect(screen.getAllByRole('listitem')).toHaveLength(22);
+        expect(screen.getByText('더 이상 불러올 게시글이 없어요.')).toBeInTheDocument();
+        expect(screen.getByText('다른 카테고리를 클릭해 리뷰를 확인해보세요!')).toBeInTheDocument();
+      });
     });
   });
 });
