@@ -7,6 +7,8 @@ import {LucideIcon} from '@/shared/ui/icons';
 export default function EditProfileImage() {
   const userNickname = useUserNickname();
 
+  if (!userNickname) return null;
+
   return (
     <Popover>
       <PopoverTrigger className="absolute bottom-2 right-3 md:right-4 lg:right-6 flex items-center justify-center rounded-full w-7 md:w-8 h-7 md:h-8 bg-gray-100 border-boldBlue border-[3px] hover:bg-boldBlue hover:text-white transition-colors">
@@ -14,7 +16,7 @@ export default function EditProfileImage() {
       </PopoverTrigger>
       <PopoverContent className="flex flex-col items-start w-[160px] gap-2 rounded-2xl px-3">
         <ChangeProfileImageDialog />
-        {userNickname && <DeleteProfileImageDialog userNickname={userNickname} />}
+        <DeleteProfileImageDialog userNickname={userNickname} />
       </PopoverContent>
     </Popover>
   );
