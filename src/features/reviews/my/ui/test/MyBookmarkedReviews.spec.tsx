@@ -1,243 +1,206 @@
-import {render, screen} from '@testing-library/react';
+import {Suspense} from 'react';
+import {render, screen, waitForElementToBeRemoved, within} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import mockRouter from 'next-router-mock';
+import {MemoryRouterProvider} from 'next-router-mock/MemoryRouterProvider';
 import MyBookmarkedReviews from '../MyBookmarkedReviews';
-import {useMyBookmarkedReviews} from '@/entities/reviews';
+import {createMockMyBookmarkedReviews, createMockReviewCard, TEST_USER_NICKNAME} from './stub';
 import {useUserNickname} from '@/entities/auth';
-import {createMockMyBookmarkedReviews, emptyMyBookmarkedReviews, TEST_USER_NICKNAME} from './stub';
+import {deleteReview} from '@/entities/review/apis/api-service';
+import {getMyBookmarkedReviews} from '@/entities/reviews/apis/api-service';
+import {withAllContext} from '@/shared/lib/utils/withAllContext';
 
-jest.mock('@/entities/reviews');
 jest.mock('@/entities/auth');
-jest.mock('../Empty', () => ({
-  __esModule: true,
-  default: ({title, linkText, linkHref}: any) => (
-    <div data-testid="empty">
-      <div data-testid="empty-title">{title}</div>
-      <div data-testid="empty-link-text">{linkText}</div>
-      <div data-testid="empty-link-href">{linkHref}</div>
-    </div>
-  ),
-}));
-jest.mock('../MyReviewsGrid', () => ({
-  __esModule: true,
-  default: ({reviews, context, userNickname}: any) => (
-    <div data-testid="my-reviews-grid" data-context={context} data-user-nickname={userNickname}>
-      {reviews.map((review: any) => (
-        <div key={review.board_id} data-testid={`review-${review.board_id}`}>
-          {review.title}
-        </div>
-      ))}
-    </div>
-  ),
-}));
-jest.mock('@/widgets/pagination', () => ({
-  __esModule: true,
-  default: ({currentPage, totalPages, generateUrl}: any) => (
-    <div data-testid="pagination" data-current-page={currentPage} data-total-pages={totalPages}>
-      <div data-testid="generated-url-1">{generateUrl(1)}</div>
-      <div data-testid="generated-url-2">{generateUrl(2)}</div>
-    </div>
-  ),
-}));
+jest.mock('@/entities/review/apis/api-service');
+jest.mock('@/entities/reviews/apis/api-service');
 
-const mockUseMyBookmarkedReviews = useMyBookmarkedReviews as jest.MockedFunction<typeof useMyBookmarkedReviews>;
 const mockUseUserNickname = useUserNickname as jest.MockedFunction<typeof useUserNickname>;
+const mockGetMyBookmarkedReviews = getMyBookmarkedReviews as jest.MockedFunction<typeof getMyBookmarkedReviews>;
+const mockDeleteReview = deleteReview as jest.MockedFunction<typeof deleteReview>;
 
-describe('features/reviews/my/ui/MyBookmarkedReviews', () => {
+describe('src/features/reviews/my/ui/MyBookmarkedReviews.tsx', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    mockUseUserNickname.mockReturnValue(TEST_USER_NICKNAME);
+    mockRouter.reset();
   });
 
-  describe('정상 케이스', () => {
-    it('북마크 리뷰가 있을 때 리뷰 그리드가 렌더링된다', () => {
-      const mockData = createMockMyBookmarkedReviews(3);
-      mockUseMyBookmarkedReviews.mockReturnValue(mockData);
+  describe('렌더링 테스트', () => {
+    it('내가 저장한 후기 목록이 렌더링된다.', async () => {
+      mockGetMyBookmarkedReviews.mockResolvedValue(createMockMyBookmarkedReviews(4));
 
-      render(<MyBookmarkedReviews currentPage={1} />);
+      render(
+        withAllContext(
+          <Suspense fallback={<div>loading</div>}>
+            <MyBookmarkedReviews currentPage={1} />
+          </Suspense>,
+        ),
+      );
 
-      expect(screen.getByTestId('my-reviews-grid')).toBeInTheDocument();
+      await waitForElementToBeRemoved(screen.getByText('loading'));
+
+      expect(screen.getAllByText(/내가 저장한 리뷰/)).toHaveLength(4);
+      expect(screen.getByLabelText('pagination')).toBeInTheDocument();
     });
 
-    it('북마크 리뷰 조회 훅이 올바른 페이지 번호로 호출된다', () => {
-      const mockData = createMockMyBookmarkedReviews(3);
-      mockUseMyBookmarkedReviews.mockReturnValue(mockData);
+    it('아직 저장한 후기가 없다면 안내 문구와 작성하기 버튼이 표시된다.', async () => {
+      mockGetMyBookmarkedReviews.mockResolvedValue(createMockMyBookmarkedReviews(0));
 
-      render(<MyBookmarkedReviews currentPage={2} />);
+      render(
+        withAllContext(
+          <Suspense fallback={<div>loading</div>}>
+            <MyBookmarkedReviews currentPage={1} />
+          </Suspense>,
+        ),
+      );
 
-      expect(mockUseMyBookmarkedReviews).toHaveBeenCalledWith(2);
-    });
+      await waitForElementToBeRemoved(screen.getByText('loading'));
 
-    it('사용자 닉네임 조회 훅이 호출된다', () => {
-      const mockData = createMockMyBookmarkedReviews(3);
-      mockUseMyBookmarkedReviews.mockReturnValue(mockData);
+      expect(screen.getByText('아직 저장한 후기가 없어요.')).toBeInTheDocument();
 
-      render(<MyBookmarkedReviews currentPage={1} />);
-
-      expect(mockUseUserNickname).toHaveBeenCalled();
-    });
-
-    it('리뷰 데이터가 그리드에 전달된다', () => {
-      const mockData = createMockMyBookmarkedReviews(3);
-      mockUseMyBookmarkedReviews.mockReturnValue(mockData);
-
-      render(<MyBookmarkedReviews currentPage={1} />);
-
-      expect(screen.getByTestId('review-1')).toBeInTheDocument();
-      expect(screen.getByTestId('review-2')).toBeInTheDocument();
-      expect(screen.getByTestId('review-3')).toBeInTheDocument();
-    });
-
-    it('사용 위치가 북마크 페이지임을 그리드에 전달한다', () => {
-      const mockData = createMockMyBookmarkedReviews(3);
-      mockUseMyBookmarkedReviews.mockReturnValue(mockData);
-
-      render(<MyBookmarkedReviews currentPage={1} />);
-
-      const grid = screen.getByTestId('my-reviews-grid');
-      expect(grid).toHaveAttribute('data-context', 'myBookmarks');
-    });
-
-    it('사용자 닉네임이 그리드에 전달된다', () => {
-      const mockData = createMockMyBookmarkedReviews(3);
-      mockUseMyBookmarkedReviews.mockReturnValue(mockData);
-
-      render(<MyBookmarkedReviews currentPage={1} />);
-
-      const grid = screen.getByTestId('my-reviews-grid');
-      expect(grid).toHaveAttribute('data-user-nickname', TEST_USER_NICKNAME);
-    });
-
-    it('페이지네이션 컴포넌트가 렌더링된다', () => {
-      const mockData = createMockMyBookmarkedReviews(3);
-      mockUseMyBookmarkedReviews.mockReturnValue(mockData);
-
-      render(<MyBookmarkedReviews currentPage={1} />);
-
-      expect(screen.getByTestId('pagination')).toBeInTheDocument();
-    });
-
-    it('페이지네이션의 주소 생성 함수가 올바른 쿼리스트링을 생성한다', () => {
-      const mockData = createMockMyBookmarkedReviews(3);
-      mockUseMyBookmarkedReviews.mockReturnValue(mockData);
-
-      render(<MyBookmarkedReviews currentPage={1} />);
-
-      expect(screen.getByTestId('generated-url-1')).toHaveTextContent('?tabs=myBookmarks&page=1');
-      expect(screen.getByTestId('generated-url-2')).toHaveTextContent('?tabs=myBookmarks&page=2');
+      const link = screen.getByRole('link');
+      expect(link).toHaveTextContent('후기 보러가기');
+      expect(link).toHaveAttribute('href', '/search');
     });
   });
 
-  describe('빈 상태 테스트', () => {
-    it('북마크 리뷰가 없을 때 빈 상태 컴포넌트가 렌더링된다', () => {
-      mockUseMyBookmarkedReviews.mockReturnValue(emptyMyBookmarkedReviews);
+  describe('기능 테스트', () => {
+    it('현재 조회하는 페이지의 데이터를 표시한다.', async () => {
+      mockGetMyBookmarkedReviews.mockImplementation(page => {
+        if (page === 1) {
+          return Promise.resolve(createMockMyBookmarkedReviews(6, 1, 3));
+        }
 
-      render(<MyBookmarkedReviews currentPage={1} />);
+        return Promise.resolve(createMockMyBookmarkedReviews(4, 2, 3));
+      });
 
-      expect(screen.getByTestId('empty')).toBeInTheDocument();
+      const {rerender} = render(
+        withAllContext(
+          <Suspense fallback={<div>loading</div>}>
+            <MyBookmarkedReviews currentPage={1} />
+          </Suspense>,
+        ),
+      );
+
+      await waitForElementToBeRemoved(screen.getByText('loading'));
+
+      expect(mockGetMyBookmarkedReviews).toHaveBeenCalledWith(1);
+      expect(screen.getAllByText(/page: 1/)).toHaveLength(6);
+
+      rerender(
+        withAllContext(
+          <Suspense fallback={<div>loading</div>}>
+            <MyBookmarkedReviews currentPage={2} />
+          </Suspense>,
+        ),
+      );
+
+      expect(mockGetMyBookmarkedReviews).toHaveBeenCalledWith(2);
+      expect(screen.getAllByText(/page: 2/)).toHaveLength(4);
     });
 
-    it('북마크 리뷰가 없을 때 리뷰 그리드가 렌더링되지 않는다', () => {
-      mockUseMyBookmarkedReviews.mockReturnValue(emptyMyBookmarkedReviews);
+    it('현재 페이지의 앞/뒤 페이지 데이터를 미리 로드한다.', async () => {
+      mockGetMyBookmarkedReviews.mockImplementation(page => {
+        if (page === 1) {
+          return Promise.resolve(createMockMyBookmarkedReviews(6, 1, 3));
+        }
 
-      render(<MyBookmarkedReviews currentPage={1} />);
+        if (page === 2) {
+          return Promise.resolve(createMockMyBookmarkedReviews(6, 2, 3));
+        }
 
-      expect(screen.queryByTestId('my-reviews-grid')).not.toBeInTheDocument();
+        return Promise.resolve(createMockMyBookmarkedReviews(4, 3, 3));
+      });
+
+      render(
+        withAllContext(
+          <Suspense fallback={<div>loading</div>}>
+            <MyBookmarkedReviews currentPage={2} />
+          </Suspense>,
+        ),
+      );
+
+      await waitForElementToBeRemoved(screen.getByText('loading'));
+
+      expect(mockGetMyBookmarkedReviews).toHaveBeenCalledTimes(3);
+      expect(mockGetMyBookmarkedReviews.mock.calls).toEqual([[2], [3], [1]]);
     });
 
-    it('북마크 리뷰가 없을 때 페이지네이션이 렌더링되지 않는다', () => {
-      mockUseMyBookmarkedReviews.mockReturnValue(emptyMyBookmarkedReviews);
+    it('페이지네이션을 통해 현재 탭 내에서 페이지를 이동한다.', async () => {
+      const user = userEvent.setup();
 
-      render(<MyBookmarkedReviews currentPage={1} />);
+      mockGetMyBookmarkedReviews.mockResolvedValue(createMockMyBookmarkedReviews(3, 1, 3));
+      mockRouter.push('/mypage?tabs=myBookmarks');
 
-      expect(screen.queryByTestId('pagination')).not.toBeInTheDocument();
+      render(
+        withAllContext(
+          <Suspense fallback={<div>loading</div>}>
+            <MyBookmarkedReviews currentPage={2} />
+          </Suspense>,
+        ),
+        {
+          wrapper: MemoryRouterProvider,
+        },
+      );
+
+      await waitForElementToBeRemoved(screen.getByText('loading'));
+
+      const pagination = screen.getByLabelText('pagination');
+
+      const page2Button = within(pagination).getByText('2');
+      await user.click(page2Button);
+
+      expect(mockRouter.asPath).toBe('/mypage?tabs=myBookmarks&page=2');
+
+      const page3Button = within(pagination).getByText('3');
+      await user.click(page3Button);
+
+      expect(mockRouter.asPath).toBe('/mypage?tabs=myBookmarks&page=3');
     });
 
-    it('빈 상태에 올바른 제목이 전달된다', () => {
-      mockUseMyBookmarkedReviews.mockReturnValue(emptyMyBookmarkedReviews);
+    it('저장한 후기 중 내 게시글을 삭제할 수 있다.', async () => {
+      const user = userEvent.setup();
+      const removeTargetReview = createMockReviewCard({
+        title: '삭제될 리뷰',
+        author_nickname: TEST_USER_NICKNAME,
+      });
 
-      render(<MyBookmarkedReviews currentPage={1} />);
+      mockUseUserNickname.mockReturnValue(TEST_USER_NICKNAME);
+      mockGetMyBookmarkedReviews
+        .mockResolvedValueOnce({
+          results: [removeTargetReview],
+          current_page: 1,
+          total_pages: 1,
+        })
+        .mockResolvedValueOnce({
+          results: [],
+          current_page: 1,
+          total_pages: 1,
+        });
+      mockDeleteReview.mockResolvedValue();
 
-      expect(screen.getByTestId('empty-title')).toHaveTextContent('아직 저장한 후기가 없어요.');
-    });
+      const modalRoot = document.createElement('div');
+      modalRoot.id = 'modal-root';
+      document.body.appendChild(modalRoot);
 
-    it('빈 상태에 올바른 링크 텍스트가 전달된다', () => {
-      mockUseMyBookmarkedReviews.mockReturnValue(emptyMyBookmarkedReviews);
+      render(
+        withAllContext(
+          <Suspense fallback={<div>loading</div>}>
+            <MyBookmarkedReviews currentPage={1} />
+          </Suspense>,
+        ),
+      );
 
-      render(<MyBookmarkedReviews currentPage={1} />);
+      await waitForElementToBeRemoved(screen.getByText('loading'));
 
-      expect(screen.getByTestId('empty-link-text')).toHaveTextContent('후기 보러가기');
-    });
+      const deleteButton = screen.getByRole('button', {name: `${removeTargetReview.title} 리뷰 삭제`});
+      await user.click(deleteButton);
 
-    it('빈 상태에 올바른 링크 주소가 전달된다', () => {
-      mockUseMyBookmarkedReviews.mockReturnValue(emptyMyBookmarkedReviews);
+      const confirmButton = screen.getByRole('button', {name: '삭제'});
+      await user.click(confirmButton);
 
-      render(<MyBookmarkedReviews currentPage={1} />);
+      await screen.findByText('아직 저장한 후기가 없어요.');
 
-      expect(screen.getByTestId('empty-link-href')).toHaveTextContent('/search');
-    });
-  });
-
-  describe('사용자 닉네임 테스트', () => {
-    it('사용자 닉네임이 null일 때도 렌더링된다', () => {
-      const mockData = createMockMyBookmarkedReviews(3);
-      mockUseMyBookmarkedReviews.mockReturnValue(mockData);
-      mockUseUserNickname.mockReturnValue(null);
-
-      render(<MyBookmarkedReviews currentPage={1} />);
-
-      const grid = screen.getByTestId('my-reviews-grid');
-      expect(grid).toBeInTheDocument();
-    });
-
-    it('사용자 닉네임이 변경되면 그리드에 새 값이 전달된다', () => {
-      const mockData = createMockMyBookmarkedReviews(3);
-      mockUseMyBookmarkedReviews.mockReturnValue(mockData);
-      mockUseUserNickname.mockReturnValue('newUser');
-
-      render(<MyBookmarkedReviews currentPage={1} />);
-
-      const grid = screen.getByTestId('my-reviews-grid');
-      expect(grid).toHaveAttribute('data-user-nickname', 'newUser');
-    });
-  });
-
-  describe('다중 페이지 테스트', () => {
-    it('2페이지로 이동 시 북마크 리뷰 조회 훅이 2로 호출된다', () => {
-      const mockData = createMockMyBookmarkedReviews(3, 2, 3);
-      mockUseMyBookmarkedReviews.mockReturnValue(mockData);
-
-      render(<MyBookmarkedReviews currentPage={2} />);
-
-      expect(mockUseMyBookmarkedReviews).toHaveBeenCalledWith(2);
-    });
-
-    it('전체 페이지 수가 여러 개일 때 페이지네이션이 표시된다', () => {
-      const mockData = createMockMyBookmarkedReviews(9, 1, 3);
-      mockUseMyBookmarkedReviews.mockReturnValue(mockData);
-
-      render(<MyBookmarkedReviews currentPage={1} />);
-
-      const pagination = screen.getByTestId('pagination');
-      expect(pagination).toHaveAttribute('data-total-pages', '3');
-    });
-  });
-
-  describe('엣지/예외 케이스', () => {
-    it('페이지 번호가 1일 때도 정상 렌더링된다', () => {
-      const mockData = createMockMyBookmarkedReviews(3, 1);
-      mockUseMyBookmarkedReviews.mockReturnValue(mockData);
-
-      render(<MyBookmarkedReviews currentPage={1} />);
-
-      expect(screen.getByTestId('my-reviews-grid')).toBeInTheDocument();
-    });
-
-    it('전체 페이지 수가 1일 때도 페이지네이션이 표시된다', () => {
-      const mockData = createMockMyBookmarkedReviews(3, 1, 1);
-      mockUseMyBookmarkedReviews.mockReturnValue(mockData);
-
-      render(<MyBookmarkedReviews currentPage={1} />);
-
-      expect(screen.getByTestId('pagination')).toBeInTheDocument();
+      document.body.removeChild(modalRoot);
     });
   });
 });
