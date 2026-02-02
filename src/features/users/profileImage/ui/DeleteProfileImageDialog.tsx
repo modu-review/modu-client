@@ -35,6 +35,7 @@ export default function DeleteProfileImageDialog({userNickname}: Props) {
   return (
     <Dialog>
       <DialogTrigger
+        aria-label="프로필 이미지 삭제"
         disabled={isDefaultImage}
         className="w-full flex items-center justify-between py-1.5 px-3 rounded-xl hover:bg-gray-100 transition-colors"
       >
