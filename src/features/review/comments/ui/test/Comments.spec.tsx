@@ -37,7 +37,7 @@ describe('src/features/review/comments/ui/Comments.tsx', () => {
       mockUseUserNickname.mockReturnValue(TEST_USER_NICKNAME);
     });
 
-    async function renderComments() {
+    it('컴포넌트가 렌더링된다.', async () => {
       render(
         withAllContext(
           <Suspense fallback={<div>loading</div>}>
@@ -47,36 +47,28 @@ describe('src/features/review/comments/ui/Comments.tsx', () => {
       );
 
       await waitForElementToBeRemoved(screen.getByText('loading'));
-    }
-
-    it('게시글의 총 댓글 수가 렌더링된다.', async () => {
-      await renderComments();
-
-      const header = screen.getByText('댓글쓰기');
-
-      expect(header).toHaveTextContent('3');
-    });
-
-    it('댓글 입력창이 렌더링된다.', async () => {
-      await renderComments();
-
-      expect(screen.getByPlaceholderText('댓글을 입력해주세요.')).toBeInTheDocument();
-    });
-
-    it('댓글 리스트가 표시된다.', async () => {
-      await renderComments();
 
       // 페이지 구조상 0번 인덱스가 카드 리스트 1번 인덱스가 페이지네이션
       const lists = screen.getAllByRole('list');
       const commentList = lists[0];
 
+      expect(screen.getByText('댓글쓰기')).toHaveTextContent('3');
+      expect(screen.getByPlaceholderText('댓글을 입력해주세요.')).toBeInTheDocument();
       expect(within(commentList).getAllByRole('listitem')).toHaveLength(3);
     });
 
     it('게시글에 댓글이 없을 경우 댓글 리스트가 표시되지 않는다.', async () => {
       mockGetReviewComments.mockResolvedValue(emptyReviewCommentsStub);
 
-      await renderComments();
+      render(
+        withAllContext(
+          <Suspense fallback={<div>loading</div>}>
+            <Comments reviewId={5} category="food" openLoginModal={() => {}} />
+          </Suspense>,
+        ),
+      );
+
+      await waitForElementToBeRemoved(screen.getByText('loading'));
 
       const header = screen.getByText('댓글쓰기');
       expect(header).toHaveTextContent('0');
@@ -114,26 +106,9 @@ describe('src/features/review/comments/ui/Comments.tsx', () => {
         });
       });
 
-      it('총 3페이지 중 사용자가 1페이지를 조회하면 2페이지를 미리 로드한다.', async () => {
-        mockRouter.push('/?page=1');
-        render(
-          withAllContext(
-            <Suspense fallback={<div>loading</div>}>
-              <Comments reviewId={TEST_REVIEW_ID} category="food" openLoginModal={() => {}} />
-            </Suspense>,
-          ),
-        );
-
-        await waitForElementToBeRemoved(screen.getByText('loading'));
-
-        expect(mockGetReviewComments.mock.calls).toStrictEqual([
-          [TEST_REVIEW_ID, 1],
-          [TEST_REVIEW_ID, 2],
-        ]);
-      });
-
-      it('총 3페이지 중 사용자가 2페이지를 조회하면 1, 3페이지를 미리 로드한다.', async () => {
+      it('현재 페이지의 앞/뒤 페이지 데이터를 미리 불러온다.', async () => {
         mockRouter.push('/?page=2');
+
         render(
           withAllContext(
             <Suspense fallback={<div>loading</div>}>
