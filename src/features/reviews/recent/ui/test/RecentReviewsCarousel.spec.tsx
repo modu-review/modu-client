@@ -1,67 +1,60 @@
-import {ReviewCard} from '@/entities/review';
-import {useGetRecentReviews} from '@/entities/reviews';
-import {createMockRecentReviews, emptyRecentReviews} from './stub';
-import {render, screen} from '@testing-library/react';
+import {Suspense} from 'react';
+import {render, screen, waitForElementToBeRemoved, within} from '@testing-library/react';
 import RecentReviewsCarousel from '../RecentReviewsCarousel';
+import {createMockRecentReviews} from './stub';
+import {getRecentReviews} from '@/entities/reviews/apis/api-service';
+import {withAllContext} from '@/shared/lib/utils/withAllContext';
 
-jest.mock('@/entities/reviews');
-
+jest.mock('@/entities/reviews/apis/api-service');
 jest.mock('../MultiCarousel', () => ({
   __esModule: true,
-  default: ({children}: {children: React.ReactNode}) => <ul>{children}</ul>,
-}));
-
-jest.mock('../RecentReviewCard', () => ({
-  __esModule: true,
-  default: ({post}: {key: string; post: ReviewCard}) => (
-    <li>
-      <p>{post.title}</p>
-      <p>{post.preview}</p>
-    </li>
+  default: ({children, rightToLeft = true}: {children: React.ReactNode; rightToLeft?: boolean}) => (
+    <ul data-testid={rightToLeft ? 'main-carousel' : 'sub-carousel'}>{children}</ul>
   ),
 }));
 
-jest.mock('../MoreReviewsLink');
-
-const mockUseGetRecentReviews = useGetRecentReviews as jest.MockedFunction<typeof useGetRecentReviews>;
+const mockGetRecentReviews = getRecentReviews as jest.MockedFunction<typeof getRecentReviews>;
 
 describe('src/features/reviews/recent/ui/RecentReviewsCarousel.tsx', () => {
-  describe('정상 케이스', () => {
-    const defaultRecentReviews = createMockRecentReviews(6);
-    beforeEach(() => {
-      mockUseGetRecentReviews.mockReturnValue({data: defaultRecentReviews} as unknown as ReturnType<
-        typeof useGetRecentReviews
-      >);
-    });
-
-    it('최근 등록된 후기 목록 2줄이 정상적으로 렌더링된다.', () => {
-      render(<RecentReviewsCarousel />);
-
-      expect(screen.queryAllByRole('list')).toHaveLength(2);
-      expect(screen.queryAllByRole('listitem')).toHaveLength(12);
-    });
-
-    it('리뷰 카드로 후기 정보가 정상적으로 전달된다.', () => {
-      render(<RecentReviewsCarousel />);
-
-      defaultRecentReviews.latest_reviews.forEach(post => {
-        expect(screen.getAllByText(post.title)).toHaveLength(2);
-        expect(screen.getAllByText(post.preview)).toHaveLength(2);
-      });
-    });
+  beforeEach(() => {
+    jest.clearAllMocks();
   });
 
-  describe('엣지 케이스', () => {
-    it('최근 등록된 후기가 없을 경우 안내 문구가 표시된다.', () => {
-      mockUseGetRecentReviews.mockReturnValue({
-        data: emptyRecentReviews,
-      } as unknown as ReturnType<typeof useGetRecentReviews>);
+  it('최근 등록된 후기가 캐러셀 형태로 렌더링된다.', async () => {
+    mockGetRecentReviews.mockResolvedValue(createMockRecentReviews(6));
 
-      render(<RecentReviewsCarousel />);
+    render(
+      withAllContext(
+        <Suspense fallback={<div>loading</div>}>
+          <RecentReviewsCarousel />
+        </Suspense>,
+      ),
+    );
 
-      expect(screen.getByText('아직 등록된 후기가 없어요.')).toBeInTheDocument();
-      expect(screen.queryAllByRole('list')).toHaveLength(0);
-      expect(screen.queryAllByRole('listitem')).toHaveLength(0);
-    });
+    await waitForElementToBeRemoved(screen.getByText('loading'));
+
+    const mainCarousel = screen.getByTestId('main-carousel');
+    const subCarousel = screen.getByTestId('sub-carousel');
+
+    expect(within(mainCarousel).getAllByText(/리뷰 제목/)).toHaveLength(6);
+    expect(within(subCarousel).getAllByText(/리뷰 제목/)).toHaveLength(6);
+  });
+
+  it('최근 등록된 후기가 없다면 문구가 표시된다.', async () => {
+    mockGetRecentReviews.mockResolvedValue(createMockRecentReviews(0));
+
+    render(
+      withAllContext(
+        <Suspense fallback={<div>loading</div>}>
+          <RecentReviewsCarousel />
+        </Suspense>,
+      ),
+    );
+
+    await waitForElementToBeRemoved(screen.getByText('loading'));
+
+    expect(screen.getByText('아직 등록된 후기가 없어요.')).toBeInTheDocument();
+    expect(screen.queryByTestId('main-carousel')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('sub-carousel')).not.toBeInTheDocument();
   });
 });
