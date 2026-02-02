@@ -6,3 +6,6 @@ jest.mock('next/image', () => ({
     <img {...props} loading={priority ? 'eager' : 'lazy'} className={fill ? 'absolute' : 'static'} />
   ),
 }));
+
+window.HTMLElement.prototype.hasPointerCapture = jest.fn();
+window.HTMLElement.prototype.scrollIntoView = jest.fn();
