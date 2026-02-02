@@ -1,18 +1,15 @@
-import {render, screen, waitFor} from '@testing-library/react';
+import {fireEvent, render, screen, waitFor} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import EditProfileImage from '../EditProfileImage';
 import {useUserNickname} from '@/entities/auth';
 import {deleteProfileImage, getProfileImageByUserNickname, postProfileImage} from '@/entities/users/apis/api-service';
 import {NO_PROFILE_IMAGE_URL} from '@/entities/users';
 import {withAllContext} from '@/shared/lib/utils/withAllContext';
+import {useUpdateGlobalError} from '@/entities/error';
 
 jest.mock('@/entities/auth');
 jest.mock('@/entities/users/apis/api-service');
-
-const mockUpdateGlobalError = jest.fn();
-jest.mock('@/entities/error', () => ({
-  useUpdateGlobalError: () => mockUpdateGlobalError,
-}));
+jest.mock('@/entities/error');
 
 const mockUseUserNickname = useUserNickname as jest.MockedFunction<typeof useUserNickname>;
 const mockGetProfileImageByUserNickname = getProfileImageByUserNickname as jest.MockedFunction<
@@ -20,6 +17,7 @@ const mockGetProfileImageByUserNickname = getProfileImageByUserNickname as jest.
 >;
 const mockPostProfileImage = postProfileImage as jest.MockedFunction<typeof postProfileImage>;
 const mockDeleteProfileImage = deleteProfileImage as jest.MockedFunction<typeof deleteProfileImage>;
+const mockUseUpdateGlobalError = useUpdateGlobalError as jest.MockedFunction<typeof useUpdateGlobalError>;
 
 window.URL.createObjectURL = jest.fn();
 window.URL.revokeObjectURL = jest.fn();
@@ -130,6 +128,34 @@ describe('src/features/users/profileImage/ui/ChangeProfileImageDialog.tsx', () =
         });
       });
 
+      it('드래그 앤 드롭으로 사진을 추가할 수 있다.', async () => {
+        const user = userEvent.setup();
+        const mockUpdateGlobalError = jest.fn();
+
+        mockUseUpdateGlobalError.mockReturnValue(mockUpdateGlobalError);
+
+        render(withAllContext(<EditProfileImage />));
+
+        await user.click(screen.getByLabelText('프로필 이미지 수정'));
+        await user.click(screen.getByLabelText('이미지 선택'));
+
+        const file = createMockFile(1024);
+        const dropZone = screen.getByLabelText(/사진을 드래그하거나 클릭해 업로드할 수 있어요\./i);
+
+        fireEvent.drop(dropZone, {
+          dataTransfer: {
+            files: [file],
+            types: ['Files'],
+          },
+        });
+
+        await waitFor(() => {
+          const img = screen.getByRole('img', {name: '프로필 이미지 미리보기'});
+
+          expect(img).toHaveAttribute('src', `preview-${file.name}`);
+        });
+      });
+
       it('사진 선택 후 업로드 버튼을 클릭하면 선택한 이미지로 변경을 요청한다', async () => {
         const user = userEvent.setup();
 
@@ -169,6 +195,10 @@ describe('src/features/users/profileImage/ui/ChangeProfileImageDialog.tsx', () =
 
       it('용량 제한을 초과하는 파일을 선택하면 에러가 발생하고 업로드되지 않는다.', async () => {
         const user = userEvent.setup();
+        const mockUpdateGlobalError = jest.fn();
+
+        mockUseUpdateGlobalError.mockReturnValue(mockUpdateGlobalError);
+
         render(withAllContext(<EditProfileImage />));
 
         await user.click(screen.getByLabelText('프로필 이미지 수정'));
@@ -182,6 +212,31 @@ describe('src/features/users/profileImage/ui/ChangeProfileImageDialog.tsx', () =
         expect(screen.queryByRole('img', {name: '프로필 이미지 미리보기'})).not.toBeInTheDocument();
 
         expect(mockUpdateGlobalError).toHaveBeenCalledWith(expect.objectContaining({name: 'FILE_SIZE_EXCEEDED'}));
+      });
+
+      it('허용되지 않은 타입의 파일을 드래그 앤 드롭하면 에러가 발생한다.', async () => {
+        const user = userEvent.setup();
+        const mockUpdateGlobalError = jest.fn();
+
+        mockUseUpdateGlobalError.mockReturnValue(mockUpdateGlobalError);
+
+        render(withAllContext(<EditProfileImage />));
+
+        await user.click(screen.getByLabelText('프로필 이미지 수정'));
+        await user.click(screen.getByLabelText('이미지 선택'));
+
+        const notSuportedFile = createMockFile(1024, 'image/gif');
+        const dropZone = screen.getByLabelText(/사진을 드래그하거나 클릭해 업로드할 수 있어요\./i);
+
+        fireEvent.drop(dropZone, {
+          dataTransfer: {
+            files: [notSuportedFile],
+            types: ['Files'],
+          },
+        });
+
+        expect(mockUpdateGlobalError).toHaveBeenCalledWith(expect.objectContaining({name: 'NOT_SUPPORTED_FILE'}));
+        expect(screen.queryByRole('img', {name: '프로필 이미지 미리보기'})).not.toBeInTheDocument();
       });
     });
 
