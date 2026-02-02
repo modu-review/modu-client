@@ -5,13 +5,6 @@ import {MemoryRouterProvider} from 'next-router-mock/MemoryRouterProvider';
 import RecentReviewCard from '../RecentReviewCard';
 import {createMockRecentReviewCard} from './stub';
 
-jest.mock('next/image', () => ({
-  __esModule: true,
-  default: ({src, alt, loading}: {src: string; alt: string; loading: 'lazy' | 'eager'}) => (
-    <img src={src} alt={alt} loading={loading} />
-  ),
-}));
-
 describe('src/features/reviews/recent/ui/RecentReviewCard.tsx', () => {
   beforeEach(() => {
     jest.clearAllMocks();
