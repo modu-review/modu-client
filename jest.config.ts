@@ -18,6 +18,8 @@ const config: Config = {
     'query-service.ts',
     'stub.ts',
     '<rootDir>/src/shared/shadcnComponent/ui/',
+    'Loading\\.(ts|tsx)$',
+    'index.ts',
   ],
 };
 
