@@ -1,4 +1,4 @@
-import {ChangeEvent, useId, useRef} from 'react';
+import {ChangeEvent, useId} from 'react';
 import {NodeViewProps, NodeViewWrapper} from '@tiptap/react';
 import useFileUpload from '../lib/useFileUpload';
 import {UploadOptions} from '../model/type';
