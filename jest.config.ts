@@ -20,6 +20,7 @@ const config: Config = {
     '<rootDir>/src/shared/shadcnComponent/ui/',
     'Loading\\.(ts|tsx)$',
     'index.ts',
+    'Store.ts',
   ],
 };
 
