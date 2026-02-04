@@ -44,7 +44,7 @@ describe('src/views/review/edit/ui/EditReviewClient.tsx', () => {
 
       const initialReviewDetail = createReviewDetail({
         board_id: 5,
-        title: '',
+        title: '초기 제목',
         category: 'book',
         content: '<p>초기 내용</p>',
       });
@@ -80,6 +80,13 @@ describe('src/views/review/edit/ui/EditReviewClient.tsx', () => {
       resolvePatchReview();
 
       await waitFor(() => {
+        expect(mockPatchReview).toHaveBeenCalledWith(
+          expect.objectContaining({
+            category: 'food',
+            title: '초기 제목 수정',
+          }),
+          5,
+        );
         expect(mockRouter.asPath).toBe('/reviews/5');
       });
     });
