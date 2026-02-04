@@ -12,6 +12,7 @@ const config: Config = {
     '^@/(.*)$': '<rootDir>/src/$1',
   },
   setupFilesAfterEnv: ['<rootDir>/jest.setup.tsx'],
+  collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}'],
   coveragePathIgnorePatterns: [
     '/node_modules/',
     'api-service.ts',
@@ -21,6 +22,8 @@ const config: Config = {
     'Loading\\.(ts|tsx)$',
     'index.ts',
     'Store.ts',
+    'type.ts',
+    'types.ts',
     '.*[cC]onfig\\.(js|ts|tsx)$',
   ],
 };
