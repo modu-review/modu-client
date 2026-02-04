@@ -21,6 +21,7 @@ const config: Config = {
     'Loading\\.(ts|tsx)$',
     'index.ts',
     'Store.ts',
+    '.*[cC]onfig\\.(js|ts|tsx)$',
   ],
 };
 
