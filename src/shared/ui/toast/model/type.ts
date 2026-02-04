@@ -1,7 +1,7 @@
-type NotificationToastType = 'bookmark' | 'comment';
-type AlertToastType = 'success' | 'error' | 'info' | 'default';
+export type NotificationToastType = 'bookmark' | 'comment';
+export type AlertToastType = 'success' | 'error' | 'info' | 'default';
 
-export type ToastProps = {
+export type AlertToastProps = {
   id: string | number;
   title: string;
   description?: string;
