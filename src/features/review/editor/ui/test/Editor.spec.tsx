@@ -57,10 +57,6 @@ describe('src/features/review/editor/ui/Editor.tsx', () => {
     it('입력된 정보를 미리보기할 수 있다.', async () => {
       const user = userEvent.setup();
 
-      const modalRoot = document.createElement('div');
-      modalRoot.id = 'modal-root';
-      document.body.appendChild(modalRoot);
-
       render(
         <Editor onSave={() => {}} isPending={false} title="초기 제목" category="food" content="<div>초기 내용</div>" />,
       );

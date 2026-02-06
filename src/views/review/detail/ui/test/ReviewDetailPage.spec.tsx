@@ -133,10 +133,6 @@ describe('src/views/review/detail/ui/ReviewDetailPage.tsx', () => {
     it('리뷰 삭제 버튼을 클릭해 게시글을 삭제할 수 있다.', async () => {
       const user = userEvent.setup();
 
-      const modalRoot = document.createElement('div');
-      modalRoot.id = 'modal-root';
-      document.body.appendChild(modalRoot);
-
       let resolveDeleteReview: any;
       mockDeleteReview.mockImplementation(() => {
         return new Promise(resolve => {
@@ -160,8 +156,6 @@ describe('src/views/review/detail/ui/ReviewDetailPage.tsx', () => {
       await waitFor(() => {
         expect(mockRouter.asPath).toBe('/search');
       });
-
-      document.body.removeChild(modalRoot);
     });
   });
 

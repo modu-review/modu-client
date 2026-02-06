@@ -117,10 +117,6 @@ describe('src/views/main/ui/MainPage.tsx', () => {
     it("로그인하지 않은 사용자가 '내 경험 공유하기' 버튼을 클릭하면 로그인 유도 모달을 표시한다.", async () => {
       const user = userEvent.setup();
 
-      const modalRoot = document.createElement('div');
-      modalRoot.id = 'modal-root';
-      document.body.appendChild(modalRoot);
-
       mockUseIsLoggedIn.mockReturnValue(false);
 
       render(await MainPage());
@@ -128,8 +124,6 @@ describe('src/views/main/ui/MainPage.tsx', () => {
       await user.click(screen.getByRole('button', {name: '내 경험 공유하기'}));
 
       expect(screen.getByText('로그인 후 이용 가능한 서비스입니다.'));
-
-      document.body.removeChild(modalRoot);
     });
 
     it('Contact us 버튼을 클릭하면 문의하기 페이지로 이동한다.', async () => {

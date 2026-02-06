@@ -104,17 +104,11 @@ describe('src/views/search/ui/KeywordSearchPage.tsx', () => {
       mockUseIsLoggedIn.mockReturnValue(false);
       mockRouter.push('/');
 
-      const modalRoot = document.createElement('div');
-      modalRoot.id = 'modal-root';
-      document.body.appendChild(modalRoot);
-
       render(await KeywordSearchPage({params}));
 
       await user.click(screen.getByRole('button', {name: '리뷰 작성하기'}));
 
       expect(screen.getByText('로그인 후 이용 가능한 서비스입니다.')).toBeInTheDocument();
-
-      document.body.removeChild(modalRoot);
     });
   });
 

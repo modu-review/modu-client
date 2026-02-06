@@ -52,10 +52,6 @@ describe('src/views/review/detail/ui/ReviewDetailInteractive.tsx', () => {
     it('로그인 하지 않은 사용자가 북마크, 댓글 영역을 클릭하면 로그인 유도 모달을 표시한다.', async () => {
       const user = userEvent.setup();
 
-      const modalRoot = document.createElement('div');
-      modalRoot.id = 'modal-root';
-      document.body.appendChild(modalRoot);
-
       render(withAllContext(<ReviewDetailInteractive category="book" reviewId={5} />));
 
       const bookmarkButton = await screen.findByRole('button', {name: '북마크 추가하기'});
@@ -70,8 +66,6 @@ describe('src/views/review/detail/ui/ReviewDetailInteractive.tsx', () => {
       await user.click(commentInput);
 
       expect(screen.getByText('로그인 후 이용 가능한 서비스입니다.')).toBeInTheDocument();
-
-      document.body.removeChild(modalRoot);
     });
   });
 });

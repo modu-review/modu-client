@@ -7,23 +7,9 @@ import {LOGIN_URL} from '@/entities/auth';
 jest.mock('next/navigation', () => jest.requireActual('next-router-mock/navigation'));
 
 describe('src/features/auth/lib/useLoginModal.tsx', () => {
-  beforeAll(() => {
-    const modalRoot = document.createElement('div');
-    modalRoot.id = 'modal-root';
-    document.body.appendChild(modalRoot);
-  });
-
   beforeEach(() => {
     jest.clearAllMocks();
     mockRouter.reset();
-  });
-
-  afterAll(() => {
-    const modalRoot = document.getElementById('modal-root');
-
-    if (modalRoot) {
-      document.body.removeChild(modalRoot);
-    }
   });
 
   function TestComponent() {

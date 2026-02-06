@@ -21,17 +21,6 @@ jest.mock('framer-motion', () => ({
 const mockSendSlackMessage = sendSlackMessage as jest.MockedFunction<typeof sendSlackMessage>;
 
 describe('src/views/contact/ui/ContactPage.tsx', () => {
-  beforeAll(() => {
-    const modalRoot = document.createElement('div');
-    modalRoot.id = 'modal-root';
-    document.body.appendChild(modalRoot);
-  });
-
-  afterAll(() => {
-    const modalRoot = document.getElementById('modal-root');
-    if (modalRoot) document.body.removeChild(modalRoot);
-  });
-
   describe('렌더링 테스트', () => {
     it('문의하기 페이지가 렌더링된다.', async () => {
       render(withAllContext(<ContactPage />));

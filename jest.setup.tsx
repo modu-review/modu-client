@@ -7,6 +7,7 @@ jest.mock('next/image', () => ({
   ),
 }));
 
+// shadcn/ui 포인터 이슈 해결을 위한 모킹
 window.HTMLElement.prototype.setPointerCapture = jest.fn();
 window.HTMLElement.prototype.hasPointerCapture = jest.fn();
 window.HTMLElement.prototype.scrollIntoView = jest.fn();
@@ -40,3 +41,12 @@ HTMLElement.prototype.getClientRects = (): DOMRectList => new FakeDOMRectList();
 Range.prototype.getBoundingClientRect = getBoundingClientRect;
 Range.prototype.getClientRects = (): DOMRectList => new FakeDOMRectList();
 window.scrollBy = jest.fn();
+
+// 모달 루트 요소 생성 - 테스트 종료 후 환경 자체가 사라지기 때문에 beforeAll로 한 번만 수행
+beforeAll(() => {
+  if (!document.getElementById('modal-root')) {
+    const modalRoot = document.createElement('div');
+    modalRoot.setAttribute('id', 'modal-root');
+    document.body.appendChild(modalRoot);
+  }
+});
