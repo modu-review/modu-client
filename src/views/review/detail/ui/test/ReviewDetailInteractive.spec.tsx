@@ -44,7 +44,7 @@ describe('src/views/review/detail/ui/ReviewDetailInteractive.tsx', () => {
       expect(await screen.findByText('실패 이유: 북마크 요청 에러')).toBeInTheDocument();
       expect(await screen.findByText('실패 이유: 댓글 요청 에러')).toBeInTheDocument();
 
-      consoleSpy.mockReset();
+      consoleSpy.mockRestore();
     });
   });
 

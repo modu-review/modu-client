@@ -58,7 +58,7 @@ describe('src/views/users/reviews/ui/PostsByUserPage.tsx', () => {
     // 리뷰 목록 - UserPostsList
     expect(screen.getByText('실패 이유: USER_POSTS_ERROR')).toBeInTheDocument();
 
-    consoleSpy.mockReset();
+    consoleSpy.mockRestore();
   });
 
   it('인코딩된 닉네임이 정상적으로 표시된다.', async () => {
