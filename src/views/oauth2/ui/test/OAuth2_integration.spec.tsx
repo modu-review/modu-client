@@ -1,4 +1,4 @@
-import {REDIRECT_STORAGE_KEY} from '@/entities/auth';
+import {LOGIN_URL, REDIRECT_STORAGE_KEY} from '@/entities/auth';
 import {login} from '@/entities/auth/apis/api-service';
 import {render, screen, waitFor} from '@testing-library/react';
 import mockRouter from 'next-router-mock';
@@ -79,7 +79,7 @@ describe('src/views/oauth2/ui/OAuth2RedirectPage.tsx', () => {
     });
   });
 
-  it('이메일 정보가 없다면 에러가 발생한다.', async () => {
+  it('이메일 정보가 없다면 에러가 발생하며, 대체 UI가 표시된다.', async () => {
     const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
 
     mockRouter.push(`/oauth2/redirect?user_email=`);
@@ -94,6 +94,9 @@ describe('src/views/oauth2/ui/OAuth2RedirectPage.tsx', () => {
 
     expect(screen.getByText('로그인 실패')).toBeInTheDocument();
     expect(screen.getByText('실패 이유: 이메일 정보가 존재하지 않아요.')).toBeInTheDocument();
+
+    const loginButton = screen.getByRole('link', {name: '다시 로그인하기'});
+    expect(loginButton).toHaveAttribute('href', LOGIN_URL);
 
     consoleErrorSpy.mockRestore();
   });
