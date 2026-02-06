@@ -28,7 +28,7 @@ export default function ProfileImage({userNickname, className, page}: Props) {
     <div className={cn(className, profileImageVariant({page}))}>
       <Image
         src={data.profileImage}
-        alt="프로필 이미지"
+        alt={`${userNickname} 프로필 이미지`}
         width={160}
         height={160}
         className="w-full h-full object-cover"
