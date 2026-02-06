@@ -38,9 +38,7 @@ jest.mock('@/features/reviews/my', () => ({
   MyReviewsGridLoading: () => <div>리뷰 로딩</div>,
 }));
 jest.mock('@/features/users/profileImage', () => ({
-  ProfileImage: ({userNickname, page}: {userNickname: string; page: string}) => (
-    <div data-testid={`프로필 이미지 ${userNickname} - ${page}`} />
-  ),
+  ProfileImage: ({userNickname}: {userNickname: string}) => <div data-testid={`프로필 이미지 ${userNickname}`} />,
   EditProfileImage: () => <div>프로필 이미지 수정</div>,
   ProfileImageLoading: () => <div>프로필 이미지 로딩</div>,
 }));
@@ -75,7 +73,7 @@ describe('src/views/mypage/ui/MyPage.tsx', () => {
       expect(await screen.findByText('내가 작성한 후기 목록')).toBeInTheDocument();
 
       // 사용자 정보
-      expect(screen.getByTestId(`프로필 이미지 ${TEST_NICKNAME} - my`)).toBeInTheDocument();
+      expect(screen.getByTestId(`프로필 이미지 ${TEST_NICKNAME}`)).toBeInTheDocument();
       expect(screen.getByText('프로필 이미지 수정')).toBeInTheDocument();
       expect(screen.getByText(TEST_NICKNAME)).toBeInTheDocument();
       expect(screen.getByText(TEST_EMAIL)).toBeInTheDocument();
