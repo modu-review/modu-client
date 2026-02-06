@@ -80,7 +80,7 @@ describe('src/views/users/reviews/ui/PostsByUserPage.tsx', () => {
 
     expect(metadata.title).toBe('지민님의 후기글 모음');
     expect(metadata.description).toBe('지민님의 후기글을 모아보세요.');
-    expect(metadata.openGraph.title).toBe('지민 의 후기글 모음');
+    expect(metadata.openGraph.title).toBe('지민님의 후기글 모음');
   });
 
   it('인코딩된 닉네임도 메타데이터를 생성할 수 있다.', async () => {
