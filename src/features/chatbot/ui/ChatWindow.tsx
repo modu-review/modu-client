@@ -1,8 +1,12 @@
+import {Suspense} from 'react';
 import Input from './steps/Input';
 import Ask from './steps/Ask';
 import Search from './steps/Search';
 import Result from './steps/Result';
+import Error from './steps/Error';
+import Loading from './steps/Loading';
 import {useChatStore} from '@/entities/ai-search';
+import ChatErrorBoundary from './ChatErrorBoundary';
 
 export default function ChatWindow() {
   const step = useChatStore(state => state.step);
@@ -16,7 +20,13 @@ export default function ChatWindow() {
         {step === 'input' && <Input />}
         {step === 'ask' && <Ask />}
         {step === 'search' && <Search />}
-        {step === 'result' && <Result />}
+        {step === 'result' && (
+          <ChatErrorBoundary fallback={Error}>
+            <Suspense fallback={<Loading />}>
+              <Result />
+            </Suspense>
+          </ChatErrorBoundary>
+        )}
       </section>
     </section>
   );
