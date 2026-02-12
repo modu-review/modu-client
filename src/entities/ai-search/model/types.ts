@@ -1,3 +1,5 @@
+import {Category} from '@/entities/review';
+
 export type AISearchSource = {
   title: string;
   url: string;
@@ -9,3 +11,5 @@ export type AISearchResult = {
   summary: string;
   sources: AISearchSource[];
 };
+
+export type AISearchCategory = Exclude<Category, 'all'>;

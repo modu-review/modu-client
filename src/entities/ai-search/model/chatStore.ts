@@ -1,6 +1,5 @@
 import {create} from 'zustand';
-import {AISearchResult} from './types';
-import {Category} from '@/entities/review';
+import {AISearchCategory, AISearchResult} from './types';
 
 type ChatStep = 'input' | 'ask' | 'search' | 'loading' | 'result' | 'error';
 
@@ -8,7 +7,7 @@ type State = {
   isOpen: boolean;
   step: ChatStep;
   keyword: string | null;
-  category: Omit<Category, 'all'> | null;
+  category: AISearchCategory | null;
   result: AISearchResult | null;
 };
 
@@ -18,7 +17,7 @@ type Action = {
 
   goToInput: () => void;
   setStep: (step: ChatStep) => void;
-  setCategory: (category: Category) => void;
+  setCategory: (category: AISearchCategory) => void;
   setKeyword: (keyword: string) => void;
   setResult: (result: AISearchResult) => void;
 };

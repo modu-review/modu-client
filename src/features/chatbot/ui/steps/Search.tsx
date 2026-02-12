@@ -1,16 +1,36 @@
+import {useQueryClient} from '@tanstack/react-query';
 import {useShallow} from 'zustand/react/shallow';
-import {BotResponse, ChatBubble, Step, useChatStore} from '@/entities/ai-search';
+import {AISearchOptions, BotResponse, ChatBubble, Step, useChatStore} from '@/entities/ai-search';
 import {CATEGORY_LIST} from '@/entities/review';
 import {LucideIcon} from '@/shared/ui/icons';
 
 export default function Search() {
-  const {keyword, category, setCategory} = useChatStore(
+  const queryClient = useQueryClient();
+
+  const {keyword, category, setCategory, setStep, setResult} = useChatStore(
     useShallow(state => ({
       keyword: state.keyword,
       category: state.category,
       setCategory: state.setCategory,
+      setStep: state.setStep,
+      setResult: state.setResult,
     })),
   );
+
+  const handleSearch = async () => {
+    if (!keyword || !category) return;
+
+    setStep('loading');
+
+    try {
+      const data = await queryClient.fetchQuery(AISearchOptions.summary(keyword, category));
+      setResult(data);
+    } catch (error) {
+      console.error('검색 실패:', error);
+      setStep('error');
+    }
+  };
+
   return (
     <Step>
       <BotResponse>
@@ -47,15 +67,11 @@ export default function Search() {
       </ul>
 
       <button
-        onClick={() => {}}
-        disabled={category === 'all'}
+        onClick={handleSearch}
+        disabled={!category}
         className={`
         mt-auto flex items-center justify-center gap-2 py-2.5 rounded-full font-semibold transition-all
-          ${
-            category !== 'all'
-              ? 'bg-mediumBlue text-white hover:bg-boldBlue'
-              : 'bg-gray-200 text-gray-400 cursor-not-allowed'
-          }
+          ${category ? 'bg-mediumBlue text-white hover:bg-boldBlue' : 'bg-gray-200 text-gray-400 cursor-not-allowed'}
         `}
       >
         <LucideIcon name="Search" className="w-4 h-4" />
