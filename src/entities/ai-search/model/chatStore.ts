@@ -39,7 +39,7 @@ export const useChatStore = create<State & Action>(set => ({
   },
   closeChat: () => set({isOpen: false, category: 'all'}),
 
-  goToInput: () => set({step: 'input', keyword: '', result: null}),
+  goToInput: () => set({step: 'input', keyword: '', result: null, category: 'all'}),
   setStep: step => set({step}),
   setCategory: category => set({category}),
   setKeyword: keyword => set({keyword}),
