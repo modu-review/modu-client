@@ -1,9 +1,7 @@
 import Input from './steps/Input';
 import Ask from './steps/Ask';
 import Search from './steps/Search';
-import Loading from './steps/Loading';
 import Result from './steps/Result';
-import Error from './steps/Error';
 import {useChatStore} from '@/entities/ai-search';
 
 export default function ChatWindow() {
@@ -18,9 +16,7 @@ export default function ChatWindow() {
         {step === 'input' && <Input />}
         {step === 'ask' && <Ask />}
         {step === 'search' && <Search />}
-        {step === 'loading' && <Loading />}
         {step === 'result' && <Result />}
-        {step === 'error' && <Error />}
       </section>
     </section>
   );

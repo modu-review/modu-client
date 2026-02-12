@@ -1,14 +1,14 @@
 import {create} from 'zustand';
-import {AISearchResult} from './types';
+import {AISearchCategory, AISearchResult} from './types';
 import {Category} from '@/entities/review';
 
-type ChatStep = 'input' | 'ask' | 'search' | 'loading' | 'result' | 'error';
+type ChatStep = 'input' | 'ask' | 'search' | 'result';
 
 type State = {
   isOpen: boolean;
   step: ChatStep;
-  keyword: string | null;
-  category: Omit<Category, 'all'> | null;
+  keyword: string;
+  category: Category;
   result: AISearchResult | null;
 };
 
@@ -18,7 +18,7 @@ type Action = {
 
   goToInput: () => void;
   setStep: (step: ChatStep) => void;
-  setCategory: (category: Category) => void;
+  setCategory: (category: AISearchCategory) => void;
   setKeyword: (keyword: string) => void;
   setResult: (result: AISearchResult) => void;
 };
@@ -26,20 +26,20 @@ type Action = {
 export const useChatStore = create<State & Action>(set => ({
   isOpen: false,
   step: 'ask',
-  keyword: null,
-  category: null,
+  keyword: '',
+  category: 'all',
   result: null,
 
   openChat: keyword => {
     if (keyword && keyword.trim() !== '') {
       set({isOpen: true, keyword, step: 'ask'});
     } else {
-      set({isOpen: true, keyword: null, step: 'input'});
+      set({isOpen: true, keyword: '', step: 'input'});
     }
   },
-  closeChat: () => set({isOpen: false, keyword: null, category: null}),
+  closeChat: () => set({isOpen: false, category: 'all'}),
 
-  goToInput: () => set({step: 'input', keyword: null, result: null}),
+  goToInput: () => set({step: 'input', keyword: '', result: null}),
   setStep: step => set({step}),
   setCategory: category => set({category}),
   setKeyword: keyword => set({keyword}),
