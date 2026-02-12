@@ -56,7 +56,7 @@ export function AISearchTestPage() {
         </BotResponse>
       </section>
       <div className="fixed bottom-20 right-8">
-        <ChatBot />
+        <ChatBot keyword='프레드피자' />
       </div>
     </section>
   );
