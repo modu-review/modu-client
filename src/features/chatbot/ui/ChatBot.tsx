@@ -1,15 +1,27 @@
 'use client';
 
-import {useState} from 'react';
+import {useShallow} from 'zustand/react/shallow';
 import ChatBotTrigger from './ChatBotTrigger';
 import ChatBotVisibilityAnimation from './ChatBotVisibilityAnimation';
 import ChatWindow from './ChatWindow';
+import {useChatStore} from '@/entities/ai-search/model/chatStore';
 
-export function ChatBot() {
-  const [isOpen, setIsOpen] = useState(false);
+type Props = {
+  keyword?: string;
+};
+
+export function ChatBot({keyword}: Props) {
+  const {isOpen, openChat, closeChat} = useChatStore(
+    useShallow(state => ({
+      isOpen: state.isOpen,
+      openChat: state.openChat,
+      closeChat: state.closeChat,
+    })),
+  );
 
   const toogleChatBot = () => {
-    setIsOpen(prev => !prev);
+    if (isOpen) closeChat();
+    else openChat(keyword);
   };
 
   return (
