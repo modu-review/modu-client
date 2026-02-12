@@ -2,6 +2,8 @@
 
 import {useState} from 'react';
 import ChatBotTrigger from './ChatBotTrigger';
+import ChatBotVisibilityAnimation from './ChatBotVisibilityAnimation';
+import ChatWindow from './ChatWindow';
 
 export function ChatBot() {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,7 +14,9 @@ export function ChatBot() {
 
   return (
     <div className="relative">
-      {isOpen && <section className="absolute bottom-[4.5rem] right-0">챗봇 열림</section>}
+      <ChatBotVisibilityAnimation isVisible={isOpen}>
+        <ChatWindow />
+      </ChatBotVisibilityAnimation>
       <ChatBotTrigger isOpen={isOpen} toogleChatBot={toogleChatBot} />
     </div>
   );
