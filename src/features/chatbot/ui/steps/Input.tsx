@@ -1,10 +1,12 @@
 import {useForm} from 'react-hook-form';
 import {z} from 'zod';
 import {zodResolver} from '@hookform/resolvers/zod';
+import {useShallow} from 'zustand/react/shallow';
 import {BotResponse, ChatBubble, Step} from '@/entities/ai-search';
 import {Form, FormControl, FormField, FormItem} from '@/shared/shadcnComponent/ui/form';
 import {Input as InputField} from '@/shared/shadcnComponent/ui/input';
 import {LucideIcon} from '@/shared/ui/icons';
+import {useChatStore} from '@/entities/ai-search/model/chatStore';
 
 const FormSchema = z.object({
   keyword: z
@@ -16,6 +18,13 @@ const FormSchema = z.object({
 type FormSchemaType = z.infer<typeof FormSchema>;
 
 export default function Input() {
+  const {setKeyword, setStep} = useChatStore(
+    useShallow(state => ({
+      setKeyword: state.setKeyword,
+      setStep: state.setStep,
+    })),
+  );
+
   const form = useForm<FormSchemaType>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -28,8 +37,8 @@ export default function Input() {
   const {errors} = form.formState;
 
   const onSubmit = (formValues: FormSchemaType) => {
-    console.log(formValues);
-    // TODO: 다음 단계(Search)로 이동 로직
+    setKeyword(formValues.keyword);
+    setStep('search');
   };
 
   return (
