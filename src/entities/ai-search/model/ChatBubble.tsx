@@ -3,5 +3,5 @@ type Props = {
 };
 
 export function ChatBubble({children}: Props) {
-  return <p className="bg-white p-3 rounded-lg rounded-tl-none shadow-sm border border-gray-100">{children}</p>;
+  return <div className="bg-white p-3 rounded-lg rounded-tl-none shadow-sm border border-gray-100">{children}</div>;
 }
