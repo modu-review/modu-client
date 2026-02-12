@@ -1,5 +1,6 @@
 import {NextResponse, NextRequest} from 'next/server';
 import {tavily} from '@tavily/core';
+import {validateQueryWithGroq} from './validateQueryWithGroq';
 
 const CATEGORY_SUFFIX: Record<string, string> = {
   food: '맛 평가 양 가성비 솔직 후기 메뉴 추천',
@@ -39,6 +40,20 @@ export async function GET(req: NextRequest) {
         },
         {status: 400},
       );
+    }
+
+    const validation = await validateQueryWithGroq({
+      keyword,
+      category,
+      TIMEOUT_MS: 1200,
+    });
+
+    if (!validation.isValid) {
+      return NextResponse.json({
+        status: 'fail',
+        summary: validation.message || '적절한 검색어가 아닌 것 같아요. 😅',
+        sources: [],
+      });
     }
 
     const tavilyApiKey = process.env.TAVILY_API_KEY;
