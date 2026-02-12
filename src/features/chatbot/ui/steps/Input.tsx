@@ -2,11 +2,10 @@ import {useForm} from 'react-hook-form';
 import {z} from 'zod';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {useShallow} from 'zustand/react/shallow';
-import {BotResponse, ChatBubble, Step} from '@/entities/ai-search';
+import {BotResponse, ChatBubble, Step, useChatStore} from '@/entities/ai-search';
 import {Form, FormControl, FormField, FormItem} from '@/shared/shadcnComponent/ui/form';
 import {Input as InputField} from '@/shared/shadcnComponent/ui/input';
 import {LucideIcon} from '@/shared/ui/icons';
-import {useChatStore} from '@/entities/ai-search/model/chatStore';
 
 const FormSchema = z.object({
   keyword: z
