@@ -4,7 +4,7 @@ import {useShallow} from 'zustand/react/shallow';
 import ChatBotTrigger from './ChatBotTrigger';
 import ChatBotVisibilityAnimation from './ChatBotVisibilityAnimation';
 import ChatWindow from './ChatWindow';
-import {useChatStore} from '@/entities/ai-search/model/chatStore';
+import {useChatStore} from '@/entities/ai-search';
 
 type Props = {
   keyword?: string;

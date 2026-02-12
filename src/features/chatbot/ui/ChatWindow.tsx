@@ -4,7 +4,7 @@ import Search from './steps/Search';
 import Loading from './steps/Loading';
 import Result from './steps/Result';
 import Error from './steps/Error';
-import {useChatStore} from '@/entities/ai-search/model/chatStore';
+import {useChatStore} from '@/entities/ai-search';
 
 export default function ChatWindow() {
   const step = useChatStore(state => state.step);
