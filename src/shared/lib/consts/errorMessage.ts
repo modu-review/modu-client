@@ -59,6 +59,15 @@ export const SERVER_ERROR_MESSAGE: ErrorMessage = {
   NOT_SUPPORTED_FILE: '지원하지 않는 이미지 파일 형식이에요. .jpg, .jpeg, .png 파일만 업로드할 수 있어요.',
   FILE_SIZE_EXCEEDED: '이미지 크기가 너무 커요. 최대 10MB 이하의 이미지를 업로드해주세요.',
   IMAGE_NOT_FOUND: '사용자님의 프로필 이미지가 존재하지 않아요. 프로필 이미지를 업로드해주세요.',
+
+  /**
+   * AI 검색 관련
+   * GET /api/search
+   */
+  SEARCH_KEYWORD_MISSING: '검색 키워드가 제공되지 않았습니다. 다시 시도해주세요',
+  SEARCH_CATEGORY_MISSING: '검색 카테고리가 제공되지 않았습니다. 다시 시도해주세요',
+  TAVILY_API_KEY_MISSING: '검색 기능 환경 변수가 누락됐습니다. 관리자에게 문의해주세요.',
+  SEARCH_FAILED: '검색에 실패했어요. 잠시 후 다시 시도해주세요.',
 } as const;
 
 export const ERROR_MESSAGE = {
