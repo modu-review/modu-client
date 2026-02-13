@@ -1,4 +1,5 @@
 import {ChatBubble, BotResponse, SourceCard, FormattedSummary} from '@/entities/ai-search';
+import {ChatBot} from '@/features/chatbot';
 
 export function AISearchTestPage() {
   return (
@@ -54,6 +55,9 @@ export function AISearchTestPage() {
           </ChatBubble>
         </BotResponse>
       </section>
+      <div className="fixed bottom-20 right-8">
+        <ChatBot keyword='프레드피자' />
+      </div>
     </section>
   );
 }
