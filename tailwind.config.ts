@@ -101,6 +101,7 @@ export default {
         'fade-up': 'fade-up 150ms ease-in-out',
         'fade-in': 'fade-in 200ms ease-in',
         'fade-out': 'fade-out 200ms ease forwards',
+        'search-loading': 'search-loading 1.5s infinite linear',
       },
       keyframes: {
         'fade-up': {
@@ -130,6 +131,10 @@ export default {
             opacity: '0',
             transform: 'translateY(1rem)',
           },
+        },
+        'search-loading': {
+          '0%': {transform: 'translateX(-100%)'},
+          '100%': {transform: 'translateX(100%)'},
         },
       },
     },
