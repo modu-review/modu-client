@@ -23,7 +23,7 @@ export default function Result() {
   } = useGetAIReviewSummary(keyword, category);
 
   return (
-    <Step className="gap-6 h-fit">
+    <Step className="gap-6 h-fit min-h-full">
       <BotResponse>
         <ChatBubble>
           <FormattedSummary text={summary} />

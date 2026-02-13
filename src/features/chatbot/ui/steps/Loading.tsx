@@ -28,8 +28,8 @@ export default function Loading() {
     <Step className="justify-center items-center gap-6">
       <div className="relative">
         <div className="absolute inset-0 bg-lightBlue rounded-full opacity-75 animate-ping"></div>
-        <div className="relative z-10 w-16 md:w-20 h-16 md:h-20 bg-mediumBlue rounded-full flex items-center justify-center shadow-lg">
-          <LucideIcon name="Bot" className="w-10 md:w-12 h-10 md:h-12 text-white animate-pulse" />
+        <div className="relative z-10 w-16 h-16 bg-mediumBlue rounded-full flex items-center justify-center shadow-lg">
+          <LucideIcon name="Bot" className="w-10 h-10 text-white animate-pulse" />
         </div>
       </div>
       <div className="flex flex-col items-center gap-2 text-center max-w-[80%]">
