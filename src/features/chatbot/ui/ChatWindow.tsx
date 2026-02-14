@@ -1,13 +1,14 @@
 import {Suspense} from 'react';
+import {useShallow} from 'zustand/react/shallow';
 import Input from './steps/Input';
 import Ask from './steps/Ask';
 import Search from './steps/Search';
 import Result from './steps/Result';
 import Error from './steps/Error';
 import Loading from './steps/Loading';
-import {useChatStore} from '@/entities/ai-search';
+import LimitExceeded from './LimitExceeded';
 import ChatErrorBoundary from './ChatErrorBoundary';
-import {useShallow} from 'zustand/react/shallow';
+import {useChatStore} from '@/entities/ai-search';
 import {LucideIcon} from '@/shared/ui/icons';
 
 export default function ChatWindow() {
@@ -48,7 +49,7 @@ export default function ChatWindow() {
       </header>
       <section className="p-2 pt-4 md:p-4 h-full overflow-y-auto">
         {shouldBlock ? (
-          <p>사용량 초과</p>
+          <LimitExceeded />
         ) : (
           <>
             {step === 'input' && <Input />}
