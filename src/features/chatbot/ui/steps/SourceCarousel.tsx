@@ -15,13 +15,13 @@ const CustomArrow = ({onClick, direction}: {onClick?: () => void; direction: 'le
       onClick={onClick}
       className={`
         absolute z-10 top-1/2 -translate-y-1/2 
-        w-8 h-8 rounded-full bg-white border border-gray-200 shadow-md 
+        w-9 h-9 rounded-full bg-white border border-gray-200 shadow-md 
         flex items-center justify-center hover:bg-gray-50 transition-all
         ${direction === 'left' ? 'left-0' : 'right-0'}
       `}
       aria-label={direction === 'left' ? '이전 출처' : '다음 출처'}
     >
-      <LucideIcon name={direction === 'left' ? 'ChevronLeft' : 'ChevronRight'} className="w-4 h-4 text-gray-600" />
+      <LucideIcon name={direction === 'left' ? 'ChevronLeft' : 'ChevronRight'} className="w-5 h-5 text-gray-600" />
     </button>
   );
 };
@@ -32,6 +32,11 @@ export default function SourceCarousel({sources}: Props) {
       breakpoint: {max: 3000, min: 0},
       items: 2,
       partialVisibilityGutter: 20,
+    },
+    mobile: {
+      breakpoint: {max: 768, min: 0},
+      items: 2,
+      partialVisibilityGutter: 10,
     },
   };
 
