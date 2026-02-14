@@ -10,13 +10,12 @@ export async function GET() {
   const MAX_LIMIT = isLoggedIn ? 3 : 1;
 
   const limitCookie = cookieStore.get('search_limit');
-  const {currentUsage, remaining, isBlocked} = getSearchLimitStatus(MAX_LIMIT, limitCookie);
+  const {currentUsage, remaining} = getSearchLimitStatus(MAX_LIMIT, limitCookie);
 
   const searchLimit = {
     usage: currentUsage,
     maxLimit: MAX_LIMIT,
     remaining: remaining,
-    isBlocked: isBlocked,
   };
 
   if (!isLoggedIn) {
