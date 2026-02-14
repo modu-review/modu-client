@@ -6,6 +6,7 @@ import {RemoveScroll} from 'react-remove-scroll';
 import ChatBotTrigger from './ChatBotTrigger';
 import ChatWindow from './ChatWindow';
 import {useChatStore} from '@/entities/ai-search';
+import {useMediaQuery} from '@/shared/hooks/useMediaQuery';
 
 type Props = {
   keyword?: string;
@@ -20,6 +21,8 @@ export function ChatBot({keyword}: Props) {
     })),
   );
 
+  const isMobile = useMediaQuery('(max-width: 767px)');
+
   const toogleChatBot = () => {
     if (isOpen) closeChat();
     else openChat(keyword);
@@ -27,7 +30,7 @@ export function ChatBot({keyword}: Props) {
 
   return (
     <div className="relative">
-      <RemoveScroll enabled={isOpen}>
+      <RemoveScroll enabled={isOpen && isMobile}>
         <AnimatePresence>
           {isOpen && (
             <motion.div
