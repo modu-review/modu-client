@@ -52,12 +52,12 @@ export function RootLayout({
           </header>
           <main className="grow w-full mx-auto">{children}</main>
           <div id="modal-root" />
+          <div className="fixed bottom-6 right-6 z-50 md:bottom-20 md:right-8">
+            <ChatBot />
+          </div>
         </Providers>
         <Footer />
         <Toaster position="top-center" />
-        <div className="fixed bottom-6 right-6 z-50 md:bottom-20 md:right-8">
-          <ChatBot />
-        </div>
       </body>
     </html>
   );
