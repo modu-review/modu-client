@@ -57,9 +57,24 @@ const CATEGORY_SUFFIX: Record<string, string> = {
 //   try {
 //     const cookieStore = await cookies();
 //     const limitCookie = cookieStore.get('search_limit');
-//     const {isBlocked, currentUsage, today} = getSearchLimitStatus(limitCookie);
+//     const isLoggedIn = cookieStore.has('refreshToken');
+
+//     const MAX_LIMIT = isLoggedIn ? 3 : 1;
+
+//     const {isBlocked, currentUsage, today} = getSearchLimitStatus(MAX_LIMIT, limitCookie);
 
 //     if (isBlocked) {
+//       if (!isLoggedIn) {
+//         return NextResponse.json(
+//           {
+//             title: 'GUEST_LIMIT_REACHED',
+//             detail: '무료 체험이 끝났어요. 로그인하고 2회 더 검색해보세요.',
+//             status: 429,
+//           },
+//           {status: 429},
+//         );
+//       }
+
 //       return NextResponse.json(
 //         {
 //           title: 'DAILY_LIMIT_EXCEEDED',
@@ -69,7 +84,6 @@ const CATEGORY_SUFFIX: Record<string, string> = {
 //         {status: 429},
 //       );
 //     }
-
 //     const searchParams = req.nextUrl.searchParams;
 
 //     const keyword = searchParams.get('keyword');
@@ -175,78 +189,93 @@ const CATEGORY_SUFFIX: Record<string, string> = {
 //   }
 // }
 
-export async function GET(req: NextRequest) {
-  const cookieStore = await cookies();
-  const limitCookie = cookieStore.get('search_limit');
-  const {isBlocked, currentUsage, today} = getSearchLimitStatus(limitCookie);
+// export async function GET(req: NextRequest) {
+//   const cookieStore = await cookies();
+//   const limitCookie = cookieStore.get('search_limit');
+//   const isLoggedIn = cookieStore.has('refreshToken');
 
-  if (isBlocked) {
-    return NextResponse.json(
-      {
-        title: 'DAILY_LIMIT_EXCEEDED',
-        detail: '오늘의 무료 검색 횟수(3회)를 모두 사용했어요. 내일 다시 시도해주세요.',
-        status: 429,
-      },
-      {status: 429},
-    );
-  }
+//   const MAX_LIMIT = isLoggedIn ? 3 : 1;
 
-  const searchParams = req.nextUrl.searchParams;
+//   const {isBlocked, currentUsage, today} = getSearchLimitStatus(MAX_LIMIT, limitCookie);
 
-  const keyword = searchParams.get('keyword');
-  const category = searchParams.get('category');
+//   if (isBlocked) {
+//     if (!isLoggedIn) {
+//       return NextResponse.json(
+//         {
+//           title: 'GUEST_LIMIT_REACHED',
+//           detail: '무료 체험이 끝났어요. 로그인하고 2회 더 검색해보세요.',
+//           status: 429,
+//         },
+//         {status: 429},
+//       );
+//     }
 
-  if (!keyword) {
-    return NextResponse.json(
-      {
-        title: 'SEARCH_KEYWORD_MISSING',
-        detail: '검색 키워드가 제공되지 않았습니다. 다시 시도해주세요',
-        status: 400,
-      },
-      {status: 400},
-    );
-  }
+//     return NextResponse.json(
+//       {
+//         title: 'DAILY_LIMIT_EXCEEDED',
+//         detail: '오늘의 무료 검색 횟수(3회)를 모두 사용했어요. 내일 다시 시도해주세요.',
+//         status: 429,
+//       },
+//       {status: 429},
+//     );
+//   }
 
-  if (!category) {
-    return NextResponse.json(
-      {
-        title: 'SEARCH_CATEGORY_MISSING',
-        detail: '검색 카테고리가 제공되지 않았습니다. 다시 시도해주세요',
-        status: 400,
-      },
-      {status: 400},
-    );
-  }
+//   const searchParams = req.nextUrl.searchParams;
 
-  const validation = await validateQueryWithGroq({
-    keyword,
-    category,
-    TIMEOUT_MS: 1200,
-  });
+//   const keyword = searchParams.get('keyword');
+//   const category = searchParams.get('category');
 
-  if (!validation.isValid) {
-    return NextResponse.json({
-      status: 'fail',
-      summary: validation.message || '적절한 검색어가 아닌 것 같아요. 😅',
-      sources: [],
-    });
-  }
+//   if (!keyword) {
+//     return NextResponse.json(
+//       {
+//         title: 'SEARCH_KEYWORD_MISSING',
+//         detail: '검색 키워드가 제공되지 않았습니다. 다시 시도해주세요',
+//         status: 400,
+//       },
+//       {status: 400},
+//     );
+//   }
 
-  await new Promise(resolve => setTimeout(resolve, 1000));
+//   if (!category) {
+//     return NextResponse.json(
+//       {
+//         title: 'SEARCH_CATEGORY_MISSING',
+//         detail: '검색 카테고리가 제공되지 않았습니다. 다시 시도해주세요',
+//         status: 400,
+//       },
+//       {status: 400},
+//     );
+//   }
 
-  const response = NextResponse.json(MOCK_RESULT);
+//   const validation = await validateQueryWithGroq({
+//     keyword,
+//     category,
+//     TIMEOUT_MS: 1200,
+//   });
 
-  const newLimitData = JSON.stringify({
-    usage: currentUsage + 1,
-    lastSearchDate: today,
-  });
+//   if (!validation.isValid) {
+//     return NextResponse.json({
+//       status: 'fail',
+//       summary: validation.message || '적절한 검색어가 아닌 것 같아요. 😅',
+//       sources: [],
+//     });
+//   }
 
-  response.cookies.set('search_limit', newLimitData, {
-    httpOnly: true,
-    secure: true,
-    sameSite: 'strict',
-    maxAge: 60 * 60 * 24 * 2,
-  });
+//   await new Promise(resolve => setTimeout(resolve, 1000));
 
-  return response;
-}
+//   const response = NextResponse.json(MOCK_RESULT);
+
+//   const newLimitData = JSON.stringify({
+//     usage: currentUsage + 1,
+//     lastSearchDate: today,
+//   });
+
+//   response.cookies.set('search_limit', newLimitData, {
+//     httpOnly: true,
+//     secure: true,
+//     sameSite: 'strict',
+//     maxAge: 60 * 60 * 24 * 2,
+//   });
+
+//   return response;
+// }

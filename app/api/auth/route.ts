@@ -5,19 +5,11 @@ import {getSearchLimitStatus} from '@/features/chatbot';
 export async function GET() {
   const cookieStore = await cookies();
   const limitCookie = cookieStore.get('search_limit');
-  const {isBlocked, remaining} = getSearchLimitStatus(limitCookie);
-
-  const searchLimit = {
-    isBlocked,
-    remaining,
-  };
-
   if (!cookieStore.has('refreshToken')) {
     return NextResponse.json({
       isLoggedIn: false,
       userNickname: null,
       userEmail: null,
-      searchLimit,
     });
   }
 
@@ -40,7 +32,6 @@ export async function GET() {
       isLoggedIn: true,
       userNickname,
       userEmail,
-      searchLimit,
     },
     {status: 200},
   );
