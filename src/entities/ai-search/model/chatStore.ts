@@ -50,7 +50,7 @@ export const useChatStore = create<State & Action>(set => ({
   setKeyword: keyword => set({keyword}),
   setResult: result => set({result, step: 'result'}),
 
-  setLimit: limitState => ({limitState}),
+  setLimit: limitState => set({limitState}),
   decreaseLimit: () =>
     set(state => ({
       limitState: {
