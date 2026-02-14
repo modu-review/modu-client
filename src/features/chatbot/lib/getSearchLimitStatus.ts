@@ -1,8 +1,6 @@
 import {RequestCookie} from 'next/dist/compiled/@edge-runtime/cookies';
 import {z} from 'zod';
 
-const DAILY_LIMIT = 3;
-
 const SearchLimitSchema = z.object({
   usage: z.number().int().min(0),
   lastSearchDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
@@ -36,13 +34,13 @@ function parseLimitCookie(cookieValue: string | undefined, today: string): Searc
   }
 }
 
-export function getSearchLimitStatus(cookie?: RequestCookie) {
+export function getSearchLimitStatus(maxLimit: number, cookie?: RequestCookie) {
   const today = new Date().toISOString().split('T')[0];
   const data = parseLimitCookie(cookie?.value, today);
 
   return {
-    isBlocked: data.usage >= DAILY_LIMIT,
-    remaining: Math.max(0, DAILY_LIMIT - data.usage),
+    isBlocked: data.usage >= maxLimit,
+    remaining: Math.max(0, maxLimit - data.usage),
     currentUsage: data.usage,
     lastSearchDate: data.lastSearchDate,
     today,
