@@ -43,6 +43,7 @@ export function getSearchLimitStatus(cookie?: RequestCookie) {
   return {
     isBlocked: data.usage >= DAILY_LIMIT,
     remaining: Math.max(0, DAILY_LIMIT - data.usage),
+    currentUsage: data.usage,
     lastSearchDate: data.lastSearchDate,
     today,
   };

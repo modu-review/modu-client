@@ -12,7 +12,7 @@ describe('getSearchLimitStatus 유틸리티 테스트', () => {
 
   const TODAY = '2026-02-14';
 
-  it('올바른 형식의 쿠키(2회 사용)가 전달되면, 남은 횟수(1회)를 반환한다.', () => {
+  it('올바른 형식의 쿠키(2회 사용)가 전달되면, 남은 횟수(1회)와 현재 사용 횟수(2회)를 반환한다.', () => {
     const cookie = {
       name: 'search_limit',
       value: JSON.stringify({usage: 2, lastSearchDate: TODAY}),
@@ -22,6 +22,7 @@ describe('getSearchLimitStatus 유틸리티 테스트', () => {
 
     expect(status.isBlocked).toBe(false);
     expect(status.remaining).toBe(1);
+    expect(status.currentUsage).toBe(2);
     expect(status.lastSearchDate).toBe(TODAY);
     expect(status.today).toBe(TODAY);
   });
@@ -35,6 +36,7 @@ describe('getSearchLimitStatus 유틸리티 테스트', () => {
     const status = getSearchLimitStatus(cookie);
 
     expect(status.remaining).toBe(3);
+    expect(status.currentUsage).toBe(0);
     expect(status.isBlocked).toBe(false);
   });
 
@@ -47,12 +49,15 @@ describe('getSearchLimitStatus 유틸리티 테스트', () => {
     const status = getSearchLimitStatus(cookie);
 
     expect(status.remaining).toBe(3);
+    expect(status.currentUsage).toBe(0);
+    expect(status.isBlocked).toBe(false);
   });
 
   it('쿠키가 아예 없다면(undefined), 사용량을 초기화한다.', () => {
     const status = getSearchLimitStatus(undefined);
 
     expect(status.remaining).toBe(3);
+    expect(status.currentUsage).toBe(0);
     expect(status.isBlocked).toBe(false);
   });
 
@@ -66,6 +71,7 @@ describe('getSearchLimitStatus 유틸리티 테스트', () => {
     const status = getSearchLimitStatus(cookie);
 
     expect(status.remaining).toBe(3);
+    expect(status.currentUsage).toBe(0);
     expect(status.isBlocked).toBe(false);
     expect(status.lastSearchDate).toBe(TODAY);
   });
