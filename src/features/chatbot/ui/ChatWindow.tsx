@@ -12,7 +12,13 @@ export default function ChatWindow() {
   const step = useChatStore(state => state.step);
 
   return (
-    <section className="relative w-[500px] h-[700px] flex flex-col rounded-2xl shadow-2xl bg-neutral-100">
+    <section
+      className={`
+        relative flex flex-col bg-neutral-100 shadow-2xl overflow-hidden
+        w-full h-full rounded-none
+        md:w-[500px] md:h-[700px] md:rounded-2xl
+      `}
+    >
       <header className="py-3 bg-white border-b flex justify-center items-center">
         <h3 className="font-bold text-lg text-gray-800">모후봇</h3>
       </header>
