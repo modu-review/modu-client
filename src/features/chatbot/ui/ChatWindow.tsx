@@ -11,12 +11,16 @@ import {useShallow} from 'zustand/react/shallow';
 import {LucideIcon} from '@/shared/ui/icons';
 
 export default function ChatWindow() {
-  const {step, closeChat} = useChatStore(
+  const {step, closeChat, limitState} = useChatStore(
     useShallow(state => ({
       step: state.step,
       closeChat: state.closeChat,
+      limitState: state.limitState,
     })),
   );
+
+  const isLimitReached = limitState.remaining <= 0;
+  const shouldBlock = isLimitReached && step !== 'result';
 
   return (
     <section
@@ -33,15 +37,21 @@ export default function ChatWindow() {
         </button>
       </header>
       <section className="p-2 pt-4 md:p-4 h-full overflow-y-auto">
-        {step === 'input' && <Input />}
-        {step === 'ask' && <Ask />}
-        {step === 'search' && <Search />}
-        {step === 'result' && (
-          <ChatErrorBoundary fallback={Error}>
-            <Suspense fallback={<Loading />}>
-              <Result />
-            </Suspense>
-          </ChatErrorBoundary>
+        {shouldBlock ? (
+          <p>사용량 초과</p>
+        ) : (
+          <>
+            {step === 'input' && <Input />}
+            {step === 'ask' && <Ask />}
+            {step === 'search' && <Search />}
+            {step === 'result' && (
+              <ChatErrorBoundary fallback={Error}>
+                <Suspense fallback={<Loading />}>
+                  <Result />
+                </Suspense>
+              </ChatErrorBoundary>
+            )}
+          </>
         )}
       </section>
     </section>

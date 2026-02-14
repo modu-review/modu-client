@@ -189,93 +189,93 @@ const CATEGORY_SUFFIX: Record<string, string> = {
 //   }
 // }
 
-// export async function GET(req: NextRequest) {
-//   const cookieStore = await cookies();
-//   const limitCookie = cookieStore.get('search_limit');
-//   const isLoggedIn = cookieStore.has('refreshToken');
+export async function GET(req: NextRequest) {
+  const cookieStore = await cookies();
+  const limitCookie = cookieStore.get('search_limit');
+  const isLoggedIn = cookieStore.has('refreshToken');
 
-//   const MAX_LIMIT = isLoggedIn ? 3 : 1;
+  const MAX_LIMIT = isLoggedIn ? 3 : 1;
 
-//   const {isBlocked, currentUsage, today} = getSearchLimitStatus(MAX_LIMIT, limitCookie);
+  const {isBlocked, currentUsage, today} = getSearchLimitStatus(MAX_LIMIT, limitCookie);
 
-//   if (isBlocked) {
-//     if (!isLoggedIn) {
-//       return NextResponse.json(
-//         {
-//           title: 'GUEST_LIMIT_REACHED',
-//           detail: '무료 체험이 끝났어요. 로그인하고 2회 더 검색해보세요.',
-//           status: 429,
-//         },
-//         {status: 429},
-//       );
-//     }
+  if (isBlocked) {
+    if (!isLoggedIn) {
+      return NextResponse.json(
+        {
+          title: 'GUEST_LIMIT_REACHED',
+          detail: '무료 체험이 끝났어요. 로그인하고 2회 더 검색해보세요.',
+          status: 429,
+        },
+        {status: 429},
+      );
+    }
 
-//     return NextResponse.json(
-//       {
-//         title: 'DAILY_LIMIT_EXCEEDED',
-//         detail: '오늘의 무료 검색 횟수(3회)를 모두 사용했어요. 내일 다시 시도해주세요.',
-//         status: 429,
-//       },
-//       {status: 429},
-//     );
-//   }
+    return NextResponse.json(
+      {
+        title: 'DAILY_LIMIT_EXCEEDED',
+        detail: '오늘의 무료 검색 횟수(3회)를 모두 사용했어요. 내일 다시 시도해주세요.',
+        status: 429,
+      },
+      {status: 429},
+    );
+  }
 
-//   const searchParams = req.nextUrl.searchParams;
+  const searchParams = req.nextUrl.searchParams;
 
-//   const keyword = searchParams.get('keyword');
-//   const category = searchParams.get('category');
+  const keyword = searchParams.get('keyword');
+  const category = searchParams.get('category');
 
-//   if (!keyword) {
-//     return NextResponse.json(
-//       {
-//         title: 'SEARCH_KEYWORD_MISSING',
-//         detail: '검색 키워드가 제공되지 않았습니다. 다시 시도해주세요',
-//         status: 400,
-//       },
-//       {status: 400},
-//     );
-//   }
+  if (!keyword) {
+    return NextResponse.json(
+      {
+        title: 'SEARCH_KEYWORD_MISSING',
+        detail: '검색 키워드가 제공되지 않았습니다. 다시 시도해주세요',
+        status: 400,
+      },
+      {status: 400},
+    );
+  }
 
-//   if (!category) {
-//     return NextResponse.json(
-//       {
-//         title: 'SEARCH_CATEGORY_MISSING',
-//         detail: '검색 카테고리가 제공되지 않았습니다. 다시 시도해주세요',
-//         status: 400,
-//       },
-//       {status: 400},
-//     );
-//   }
+  if (!category) {
+    return NextResponse.json(
+      {
+        title: 'SEARCH_CATEGORY_MISSING',
+        detail: '검색 카테고리가 제공되지 않았습니다. 다시 시도해주세요',
+        status: 400,
+      },
+      {status: 400},
+    );
+  }
 
-//   const validation = await validateQueryWithGroq({
-//     keyword,
-//     category,
-//     TIMEOUT_MS: 1200,
-//   });
+  // const validation = await validateQueryWithGroq({
+  //   keyword,
+  //   category,
+  //   TIMEOUT_MS: 1200,
+  // });
 
-//   if (!validation.isValid) {
-//     return NextResponse.json({
-//       status: 'fail',
-//       summary: validation.message || '적절한 검색어가 아닌 것 같아요. 😅',
-//       sources: [],
-//     });
-//   }
+  // if (!validation.isValid) {
+  //   return NextResponse.json({
+  //     status: 'fail',
+  //     summary: validation.message || '적절한 검색어가 아닌 것 같아요. 😅',
+  //     sources: [],
+  //   });
+  // }
 
-//   await new Promise(resolve => setTimeout(resolve, 1000));
+  await new Promise(resolve => setTimeout(resolve, 1000));
 
-//   const response = NextResponse.json(MOCK_RESULT);
+  const response = NextResponse.json(MOCK_RESULT);
 
-//   const newLimitData = JSON.stringify({
-//     usage: currentUsage + 1,
-//     lastSearchDate: today,
-//   });
+  const newLimitData = JSON.stringify({
+    usage: currentUsage + 1,
+    lastSearchDate: today,
+  });
 
-//   response.cookies.set('search_limit', newLimitData, {
-//     httpOnly: true,
-//     secure: true,
-//     sameSite: 'strict',
-//     maxAge: 60 * 60 * 24 * 2,
-//   });
+  response.cookies.set('search_limit', newLimitData, {
+    httpOnly: true,
+    secure: true,
+    sameSite: 'strict',
+    maxAge: 60 * 60 * 24 * 2,
+  });
 
-//   return response;
-// }
+  return response;
+}
