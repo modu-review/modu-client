@@ -22,7 +22,7 @@ export default function ChatWindow() {
       <header className="py-3 bg-white border-b flex justify-center items-center">
         <h3 className="font-bold text-lg text-gray-800">모후봇</h3>
       </header>
-      <section className="p-4 h-full overflow-y-auto">
+      <section className="p-2 pt-4 md:p-4 h-full overflow-y-auto">
         {step === 'input' && <Input />}
         {step === 'ask' && <Ask />}
         {step === 'search' && <Search />}

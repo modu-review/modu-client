@@ -67,7 +67,7 @@ export default function Input() {
               <FormItem className="flex-1">
                 <FormControl>
                   <InputField
-                    className="border-gray-300 focus:border-mediumBlue px-4 py-3 rounded-xl border focus:outline-none transition-colors"
+                    className="border-gray-300 bg-white focus:border-mediumBlue px-4 py-3 rounded-xl border focus:outline-none transition-colors"
                     spellCheck="false"
                     autoComplete="off"
                     placeholder="예: 아이폰 17 프로, 성심당 튀김소보로"
