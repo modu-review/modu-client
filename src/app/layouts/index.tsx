@@ -5,6 +5,7 @@ import Providers from '@/app/providers';
 import {Header} from '@/widgets/header';
 import {Footer} from '@/widgets/footer';
 import {Toaster} from 'sonner';
+import {ChatBot} from '@/features/chatbot';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://modu-review.com'),
@@ -54,6 +55,9 @@ export function RootLayout({
         </Providers>
         <Footer />
         <Toaster position="top-center" />
+        <div className="fixed bottom-6 right-6 z-50 md:bottom-20 md:right-8">
+          <ChatBot />
+        </div>
       </body>
     </html>
   );
