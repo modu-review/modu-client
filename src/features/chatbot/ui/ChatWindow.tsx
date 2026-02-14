@@ -31,7 +31,17 @@ export default function ChatWindow() {
       `}
     >
       <header className="py-3 bg-white border-b flex justify-center items-center relative shrink-0">
-        <h3 className="font-bold text-lg text-gray-800">모후봇</h3>
+        <div className="flex flex-col items-center gap-1">
+          <h3 className="font-bold text-lg text-gray-800 leading-tight">모후봇</h3>
+          <span
+            className={`
+              text-sm font-medium px-2 py-0.5 rounded-full
+              ${isLimitReached ? 'bg-red-100 text-red-600' : 'bg-blue-50 text-mediumBlue'}
+            `}
+          >
+            오늘 남은 횟수 {limitState.remaining} / {limitState.maxLimit}
+          </span>
+        </div>
         <button onClick={closeChat} aria-label="챗봇 닫기" className="absolute right-5 md:hidden ">
           <LucideIcon name="X" className="w-6 h-6 text-gray-500" />
         </button>
