@@ -26,7 +26,7 @@ export function useChatRouteSync() {
   const isHidden = isHiddenPath();
 
   useEffect(() => {
-    if (!isHidden) {
+    if (isHidden) {
       goToInput();
       return;
     }
