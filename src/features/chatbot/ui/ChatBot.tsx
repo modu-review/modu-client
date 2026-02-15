@@ -7,17 +7,19 @@ import ChatBotTrigger from './ChatBotTrigger';
 import ChatWindow from './ChatWindow';
 import {useChatStore} from '@/entities/ai-search';
 import {useMediaQuery} from '@/shared/hooks/useMediaQuery';
+import {useEffect} from 'react';
+import {usePathname} from 'next/navigation';
 
-type Props = {
-  keyword?: string;
-};
-
-export function ChatBot({keyword}: Props) {
-  const {isOpen, openChat, closeChat} = useChatStore(
+export function ChatBot() {
+  const pathname = usePathname();
+  const {isOpen, openChat, closeChat, setKeyword, setStep, goToInput} = useChatStore(
     useShallow(state => ({
       isOpen: state.isOpen,
       openChat: state.openChat,
       closeChat: state.closeChat,
+      setKeyword: state.setKeyword,
+      setStep: state.setStep,
+      goToInput: state.goToInput,
     })),
   );
 
@@ -25,8 +27,23 @@ export function ChatBot({keyword}: Props) {
 
   const toogleChatBot = () => {
     if (isOpen) closeChat();
-    else openChat(keyword);
+    else openChat();
   };
+
+  useEffect(() => {
+    if (pathname.startsWith('/search/')) {
+      const segments = pathname.split('/');
+      const rawKeyword = segments[2];
+
+      if (rawKeyword) {
+        const decodedKeyword = decodeURIComponent(rawKeyword);
+        setKeyword(decodedKeyword);
+        setStep('ask');
+      }
+    } else {
+      goToInput();
+    }
+  }, [pathname, setKeyword, setStep, goToInput]);
 
   return (
     <div className="relative">
