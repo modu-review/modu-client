@@ -21,13 +21,13 @@ export default function Result() {
   );
 
   const {
-    data: {summary, sources},
+    data: {summary, sources, status},
   } = useGetAIReviewSummary(keyword, category);
 
   const hasDecreasedRef = useRef(false);
 
   useEffect(() => {
-    if (!hasDecreasedRef.current) {
+    if (!hasDecreasedRef.current && status === 'success') {
       decreaseLimit();
       hasDecreasedRef.current = true;
     }
