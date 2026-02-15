@@ -35,7 +35,10 @@ function parseLimitCookie(cookieValue: string | undefined, today: string): Searc
 }
 
 export function getSearchLimitStatus(maxLimit: number, cookie?: RequestCookie) {
-  const today = new Date().toISOString().split('T')[0];
+  const today = new Date().toLocaleDateString('en-CA', {
+    timeZone: 'Asia/Seoul',
+  });
+
   const data = parseLimitCookie(cookie?.value, today);
 
   return {
