@@ -29,19 +29,13 @@ type Action = {
 
 export const useChatStore = create<State & Action>(set => ({
   isOpen: false,
-  step: 'ask',
+  step: 'input',
   keyword: '',
   category: 'all',
   result: null,
-  limitState: {usage: 0, maxLimit: 1, remaining: 1},
+  limitState: {usage: 0, maxLimit: 0, remaining: 0},
 
-  openChat: keyword => {
-    if (keyword && keyword.trim() !== '') {
-      set({isOpen: true, keyword, step: 'ask'});
-    } else {
-      set({isOpen: true, keyword: '', step: 'input'});
-    }
-  },
+  openChat: () => set({isOpen: true}),
   closeChat: () => set({isOpen: false, category: 'all'}),
 
   goToInput: () => set({step: 'input', keyword: '', result: null, category: 'all'}),

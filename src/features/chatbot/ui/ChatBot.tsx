@@ -7,12 +7,11 @@ import ChatBotTrigger from './ChatBotTrigger';
 import ChatWindow from './ChatWindow';
 import {useChatStore} from '@/entities/ai-search';
 import {useMediaQuery} from '@/shared/hooks/useMediaQuery';
+import {useChatRouteSync} from '../lib/useChatRouteSync';
 
-type Props = {
-  keyword?: string;
-};
+export function ChatBot() {
+  useChatRouteSync();
 
-export function ChatBot({keyword}: Props) {
   const {isOpen, openChat, closeChat} = useChatStore(
     useShallow(state => ({
       isOpen: state.isOpen,
@@ -25,7 +24,7 @@ export function ChatBot({keyword}: Props) {
 
   const toogleChatBot = () => {
     if (isOpen) closeChat();
-    else openChat(keyword);
+    else openChat();
   };
 
   return (
