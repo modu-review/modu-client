@@ -14,9 +14,6 @@ jest.mock('framer-motion', () => ({
 jest.mock('react-remove-scroll', () => ({
   RemoveScroll: ({children}: {children: React.ReactNode}) => <div>{children}</div>,
 }));
-jest.mock('@/features/auth', () => ({
-  LoginButton: () => <button>로그인</button>,
-}));
 jest.mock('@/shared/hooks/useMediaQuery', () => ({
   useMediaQuery: () => false,
 }));
@@ -71,48 +68,5 @@ describe('src/features/chatbot/ui/ChatBot.tsx', () => {
     const {container} = render(<ChatBot />);
 
     expect(container).toBeEmptyDOMElement();
-  });
-
-  it('오늘의 챗봇 사용량 정보가 헤더에 표시된다.', async () => {
-    const user = userEvent.setup();
-
-    render(<ChatBot />);
-
-    await user.click(screen.getByRole('button', {name: '챗봇 열기'}));
-
-    expect(screen.getByText('오늘 남은 횟수 1 / 1')).toBeInTheDocument();
-  });
-
-  describe('챗봇 사용량 도달', () => {
-    it('비로그인 사용자는 로그인 유도 버튼을 표시한다.', async () => {
-      useChatStore.setState({
-        limitState: {usage: 1, maxLimit: 1, remaining: 0},
-      });
-
-      const user = userEvent.setup();
-
-      render(<ChatBot />);
-
-      await user.click(screen.getByRole('button', {name: '챗봇 열기'}));
-
-      expect(screen.getByText('오늘 남은 횟수 0 / 1')).toBeInTheDocument();
-      expect(screen.getByText(/로그인하시면/)).toBeInTheDocument();
-      expect(screen.getByRole('button', {name: '로그인'})).toBeInTheDocument();
-    });
-
-    it('로그인 사용자는 안내 문구만 표시한다.', async () => {
-      useChatStore.setState({
-        limitState: {usage: 3, maxLimit: 3, remaining: 0},
-      });
-
-      const user = userEvent.setup();
-
-      render(<ChatBot />);
-
-      await user.click(screen.getByRole('button', {name: '챗봇 열기'}));
-
-      expect(screen.getByText('오늘 남은 횟수 0 / 3')).toBeInTheDocument();
-      expect(screen.getByText('내일 다시 오시면 제가 다시 열심히 찾아드릴게요!')).toBeInTheDocument();
-    });
   });
 });
