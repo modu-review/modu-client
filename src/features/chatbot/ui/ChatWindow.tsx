@@ -43,7 +43,7 @@ export default function ChatWindow() {
             오늘 남은 횟수 {limitState.remaining} / {limitState.maxLimit}
           </span>
         </div>
-        <button onClick={closeChat} aria-label="챗봇 닫기" className="absolute right-5 md:hidden ">
+        <button onClick={closeChat} aria-label="닫기" className="absolute right-5 md:hidden ">
           <LucideIcon name="X" className="w-6 h-6 text-gray-500" />
         </button>
       </header>
