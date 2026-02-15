@@ -33,7 +33,7 @@ export const useChatStore = create<State & Action>(set => ({
   keyword: '',
   category: 'all',
   result: null,
-  limitState: {usage: 0, maxLimit: 1, remaining: 1},
+  limitState: {usage: 0, maxLimit: 0, remaining: 0},
 
   openChat: () => set({isOpen: true}),
   closeChat: () => set({isOpen: false, category: 'all'}),
