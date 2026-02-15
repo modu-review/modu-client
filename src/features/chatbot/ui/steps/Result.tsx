@@ -1,3 +1,6 @@
+import {useEffect, useRef} from 'react';
+import {useShallow} from 'zustand/react/shallow';
+import SourceCarousel from './SourceCarousel';
 import {
   BotResponse,
   ChatBubble,
@@ -6,21 +9,29 @@ import {
   useChatStore,
   useGetAIReviewSummary,
 } from '@/entities/ai-search';
-import {useShallow} from 'zustand/react/shallow';
-import SourceCarousel from './SourceCarousel';
 
 export default function Result() {
-  const {keyword, category, goToInput} = useChatStore(
+  const {keyword, category, goToInput, decreaseLimit} = useChatStore(
     useShallow(state => ({
       keyword: state.keyword,
       category: state.category,
       goToInput: state.goToInput,
+      decreaseLimit: state.decreaseLimit,
     })),
   );
 
   const {
     data: {summary, sources},
   } = useGetAIReviewSummary(keyword, category);
+
+  const hasDecreasedRef = useRef(false);
+
+  useEffect(() => {
+    if (!hasDecreasedRef.current) {
+      decreaseLimit();
+      hasDecreasedRef.current = true;
+    }
+  }, [decreaseLimit]);
 
   return (
     <Step className="gap-6 h-fit min-h-full">

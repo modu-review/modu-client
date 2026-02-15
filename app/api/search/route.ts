@@ -1,6 +1,8 @@
 import {NextResponse, NextRequest} from 'next/server';
 import {tavily} from '@tavily/core';
 import {validateQueryWithGroq} from './validateQueryWithGroq';
+import {cookies} from 'next/headers';
+import {getSearchLimitStatus} from '@/features/chatbot';
 
 const MOCK_RESULT = {
   status: 'success',
@@ -53,6 +55,35 @@ const CATEGORY_SUFFIX: Record<string, string> = {
 
 // export async function GET(req: NextRequest) {
 //   try {
+//     const cookieStore = await cookies();
+//     const limitCookie = cookieStore.get('search_limit');
+//     const isLoggedIn = cookieStore.has('refreshToken');
+
+//     const MAX_LIMIT = isLoggedIn ? 3 : 1;
+
+//     const {isBlocked, currentUsage, today} = getSearchLimitStatus(MAX_LIMIT, limitCookie);
+
+//     if (isBlocked) {
+//       if (!isLoggedIn) {
+//         return NextResponse.json(
+//           {
+//             title: 'GUEST_LIMIT_REACHED',
+//             detail: '무료 체험이 끝났어요. 로그인하고 2회 더 검색해보세요.',
+//             status: 429,
+//           },
+//           {status: 429},
+//         );
+//       }
+
+//       return NextResponse.json(
+//         {
+//           title: 'DAILY_LIMIT_EXCEEDED',
+//           detail: '오늘의 무료 검색 횟수(3회)를 모두 사용했어요. 내일 다시 시도해주세요.',
+//           status: 429,
+//         },
+//         {status: 429},
+//       );
+//     }
 //     const searchParams = req.nextUrl.searchParams;
 
 //     const keyword = searchParams.get('keyword');
@@ -112,7 +143,7 @@ const CATEGORY_SUFFIX: Record<string, string> = {
 
 //     const client = tavily({apiKey: tavilyApiKey});
 
-//     const response = await client.search(enhancedQuery, {
+//     const tavilyResponse = await client.search(enhancedQuery, {
 //       topic: 'general',
 //       searchDepth: 'basic',
 //       includeAnswer: 'advanced',
@@ -121,15 +152,29 @@ const CATEGORY_SUFFIX: Record<string, string> = {
 //       maxResults: 8,
 //     });
 
-//     return NextResponse.json({
+//     const newLimitData = JSON.stringify({
+//       usage: currentUsage + 1,
+//       lastSearchDate: today,
+//     });
+
+//     const response = NextResponse.json({
 //       status: 'success',
-//       summary: response.answer,
-//       sources: response.results.map(item => ({
+//       summary: tavilyResponse.answer,
+//       sources: tavilyResponse.results.map(item => ({
 //         title: item.title,
 //         url: item.url,
 //         snippet: item.content,
 //       })),
 //     });
+
+//     response.cookies.set('search_limit', newLimitData, {
+//       httpOnly: true,
+//       secure: true,
+//       sameSite: 'strict',
+//       maxAge: 60 * 60 * 24 * 2,
+//     });
+
+//     return response;
 //   } catch (error) {
 //     console.error('AI 검색 에러:', error);
 
@@ -145,6 +190,36 @@ const CATEGORY_SUFFIX: Record<string, string> = {
 // }
 
 export async function GET(req: NextRequest) {
+  const cookieStore = await cookies();
+  const limitCookie = cookieStore.get('search_limit');
+  const isLoggedIn = cookieStore.has('refreshToken');
+
+  const MAX_LIMIT = isLoggedIn ? 3 : 1;
+
+  const {isBlocked, currentUsage, today} = getSearchLimitStatus(MAX_LIMIT, limitCookie);
+
+  if (isBlocked) {
+    if (!isLoggedIn) {
+      return NextResponse.json(
+        {
+          title: 'GUEST_LIMIT_REACHED',
+          detail: '무료 체험이 끝났어요. 로그인하고 2회 더 검색해보세요.',
+          status: 429,
+        },
+        {status: 429},
+      );
+    }
+
+    return NextResponse.json(
+      {
+        title: 'DAILY_LIMIT_EXCEEDED',
+        detail: '오늘의 무료 검색 횟수(3회)를 모두 사용했어요. 내일 다시 시도해주세요.',
+        status: 429,
+      },
+      {status: 429},
+    );
+  }
+
   const searchParams = req.nextUrl.searchParams;
 
   const keyword = searchParams.get('keyword');
@@ -172,23 +247,35 @@ export async function GET(req: NextRequest) {
     );
   }
 
-  const validation = await validateQueryWithGroq({
-    keyword,
-    category,
-    TIMEOUT_MS: 1200,
-  });
+  // const validation = await validateQueryWithGroq({
+  //   keyword,
+  //   category,
+  //   TIMEOUT_MS: 1200,
+  // });
 
-  console.log(validation);
-
-  if (!validation.isValid) {
-    return NextResponse.json({
-      status: 'fail',
-      summary: validation.message || '적절한 검색어가 아닌 것 같아요. 😅',
-      sources: [],
-    });
-  }
+  // if (!validation.isValid) {
+  //   return NextResponse.json({
+  //     status: 'fail',
+  //     summary: validation.message || '적절한 검색어가 아닌 것 같아요. 😅',
+  //     sources: [],
+  //   });
+  // }
 
   await new Promise(resolve => setTimeout(resolve, 1000));
 
-  return NextResponse.json(MOCK_RESULT);
+  const response = NextResponse.json(MOCK_RESULT);
+
+  const newLimitData = JSON.stringify({
+    usage: currentUsage + 1,
+    lastSearchDate: today,
+  });
+
+  response.cookies.set('search_limit', newLimitData, {
+    httpOnly: true,
+    secure: true,
+    sameSite: 'strict',
+    maxAge: 60 * 60 * 24 * 2,
+  });
+
+  return response;
 }

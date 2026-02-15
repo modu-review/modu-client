@@ -68,6 +68,8 @@ export const SERVER_ERROR_MESSAGE: ErrorMessage = {
   SEARCH_CATEGORY_MISSING: '검색 카테고리가 제공되지 않았습니다. 다시 시도해주세요',
   TAVILY_API_KEY_MISSING: '검색 기능 환경 변수가 누락됐습니다. 관리자에게 문의해주세요.',
   SEARCH_FAILED: '검색에 실패했어요. 잠시 후 다시 시도해주세요.',
+  GUEST_LIMIT_REACHED: '무료 체험이 끝났어요. 로그인하고 2회 더 검색해보세요.',
+  DAILY_LIMIT_EXCEEDED: '오늘의 무료 검색 횟수(3회)를 모두 사용했어요. 내일 다시 시도해주세요.',
 } as const;
 
 export const ERROR_MESSAGE = {

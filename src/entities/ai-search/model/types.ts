@@ -13,3 +13,9 @@ export type AISearchResult = {
 };
 
 export type AISearchCategory = Exclude<Category, 'all'>;
+
+export type SearchLimitState = {
+  usage: number;
+  maxLimit: number;
+  remaining: number;
+};

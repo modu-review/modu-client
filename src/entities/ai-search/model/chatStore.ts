@@ -1,5 +1,5 @@
 import {create} from 'zustand';
-import {AISearchCategory, AISearchResult} from './types';
+import {AISearchCategory, AISearchResult, SearchLimitState} from './types';
 import {Category} from '@/entities/review';
 
 type ChatStep = 'input' | 'ask' | 'search' | 'result';
@@ -10,6 +10,7 @@ type State = {
   keyword: string;
   category: Category;
   result: AISearchResult | null;
+  limitState: SearchLimitState;
 };
 
 type Action = {
@@ -21,6 +22,9 @@ type Action = {
   setCategory: (category: AISearchCategory) => void;
   setKeyword: (keyword: string) => void;
   setResult: (result: AISearchResult) => void;
+
+  setLimit: (limit: SearchLimitState) => void;
+  decreaseLimit: () => void;
 };
 
 export const useChatStore = create<State & Action>(set => ({
@@ -29,6 +33,7 @@ export const useChatStore = create<State & Action>(set => ({
   keyword: '',
   category: 'all',
   result: null,
+  limitState: {usage: 0, maxLimit: 1, remaining: 1},
 
   openChat: keyword => {
     if (keyword && keyword.trim() !== '') {
@@ -44,4 +49,14 @@ export const useChatStore = create<State & Action>(set => ({
   setCategory: category => set({category}),
   setKeyword: keyword => set({keyword}),
   setResult: result => set({result, step: 'result'}),
+
+  setLimit: limitState => set({limitState}),
+  decreaseLimit: () =>
+    set(state => ({
+      limitState: {
+        ...state.limitState,
+        usage: state.limitState.usage + 1,
+        remaining: Math.max(0, state.limitState.remaining - 1),
+      },
+    })),
 }));
