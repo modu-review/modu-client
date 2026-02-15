@@ -14,7 +14,23 @@ export function useChatRouteSync() {
     })),
   );
 
+  const isHiddenPath = () => {
+    const exactMatches = ['/reviews/new', '/oauth2/redirect'];
+    if (exactMatches.includes(pathname)) return true;
+
+    const patterns = [/^\/reviews\/[^/]+\/edit$/];
+
+    return patterns.some(regex => regex.test(pathname));
+  };
+
+  const isHidden = isHiddenPath();
+
   useEffect(() => {
+    if (!isHidden) {
+      goToInput();
+      return;
+    }
+
     if (pathname.startsWith('/search/')) {
       const segments = pathname.split('/');
       const rawKeyword = segments[2];
@@ -28,4 +44,6 @@ export function useChatRouteSync() {
       goToInput();
     }
   }, [pathname, setKeyword, setStep, goToInput]);
+
+  return {isHidden};
 }

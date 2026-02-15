@@ -10,7 +10,7 @@ import {useMediaQuery} from '@/shared/hooks/useMediaQuery';
 import {useChatRouteSync} from '../lib/useChatRouteSync';
 
 export function ChatBot() {
-  useChatRouteSync();
+  const {isHidden} = useChatRouteSync();
 
   const {isOpen, openChat, closeChat} = useChatStore(
     useShallow(state => ({
@@ -26,6 +26,8 @@ export function ChatBot() {
     if (isOpen) closeChat();
     else openChat();
   };
+
+  if (isHidden) return null;
 
   return (
     <div className="relative">
