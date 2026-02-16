@@ -96,18 +96,17 @@ describe('src/features/chatbot/ui/steps/Result.tsx', () => {
     expect(screen.getByRole('button', {name: '히스토리에 저장됨'})).toBeDisabled();
   });
 
-  it('저장 기록 보기 버튼을 누르면 history 단계로 이동한다.', async () => {
-    const user = userEvent.setup();
+  it('검색 결과 상태가 fail이면 결과 저장하기 버튼을 노출하지 않는다.', async () => {
+    mockGetAIReviewSummary.mockResolvedValue({
+      status: 'fail',
+      summary: '검색 결과가 충분하지 않아요.',
+      sources: [],
+    });
 
     render(withAllContext(<Result />));
 
-    await screen.findByText('피자 토핑이 풍부하고 도우 식감이 좋아요.');
-    await user.click(screen.getByRole('button', {name: '저장 기록 보기'}));
-
-    await waitFor(() => {
-      expect(useChatStore.getState().step).toBe('history');
-      expect(useChatStore.getState().selectedHistoryId).toBeNull();
-    });
+    expect(await screen.findByText('검색 결과가 충분하지 않아요.')).toBeInTheDocument();
+    expect(screen.queryByRole('button', {name: '결과 저장하기'})).not.toBeInTheDocument();
   });
 
   it('히스토리 결과를 다시 열면 API 요청 없이 저장된 결과를 표시한다.', async () => {

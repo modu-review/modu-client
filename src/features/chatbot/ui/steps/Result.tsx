@@ -17,12 +17,11 @@ type ResultContentProps = {
   summary: string;
   sources: AISearchSource[];
   onSearchAgain: () => void;
-  onOpenHistory: () => void;
   onSave?: () => void;
   isSaved?: boolean;
 };
 
-function ResultContent({summary, sources, onSearchAgain, onOpenHistory, onSave, isSaved = false}: ResultContentProps) {
+function ResultContent({summary, sources, onSearchAgain, onSave, isSaved = false}: ResultContentProps) {
   return (
     <Step className="gap-6 h-fit min-h-full">
       <BotResponse>
@@ -56,12 +55,6 @@ function ResultContent({summary, sources, onSearchAgain, onOpenHistory, onSave, 
           </button>
         )}
         <button
-          onClick={onOpenHistory}
-          className="py-2.5 w-full rounded-full font-semibold transition-colors border border-mediumBlue text-mediumBlue bg-white hover:bg-lightBlue/20"
-        >
-          저장 기록 보기
-        </button>
-        <button
           onClick={onSearchAgain}
           className="bg-mediumBlue text-white py-2.5 w-full rounded-full font-semibold hover:bg-boldBlue transition-colors"
         >
@@ -77,53 +70,43 @@ type LiveResultProps = {
   category: Category;
   isSaved: boolean;
   onSave: (result: AISearchResult) => void;
-  onOpenHistory: () => void;
   onSearchAgain: () => void;
   decreaseLimit: () => void;
 };
 
-function LiveResult({
-  keyword,
-  category,
-  isSaved,
-  onSave,
-  onOpenHistory,
-  onSearchAgain,
-  decreaseLimit,
-}: LiveResultProps) {
+function LiveResult({keyword, category, isSaved, onSave, onSearchAgain, decreaseLimit}: LiveResultProps) {
   const {data} = useGetAIReviewSummary(keyword, category);
   const {summary, sources, status} = data;
+  const isSuccess = status === 'success';
 
   const hasDecreasedRef = useRef(false);
 
   useEffect(() => {
-    if (!hasDecreasedRef.current && status === 'success') {
+    if (!hasDecreasedRef.current && isSuccess) {
       decreaseLimit();
       hasDecreasedRef.current = true;
     }
-  }, [decreaseLimit, status]);
+  }, [decreaseLimit, isSuccess]);
 
   return (
     <ResultContent
       summary={summary}
       sources={sources}
       onSearchAgain={onSearchAgain}
-      onOpenHistory={onOpenHistory}
-      onSave={() => onSave(data)}
+      onSave={isSuccess ? () => onSave(data) : undefined}
       isSaved={isSaved}
     />
   );
 }
 
 export default function Result() {
-  const {keyword, category, result, selectedHistoryId, goToInput, openHistory, addHistory, decreaseLimit} = useChatStore(
+  const {keyword, category, result, selectedHistoryId, goToInput, addHistory, decreaseLimit} = useChatStore(
     useShallow(state => ({
       keyword: state.keyword,
       category: state.category,
       result: state.result,
       selectedHistoryId: state.selectedHistoryId,
       goToInput: state.goToInput,
-      openHistory: state.openHistory,
       addHistory: state.addHistory,
       decreaseLimit: state.decreaseLimit,
     })),
@@ -148,14 +131,7 @@ export default function Result() {
   };
 
   if (isHistoryResult && result) {
-    return (
-      <ResultContent
-        summary={result.summary}
-        sources={result.sources}
-        onSearchAgain={goToInput}
-        onOpenHistory={openHistory}
-      />
-    );
+    return <ResultContent summary={result.summary} sources={result.sources} onSearchAgain={goToInput} />;
   }
 
   return (
@@ -164,7 +140,6 @@ export default function Result() {
       category={category}
       isSaved={isSaved}
       onSave={handleSave}
-      onOpenHistory={openHistory}
       onSearchAgain={goToInput}
       decreaseLimit={decreaseLimit}
     />
