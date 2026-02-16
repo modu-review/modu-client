@@ -44,7 +44,7 @@ export default function History() {
         <ChatBubble>
           결과는 최대 20개까지 저장되고,
           <br />
-          20개 초과 시 가장 오래된 결과가 사라져요.
+          20개 초과 시 가장 오래된 결과부터 사라져요.
         </ChatBubble>
       </BotResponse>
 
