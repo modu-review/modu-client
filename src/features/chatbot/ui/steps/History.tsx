@@ -41,46 +41,46 @@ export default function History() {
           <br />
           원하는 항목을 누르면 결과를 다시 보여드릴게요.
         </ChatBubble>
+        <ChatBubble>
+          결과는 최대 20개까지 저장되고,
+          <br />
+          20개 초과 시 가장 오래된 결과가 사라져요.
+        </ChatBubble>
       </BotResponse>
 
-      <ul className="flex flex-col gap-4 pl-11">
+      <ul className="flex flex-col gap-4">
         {history.map(item => (
           <li key={item.id} className="flex flex-col gap-2">
-            <div className="self-end max-w-[85%] rounded-lg rounded-br-none bg-mediumBlue text-white px-3 py-2 text-sm md:text-base break-keep">
-              {item.keyword}
-            </div>
+            <ChatBubble variant="user">{item.keyword}</ChatBubble>
 
-            <div className="flex gap-2 items-start">
-              <button
-                onClick={() => openHistoryResult(item.id)}
-                aria-label={`히스토리 열기: ${item.keyword}`}
-                className="flex-1 rounded-lg rounded-tl-none bg-white p-3 border border-gray-100 shadow-sm text-left hover:border-mediumBlue/40 transition-colors"
-              >
-                <div className="flex items-center justify-between text-xs text-gray-500">
-                  <span>카테고리: {CATEGORY_MAP[item.category]}</span>
-                  <span>출처 {item.result.sources.length}개</span>
-                </div>
-                <p className="mt-2 text-sm md:text-base text-gray-700 line-clamp-3 break-keep">{item.result.summary}</p>
-              </button>
+            <BotResponse>
+              <div className="flex gap-2 items-start">
+                <button
+                  onClick={() => openHistoryResult(item.id)}
+                  aria-label={`히스토리 열기: ${item.keyword}`}
+                  className="flex-1 rounded-lg rounded-tl-none bg-white p-3 border border-gray-100 shadow-sm text-left hover:border-mediumBlue/40 transition-colors"
+                >
+                  <div className="flex items-center justify-between text-xs text-gray-500">
+                    <span>카테고리: {CATEGORY_MAP[item.category]}</span>
+                    <span>출처 {item.result.sources.length}개</span>
+                  </div>
+                  <p className="mt-2 text-sm md:text-base text-gray-700 line-clamp-3 break-keep">
+                    {item.result.summary}
+                  </p>
+                </button>
 
-              <button
-                onClick={() => removeHistory(item.id)}
-                aria-label={`히스토리 삭제: ${item.keyword}`}
-                className="shrink-0 rounded-full border border-gray-200 bg-white p-2 text-gray-500 hover:text-red-500 hover:border-red-200 transition-colors"
-              >
-                <LucideIcon name="Trash2" className="w-4 h-4" />
-              </button>
-            </div>
+                <button
+                  onClick={() => removeHistory(item.id)}
+                  aria-label={`히스토리 삭제: ${item.keyword}`}
+                  className="shrink-0 rounded-full border border-gray-200 bg-white p-2 text-gray-500 hover:text-red-500 hover:border-red-200 transition-colors"
+                >
+                  <LucideIcon name="Trash2" className="w-4 h-4" />
+                </button>
+              </div>
+            </BotResponse>
           </li>
         ))}
       </ul>
-
-      <button
-        onClick={goToInput}
-        className="mt-auto bg-mediumBlue text-white py-2.5 w-full rounded-full font-semibold hover:bg-boldBlue transition-colors"
-      >
-        다른 검색하기
-      </button>
     </Step>
   );
 }
