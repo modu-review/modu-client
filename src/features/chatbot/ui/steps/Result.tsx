@@ -17,12 +17,11 @@ import {Category} from '@/entities/review';
 type ResultContentProps = {
   summary: string;
   sources: AISearchSource[];
-  onSearchAgain: () => void;
   onSave?: () => void;
   isSaved?: boolean;
 };
 
-function ResultContent({summary, sources, onSearchAgain, onSave, isSaved = false}: ResultContentProps) {
+function ResultContent({summary, sources, onSave, isSaved = false}: ResultContentProps) {
   return (
     <Step className="gap-6 h-fit min-h-full">
       <BotResponse>
@@ -64,80 +63,67 @@ function ResultContent({summary, sources, onSearchAgain, onSave, isSaved = false
 type LiveResultProps = {
   keyword: string;
   category: Category;
-  isSaved: boolean;
-  onSave: (result: AISearchResult) => void;
-  onSearchAgain: () => void;
-  decreaseLimit: () => void;
 };
 
-function LiveResult({keyword, category, isSaved, onSave, onSearchAgain, decreaseLimit}: LiveResultProps) {
+function LiveResult({keyword, category}: LiveResultProps) {
+  const {setResult, decreaseLimit} = useChatStore(
+    useShallow(state => ({
+      setResult: state.setResult,
+      decreaseLimit: state.decreaseLimit,
+    })),
+  );
+
   const {data} = useGetAIReviewSummary(keyword, category);
-  const {summary, sources, status} = data;
-  const isSuccess = status === 'success';
+  const isSuccess = data.status === 'success';
 
   const hasDecreasedRef = useRef(false);
 
   useEffect(() => {
     if (!hasDecreasedRef.current && isSuccess) {
       decreaseLimit();
+      setResult(data);
       hasDecreasedRef.current = true;
     }
-  }, [decreaseLimit, isSuccess]);
+  }, [decreaseLimit, isSuccess, data, setResult]);
 
   return (
-    <ResultContent
-      summary={summary}
-      sources={sources}
-      onSearchAgain={onSearchAgain}
-      onSave={isSuccess ? () => onSave(data) : undefined}
-      isSaved={isSaved}
-    />
+    <Step className="gap-6 h-fit min-h-full">
+      <BotResponse>
+        <ChatBubble>열심히 요약하고 있어요! 잠시만 기다려주세요...</ChatBubble>
+      </BotResponse>
+    </Step>
   );
 }
 
 export default function Result() {
-  const {keyword, category, result, selectedHistoryId, goToInput, addHistory, decreaseLimit} = useChatStore(
+  const {keyword, category, result, selectedHistoryId, addHistory} = useChatStore(
     useShallow(state => ({
       keyword: state.keyword,
       category: state.category,
       result: state.result,
       selectedHistoryId: state.selectedHistoryId,
-      goToInput: state.goToInput,
       addHistory: state.addHistory,
-      decreaseLimit: state.decreaseLimit,
     })),
   );
 
   const [isSaved, setIsSaved] = useState(false);
-  const isHistoryResult = Boolean(selectedHistoryId && result);
-
-  useEffect(() => {
-    setIsSaved(false);
-  }, [keyword, category, selectedHistoryId]);
 
   const handleSave = (searchResult: AISearchResult) => {
     if (isSaved) return;
-
-    addHistory({
-      keyword,
-      category,
-      result: searchResult,
-    });
+    addHistory({keyword, category, result: searchResult});
     setIsSaved(true);
   };
 
-  if (isHistoryResult && result) {
-    return <ResultContent summary={result.summary} sources={result.sources} onSearchAgain={goToInput} />;
+  if (result) {
+    return (
+      <ResultContent
+        summary={result.summary}
+        sources={result.sources}
+        onSave={selectedHistoryId ? undefined : () => handleSave(result)}
+        isSaved={isSaved}
+      />
+    );
   }
 
-  return (
-    <LiveResult
-      keyword={keyword}
-      category={category}
-      isSaved={isSaved}
-      onSave={handleSave}
-      onSearchAgain={goToInput}
-      decreaseLimit={decreaseLimit}
-    />
-  );
+  return <LiveResult keyword={keyword} category={category} />;
 }
