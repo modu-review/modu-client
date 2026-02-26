@@ -1,6 +1,5 @@
 import {useChatStore} from '@/entities/ai-search';
 import {cn} from '@/shared/lib/utils/cn';
-import {LucideIcon} from '@/shared/ui/icons';
 import {ButtonHTMLAttributes} from 'react';
 
 type Props = {
