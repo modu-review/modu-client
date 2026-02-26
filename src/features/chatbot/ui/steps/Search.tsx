@@ -10,7 +10,6 @@ export default function Search() {
       category: state.category,
       setCategory: state.setCategory,
       setStep: state.setStep,
-      setResult: state.setResult,
     })),
   );
 
