@@ -1,4 +1,5 @@
 import {useShallow} from 'zustand/react/shallow';
+import ChatRestartButton from './ChatRestartButton';
 import {BotResponse, ChatBubble, Step, useChatStore} from '@/entities/ai-search';
 import {CATEGORY_LIST} from '@/entities/review';
 import {LucideIcon} from '@/shared/ui/icons';
@@ -52,17 +53,17 @@ export default function Search() {
         ))}
       </ul>
 
-      <button
-        onClick={handleSearch}
-        disabled={category === 'all'}
-        className={`
-        mt-auto flex items-center justify-center gap-2 py-2.5 rounded-full font-semibold transition-all
-          ${category !== 'all' ? 'bg-mediumBlue text-white hover:bg-boldBlue' : 'bg-gray-200 text-gray-400 cursor-not-allowed'}
-        `}
-      >
-        <LucideIcon name="Search" className="w-4 h-4" />
-        분석 시작하기
-      </button>
+      <div className="flex flex-col gap-2 mt-auto">
+        <ChatRestartButton text="다시 입력하기" />
+        <button
+          onClick={handleSearch}
+          disabled={category === 'all'}
+          className="flex items-center justify-center gap-2 py-2.5 rounded-full font-semibold transition-all bg-mediumBlue text-white hover:bg-boldBlue disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed"
+        >
+          <LucideIcon name="Search" className="w-4 h-4" />
+          분석 시작하기
+        </button>
+      </div>
     </Step>
   );
 }

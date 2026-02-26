@@ -1,6 +1,7 @@
 import {useEffect, useRef, useState} from 'react';
 import {useShallow} from 'zustand/react/shallow';
 import SourceCarousel from './SourceCarousel';
+import ChatRestartButton from './ChatRestartButton';
 import {
   AISearchResult,
   AISearchSource,
@@ -54,12 +55,7 @@ function ResultContent({summary, sources, onSearchAgain, onSave, isSaved = false
             {isSaved ? '히스토리에 저장됨' : '결과 저장하기'}
           </button>
         )}
-        <button
-          onClick={onSearchAgain}
-          className="bg-mediumBlue text-white py-2.5 w-full rounded-full font-semibold hover:bg-boldBlue transition-colors"
-        >
-          다른 검색하기
-        </button>
+        <ChatRestartButton />
       </div>
     </Step>
   );
