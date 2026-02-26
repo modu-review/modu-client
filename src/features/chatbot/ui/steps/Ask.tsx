@@ -14,7 +14,7 @@ export default function Ask() {
     <Step>
       <BotResponse>
         <ChatBubble>
-          혹시 <strong>"{keyword}"</strong>에 대한 후기를 못 찾으셨나요?
+          혹시 <strong>{`"${keyword}"`}</strong>에 대한 후기를 못 찾으셨나요?
         </ChatBubble>
         <ChatBubble>제가 대신 검색해서 요약해 드릴 수 있어요!</ChatBubble>
       </BotResponse>

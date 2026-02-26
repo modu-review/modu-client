@@ -22,7 +22,7 @@ export default function Search() {
     <Step>
       <BotResponse>
         <ChatBubble>
-          <strong>"{keyword}"</strong>에 대한 솔직한 후기를 모아드릴게요!
+          <strong>{`"${keyword}"`}</strong>에 대한 솔직한 후기를 모아드릴게요!
         </ChatBubble>
         <ChatBubble>
           정확한 분석을 위해
@@ -44,7 +44,7 @@ export default function Search() {
                 }
               `}
               aria-label={`카테고리: ${label}`}
-              aria-selected={category === value}
+              aria-pressed={category === value}
               onClick={() => setCategory(value)}
             >
               {label}
