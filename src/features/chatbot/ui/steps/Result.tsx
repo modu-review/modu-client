@@ -76,13 +76,16 @@ function LiveResult({keyword, category}: LiveResultProps) {
   const {data} = useGetAIReviewSummary(keyword, category);
   const isSuccess = data.status === 'success';
 
-  const hasDecreasedRef = useRef(false);
+  const hasProcessedRef = useRef(false);
 
   useEffect(() => {
-    if (!hasDecreasedRef.current && isSuccess) {
-      decreaseLimit();
+    if (!hasProcessedRef.current) {
+      if (isSuccess) {
+        decreaseLimit();
+      }
+
       setResult(data);
-      hasDecreasedRef.current = true;
+      hasProcessedRef.current = true;
     }
   }, [decreaseLimit, isSuccess, data, setResult]);
 
@@ -94,7 +97,6 @@ function LiveResult({keyword, category}: LiveResultProps) {
     </Step>
   );
 }
-
 export default function Result() {
   const {keyword, category, result, selectedHistoryId, addHistory} = useChatStore(
     useShallow(state => ({
@@ -115,11 +117,14 @@ export default function Result() {
   };
 
   if (result) {
+    const isSuccess = result.status === 'success';
+    const canSave = !selectedHistoryId && isSuccess;
+
     return (
       <ResultContent
         summary={result.summary}
         sources={result.sources}
-        onSave={selectedHistoryId ? undefined : () => handleSave(result)}
+        onSave={canSave ? () => handleSave(result) : undefined}
         isSaved={isSaved}
       />
     );
